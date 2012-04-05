@@ -3,26 +3,48 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>edu.ucdenver.ccp</groupId>
 	<artifactId>ccp-nlp-pipelines</artifactId>
+	<packaging>pom</packaging>
 	<version>0.1-SNAPSHOT</version>
-	<dependencies>
-		<dependency>
-			<groupId>args4j</groupId>
-			<artifactId>args4j</artifactId>
-			<version>2.0.12</version>
-		</dependency>
-		<dependency>
-			<groupId>edu.ucdenver.ccp</groupId>
-			<artifactId>common</artifactId>
-			<version>1.0-SNAPSHOT</version>
-			<type>jar</type>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>edu.ucdenver.ccp</groupId>
-			<artifactId>ccp-nlp-ext-uima-annotators-entitynormalization</artifactId>
-			<version>3.0-SNAPSHOT</version>
-			<type>jar</type>
-			<scope>compile</scope>
-		</dependency>
-	</dependencies>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>args4j</groupId>
+				<artifactId>args4j</artifactId>
+				<version>2.0.12</version>
+			</dependency>
+			<dependency>
+				<groupId>edu.ucdenver.ccp</groupId>
+				<artifactId>common</artifactId>
+				<version>1.0-SNAPSHOT</version>
+				<type>jar</type>
+				<scope>compile</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<build>
+		<pluginManagement>
+			<plugins>
+				<!-- specify the java version -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>2.0.2</version>
+					<configuration>
+						<source>1.6</source>
+						<target>1.6</target>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+
+	<modules>
+		<module>nlp-pipelines-core</module>
+	</modules>
 </project>
