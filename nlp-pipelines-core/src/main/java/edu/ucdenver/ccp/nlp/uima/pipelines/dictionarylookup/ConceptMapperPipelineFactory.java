@@ -5,6 +5,7 @@ package edu.ucdenver.ccp.nlp.uima.pipelines.dictionarylookup;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Collection;
 import java.util.List;
 
 import org.apache.uima.UIMAException;
@@ -28,6 +29,14 @@ import edu.ucdenver.ccp.nlp.wrapper.conceptmapper.typesystem.ConceptMapper2CCPTy
  * 
  */
 public class ConceptMapperPipelineFactory {
+
+	/**
+	 * a collection of relevant type systems represented as strings that are relevant to running the
+	 * ConceptMapper
+	 */
+	public static Collection<String> CONCEPTMAPPER_TYPE_SYSTEM_STRS = CollectionsUtil.createList(
+			"edu.ucdenver.ccp.nlp.wrapper.conceptmapper.TypeSystem", "analysis_engine.primitive.DictTerm",
+			"org.apache.uima.conceptMapper.support.tokenizer.TokenAnnotation");
 
 	/**
 	 * Returns an aggregate: sentence detector, offset tokenizer, conceptmapper
