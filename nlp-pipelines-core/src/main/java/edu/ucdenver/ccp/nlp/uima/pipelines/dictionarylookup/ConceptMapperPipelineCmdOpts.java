@@ -55,6 +55,10 @@ public class ConceptMapperPipelineCmdOpts extends PipelineCmdOptsBase {
 			throw new IllegalArgumentException(e);
 		}
 	}
+	
+	public void setSpanClass(Class<? extends Annotation> spanClass) {
+		this.cmSpanClassName = spanClass.getName();
+	}
 
 	/*
 	 * (non-Javadoc)
