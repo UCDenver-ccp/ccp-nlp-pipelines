@@ -28,16 +28,28 @@ public class PipelineCmdOptsBase {
 	public int getNumToSkip() {
 		return numToSkip;
 	}
+	
+	public void setNumToSkip(int numToSkip) {
+		this.numToSkip = numToSkip;
+	}
 
 	public int getNumToProcess() {
 		return numToProcess;
 	}
 
+	public void setNumToProcess(int numToProcess) {
+		this.numToProcess = numToProcess;
+	}
+	
 	/**
 	 * @return the batchNumber
 	 */
 	public int getBatchNumber() {
 		return batchNumber;
+	}
+	
+	public void setBatchNumber(int batchNumber) {
+		this.batchNumber = batchNumber;
 	}
 
 	/**
@@ -45,6 +57,10 @@ public class PipelineCmdOptsBase {
 	 */
 	public File getInputFileOrDirectoryPath() {
 		return new File(inputFileOrDirectoryPath);
+	}
+	
+	public void setInputFileOrDirectoryPath(File inputPath) {
+		this.inputFileOrDirectoryPath = inputPath.getAbsolutePath();
 	}
 
 	/**
@@ -54,11 +70,19 @@ public class PipelineCmdOptsBase {
 		return new File(outputFileOrDirectoryPath);
 	}
 
+	public void setOutputFileOrDirectoryPath(File outputPath) {
+		this.outputFileOrDirectoryPath = outputPath.getAbsolutePath();
+	}
+	
 	/**
 	 * @return the requirePresenceOfAbstract
 	 */
 	public boolean requirePresenceOfAbstract() {
 		return requirePresenceOfAbstract;
+	}
+	
+	public void setRequirePresenceOfAbstract(boolean requireAbstractPresence) {
+		this.requirePresenceOfAbstract = requireAbstractPresence;
 	}
 
 }
