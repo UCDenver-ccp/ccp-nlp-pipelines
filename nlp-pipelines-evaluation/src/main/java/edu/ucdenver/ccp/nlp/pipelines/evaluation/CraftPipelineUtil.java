@@ -74,8 +74,8 @@ public class CraftPipelineUtil {
 		EG(TypeSystemUtil.CCP_TYPE_SYSTEM, "eg", CollectionsUtil.createList("EG:\\d+")),
 		GO_BP_MF(TypeSystemUtil.CCP_TYPE_SYSTEM, "go_bpmf", CollectionsUtil.createList("GO:\\d+")),
 		GO_CC(TypeSystemUtil.CCP_TYPE_SYSTEM, "go_cc", CollectionsUtil.createList("GO:\\d+")),
-		NCBITAXON(TypeSystemUtil.CCP_TYPE_SYSTEM, "ncbitaxon", CollectionsUtil.createList("NCBITAXON:\\d+")),
-		PRO(TypeSystemUtil.CCP_TYPE_SYSTEM, "pro", CollectionsUtil.createList("PR:\\d+")),
+		NCBITAXON(TypeSystemUtil.CCP_TYPE_SYSTEM, "ncbitaxon", CollectionsUtil.createList("NCBITaxon:\\d+")),
+		PRO(TypeSystemUtil.CCP_TYPE_SYSTEM, "pro", CollectionsUtil.createList("PR:\\d+","GO:\\d+","CHEBI:\\d+","SO:\\d+")),
 		SO(TypeSystemUtil.CCP_TYPE_SYSTEM, "so", CollectionsUtil.createList("SO:\\d+")),
 		TREEBANK(CLEARTK_SYNTAX_TYPESYSTEM, "treebank", null);
 
