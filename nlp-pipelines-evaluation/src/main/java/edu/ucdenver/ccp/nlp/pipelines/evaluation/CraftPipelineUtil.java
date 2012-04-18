@@ -19,6 +19,7 @@ import org.uimafit.factory.TypeSystemDescriptionFactory;
 
 import edu.ucdenver.ccp.common.collections.CollectionsUtil;
 import edu.ucdenver.ccp.nlp.core.uima.util.TypeSystemUtil;
+import edu.ucdenver.ccp.nlp.ext.uima.annotators.converters.SlotValueToClassMentionPromoter_AE;
 import edu.ucdenver.ccp.nlp.ext.uima.collections.file.ClasspathCollectionReader;
 import edu.ucdenver.ccp.nlp.ext.uima.serialization.xmi.XmiLoaderAE;
 import edu.ucdenver.ccp.nlp.ext.uima.serialization.xmi.XmiLoaderAE.XmiFileCompressionType;
@@ -32,6 +33,8 @@ import edu.ucdenver.ccp.nlp.ext.uima.shims.document.DocumentMetaDataExtractor;
 public class CraftPipelineUtil {
 
 	private final static String CLEARTK_SYNTAX_TYPESYSTEM = "org.cleartk.syntax.TypeSystem";
+	private static final String ORGANISM_CLASS_NAME = "organism";
+	private static final String ORGANISM_TAXONOMY_ID_SLOT_NAME = "taxonomy ID";
 
 	public enum CraftVersion {
 		RELEASE("craft/release/txt", "craft/release/xmi"),
@@ -64,8 +67,9 @@ public class CraftPipelineUtil {
 
 	/**
 	 * TODO: check regex collections for each type
+	 * 
 	 * @author Colorado Computational Pharmacology, UC Denver; ccpsupport@ucdenver.edu
-	 *
+	 * 
 	 */
 	public enum CraftConceptType {
 		ALL(new String[] { TypeSystemUtil.CCP_TYPE_SYSTEM, CLEARTK_SYNTAX_TYPESYSTEM }, "all", null),
@@ -75,7 +79,8 @@ public class CraftPipelineUtil {
 		GO_BP_MF(TypeSystemUtil.CCP_TYPE_SYSTEM, "go_bpmf", CollectionsUtil.createList("GO:\\d+")),
 		GO_CC(TypeSystemUtil.CCP_TYPE_SYSTEM, "go_cc", CollectionsUtil.createList("GO:\\d+")),
 		NCBITAXON(TypeSystemUtil.CCP_TYPE_SYSTEM, "ncbitaxon", CollectionsUtil.createList("NCBITaxon:\\d+")),
-		PRO(TypeSystemUtil.CCP_TYPE_SYSTEM, "pro", CollectionsUtil.createList("PR:\\d+","GO:\\d+","CHEBI:\\d+","SO:\\d+")),
+		PRO(TypeSystemUtil.CCP_TYPE_SYSTEM, "pro", CollectionsUtil.createList("PR:\\d+", "GO:\\d+", "CHEBI:\\d+",
+				"SO:\\d+")),
 		SO(TypeSystemUtil.CCP_TYPE_SYSTEM, "so", CollectionsUtil.createList("SO:\\d+")),
 		TREEBANK(CLEARTK_SYNTAX_TYPESYSTEM, "treebank", null);
 
@@ -89,7 +94,7 @@ public class CraftPipelineUtil {
 			this.xmiPath = xmiPath;
 		}
 
-		private CraftConceptType(String[] typeSystems, String xmiPath,Collection<String> conceptTypeRegexes) {
+		private CraftConceptType(String[] typeSystems, String xmiPath, Collection<String> conceptTypeRegexes) {
 			this.typeSystems = typeSystems;
 			this.xmiPath = xmiPath;
 			this.conceptTypeRegexes = conceptTypeRegexes;
@@ -107,7 +112,7 @@ public class CraftPipelineUtil {
 			return TypeSystemDescriptionFactory.createTypeSystemDescription(new ArrayList<String>(typeSystemStrs)
 					.toArray(new String[0]));
 		}
-		
+
 		public static Collection<String> getTypeSystemStrs(EnumSet<CraftConceptType> types) {
 			Set<String> typeSystemStrs = new HashSet<String>();
 			for (CraftConceptType type : types) {
@@ -164,8 +169,29 @@ public class CraftPipelineUtil {
 			String xmiPath = conceptType.xmiPath(craftVersion);
 			descList.add(XmiLoaderAE.createAnalysisEngineDescription(tsd, documentMetaDataExtractorClass,
 					XmiPathType.CLASSPATH, XmiFileCompressionType.GZ, xmiPath));
+			if (conceptType.equals(CraftConceptType.NCBITAXON)) {
+				descList.add(getNcbiTaxonomyIdentifierPromoterAe(tsd));
+			}
 		}
 		return descList;
+	}
+
+	/**
+	 * The taxonomy Ids are stored as slot values to "organism" annotations in the CRAFT NCBITaxon
+	 * project. Here we add a component that promotes the slot values (taxonomy IDs) to full-fledged
+	 * annotations. The organism annotations are then removed from the CAS.
+	 * 
+	 * @param tsd
+	 * 
+	 * @return
+	 * @throws ResourceInitializationException
+	 */
+	private static AnalysisEngineDescription getNcbiTaxonomyIdentifierPromoterAe(TypeSystemDescription tsd)
+			throws ResourceInitializationException {
+		boolean transferSlotValues = false;
+		boolean deleteSourceAnnotation = true;
+		return SlotValueToClassMentionPromoter_AE.createAnalysisEngineDescription(tsd, ORGANISM_TAXONOMY_ID_SLOT_NAME,
+				ORGANISM_CLASS_NAME, transferSlotValues, deleteSourceAnnotation, "NCBITaxon:");
 	}
 
 }
