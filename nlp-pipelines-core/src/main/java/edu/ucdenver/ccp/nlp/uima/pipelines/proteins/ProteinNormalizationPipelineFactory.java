@@ -49,8 +49,8 @@ public class ProteinNormalizationPipelineFactory {
 
 		AnalysisEngineDescription proTermPromoter = AnalysisEngineFactory.createPrimitiveDescription(
 				SlotValueToClassMentionPromoter_AE.class, tsd,
-				SlotValueToClassMentionPromoter_AE.PARAM_PROMOTE_SLOT_OF_MENTION_TYPE_REGEX, "protein",
-				SlotValueToClassMentionPromoter_AE.PARAM_PROMOTE_SLOT_TYPE,
+				SlotValueToClassMentionPromoter_AE.PARAM_CLASS_MENTION_NAME_REGEX, "protein",
+				SlotValueToClassMentionPromoter_AE.PARAM_SLOT_NAME_TO_PROMOTE,
 				CcpGeneIdAnnotationDecorator.PRO_ID_SLOT_NAME,
 				SlotValueToClassMentionPromoter_AE.PARAM_TRANSFER_SLOT_VALUES, false);
 
