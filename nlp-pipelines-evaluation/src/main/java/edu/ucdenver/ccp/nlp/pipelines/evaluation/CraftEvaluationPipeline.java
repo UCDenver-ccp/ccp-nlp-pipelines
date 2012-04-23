@@ -4,7 +4,7 @@
 package edu.ucdenver.ccp.nlp.pipelines.evaluation;
 
 import java.util.Collection;
-import java.util.EnumSet;
+import java.util.Set;
 
 import org.apache.uima.resource.ResourceInitializationException;
 import org.apache.uima.resource.metadata.TypeSystemDescription;
@@ -30,7 +30,7 @@ public class CraftEvaluationPipeline extends EvaluationPipeline {
 	 * @param documentMetadataExtractorClass
 	 * @throws ResourceInitializationException
 	 */
-	public CraftEvaluationPipeline(CraftVersion craftVersion, EnumSet<CraftConceptType> conceptTypesToLoad,
+	public CraftEvaluationPipeline(CraftVersion craftVersion, Set<CraftConceptType> conceptTypesToLoad,
 			TypeSystemDescription tsd, SpanComparatorType spanComparatorType,
 			MentionComparatorType mentionComparatorType,
 			Class<? extends DocumentMetaDataExtractor> documentMetadataExtractorClass,
