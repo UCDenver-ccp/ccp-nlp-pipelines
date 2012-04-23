@@ -33,7 +33,7 @@ import edu.ucdenver.ccp.nlp.wrapper.conceptmapper.typesystem.ConceptMapper2CCPTy
 public class ConceptMapperPipelineFactory {
 
 	private static final Logger logger = Logger.getLogger(ConceptMapperPipelineFactory.class);
-	
+
 	/**
 	 * a collection of relevant type systems represented as strings that are relevant to running the
 	 * ConceptMapper
@@ -78,6 +78,40 @@ public class ConceptMapperPipelineFactory {
 				cmToCcpTypeSystemConverterDesc,
 				tokenRemovalDesc); 
 		/* @formatter:on */
+	}
+
+	public static List<AnalysisEngineDescription> getPipelineAeDescriptions(DictionaryNamespace dictNamespace,
+			TypeSystemDescription tsd, ConceptMapperPipelineCmdOpts cmdOptions,
+			DictionaryParameterOperation dictParamOp, CleanDirectory workDirectoryOp) {
+		try {
+			switch (dictNamespace) {
+			case CHEBI:
+				return getChebiPipelineAeDescriptions(tsd, cmdOptions, dictParamOp, workDirectoryOp);
+			case CL:
+				return getCellTypePipelineAeDescriptions(tsd, cmdOptions, dictParamOp, workDirectoryOp);
+			case SO:
+				return getSequenceOntologyPipelineAeDescriptions(tsd, cmdOptions, dictParamOp, workDirectoryOp);
+			case PR:
+				return getProteinOntologyPipelineAeDescriptions(tsd, cmdOptions, dictParamOp, workDirectoryOp);
+			case GO_CC:
+				return getGoCcPipelineAeDescriptions(tsd, cmdOptions, dictParamOp, workDirectoryOp);
+			case GO_BP:
+				return getGoBpPipelineAeDescriptions(tsd, cmdOptions, dictParamOp, workDirectoryOp);
+			case GO_MF:
+				return getGoMfPipelineAeDescriptions(tsd, cmdOptions, dictParamOp, workDirectoryOp);
+			case GO_BPMF:
+				return getGoBpMfPipelineAeDescriptions(tsd, cmdOptions, dictParamOp, workDirectoryOp);
+			case NCBI_TAXON:
+				return getNcbiTaxonPipelineAeDescriptions(tsd, cmdOptions, dictParamOp, workDirectoryOp);
+			default:
+				throw new IllegalArgumentException("DictionaryNamespace." + dictNamespace.name()
+						+ " is not currently handled by the getPipelineAeDescriptions() method.");
+			}
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		} catch (UIMAException e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 	public static List<AnalysisEngineDescription> getEntrezGenePipelineAeDescriptions(TypeSystemDescription tsd,
@@ -127,7 +161,13 @@ public class ConceptMapperPipelineFactory {
 			CleanDirectory workDirectoryOp) throws UIMAException, IOException {
 		return getPipelineAeDescriptions(tsd, cmdOptions, dictParamOp, DictionaryNamespace.GO_MF, workDirectoryOp);
 	}
-	
+
+	public static List<AnalysisEngineDescription> getGoBpMfPipelineAeDescriptions(TypeSystemDescription tsd,
+			ConceptMapperPipelineCmdOpts cmdOptions, DictionaryParameterOperation dictParamOp,
+			CleanDirectory workDirectoryOp) throws UIMAException, IOException {
+		return getPipelineAeDescriptions(tsd, cmdOptions, dictParamOp, DictionaryNamespace.GO_BPMF, workDirectoryOp);
+	}
+
 	public static List<AnalysisEngineDescription> getNcbiTaxonPipelineAeDescriptions(TypeSystemDescription tsd,
 			ConceptMapperPipelineCmdOpts cmdOptions, DictionaryParameterOperation dictParamOp,
 			CleanDirectory workDirectoryOp) throws UIMAException, IOException {
