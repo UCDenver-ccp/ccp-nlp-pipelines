@@ -107,13 +107,13 @@ public class CraftPipelineUtil {
 			return typeSystems;
 		}
 
-		public static TypeSystemDescription getTypeSystem(EnumSet<CraftConceptType> types) {
+		public static TypeSystemDescription getTypeSystem(Set<CraftConceptType> types) {
 			Collection<String> typeSystemStrs = getTypeSystemStrs(types);
 			return TypeSystemDescriptionFactory.createTypeSystemDescription(new ArrayList<String>(typeSystemStrs)
 					.toArray(new String[0]));
 		}
 
-		public static Collection<String> getTypeSystemStrs(EnumSet<CraftConceptType> types) {
+		public static Collection<String> getTypeSystemStrs(Set<CraftConceptType> types) {
 			Set<String> typeSystemStrs = new HashSet<String>();
 			for (CraftConceptType type : types) {
 				typeSystemStrs.addAll(Arrays.asList(type.typeSystems()));
@@ -161,7 +161,7 @@ public class CraftPipelineUtil {
 	 * @throws ResourceInitializationException
 	 */
 	public static List<AnalysisEngineDescription> getCraftAnnotationLoaderDescriptions(CraftVersion craftVersion,
-			EnumSet<CraftConceptType> conceptTypesToLoad, TypeSystemDescription tsd,
+			Set<CraftConceptType> conceptTypesToLoad, TypeSystemDescription tsd,
 			Class<? extends DocumentMetaDataExtractor> documentMetaDataExtractorClass)
 			throws ResourceInitializationException {
 		List<AnalysisEngineDescription> descList = new ArrayList<AnalysisEngineDescription>();
