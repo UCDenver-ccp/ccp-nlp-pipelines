@@ -243,6 +243,10 @@ public class ConceptMapperPipelineFactory {
 			FileUtil.validateDirectory(workDirectory);
 		}
 
+		/*
+		 * If the workDirectory is null at this point, then cmdOptions.getDictionaryFile() is a
+		 * reference to the dictionary file to use, so no need to create a new dictionary file
+		 */
 		if (workDirectory != null) {
 			logger.info("Creating ConceptMapper dictionary file in " + workDirectory.getAbsolutePath());
 			File cmDictFile = ConceptMapperDictionaryFileFactory.createDictionaryFile(dictNamespace, workDirectory,
