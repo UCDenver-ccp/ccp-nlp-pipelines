@@ -72,24 +72,15 @@ public class ConceptMapperDictionaryFileFactory {
 				return GoDictionaryFactory.buildConceptMapperDictionary(EnumSet.of(GoNamespace.MF, GoNamespace.BP),
 						outputDirectory, outputDirectoryOp);
 			case CHEBI:
-				ChebiOntologyClassIterator chebiIter = new ChebiOntologyClassIterator(outputDirectory,
-						cleanOutputDirectory);
-				return buildChebiDictionary(outputDirectory, chebiIter, cleanDictFile);
+				return buildChebiDictionary(outputDirectory, cleanDictFile);
 			case CL:
-				CellTypeOntologyClassIterator clIter = new CellTypeOntologyClassIterator(outputDirectory,
-						cleanOutputDirectory);
-				return buildCellTypeDictionary(outputDirectory, clIter, cleanDictFile);
+				return buildCellTypeDictionary(outputDirectory, cleanDictFile);
 			case NCBI_TAXON:
-				NcbiTaxonomyClassIterator taxonIter = new NcbiTaxonomyClassIterator(outputDirectory,
-						cleanOutputDirectory);
-				return buildNcbiTaxonDictionary(outputDirectory, taxonIter, cleanDictFile);
+				return buildNcbiTaxonDictionary(outputDirectory, cleanDictFile);
 			case PR:
-				ProOntologyClassIterator prIter = new ProOntologyClassIterator(outputDirectory, cleanOutputDirectory);
-				return buildProteinOntologyDictionary(outputDirectory, prIter, cleanDictFile);
+				return buildProteinOntologyDictionary(outputDirectory, cleanDictFile);
 			case SO:
-				SequenceOntologyClassIterator soIter = new SequenceOntologyClassIterator(outputDirectory,
-						cleanOutputDirectory);
-				return buildSequenceOntologyDictionary(outputDirectory, soIter, cleanDictFile);
+				return buildSequenceOntologyDictionary(outputDirectory, cleanDictFile);
 			case EG:
 				return EntrezGeneDictionaryFactory.buildModelOrganismConceptMapperDictionary(outputDirectory,
 						outputDirectoryOp);
@@ -132,20 +123,15 @@ public class ConceptMapperDictionaryFileFactory {
 				return GoDictionaryFactory.buildConceptMapperDictionary(EnumSet.of(GoNamespace.MF, GoNamespace.BP),
 						inputFile, outputDirectory, cleanDictFile);
 			case CHEBI:
-				ChebiOntologyClassIterator chebiIter = new ChebiOntologyClassIterator(inputFile);
-				return buildChebiDictionary(outputDirectory, chebiIter, cleanDictFile);
+				return buildChebiDictionary(inputFile, outputDirectory, cleanDictFile);
 			case CL:
-				CellTypeOntologyClassIterator clIter = new CellTypeOntologyClassIterator(inputFile);
-				return buildCellTypeDictionary(outputDirectory, clIter, cleanDictFile);
+				return buildCellTypeDictionary(inputFile, outputDirectory, cleanDictFile);
 			case NCBI_TAXON:
-				NcbiTaxonomyClassIterator taxonIter = new NcbiTaxonomyClassIterator(inputFile);
-				return buildNcbiTaxonDictionary(outputDirectory, taxonIter, cleanDictFile);
+				return buildNcbiTaxonDictionary(inputFile, outputDirectory, cleanDictFile);
 			case PR:
-				ProOntologyClassIterator prIter = new ProOntologyClassIterator(inputFile);
-				return buildProteinOntologyDictionary(outputDirectory, prIter, cleanDictFile);
+				return buildProteinOntologyDictionary(inputFile, outputDirectory, cleanDictFile);
 			case SO:
-				SequenceOntologyClassIterator soIter = new SequenceOntologyClassIterator(inputFile);
-				return buildSequenceOntologyDictionary(outputDirectory, soIter, cleanDictFile);
+				return buildSequenceOntologyDictionary(inputFile, outputDirectory, cleanDictFile);
 			case EG:
 				return EntrezGeneDictionaryFactory.buildModelOrganismConceptMapperDictionary(inputFile,
 						outputDirectory, cleanDictFile);
@@ -165,9 +151,10 @@ public class ConceptMapperDictionaryFileFactory {
 	 * @param soIter
 	 * @return
 	 * @throws IOException
+	 * @throws OBOParseException
 	 */
-	private static File buildSequenceOntologyDictionary(File outputDirectory, SequenceOntologyClassIterator soIter,
-			boolean cleanDictFile) throws IOException {
+	private static File buildSequenceOntologyDictionary(File inputOboFile, File outputDirectory, boolean cleanDictFile)
+			throws IOException, OBOParseException {
 		File soCmDictFile = new File(outputDirectory, "cmDict-SO.xml");
 		if (soCmDictFile.exists()) {
 			if (cleanDictFile) {
@@ -178,6 +165,24 @@ public class ConceptMapperDictionaryFileFactory {
 			}
 		}
 		logger.info("Building dictionary file: " + soCmDictFile);
+		SequenceOntologyClassIterator soIter = new SequenceOntologyClassIterator(inputOboFile);
+		OboToDictionary.buildDictionary(soCmDictFile, soIter, null);
+		return soCmDictFile;
+	}
+
+	private static File buildSequenceOntologyDictionary(File outputDirectory, boolean cleanDictFile)
+			throws IOException, OBOParseException {
+		File soCmDictFile = new File(outputDirectory, "cmDict-SO.xml");
+		if (soCmDictFile.exists()) {
+			if (cleanDictFile) {
+				FileUtil.deleteFile(soCmDictFile);
+			} else {
+				logger.info("Using pre-existing dictionary file: " + soCmDictFile);
+				return soCmDictFile;
+			}
+		}
+		logger.info("Building dictionary file: " + soCmDictFile);
+		SequenceOntologyClassIterator soIter = new SequenceOntologyClassIterator(outputDirectory, cleanDictFile);
 		OboToDictionary.buildDictionary(soCmDictFile, soIter, null);
 		return soCmDictFile;
 	}
@@ -187,9 +192,10 @@ public class ConceptMapperDictionaryFileFactory {
 	 * @param prIter
 	 * @return
 	 * @throws IOException
+	 * @throws OBOParseException
 	 */
-	private static File buildProteinOntologyDictionary(File outputDirectory, ProOntologyClassIterator prIter,
-			boolean cleanDictFile) throws IOException {
+	private static File buildProteinOntologyDictionary(File inputOboFile, File outputDirectory, boolean cleanDictFile)
+			throws IOException, OBOParseException {
 		File prCmDictFile = new File(outputDirectory, "cmDict-PR.xml");
 		if (prCmDictFile.exists()) {
 			if (cleanDictFile) {
@@ -200,6 +206,24 @@ public class ConceptMapperDictionaryFileFactory {
 			}
 		}
 		logger.info("Building dictionary file: " + prCmDictFile);
+		ProOntologyClassIterator prIter = new ProOntologyClassIterator(inputOboFile);
+		OboToDictionary.buildDictionary(prCmDictFile, prIter, null);
+		return prCmDictFile;
+	}
+
+	private static File buildProteinOntologyDictionary(File outputDirectory, boolean cleanDictFile) throws IOException,
+			OBOParseException {
+		File prCmDictFile = new File(outputDirectory, "cmDict-PR.xml");
+		if (prCmDictFile.exists()) {
+			if (cleanDictFile) {
+				FileUtil.deleteFile(prCmDictFile);
+			} else {
+				logger.info("Using pre-existing dictionary file: " + prCmDictFile);
+				return prCmDictFile;
+			}
+		}
+		logger.info("Building dictionary file: " + prCmDictFile);
+		ProOntologyClassIterator prIter = new ProOntologyClassIterator(outputDirectory, cleanDictFile);
 		OboToDictionary.buildDictionary(prCmDictFile, prIter, null);
 		return prCmDictFile;
 	}
@@ -209,9 +233,10 @@ public class ConceptMapperDictionaryFileFactory {
 	 * @param taxonIter
 	 * @return
 	 * @throws IOException
+	 * @throws OBOParseException
 	 */
-	private static File buildNcbiTaxonDictionary(File outputDirectory, NcbiTaxonomyClassIterator taxonIter,
-			boolean cleanDictFile) throws IOException {
+	private static File buildNcbiTaxonDictionary(File inputOboFile, File outputDirectory, boolean cleanDictFile)
+			throws IOException, OBOParseException {
 		File taxonCmDictFile = new File(outputDirectory, "cmDict-NCBITAXON.xml");
 		if (taxonCmDictFile.exists()) {
 			if (cleanDictFile) {
@@ -222,6 +247,24 @@ public class ConceptMapperDictionaryFileFactory {
 			}
 		}
 		logger.info("Building dictionary file: " + taxonCmDictFile);
+		NcbiTaxonomyClassIterator taxonIter = new NcbiTaxonomyClassIterator(inputOboFile);
+		OboToDictionary.buildDictionary(taxonCmDictFile, taxonIter, null);
+		return taxonCmDictFile;
+	}
+
+	private static File buildNcbiTaxonDictionary(File outputDirectory, boolean cleanDictFile) throws IOException,
+			OBOParseException {
+		File taxonCmDictFile = new File(outputDirectory, "cmDict-NCBITAXON.xml");
+		if (taxonCmDictFile.exists()) {
+			if (cleanDictFile) {
+				FileUtil.deleteFile(taxonCmDictFile);
+			} else {
+				logger.info("Using pre-existing dictionary file: " + taxonCmDictFile);
+				return taxonCmDictFile;
+			}
+		}
+		logger.info("Building dictionary file: " + taxonCmDictFile);
+		NcbiTaxonomyClassIterator taxonIter = new NcbiTaxonomyClassIterator(outputDirectory, cleanDictFile);
 		OboToDictionary.buildDictionary(taxonCmDictFile, taxonIter, null);
 		return taxonCmDictFile;
 	}
@@ -231,9 +274,10 @@ public class ConceptMapperDictionaryFileFactory {
 	 * @param clIter
 	 * @return
 	 * @throws IOException
+	 * @throws OBOParseException
 	 */
-	private static File buildCellTypeDictionary(File outputDirectory, CellTypeOntologyClassIterator clIter,
-			boolean cleanDictFile) throws IOException {
+	private static File buildCellTypeDictionary(File inputOboFile, File outputDirectory, boolean cleanDictFile)
+			throws IOException, OBOParseException {
 		File clCmDictFile = new File(outputDirectory, "cmDict-CL.xml");
 		if (clCmDictFile.exists()) {
 			if (cleanDictFile) {
@@ -244,6 +288,24 @@ public class ConceptMapperDictionaryFileFactory {
 			}
 		}
 		logger.info("Building dictionary file: " + clCmDictFile);
+		CellTypeOntologyClassIterator clIter = new CellTypeOntologyClassIterator(inputOboFile);
+		OboToDictionary.buildDictionary(clCmDictFile, clIter, null);
+		return clCmDictFile;
+	}
+
+	private static File buildCellTypeDictionary(File outputDirectory, boolean cleanDictFile) throws IOException,
+			OBOParseException {
+		File clCmDictFile = new File(outputDirectory, "cmDict-CL.xml");
+		if (clCmDictFile.exists()) {
+			if (cleanDictFile) {
+				FileUtil.deleteFile(clCmDictFile);
+			} else {
+				logger.info("Using pre-existing dictionary file: " + clCmDictFile);
+				return clCmDictFile;
+			}
+		}
+		logger.info("Building dictionary file: " + clCmDictFile);
+		CellTypeOntologyClassIterator clIter = new CellTypeOntologyClassIterator(outputDirectory, cleanDictFile);
 		OboToDictionary.buildDictionary(clCmDictFile, clIter, null);
 		return clCmDictFile;
 	}
@@ -253,9 +315,10 @@ public class ConceptMapperDictionaryFileFactory {
 	 * @param chebiIter
 	 * @return
 	 * @throws IOException
+	 * @throws OBOParseException
 	 */
-	private static File buildChebiDictionary(File outputDirectory, ChebiOntologyClassIterator chebiIter,
-			boolean cleanDictFile) throws IOException {
+	private static File buildChebiDictionary(File inputOboFile, File outputDirectory, boolean cleanDictFile)
+			throws IOException, OBOParseException {
 		File chebiCmDictFile = new File(outputDirectory, "cmDict-CHEBI.xml");
 		if (chebiCmDictFile.exists()) {
 			if (cleanDictFile) {
@@ -266,6 +329,24 @@ public class ConceptMapperDictionaryFileFactory {
 			}
 		}
 		logger.info("Building dictionary file: " + chebiCmDictFile);
+		ChebiOntologyClassIterator chebiIter = new ChebiOntologyClassIterator(inputOboFile);
+		OboToDictionary.buildDictionary(chebiCmDictFile, chebiIter, null);
+		return chebiCmDictFile;
+	}
+
+	private static File buildChebiDictionary(File outputDirectory, boolean cleanDictFile) throws IOException,
+			OBOParseException {
+		File chebiCmDictFile = new File(outputDirectory, "cmDict-CHEBI.xml");
+		if (chebiCmDictFile.exists()) {
+			if (cleanDictFile) {
+				FileUtil.deleteFile(chebiCmDictFile);
+			} else {
+				logger.info("Using pre-existing dictionary file: " + chebiCmDictFile);
+				return chebiCmDictFile;
+			}
+		}
+		logger.info("Building dictionary file: " + chebiCmDictFile);
+		ChebiOntologyClassIterator chebiIter = new ChebiOntologyClassIterator(outputDirectory, cleanDictFile);
 		OboToDictionary.buildDictionary(chebiCmDictFile, chebiIter, null);
 		return chebiCmDictFile;
 	}
