@@ -232,7 +232,7 @@ public class ConceptMapperPipelineFactory {
 
 	private static List<AnalysisEngineDescription> getPipelineAeDescriptions(TypeSystemDescription tsd,
 			ConceptMapperPipelineCmdOpts cmdOptions, DictionaryParameterOperation dictParamOp,
-			DictionaryNamespace oboNamespace, CleanDirectory workDirectoryOp, int parameterCombinationIndex)
+			DictionaryNamespace dictNamespace, CleanDirectory workDirectoryOp, int parameterCombinationIndex)
 			throws UIMAException, IOException {
 
 		File workDirectory = null;
@@ -245,7 +245,7 @@ public class ConceptMapperPipelineFactory {
 
 		if (workDirectory != null) {
 			logger.info("Creating ConceptMapper dictionary file in " + workDirectory.getAbsolutePath());
-			File cmDictFile = ConceptMapperDictionaryFileFactory.createDictionaryFile(oboNamespace, workDirectory,
+			File cmDictFile = ConceptMapperDictionaryFileFactory.createDictionaryFile(dictNamespace, workDirectory,
 					workDirectoryOp);
 			logger.info("Concept Mapper dictionary file: " + cmDictFile);
 			cmdOptions.setDictionaryFile(cmDictFile);
