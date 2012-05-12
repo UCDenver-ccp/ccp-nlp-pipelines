@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.EnumSet;
 
+import org.apache.log4j.Logger;
 import org.geneontology.oboedit.dataadapter.OBOParseException;
 
 import edu.ucdenver.ccp.common.file.FileUtil;
@@ -29,7 +30,7 @@ import edu.ucdenver.ccp.nlp.wrapper.conceptmapper.dictionary.obo.OboToDictionary
  */
 public class ConceptMapperDictionaryFileFactory {
 
-	// private static final Logger logger = Logger.getLogger(ConceptMapperPipelineFactory.class);
+	private static final Logger logger = Logger.getLogger(ConceptMapperPipelineFactory.class);
 
 	public enum DictionaryNamespace {
 		GO_CC,
@@ -172,9 +173,11 @@ public class ConceptMapperDictionaryFileFactory {
 			if (cleanDictFile) {
 				FileUtil.deleteFile(soCmDictFile);
 			} else {
+				logger.info("Using pre-existing dictionary file: " + soCmDictFile);
 				return soCmDictFile;
 			}
 		}
+		logger.info("Building dictionary file: " + soCmDictFile);
 		OboToDictionary.buildDictionary(soCmDictFile, soIter, null);
 		return soCmDictFile;
 	}
@@ -192,9 +195,11 @@ public class ConceptMapperDictionaryFileFactory {
 			if (cleanDictFile) {
 				FileUtil.deleteFile(prCmDictFile);
 			} else {
+				logger.info("Using pre-existing dictionary file: " + prCmDictFile);
 				return prCmDictFile;
 			}
 		}
+		logger.info("Building dictionary file: " + prCmDictFile);
 		OboToDictionary.buildDictionary(prCmDictFile, prIter, null);
 		return prCmDictFile;
 	}
@@ -212,9 +217,11 @@ public class ConceptMapperDictionaryFileFactory {
 			if (cleanDictFile) {
 				FileUtil.deleteFile(taxonCmDictFile);
 			} else {
+				logger.info("Using pre-existing dictionary file: " + taxonCmDictFile);
 				return taxonCmDictFile;
 			}
 		}
+		logger.info("Building dictionary file: " + taxonCmDictFile);
 		OboToDictionary.buildDictionary(taxonCmDictFile, taxonIter, null);
 		return taxonCmDictFile;
 	}
@@ -232,9 +239,11 @@ public class ConceptMapperDictionaryFileFactory {
 			if (cleanDictFile) {
 				FileUtil.deleteFile(clCmDictFile);
 			} else {
+				logger.info("Using pre-existing dictionary file: " + clCmDictFile);
 				return clCmDictFile;
 			}
 		}
+		logger.info("Building dictionary file: " + clCmDictFile);
 		OboToDictionary.buildDictionary(clCmDictFile, clIter, null);
 		return clCmDictFile;
 	}
@@ -252,9 +261,11 @@ public class ConceptMapperDictionaryFileFactory {
 			if (cleanDictFile) {
 				FileUtil.deleteFile(chebiCmDictFile);
 			} else {
+				logger.info("Using pre-existing dictionary file: " + chebiCmDictFile);
 				return chebiCmDictFile;
 			}
 		}
+		logger.info("Building dictionary file: " + chebiCmDictFile);
 		OboToDictionary.buildDictionary(chebiCmDictFile, chebiIter, null);
 		return chebiCmDictFile;
 	}
