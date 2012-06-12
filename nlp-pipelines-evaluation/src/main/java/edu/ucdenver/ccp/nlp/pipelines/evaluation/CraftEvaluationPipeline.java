@@ -12,6 +12,7 @@ import org.apache.uima.resource.metadata.TypeSystemDescription;
 import edu.ucdenver.ccp.nlp.ext.uima.annotators.comparison.AnnotationComparator_AE.MentionComparatorType;
 import edu.ucdenver.ccp.nlp.ext.uima.annotators.comparison.AnnotationComparator_AE.SpanComparatorType;
 import edu.ucdenver.ccp.nlp.ext.uima.shims.document.DocumentMetaDataExtractor;
+import edu.ucdenver.ccp.nlp.pipelines.evaluation.CraftPipelineUtil.CraftAnnotationFilterOp;
 import edu.ucdenver.ccp.nlp.pipelines.evaluation.CraftPipelineUtil.CraftConceptType;
 import edu.ucdenver.ccp.nlp.pipelines.evaluation.CraftPipelineUtil.CraftVersion;
 
@@ -34,10 +35,11 @@ public class CraftEvaluationPipeline extends EvaluationPipeline {
 			TypeSystemDescription tsd, SpanComparatorType spanComparatorType,
 			MentionComparatorType mentionComparatorType,
 			Class<? extends DocumentMetaDataExtractor> documentMetadataExtractorClass,
-			Collection<String> annotationTypeRegexes) throws ResourceInitializationException {
+			Collection<String> annotationTypeRegexes, CraftAnnotationFilterOp annotFilterOp)
+			throws ResourceInitializationException {
 		super(tsd, CraftPipelineUtil.getCraftCollectionReader(craftVersion, tsd, documentMetadataExtractorClass),
 				CraftPipelineUtil.getCraftAnnotationLoaderDescriptions(craftVersion, conceptTypesToLoad, tsd,
-						documentMetadataExtractorClass), spanComparatorType, mentionComparatorType,
+						documentMetadataExtractorClass, annotFilterOp), spanComparatorType, mentionComparatorType,
 				annotationTypeRegexes);
 	}
 
