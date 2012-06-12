@@ -30,6 +30,7 @@ import edu.ucdenver.ccp.nlp.ext.uima.annotators.sentencedetectors.ExplicitSenten
 import edu.ucdenver.ccp.nlp.ext.uima.annotators.sentencedetectors.LingPipeSentenceDetector_AE;
 import edu.ucdenver.ccp.nlp.ext.uima.shims.document.impl.CcpDocumentMetaDataExtractor;
 import edu.ucdenver.ccp.nlp.pipelines.evaluation.CraftEvaluationPipeline;
+import edu.ucdenver.ccp.nlp.pipelines.evaluation.CraftPipelineUtil.CraftAnnotationFilterOp;
 import edu.ucdenver.ccp.nlp.pipelines.evaluation.CraftPipelineUtil.CraftConceptType;
 import edu.ucdenver.ccp.nlp.pipelines.evaluation.CraftPipelineUtil.CraftVersion;
 import edu.ucdenver.ccp.nlp.pipelines.evaluation.PipelineEvaluation;
@@ -207,7 +208,7 @@ public class CraftConceptMapperEvaluations extends DefaultTestCase {
 		}
 		CraftEvaluationPipeline evalPipeline = new CraftEvaluationPipeline(CRAFT_VERSION, craftConceptTypes, tsd,
 				SpanComparatorType.STRICT, MentionComparatorType.IDENTICAL, CcpDocumentMetaDataExtractor.class,
-				annotationTypeRegexes);
+				annotationTypeRegexes, CraftAnnotationFilterOp.NONE);
 
 		// File evalResultsFile = folder.newFile("evalResults.out");
 		// evalPipeline.setEvalResultsOutputFile(evalResultsFile);
