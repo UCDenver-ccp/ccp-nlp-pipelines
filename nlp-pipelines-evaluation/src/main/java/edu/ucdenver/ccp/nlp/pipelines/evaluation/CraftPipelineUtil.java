@@ -3,6 +3,8 @@
  */
 package edu.ucdenver.ccp.nlp.pipelines.evaluation;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -13,17 +15,23 @@ import java.util.Set;
 
 import org.apache.uima.analysis_engine.AnalysisEngineDescription;
 import org.apache.uima.collection.CollectionReader;
+import org.apache.uima.pear.util.FileUtil;
 import org.apache.uima.resource.ResourceInitializationException;
 import org.apache.uima.resource.metadata.TypeSystemDescription;
 import org.uimafit.factory.TypeSystemDescriptionFactory;
 
 import edu.ucdenver.ccp.common.collections.CollectionsUtil;
+import edu.ucdenver.ccp.common.file.CharacterEncoding;
+import edu.ucdenver.ccp.common.file.FileArchiveUtil;
+import edu.ucdenver.ccp.common.io.ClassPathUtil;
 import edu.ucdenver.ccp.nlp.core.uima.util.TypeSystemUtil;
 import edu.ucdenver.ccp.nlp.ext.uima.annotators.converters.SlotValueToClassMentionPromoter_AE;
+import edu.ucdenver.ccp.nlp.ext.uima.annotators.filter.OntologyClassRemovalFilter_AE;
 import edu.ucdenver.ccp.nlp.ext.uima.collections.file.ClasspathCollectionReader;
 import edu.ucdenver.ccp.nlp.ext.uima.serialization.xmi.XmiLoaderAE;
 import edu.ucdenver.ccp.nlp.ext.uima.serialization.xmi.XmiLoaderAE.XmiFileCompressionType;
 import edu.ucdenver.ccp.nlp.ext.uima.serialization.xmi.XmiLoaderAE.XmiPathType;
+import edu.ucdenver.ccp.nlp.ext.uima.shims.annotation.impl.CcpAnnotationDataExtractor;
 import edu.ucdenver.ccp.nlp.ext.uima.shims.document.DocumentMetaDataExtractor;
 
 /**
@@ -35,6 +43,15 @@ public class CraftPipelineUtil {
 	private final static String CLEARTK_SYNTAX_TYPESYSTEM = "org.cleartk.syntax.TypeSystem";
 	private static final String ORGANISM_CLASS_NAME = "organism";
 	private static final String ORGANISM_TAXONOMY_ID_SLOT_NAME = "taxonomy ID";
+	private static final String GO_BP_ROOT_ID = "GO:0008150";
+	private static final String GO_MF_ROOT_ID = "GO:0003674";
+
+	public static final String CHEBI_OBO_PATH = "/craft/ontologies/CHEBI.obo.gz";
+	public static final String CL_OBO_PATH = "/craft/ontologies/CL.obo.gz";
+	public static final String GO_OBO_PATH = "/craft/ontologies/GO.obo.gz";
+	public static final String NCBI_TAXON_OBO_PATH = "/craft/ontologies/NCBITaxon.obo.gz";
+	public static final String PR_OBO_PATH = "/craft/ontologies/PR.obo.gz";
+	public static final String SO_OBO_PATH = "/craft/ontologies/SO.obo.gz";
 
 	public enum CraftVersion {
 		RELEASE("craft/release/txt", "craft/release/xmi"),
@@ -137,6 +154,12 @@ public class CraftPipelineUtil {
 
 	}
 
+	public enum CraftAnnotationFilterOp {
+		REMOVE_GO_BP,
+		REMOVE_GO_MF,
+		NONE
+	}
+
 	/**
 	 * @param craftVersion
 	 * @param tsd
@@ -156,14 +179,17 @@ public class CraftPipelineUtil {
 	 * @param conceptTypesToLoad
 	 * @param tsd
 	 * @param documentMetaDataExtractorClass
+	 * @param annotFilterOp
+	 *            used to filter out GO_BP or GO_MF terms (b/c they were initially annotated
+	 *            together and are therefore stored together)
 	 * @return a collection of {@link AnalysisEngineDescription} representing {@link XmiLoaderAE}
 	 *         components set up to load the specified {@link CraftConceptType} types.
 	 * @throws ResourceInitializationException
 	 */
 	public static List<AnalysisEngineDescription> getCraftAnnotationLoaderDescriptions(CraftVersion craftVersion,
 			Set<CraftConceptType> conceptTypesToLoad, TypeSystemDescription tsd,
-			Class<? extends DocumentMetaDataExtractor> documentMetaDataExtractorClass)
-			throws ResourceInitializationException {
+			Class<? extends DocumentMetaDataExtractor> documentMetaDataExtractorClass,
+			CraftAnnotationFilterOp annotFilterOp) throws ResourceInitializationException {
 		List<AnalysisEngineDescription> descList = new ArrayList<AnalysisEngineDescription>();
 		for (CraftConceptType conceptType : conceptTypesToLoad) {
 			String xmiPath = conceptType.xmiPath(craftVersion);
@@ -173,7 +199,31 @@ public class CraftPipelineUtil {
 				descList.add(getNcbiTaxonomyIdentifierPromoterAe(tsd));
 			}
 		}
+
+		if (annotFilterOp.equals(CraftAnnotationFilterOp.REMOVE_GO_BP)) {
+			File oboFile = getGoOboFileReference();
+			descList.add(OntologyClassRemovalFilter_AE.getDescription(tsd, CcpAnnotationDataExtractor.class,
+					GO_BP_ROOT_ID, oboFile, CharacterEncoding.UTF_8));
+		} else if (annotFilterOp.equals(CraftAnnotationFilterOp.REMOVE_GO_MF)) {
+			File oboFile = getGoOboFileReference();
+			descList.add(OntologyClassRemovalFilter_AE.getDescription(tsd, CcpAnnotationDataExtractor.class,
+					GO_MF_ROOT_ID, oboFile, CharacterEncoding.UTF_8));
+		}
 		return descList;
+	}
+
+	/**
+	 * @return a reference to the GO obo file. It will be copied from the classpath to a temporary
+	 *         file.
+	 */
+	private static File getGoOboFileReference() {
+		try {
+			File oboFile = FileUtil.createTempFile("goOboFile", "obo.gz");
+			ClassPathUtil.copyClasspathResourceToFile(GO_OBO_PATH, oboFile);
+			return FileArchiveUtil.unzip(oboFile, oboFile.getParentFile(), null);
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 	/**
