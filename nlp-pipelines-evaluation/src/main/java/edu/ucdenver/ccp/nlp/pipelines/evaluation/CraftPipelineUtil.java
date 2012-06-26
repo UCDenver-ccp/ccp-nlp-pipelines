@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -32,7 +31,7 @@ import edu.ucdenver.ccp.nlp.ext.uima.serialization.xmi.XmiLoaderAE;
 import edu.ucdenver.ccp.nlp.ext.uima.serialization.xmi.XmiLoaderAE.XmiFileCompressionType;
 import edu.ucdenver.ccp.nlp.ext.uima.serialization.xmi.XmiLoaderAE.XmiPathType;
 import edu.ucdenver.ccp.nlp.ext.uima.shims.annotation.impl.CcpAnnotationDataExtractor;
-import edu.ucdenver.ccp.nlp.ext.uima.shims.document.DocumentMetaDataExtractor;
+import edu.ucdenver.ccp.uima.shims.document.DocumentMetadataHandler;
 
 /**
  * @author Colorado Computational Pharmacology, UC Denver; ccpsupport@ucdenver.edu
@@ -168,7 +167,7 @@ public class CraftPipelineUtil {
 	 * @throws ResourceInitializationException
 	 */
 	public static CollectionReader getCraftCollectionReader(CraftVersion craftVersion, TypeSystemDescription tsd,
-			Class<? extends DocumentMetaDataExtractor> documentMetadataExtractorClass)
+			Class<? extends DocumentMetadataHandler> documentMetadataExtractorClass)
 			throws ResourceInitializationException {
 		return ClasspathCollectionReader.createCollectionReader(tsd, craftVersion.txtPath(), 0, -1,
 				documentMetadataExtractorClass);
@@ -188,7 +187,7 @@ public class CraftPipelineUtil {
 	 */
 	public static List<AnalysisEngineDescription> getCraftAnnotationLoaderDescriptions(CraftVersion craftVersion,
 			Set<CraftConceptType> conceptTypesToLoad, TypeSystemDescription tsd,
-			Class<? extends DocumentMetaDataExtractor> documentMetaDataExtractorClass,
+			Class<? extends DocumentMetadataHandler> documentMetaDataExtractorClass,
 			CraftAnnotationFilterOp annotFilterOp) throws ResourceInitializationException {
 		List<AnalysisEngineDescription> descList = new ArrayList<AnalysisEngineDescription>();
 		for (CraftConceptType conceptType : conceptTypesToLoad) {
