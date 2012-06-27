@@ -17,10 +17,12 @@ import edu.ucdenver.ccp.fileparsers.obo.CellTypeOntologyClassIterator;
 import edu.ucdenver.ccp.fileparsers.obo.ChebiOntologyClassIterator;
 import edu.ucdenver.ccp.fileparsers.obo.SequenceOntologyClassIterator;
 import edu.ucdenver.ccp.fileparsers.pro.ProOntologyClassIterator;
+import edu.ucdenver.ccp.nlp.uima.pipelines.dictionarylookup.ConceptMapperDictionaryFileFactory.DictionaryNamespace;
 import edu.ucdenver.ccp.nlp.wrapper.conceptmapper.dictionary.eg.EntrezGeneDictionaryFactory;
 import edu.ucdenver.ccp.nlp.wrapper.conceptmapper.dictionary.obo.GoDictionaryFactory;
 import edu.ucdenver.ccp.nlp.wrapper.conceptmapper.dictionary.obo.GoDictionaryFactory.GoNamespace;
 import edu.ucdenver.ccp.nlp.wrapper.conceptmapper.dictionary.obo.OboToDictionary;
+import edu.ucdenver.ccp.nlp.wrapper.conceptmapper.dictionary.obo.OboToDictionary.SynonymType;
 
 /**
  * Always creates a new dictionary file by downloading a new data file
@@ -52,7 +54,7 @@ public class ConceptMapperDictionaryFileFactory {
 	 * @return a reference to a newly created Concept Mapper dictionary file
 	 */
 	public static File createDictionaryFile(DictionaryNamespace dictNamespace, File outputDirectory,
-			CleanDirectory outputDirectoryOp) {
+			CleanDirectory outputDirectoryOp, SynonymType synonymType) {
 		try {
 			boolean cleanOutputDirectory = outputDirectoryOp.equals(CleanDirectory.YES);
 			// if we are downloading new source files, then we want to create a new dictionary file
@@ -61,26 +63,26 @@ public class ConceptMapperDictionaryFileFactory {
 			switch (dictNamespace) {
 			case GO_CC:
 				return GoDictionaryFactory.buildConceptMapperDictionary(EnumSet.of(GoNamespace.CC), outputDirectory,
-						outputDirectoryOp);
+						outputDirectoryOp, synonymType);
 			case GO_BP:
 				return GoDictionaryFactory.buildConceptMapperDictionary(EnumSet.of(GoNamespace.BP), outputDirectory,
-						outputDirectoryOp);
+						outputDirectoryOp, synonymType);
 			case GO_MF:
 				return GoDictionaryFactory.buildConceptMapperDictionary(EnumSet.of(GoNamespace.MF), outputDirectory,
-						outputDirectoryOp);
+						outputDirectoryOp, synonymType);
 			case GO_BPMF:
 				return GoDictionaryFactory.buildConceptMapperDictionary(EnumSet.of(GoNamespace.MF, GoNamespace.BP),
-						outputDirectory, outputDirectoryOp);
+						outputDirectory, outputDirectoryOp, synonymType);
 			case CHEBI:
-				return buildChebiDictionary(outputDirectory, cleanDictFile);
+				return buildChebiDictionary(outputDirectory, cleanDictFile, synonymType);
 			case CL:
-				return buildCellTypeDictionary(outputDirectory, cleanDictFile);
+				return buildCellTypeDictionary(outputDirectory, cleanDictFile, synonymType);
 			case NCBI_TAXON:
-				return buildNcbiTaxonDictionary(outputDirectory, cleanDictFile);
+				return buildNcbiTaxonDictionary(outputDirectory, cleanDictFile, synonymType);
 			case PR:
-				return buildProteinOntologyDictionary(outputDirectory, cleanDictFile);
+				return buildProteinOntologyDictionary(outputDirectory, cleanDictFile, synonymType);
 			case SO:
-				return buildSequenceOntologyDictionary(outputDirectory, cleanDictFile);
+				return buildSequenceOntologyDictionary(outputDirectory, cleanDictFile, synonymType);
 			case EG:
 				return EntrezGeneDictionaryFactory.buildModelOrganismConceptMapperDictionary(outputDirectory,
 						outputDirectoryOp);
@@ -107,31 +109,31 @@ public class ConceptMapperDictionaryFileFactory {
 	 * @return a reference to a newly created Concept Mapper dictionary file
 	 */
 	public static File createDictionaryFile(DictionaryNamespace dictNamespace, File inputFile, File outputDirectory,
-			boolean cleanDictFile) {
+			boolean cleanDictFile, SynonymType synonymType) {
 		try {
 			switch (dictNamespace) {
 			case GO_CC:
 				return GoDictionaryFactory.buildConceptMapperDictionary(EnumSet.of(GoNamespace.CC), inputFile,
-						outputDirectory, cleanDictFile);
+						outputDirectory, cleanDictFile, synonymType);
 			case GO_BP:
 				return GoDictionaryFactory.buildConceptMapperDictionary(EnumSet.of(GoNamespace.BP), inputFile,
-						outputDirectory, cleanDictFile);
+						outputDirectory, cleanDictFile, synonymType);
 			case GO_MF:
 				return GoDictionaryFactory.buildConceptMapperDictionary(EnumSet.of(GoNamespace.MF), inputFile,
-						outputDirectory, cleanDictFile);
+						outputDirectory, cleanDictFile, synonymType);
 			case GO_BPMF:
 				return GoDictionaryFactory.buildConceptMapperDictionary(EnumSet.of(GoNamespace.MF, GoNamespace.BP),
-						inputFile, outputDirectory, cleanDictFile);
+						inputFile, outputDirectory, cleanDictFile, synonymType);
 			case CHEBI:
-				return buildChebiDictionary(inputFile, outputDirectory, cleanDictFile);
+				return buildChebiDictionary(inputFile, outputDirectory, cleanDictFile, synonymType);
 			case CL:
-				return buildCellTypeDictionary(inputFile, outputDirectory, cleanDictFile);
+				return buildCellTypeDictionary(inputFile, outputDirectory, cleanDictFile, synonymType);
 			case NCBI_TAXON:
-				return buildNcbiTaxonDictionary(inputFile, outputDirectory, cleanDictFile);
+				return buildNcbiTaxonDictionary(inputFile, outputDirectory, cleanDictFile, synonymType);
 			case PR:
-				return buildProteinOntologyDictionary(inputFile, outputDirectory, cleanDictFile);
+				return buildProteinOntologyDictionary(inputFile, outputDirectory, cleanDictFile, synonymType);
 			case SO:
-				return buildSequenceOntologyDictionary(inputFile, outputDirectory, cleanDictFile);
+				return buildSequenceOntologyDictionary(inputFile, outputDirectory, cleanDictFile, synonymType);
 			case EG:
 				return EntrezGeneDictionaryFactory.buildModelOrganismConceptMapperDictionary(inputFile,
 						outputDirectory, cleanDictFile);
@@ -153,8 +155,8 @@ public class ConceptMapperDictionaryFileFactory {
 	 * @throws IOException
 	 * @throws OBOParseException
 	 */
-	private static File buildSequenceOntologyDictionary(File inputOboFile, File outputDirectory, boolean cleanDictFile)
-			throws IOException, OBOParseException {
+	private static File buildSequenceOntologyDictionary(File inputOboFile, File outputDirectory, boolean cleanDictFile,
+			SynonymType synonymType) throws IOException, OBOParseException {
 		File soCmDictFile = new File(outputDirectory, "cmDict-SO.xml");
 		if (soCmDictFile.exists()) {
 			if (cleanDictFile) {
@@ -166,12 +168,12 @@ public class ConceptMapperDictionaryFileFactory {
 		}
 		logger.info("Building dictionary file: " + soCmDictFile);
 		SequenceOntologyClassIterator soIter = new SequenceOntologyClassIterator(inputOboFile);
-		OboToDictionary.buildDictionary(soCmDictFile, soIter, null);
+		OboToDictionary.buildDictionary(soCmDictFile, soIter, null, synonymType);
 		return soCmDictFile;
 	}
 
-	private static File buildSequenceOntologyDictionary(File outputDirectory, boolean cleanDictFile)
-			throws IOException, OBOParseException {
+	private static File buildSequenceOntologyDictionary(File outputDirectory, boolean cleanDictFile,
+			SynonymType synonymType) throws IOException, OBOParseException {
 		File soCmDictFile = new File(outputDirectory, "cmDict-SO.xml");
 		if (soCmDictFile.exists()) {
 			if (cleanDictFile) {
@@ -183,7 +185,7 @@ public class ConceptMapperDictionaryFileFactory {
 		}
 		logger.info("Building dictionary file: " + soCmDictFile);
 		SequenceOntologyClassIterator soIter = new SequenceOntologyClassIterator(outputDirectory, cleanDictFile);
-		OboToDictionary.buildDictionary(soCmDictFile, soIter, null);
+		OboToDictionary.buildDictionary(soCmDictFile, soIter, null, synonymType);
 		return soCmDictFile;
 	}
 
@@ -194,8 +196,8 @@ public class ConceptMapperDictionaryFileFactory {
 	 * @throws IOException
 	 * @throws OBOParseException
 	 */
-	private static File buildProteinOntologyDictionary(File inputOboFile, File outputDirectory, boolean cleanDictFile)
-			throws IOException, OBOParseException {
+	private static File buildProteinOntologyDictionary(File inputOboFile, File outputDirectory, boolean cleanDictFile,
+			SynonymType synonymType) throws IOException, OBOParseException {
 		File prCmDictFile = new File(outputDirectory, "cmDict-PR.xml");
 		if (prCmDictFile.exists()) {
 			if (cleanDictFile) {
@@ -207,12 +209,12 @@ public class ConceptMapperDictionaryFileFactory {
 		}
 		logger.info("Building dictionary file: " + prCmDictFile);
 		ProOntologyClassIterator prIter = new ProOntologyClassIterator(inputOboFile);
-		OboToDictionary.buildDictionary(prCmDictFile, prIter, null);
+		OboToDictionary.buildDictionary(prCmDictFile, prIter, null, synonymType);
 		return prCmDictFile;
 	}
 
-	private static File buildProteinOntologyDictionary(File outputDirectory, boolean cleanDictFile) throws IOException,
-			OBOParseException {
+	private static File buildProteinOntologyDictionary(File outputDirectory, boolean cleanDictFile,
+			SynonymType synonymType) throws IOException, OBOParseException {
 		File prCmDictFile = new File(outputDirectory, "cmDict-PR.xml");
 		if (prCmDictFile.exists()) {
 			if (cleanDictFile) {
@@ -224,7 +226,7 @@ public class ConceptMapperDictionaryFileFactory {
 		}
 		logger.info("Building dictionary file: " + prCmDictFile);
 		ProOntologyClassIterator prIter = new ProOntologyClassIterator(outputDirectory, cleanDictFile);
-		OboToDictionary.buildDictionary(prCmDictFile, prIter, null);
+		OboToDictionary.buildDictionary(prCmDictFile, prIter, null, synonymType);
 		return prCmDictFile;
 	}
 
@@ -235,8 +237,8 @@ public class ConceptMapperDictionaryFileFactory {
 	 * @throws IOException
 	 * @throws OBOParseException
 	 */
-	private static File buildNcbiTaxonDictionary(File inputOboFile, File outputDirectory, boolean cleanDictFile)
-			throws IOException, OBOParseException {
+	private static File buildNcbiTaxonDictionary(File inputOboFile, File outputDirectory, boolean cleanDictFile,
+			SynonymType synonymType) throws IOException, OBOParseException {
 		File taxonCmDictFile = new File(outputDirectory, "cmDict-NCBITAXON.xml");
 		if (taxonCmDictFile.exists()) {
 			if (cleanDictFile) {
@@ -248,12 +250,12 @@ public class ConceptMapperDictionaryFileFactory {
 		}
 		logger.info("Building dictionary file: " + taxonCmDictFile);
 		NcbiTaxonomyClassIterator taxonIter = new NcbiTaxonomyClassIterator(inputOboFile);
-		OboToDictionary.buildDictionary(taxonCmDictFile, taxonIter, null);
+		OboToDictionary.buildDictionary(taxonCmDictFile, taxonIter, null, synonymType);
 		return taxonCmDictFile;
 	}
 
-	private static File buildNcbiTaxonDictionary(File outputDirectory, boolean cleanDictFile) throws IOException,
-			OBOParseException {
+	private static File buildNcbiTaxonDictionary(File outputDirectory, boolean cleanDictFile, SynonymType synonymType)
+			throws IOException, OBOParseException {
 		File taxonCmDictFile = new File(outputDirectory, "cmDict-NCBITAXON.xml");
 		if (taxonCmDictFile.exists()) {
 			if (cleanDictFile) {
@@ -265,7 +267,7 @@ public class ConceptMapperDictionaryFileFactory {
 		}
 		logger.info("Building dictionary file: " + taxonCmDictFile);
 		NcbiTaxonomyClassIterator taxonIter = new NcbiTaxonomyClassIterator(outputDirectory, cleanDictFile);
-		OboToDictionary.buildDictionary(taxonCmDictFile, taxonIter, null);
+		OboToDictionary.buildDictionary(taxonCmDictFile, taxonIter, null, synonymType);
 		return taxonCmDictFile;
 	}
 
@@ -276,8 +278,8 @@ public class ConceptMapperDictionaryFileFactory {
 	 * @throws IOException
 	 * @throws OBOParseException
 	 */
-	private static File buildCellTypeDictionary(File inputOboFile, File outputDirectory, boolean cleanDictFile)
-			throws IOException, OBOParseException {
+	private static File buildCellTypeDictionary(File inputOboFile, File outputDirectory, boolean cleanDictFile,
+			SynonymType synonymType) throws IOException, OBOParseException {
 		File clCmDictFile = new File(outputDirectory, "cmDict-CL.xml");
 		if (clCmDictFile.exists()) {
 			if (cleanDictFile) {
@@ -289,12 +291,12 @@ public class ConceptMapperDictionaryFileFactory {
 		}
 		logger.info("Building dictionary file: " + clCmDictFile);
 		CellTypeOntologyClassIterator clIter = new CellTypeOntologyClassIterator(inputOboFile);
-		OboToDictionary.buildDictionary(clCmDictFile, clIter, null);
+		OboToDictionary.buildDictionary(clCmDictFile, clIter, null, synonymType);
 		return clCmDictFile;
 	}
 
-	private static File buildCellTypeDictionary(File outputDirectory, boolean cleanDictFile) throws IOException,
-			OBOParseException {
+	private static File buildCellTypeDictionary(File outputDirectory, boolean cleanDictFile, SynonymType synonymType)
+			throws IOException, OBOParseException {
 		File clCmDictFile = new File(outputDirectory, "cmDict-CL.xml");
 		if (clCmDictFile.exists()) {
 			if (cleanDictFile) {
@@ -306,7 +308,7 @@ public class ConceptMapperDictionaryFileFactory {
 		}
 		logger.info("Building dictionary file: " + clCmDictFile);
 		CellTypeOntologyClassIterator clIter = new CellTypeOntologyClassIterator(outputDirectory, cleanDictFile);
-		OboToDictionary.buildDictionary(clCmDictFile, clIter, null);
+		OboToDictionary.buildDictionary(clCmDictFile, clIter, null, synonymType);
 		return clCmDictFile;
 	}
 
@@ -317,8 +319,8 @@ public class ConceptMapperDictionaryFileFactory {
 	 * @throws IOException
 	 * @throws OBOParseException
 	 */
-	private static File buildChebiDictionary(File inputOboFile, File outputDirectory, boolean cleanDictFile)
-			throws IOException, OBOParseException {
+	private static File buildChebiDictionary(File inputOboFile, File outputDirectory, boolean cleanDictFile,
+			SynonymType synonymType) throws IOException, OBOParseException {
 		File chebiCmDictFile = new File(outputDirectory, "cmDict-CHEBI.xml");
 		if (chebiCmDictFile.exists()) {
 			if (cleanDictFile) {
@@ -330,12 +332,12 @@ public class ConceptMapperDictionaryFileFactory {
 		}
 		logger.info("Building dictionary file: " + chebiCmDictFile);
 		ChebiOntologyClassIterator chebiIter = new ChebiOntologyClassIterator(inputOboFile);
-		OboToDictionary.buildDictionary(chebiCmDictFile, chebiIter, null);
+		OboToDictionary.buildDictionary(chebiCmDictFile, chebiIter, null, synonymType);
 		return chebiCmDictFile;
 	}
 
-	private static File buildChebiDictionary(File outputDirectory, boolean cleanDictFile) throws IOException,
-			OBOParseException {
+	private static File buildChebiDictionary(File outputDirectory, boolean cleanDictFile, SynonymType synonymType)
+			throws IOException, OBOParseException {
 		File chebiCmDictFile = new File(outputDirectory, "cmDict-CHEBI.xml");
 		if (chebiCmDictFile.exists()) {
 			if (cleanDictFile) {
@@ -347,7 +349,7 @@ public class ConceptMapperDictionaryFileFactory {
 		}
 		logger.info("Building dictionary file: " + chebiCmDictFile);
 		ChebiOntologyClassIterator chebiIter = new ChebiOntologyClassIterator(outputDirectory, cleanDictFile);
-		OboToDictionary.buildDictionary(chebiCmDictFile, chebiIter, null);
+		OboToDictionary.buildDictionary(chebiCmDictFile, chebiIter, null, synonymType);
 		return chebiCmDictFile;
 	}
 
