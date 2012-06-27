@@ -21,6 +21,7 @@ import edu.ucdenver.ccp.nlp.ext.uima.annotators.filter.ClassMentionRemovalFilter
 import edu.ucdenver.ccp.nlp.uima.pipelines.dictionarylookup.ConceptMapperDictionaryFileFactory.DictionaryNamespace;
 import edu.ucdenver.ccp.nlp.uima.pipelines.dictionarylookup.ConceptMapperPipelineCmdOpts.DictionaryParameterOperation;
 import edu.ucdenver.ccp.nlp.wrapper.conceptmapper.ConceptMapperPermutationFactory;
+import edu.ucdenver.ccp.nlp.wrapper.conceptmapper.dictionary.obo.OboToDictionary.SynonymType;
 import edu.ucdenver.ccp.nlp.wrapper.conceptmapper.typesystem.ConceptMapper2CCPTypeSystemConverter_AE;
 
 /**
@@ -249,8 +250,9 @@ public class ConceptMapperPipelineFactory {
 		 */
 		if (workDirectory != null) {
 			logger.info("Creating ConceptMapper dictionary file in " + workDirectory.getAbsolutePath());
+			SynonymType synonymType = ConceptMapperPermutationFactory.getSynonymType(parameterCombinationIndex);
 			File cmDictFile = ConceptMapperDictionaryFileFactory.createDictionaryFile(dictNamespace, workDirectory,
-					workDirectoryOp);
+					workDirectoryOp, synonymType);
 			logger.info("Concept Mapper dictionary file: " + cmDictFile);
 			cmdOptions.setDictionaryFile(cmDictFile);
 		}
