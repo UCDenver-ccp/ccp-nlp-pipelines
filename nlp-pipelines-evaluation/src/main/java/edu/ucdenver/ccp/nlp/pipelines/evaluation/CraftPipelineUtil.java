@@ -27,9 +27,9 @@ import edu.ucdenver.ccp.nlp.core.uima.util.TypeSystemUtil;
 import edu.ucdenver.ccp.nlp.ext.uima.annotators.converters.SlotValueToClassMentionPromoter_AE;
 import edu.ucdenver.ccp.nlp.ext.uima.annotators.filter.OntologyClassRemovalFilter_AE;
 import edu.ucdenver.ccp.nlp.ext.uima.collections.file.ClasspathCollectionReader;
-import edu.ucdenver.ccp.nlp.ext.uima.serialization.xmi.XmiLoaderAE;
-import edu.ucdenver.ccp.nlp.ext.uima.serialization.xmi.XmiLoaderAE.XmiFileCompressionType;
-import edu.ucdenver.ccp.nlp.ext.uima.serialization.xmi.XmiLoaderAE.XmiPathType;
+import edu.ucdenver.ccp.nlp.uima.serialization.xmi.XmiLoaderAE;
+import edu.ucdenver.ccp.nlp.uima.serialization.xmi.XmiLoaderAE.XmiFileCompressionType;
+import edu.ucdenver.ccp.nlp.uima.serialization.xmi.XmiLoaderAE.XmiPathType;
 import edu.ucdenver.ccp.nlp.ext.uima.shims.annotation.impl.CcpAnnotationDataExtractor;
 import edu.ucdenver.ccp.uima.shims.document.DocumentMetadataHandler;
 

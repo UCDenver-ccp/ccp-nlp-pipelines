@@ -64,8 +64,8 @@
 -->
 		<dependency>
 			<groupId>edu.ucdenver.ccp</groupId>
-			<artifactId>ccp-nlp-ext-uima-serialization</artifactId>
-			<version>3.0-SNAPSHOT</version>
+			<artifactId>ccp-nlp-uima-serialization</artifactId>
+			<version>3.2-SNAPSHOT</version>
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>

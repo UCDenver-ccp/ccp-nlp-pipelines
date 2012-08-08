@@ -16,7 +16,7 @@ import org.apache.uima.resource.metadata.TypeSystemDescription;
 import edu.ucdenver.ccp.common.collections.CollectionsUtil;
 import edu.ucdenver.ccp.common.file.FileUtil;
 import edu.ucdenver.ccp.common.file.FileUtil.CleanDirectory;
-import edu.ucdenver.ccp.nlp.core.mention.ClassMentionTypes;
+import edu.ucdenver.ccp.nlp.core.mention.ClassMentionType;
 import edu.ucdenver.ccp.nlp.ext.uima.annotators.filter.ClassMentionRemovalFilter_AE;
 import edu.ucdenver.ccp.nlp.uima.pipelines.dictionarylookup.ConceptMapperDictionaryFileFactory.DictionaryNamespace;
 import edu.ucdenver.ccp.nlp.uima.pipelines.dictionarylookup.ConceptMapperPipelineCmdOpts.DictionaryParameterOperation;
@@ -108,7 +108,7 @@ public class ConceptMapperPipelineFactory {
 
 		/* Removes all token annotations as we don't want them to be output as RDF */
 		AnalysisEngineDescription tokenRemovalDesc = ClassMentionRemovalFilter_AE.createAnalysisEngineDescription(tsd,
-				new String[] { ClassMentionTypes.TOKEN });
+				new String[] { ClassMentionType.TOKEN.typeName() });
 
 		/* @formatter:off */
 		return CollectionsUtil.createList(

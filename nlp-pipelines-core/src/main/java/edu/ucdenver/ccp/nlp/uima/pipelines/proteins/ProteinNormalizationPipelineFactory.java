@@ -15,7 +15,7 @@ import edu.ucdenver.ccp.nlp.ext.uima.annotators.converters.SlotValueToClassMenti
 import edu.ucdenver.ccp.nlp.ext.uima.annotators.entitynormalization.protein.ProOntologyProteinNormalization_AAE;
 import edu.ucdenver.ccp.nlp.ext.uima.annotators.entitynormalization.protein.ProTermDisambiguatorAE;
 import edu.ucdenver.ccp.nlp.ext.uima.annotators.filter.ClassMentionRemovalFilter_AE;
-import edu.ucdenver.ccp.nlp.ext.uima.shims.annotation.entity.bio.impl.CcpGeneIdAnnotationDecorator;
+import edu.ucdenver.ccp.nlp.uima.shims.annotation.entity.bio.impl.CcpGeneIdAnnotationDecorator;
 
 public class ProteinNormalizationPipelineFactory {
 

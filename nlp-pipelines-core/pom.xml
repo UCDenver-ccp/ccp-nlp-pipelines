@@ -21,7 +21,17 @@
 		<dependency>
 			<groupId>edu.ucdenver.ccp</groupId>
 			<artifactId>ccp-nlp-ext-uima-annotators-entitynormalization</artifactId>
-			<version>3.0-SNAPSHOT</version>
+			<version>3.2-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>edu.ucdenver.ccp</groupId>
+			<artifactId>ccp-nlp-core</artifactId>
+			<version>3.2-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>edu.ucdenver.ccp</groupId>
+			<artifactId>ccp-nlp-uima-shims-internal</artifactId>
+			<version>3.2-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
 
