@@ -30,7 +30,8 @@ import edu.ucdenver.ccp.nlp.ext.uima.collections.file.ClasspathCollectionReader;
 import edu.ucdenver.ccp.nlp.uima.serialization.xmi.XmiLoaderAE;
 import edu.ucdenver.ccp.nlp.uima.serialization.xmi.XmiLoaderAE.XmiFileCompressionType;
 import edu.ucdenver.ccp.nlp.uima.serialization.xmi.XmiLoaderAE.XmiPathType;
-import edu.ucdenver.ccp.nlp.ext.uima.shims.annotation.impl.CcpAnnotationDataExtractor;
+//import edu.ucdenver.ccp.nlp.ext.uima.shims.annotation.impl.CcpAnnotationDataExtractor;
+import edu.ucdenver.ccp.nlp.uima.shims.annotation.impl.CcpAnnotationDataExtractor;
 import edu.ucdenver.ccp.uima.shims.document.DocumentMetadataHandler;
 
 /**
@@ -201,7 +202,8 @@ public class CraftPipelineUtil {
 
 		if (annotFilterOp.equals(CraftAnnotationFilterOp.REMOVE_GO_BP)) {
 			File oboFile = getGoOboFileReference();
-			descList.add(OntologyClassRemovalFilter_AE.getDescription(tsd, CcpAnnotationDataExtractor.class,
+			descList.add(OntologyClassRemovalFilter_AE.getDescription(
+				tsd, CcpAnnotationDataExtractor.class,
 					GO_BP_ROOT_ID, oboFile, CharacterEncoding.UTF_8));
 		} else if (annotFilterOp.equals(CraftAnnotationFilterOp.REMOVE_GO_MF)) {
 			File oboFile = getGoOboFileReference();
