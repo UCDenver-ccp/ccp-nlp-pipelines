@@ -45,6 +45,7 @@ public class CraftPipelineUtil {
 	private static final String ORGANISM_TAXONOMY_ID_SLOT_NAME = "taxonomy ID";
 	private static final String GO_BP_ROOT_ID = "GO:0008150";
 	private static final String GO_MF_ROOT_ID = "GO:0003674";
+	private static final String GO_CC_ROOT_ID = "GO:0005575";
 
 	public static final String CHEBI_OBO_PATH = "/craft/ontologies/CHEBI.obo.gz";
 	public static final String CL_OBO_PATH = "/craft/ontologies/CL.obo.gz";
@@ -157,6 +158,9 @@ public class CraftPipelineUtil {
 	public enum CraftAnnotationFilterOp {
 		REMOVE_GO_BP,
 		REMOVE_GO_MF,
+		REMOVE_GO_BPMF,
+		REMOVE_GO_CCMF,
+		REMOVE_GO_CCBP,
 		NONE
 	}
 
@@ -209,6 +213,24 @@ public class CraftPipelineUtil {
 			File oboFile = getGoOboFileReference();
 			descList.add(OntologyClassRemovalFilter_AE.getDescription(tsd, CcpAnnotationDataExtractor.class,
 					GO_MF_ROOT_ID, oboFile, CharacterEncoding.UTF_8));
+		} else if (annotFilterOp.equals(CraftAnnotationFilterOp.REMOVE_GO_BPMF)) {
+			File oboFile = getGoOboFileReference();
+			descList.add(OntologyClassRemovalFilter_AE.getDescription(tsd, CcpAnnotationDataExtractor.class,
+					GO_BP_ROOT_ID, oboFile, CharacterEncoding.UTF_8));
+			descList.add(OntologyClassRemovalFilter_AE.getDescription(tsd, CcpAnnotationDataExtractor.class,
+					GO_MF_ROOT_ID, oboFile, CharacterEncoding.UTF_8));
+		} else if (annotFilterOp.equals(CraftAnnotationFilterOp.REMOVE_GO_CCMF)) {
+			File oboFile = getGoOboFileReference();
+			descList.add(OntologyClassRemovalFilter_AE.getDescription(tsd, CcpAnnotationDataExtractor.class,
+					GO_CC_ROOT_ID, oboFile, CharacterEncoding.UTF_8));
+			descList.add(OntologyClassRemovalFilter_AE.getDescription(tsd, CcpAnnotationDataExtractor.class,
+					GO_MF_ROOT_ID, oboFile, CharacterEncoding.UTF_8));
+		} else if(annotFilterOp.equals(CraftAnnotationFilterOp.REMOVE_GO_CCBP)) {
+			File oboFile = getGoOboFileReference();
+			descList.add(OntologyClassRemovalFilter_AE.getDescription(tsd, CcpAnnotationDataExtractor.class,
+					GO_CC_ROOT_ID, oboFile, CharacterEncoding.UTF_8));
+			descList.add(OntologyClassRemovalFilter_AE.getDescription(tsd, CcpAnnotationDataExtractor.class,
+					GO_BP_ROOT_ID, oboFile, CharacterEncoding.UTF_8));
 		}
 		return descList;
 	}
