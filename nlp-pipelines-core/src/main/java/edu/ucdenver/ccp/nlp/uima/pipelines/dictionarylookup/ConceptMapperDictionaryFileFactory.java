@@ -12,12 +12,11 @@ import org.geneontology.oboedit.dataadapter.OBOParseException;
 
 import edu.ucdenver.ccp.common.file.FileUtil;
 import edu.ucdenver.ccp.common.file.FileUtil.CleanDirectory;
+import edu.ucdenver.ccp.datasource.fileparsers.pro.ProOntologyClassIterator;
 import edu.ucdenver.ccp.fileparsers.ncbi.taxonomy.NcbiTaxonomyClassIterator;
 import edu.ucdenver.ccp.fileparsers.obo.CellTypeOntologyClassIterator;
 import edu.ucdenver.ccp.fileparsers.obo.ChebiOntologyClassIterator;
 import edu.ucdenver.ccp.fileparsers.obo.SequenceOntologyClassIterator;
-import edu.ucdenver.ccp.fileparsers.pro.ProOntologyClassIterator;
-import edu.ucdenver.ccp.nlp.uima.pipelines.dictionarylookup.ConceptMapperDictionaryFileFactory.DictionaryNamespace;
 import edu.ucdenver.ccp.nlp.wrapper.conceptmapper.dictionary.eg.EntrezGeneDictionaryFactory;
 import edu.ucdenver.ccp.nlp.wrapper.conceptmapper.dictionary.obo.GoDictionaryFactory;
 import edu.ucdenver.ccp.nlp.wrapper.conceptmapper.dictionary.obo.GoDictionaryFactory.GoNamespace;

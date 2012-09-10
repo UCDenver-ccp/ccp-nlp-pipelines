@@ -12,7 +12,7 @@ import org.uimafit.factory.AnalysisEngineFactory;
 
 import edu.ucdenver.ccp.common.collections.CollectionsUtil;
 import edu.ucdenver.ccp.nlp.ext.uima.annotators.entitydetection.snp.SnpIdDetector_AAE;
-import edu.ucdenver.ccp.nlp.ext.uima.annotators.filter.ClassMentionRemovalFilter_AE;
+import edu.ucdenver.ccp.nlp.uima.annotators.filter.ClassMentionRemovalFilter_AE;
 import edu.ucdenver.ccp.nlp.uima.pipelines.PipelineCmdOptsBase;
 
 /**

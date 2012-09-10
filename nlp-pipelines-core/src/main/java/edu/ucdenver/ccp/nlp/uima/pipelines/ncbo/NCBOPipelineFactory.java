@@ -13,9 +13,9 @@ import org.apache.uima.analysis_engine.AnalysisEngineDescription;
 import org.apache.uima.resource.metadata.TypeSystemDescription;
 
 import edu.ucdenver.ccp.common.collections.CollectionsUtil;
+import edu.ucdenver.ccp.nlp.uima.serialization.xmi.XmiPrinterAE;
+import edu.ucdenver.ccp.nlp.uima.shims.document.impl.CcpDocumentMetadataHandler;
 import edu.ucdenver.ccp.nlp.wrapper.ncbo.annotator.NCBOPermutationFactory;
-import edu.ucdenver.ccp.nlp.ext.uima.serialization.xmi.XmiPrinterAE;
-import edu.ucdenver.ccp.nlp.ext.uima.shims.document.impl.CcpDocumentMetaDataExtractor;
 
 public class NCBOPipelineFactory {
 	
@@ -28,7 +28,7 @@ public class NCBOPipelineFactory {
 			buildNCBOAggregatePermutation(parameterValuesIndex, tsd, ontId);
 		
 		AnalysisEngineDescription XmiPrinter = XmiPrinterAE
-			.getDescription(tsd, CcpDocumentMetaDataExtractor.class, outputDir);
+			.getDescription(tsd, CcpDocumentMetadataHandler.class, outputDir);
 		
 		return CollectionsUtil.createList(
 				NCBOAggregateDesc,

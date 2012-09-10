@@ -3,8 +3,6 @@
  */
 package edu.ucdenver.ccp.nlp.pipelines.evaluation.craft;
 
-import static org.junit.Assert.assertTrue;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -28,7 +26,6 @@ import edu.ucdenver.ccp.nlp.ext.uima.annotators.comparison.AnnotationComparator_
 import edu.ucdenver.ccp.nlp.ext.uima.annotators.comparison.AnnotationComparator_AE.SpanComparatorType;
 import edu.ucdenver.ccp.nlp.ext.uima.annotators.sentencedetectors.ExplicitSentenceCasInserter;
 import edu.ucdenver.ccp.nlp.ext.uima.annotators.sentencedetectors.LingPipeSentenceDetector_AE;
-import edu.ucdenver.ccp.nlp.ext.uima.shims.document.impl.CcpDocumentMetaDataExtractor;
 import edu.ucdenver.ccp.nlp.pipelines.evaluation.CraftEvaluationPipeline;
 import edu.ucdenver.ccp.nlp.pipelines.evaluation.CraftPipelineUtil.CraftAnnotationFilterOp;
 import edu.ucdenver.ccp.nlp.pipelines.evaluation.CraftPipelineUtil.CraftConceptType;
@@ -197,28 +194,28 @@ public class CraftConceptMapperEvaluations extends DefaultTestCase {
 	private void runConceptMapperEvaluationAgainstCraft(EnumSet<CraftConceptType> craftConceptTypes,
 			List<AnalysisEngineDescription> conceptMapperDescriptions, TypeSystemDescription tsd) throws UIMAException,
 			IOException {
-		Collection<String> annotationTypeRegexes = new ArrayList<String>();
-		/*
-		 * Collect regular expressions used to identify concepts for the specified
-		 * CraftConceptTypes. For example, CHEBI:\\d+ is used to identify terms from the CHEBI
-		 * ontology
-		 */
-		for (CraftConceptType conceptType : craftConceptTypes) {
-			annotationTypeRegexes.addAll(conceptType.conceptTypeRegexes());
-		}
-		CraftEvaluationPipeline evalPipeline = new CraftEvaluationPipeline(CRAFT_VERSION, craftConceptTypes, tsd,
-				SpanComparatorType.STRICT, MentionComparatorType.IDENTICAL, CcpDocumentMetaDataExtractor.class,
-				annotationTypeRegexes, CraftAnnotationFilterOp.NONE);
-
-		// File evalResultsFile = folder.newFile("evalResults.out");
-		// evalPipeline.setEvalResultsOutputFile(evalResultsFile);
-
-		AnalysisEngineDescription sentenceDetectorDesc = getSentenceDetectorDescription(tsd);
-		evalPipeline.addPipelineComponent(sentenceDetectorDesc);
-		evalPipeline.addPipelineComponents(conceptMapperDescriptions);
-		evalPipeline.run();
-
-		// assertTrue(evalResultsFile.exists());
+//		Collection<String> annotationTypeRegexes = new ArrayList<String>();
+//		/*
+//		 * Collect regular expressions used to identify concepts for the specified
+//		 * CraftConceptTypes. For example, CHEBI:\\d+ is used to identify terms from the CHEBI
+//		 * ontology
+//		 */
+//		for (CraftConceptType conceptType : craftConceptTypes) {
+//			annotationTypeRegexes.addAll(conceptType.conceptTypeRegexes());
+//		}
+//		CraftEvaluationPipeline evalPipeline = new CraftEvaluationPipeline(CRAFT_VERSION, craftConceptTypes, tsd,
+//				SpanComparatorType.STRICT, MentionComparatorType.IDENTICAL, CcpDocumentMetaDataExtractor.class,
+//				annotationTypeRegexes, CraftAnnotationFilterOp.NONE);
+//
+//		// File evalResultsFile = folder.newFile("evalResults.out");
+//		// evalPipeline.setEvalResultsOutputFile(evalResultsFile);
+//
+//		AnalysisEngineDescription sentenceDetectorDesc = getSentenceDetectorDescription(tsd);
+//		evalPipeline.addPipelineComponent(sentenceDetectorDesc);
+//		evalPipeline.addPipelineComponents(conceptMapperDescriptions);
+//		evalPipeline.run();
+//
+//		// assertTrue(evalResultsFile.exists());
 	}
 
 	/**

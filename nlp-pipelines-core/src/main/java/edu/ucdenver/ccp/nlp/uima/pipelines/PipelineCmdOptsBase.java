@@ -2,7 +2,6 @@ package edu.ucdenver.ccp.nlp.uima.pipelines;
 
 import java.io.File;
 
-import org.kohsuke.args4j.Argument;
 import org.kohsuke.args4j.Option;
 
 public class PipelineCmdOptsBase {
