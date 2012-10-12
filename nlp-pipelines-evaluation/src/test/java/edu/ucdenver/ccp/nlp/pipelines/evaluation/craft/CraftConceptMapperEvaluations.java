@@ -22,18 +22,18 @@ import org.uimafit.factory.TypeSystemDescriptionFactory;
 
 import edu.ucdenver.ccp.common.file.FileUtil.CleanDirectory;
 import edu.ucdenver.ccp.common.test.DefaultTestCase;
+import edu.ucdenver.ccp.craft.CraftConceptType;
+import edu.ucdenver.ccp.craft.CraftRelease;
 import edu.ucdenver.ccp.nlp.ext.uima.annotators.comparison.AnnotationComparator_AE.MentionComparatorType;
 import edu.ucdenver.ccp.nlp.ext.uima.annotators.comparison.AnnotationComparator_AE.SpanComparatorType;
 import edu.ucdenver.ccp.nlp.ext.uima.annotators.sentencedetectors.ExplicitSentenceCasInserter;
 import edu.ucdenver.ccp.nlp.ext.uima.annotators.sentencedetectors.LingPipeSentenceDetector_AE;
 import edu.ucdenver.ccp.nlp.pipelines.evaluation.CraftEvaluationPipeline;
-import edu.ucdenver.ccp.nlp.pipelines.evaluation.CraftPipelineUtil.CraftAnnotationFilterOp;
-import edu.ucdenver.ccp.nlp.pipelines.evaluation.CraftPipelineUtil.CraftConceptType;
-import edu.ucdenver.ccp.nlp.pipelines.evaluation.CraftPipelineUtil.CraftVersion;
 import edu.ucdenver.ccp.nlp.pipelines.evaluation.PipelineEvaluation;
 import edu.ucdenver.ccp.nlp.uima.pipelines.dictionarylookup.ConceptMapperPipelineCmdOpts;
 import edu.ucdenver.ccp.nlp.uima.pipelines.dictionarylookup.ConceptMapperPipelineCmdOpts.DictionaryParameterOperation;
 import edu.ucdenver.ccp.nlp.uima.pipelines.dictionarylookup.ConceptMapperPipelineFactory;
+import edu.ucdenver.ccp.nlp.uima.util.TypeSystemUtil;
 
 /**
  * @author Colorado Computational Pharmacology, UC Denver; ccpsupport@ucdenver.edu
@@ -45,7 +45,7 @@ public class CraftConceptMapperEvaluations extends DefaultTestCase {
 	/**
 	 * 
 	 */
-	private static final CraftVersion CRAFT_VERSION = CraftVersion.RELEASE;
+	private static final CraftRelease CRAFT_VERSION = CraftRelease.MAIN;
 
 	// return
 	// TypeSystemDescriptionFactory.createTypeSystemDescription("edu.ucdenver.ccp.nlp.core.uima.TypeSystem",
@@ -77,7 +77,7 @@ public class CraftConceptMapperEvaluations extends DefaultTestCase {
 	@Test
 	public void evaluateCmClPipelineAgainstCraft() throws UIMAException, IOException {
 		EnumSet<CraftConceptType> craftConceptTypes = EnumSet.of(CraftConceptType.CL);
-		TypeSystemDescription tsd = createConceptMapperTypeSystem(craftConceptTypes);
+		TypeSystemDescription tsd = createConceptMapperTypeSystem();
 		List<AnalysisEngineDescription> cmPipelineDescs = ConceptMapperPipelineFactory
 				.getCellTypePipelineAeDescriptions(tsd, cmdOptions, DictionaryParameterOperation.TREAT_AS_DIRECTORY,
 						CleanDirectory.YES, 0);
@@ -93,8 +93,8 @@ public class CraftConceptMapperEvaluations extends DefaultTestCase {
 	@Ignore
 	@Test
 	public void evaluateCmGoCcPipelineAgainstCraft() throws UIMAException, IOException {
-		EnumSet<CraftConceptType> craftConceptTypes = EnumSet.of(CraftConceptType.GO_CC);
-		TypeSystemDescription tsd = createConceptMapperTypeSystem(craftConceptTypes);
+		EnumSet<CraftConceptType> craftConceptTypes = EnumSet.of(CraftConceptType.GOCC);
+		TypeSystemDescription tsd = createConceptMapperTypeSystem();
 		List<AnalysisEngineDescription> cmPipelineDescs = ConceptMapperPipelineFactory.getGoCcPipelineAeDescriptions(
 				tsd, cmdOptions, DictionaryParameterOperation.TREAT_AS_DIRECTORY, CleanDirectory.YES, 0);
 		runConceptMapperEvaluationAgainstCraft(craftConceptTypes, cmPipelineDescs, tsd);
@@ -127,7 +127,7 @@ public class CraftConceptMapperEvaluations extends DefaultTestCase {
 	@Test
 	public void evaluateCmChebiPipelineAgainstCraft() throws UIMAException, IOException {
 		EnumSet<CraftConceptType> craftConceptTypes = EnumSet.of(CraftConceptType.CHEBI);
-		TypeSystemDescription tsd = createConceptMapperTypeSystem(craftConceptTypes);
+		TypeSystemDescription tsd = createConceptMapperTypeSystem();
 		List<AnalysisEngineDescription> cmPipelineDescs = ConceptMapperPipelineFactory.getChebiPipelineAeDescriptions(
 				tsd, cmdOptions, DictionaryParameterOperation.TREAT_AS_DIRECTORY, CleanDirectory.YES, 0);
 		runConceptMapperEvaluationAgainstCraft(craftConceptTypes, cmPipelineDescs, tsd);
@@ -142,7 +142,7 @@ public class CraftConceptMapperEvaluations extends DefaultTestCase {
 	@Test
 	public void evaluateCmNcbiTaxonPipelineAgainstCraft() throws UIMAException, IOException {
 		EnumSet<CraftConceptType> craftConceptTypes = EnumSet.of(CraftConceptType.NCBITAXON);
-		TypeSystemDescription tsd = createConceptMapperTypeSystem(craftConceptTypes);
+		TypeSystemDescription tsd = createConceptMapperTypeSystem();
 		cmdOptions.setDictionaryFile(new File("/tmp/cm/cmDict-NCBITAXON.xml"));
 		List<AnalysisEngineDescription> cmPipelineDescs = ConceptMapperPipelineFactory
 				.getNcbiTaxonPipelineAeDescriptions(tsd, cmdOptions, DictionaryParameterOperation.USE,
@@ -159,8 +159,8 @@ public class CraftConceptMapperEvaluations extends DefaultTestCase {
 	@Ignore
 	@Test
 	public void evaluateCmProteinOntologyPipelineAgainstCraft() throws UIMAException, IOException {
-		EnumSet<CraftConceptType> craftConceptTypes = EnumSet.of(CraftConceptType.PRO);
-		TypeSystemDescription tsd = createConceptMapperTypeSystem(craftConceptTypes);
+		EnumSet<CraftConceptType> craftConceptTypes = EnumSet.of(CraftConceptType.PR);
+		TypeSystemDescription tsd = createConceptMapperTypeSystem();
 		List<AnalysisEngineDescription> cmPipelineDescs = ConceptMapperPipelineFactory
 				.getProteinOntologyPipelineAeDescriptions(tsd, cmdOptions,
 						DictionaryParameterOperation.TREAT_AS_DIRECTORY, CleanDirectory.YES, 0);
@@ -177,7 +177,7 @@ public class CraftConceptMapperEvaluations extends DefaultTestCase {
 	@Test
 	public void evaluateCmSoPipelineAgainstCraft() throws UIMAException, IOException {
 		EnumSet<CraftConceptType> craftConceptTypes = EnumSet.of(CraftConceptType.SO);
-		TypeSystemDescription tsd = createConceptMapperTypeSystem(craftConceptTypes);
+		TypeSystemDescription tsd = createConceptMapperTypeSystem();
 		List<AnalysisEngineDescription> cmPipelineDescs = ConceptMapperPipelineFactory
 				.getSequenceOntologyPipelineAeDescriptions(tsd, cmdOptions,
 						DictionaryParameterOperation.TREAT_AS_DIRECTORY, CleanDirectory.YES, 0);
@@ -194,28 +194,28 @@ public class CraftConceptMapperEvaluations extends DefaultTestCase {
 	private void runConceptMapperEvaluationAgainstCraft(EnumSet<CraftConceptType> craftConceptTypes,
 			List<AnalysisEngineDescription> conceptMapperDescriptions, TypeSystemDescription tsd) throws UIMAException,
 			IOException {
-//		Collection<String> annotationTypeRegexes = new ArrayList<String>();
-//		/*
-//		 * Collect regular expressions used to identify concepts for the specified
-//		 * CraftConceptTypes. For example, CHEBI:\\d+ is used to identify terms from the CHEBI
-//		 * ontology
-//		 */
-//		for (CraftConceptType conceptType : craftConceptTypes) {
-//			annotationTypeRegexes.addAll(conceptType.conceptTypeRegexes());
-//		}
-//		CraftEvaluationPipeline evalPipeline = new CraftEvaluationPipeline(CRAFT_VERSION, craftConceptTypes, tsd,
-//				SpanComparatorType.STRICT, MentionComparatorType.IDENTICAL, CcpDocumentMetaDataExtractor.class,
-//				annotationTypeRegexes, CraftAnnotationFilterOp.NONE);
-//
-//		// File evalResultsFile = folder.newFile("evalResults.out");
-//		// evalPipeline.setEvalResultsOutputFile(evalResultsFile);
-//
-//		AnalysisEngineDescription sentenceDetectorDesc = getSentenceDetectorDescription(tsd);
-//		evalPipeline.addPipelineComponent(sentenceDetectorDesc);
-//		evalPipeline.addPipelineComponents(conceptMapperDescriptions);
-//		evalPipeline.run();
-//
-//		// assertTrue(evalResultsFile.exists());
+		Collection<String> annotationTypeRegexes = new ArrayList<String>();
+		/*
+		 * Collect regular expressions used to identify concepts for the specified
+		 * CraftConceptTypes. For example, CHEBI:\\d+ is used to identify terms from the CHEBI
+		 * ontology
+		 */
+		for (CraftConceptType conceptType : craftConceptTypes) {
+			annotationTypeRegexes.addAll(conceptType.conceptTypeRegexes());
+		}
+		CraftEvaluationPipeline evalPipeline = new CraftEvaluationPipeline(CRAFT_VERSION, craftConceptTypes, tsd,
+				SpanComparatorType.STRICT, MentionComparatorType.IDENTICAL,
+				annotationTypeRegexes);
+
+		// File evalResultsFile = folder.newFile("evalResults.out");
+		// evalPipeline.setEvalResultsOutputFile(evalResultsFile);
+
+		AnalysisEngineDescription sentenceDetectorDesc = getSentenceDetectorDescription(tsd);
+		evalPipeline.addPipelineComponent(sentenceDetectorDesc);
+		evalPipeline.addPipelineComponents(conceptMapperDescriptions);
+		evalPipeline.run();
+
+		// assertTrue(evalResultsFile.exists());
 	}
 
 	/**
@@ -232,8 +232,9 @@ public class CraftConceptMapperEvaluations extends DefaultTestCase {
 	 * @param craftConceptTypes
 	 * @return the {@link TypeSystemDescription} cased on the input {@link CraftConceptType} set
 	 */
-	private static TypeSystemDescription createConceptMapperTypeSystem(EnumSet<CraftConceptType> craftConceptTypes) {
-		Collection<String> typeSystemStrs = new ArrayList<String>(CraftConceptType.getTypeSystemStrs(craftConceptTypes));
+	private static TypeSystemDescription createConceptMapperTypeSystem() {
+		Collection<String> typeSystemStrs = new ArrayList<String>();
+		typeSystemStrs.add(TypeSystemUtil.CCP_TYPE_SYSTEM);
 		typeSystemStrs.add(SENTENCE_DETECTOR_TYPE_SYSTEM_STR);
 		typeSystemStrs.addAll(ConceptMapperPipelineFactory.CONCEPTMAPPER_TYPE_SYSTEM_STRS);
 		TypeSystemDescription tsd = TypeSystemDescriptionFactory.createTypeSystemDescription(typeSystemStrs
