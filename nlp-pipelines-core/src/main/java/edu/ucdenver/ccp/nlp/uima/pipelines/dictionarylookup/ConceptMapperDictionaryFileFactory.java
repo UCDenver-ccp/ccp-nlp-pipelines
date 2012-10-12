@@ -17,6 +17,7 @@ import edu.ucdenver.ccp.fileparsers.ncbi.taxonomy.NcbiTaxonomyClassIterator;
 import edu.ucdenver.ccp.fileparsers.obo.CellTypeOntologyClassIterator;
 import edu.ucdenver.ccp.fileparsers.obo.ChebiOntologyClassIterator;
 import edu.ucdenver.ccp.fileparsers.obo.SequenceOntologyClassIterator;
+import edu.ucdenver.ccp.nlp.uima.pipelines.dictionarylookup.ConceptMapperDictionaryFileFactory.DictionaryNamespace;
 import edu.ucdenver.ccp.nlp.wrapper.conceptmapper.dictionary.eg.EntrezGeneDictionaryFactory;
 import edu.ucdenver.ccp.nlp.wrapper.conceptmapper.dictionary.obo.GoDictionaryFactory;
 import edu.ucdenver.ccp.nlp.wrapper.conceptmapper.dictionary.obo.GoDictionaryFactory.GoNamespace;
@@ -37,7 +38,6 @@ public class ConceptMapperDictionaryFileFactory {
 		GO_CC,
 		GO_MF,
 		GO_BP,
-		GO_BPMF,
 		CL,
 		CHEBI,
 		NCBI_TAXON,
@@ -69,9 +69,6 @@ public class ConceptMapperDictionaryFileFactory {
 			case GO_MF:
 				return GoDictionaryFactory.buildConceptMapperDictionary(EnumSet.of(GoNamespace.MF), outputDirectory,
 						outputDirectoryOp, synonymType);
-			case GO_BPMF:
-				return GoDictionaryFactory.buildConceptMapperDictionary(EnumSet.of(GoNamespace.MF, GoNamespace.BP),
-						outputDirectory, outputDirectoryOp, synonymType);
 			case CHEBI:
 				return buildChebiDictionary(outputDirectory, cleanDictFile, synonymType);
 			case CL:
@@ -120,9 +117,6 @@ public class ConceptMapperDictionaryFileFactory {
 			case GO_MF:
 				return GoDictionaryFactory.buildConceptMapperDictionary(EnumSet.of(GoNamespace.MF), inputFile,
 						outputDirectory, cleanDictFile, synonymType);
-			case GO_BPMF:
-				return GoDictionaryFactory.buildConceptMapperDictionary(EnumSet.of(GoNamespace.MF, GoNamespace.BP),
-						inputFile, outputDirectory, cleanDictFile, synonymType);
 			case CHEBI:
 				return buildChebiDictionary(inputFile, outputDirectory, cleanDictFile, synonymType);
 			case CL:
