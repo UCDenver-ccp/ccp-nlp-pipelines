@@ -48,7 +48,7 @@ public class CraftEvaluationPipeline extends EvaluationPipeline {
 	 *         initialized to include the {@link CraftConceptType}s noted in the input
 	 * @throws ResourceInitializationException
 	 */
-	private static CollectionReader getCraftCollectionReader(CraftRelease craftRelease,
+	public static CollectionReader getCraftCollectionReader(CraftRelease craftRelease,
 			Set<CraftConceptType> conceptTypesToLoad) throws ResourceInitializationException {
 		CollectionReaderDescription crDesc = CcpCraftCollectionReader.getDescription(craftRelease, conceptTypesToLoad);
 		return CollectionReaderFactory.createCollectionReader(crDesc);
