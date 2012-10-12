@@ -20,12 +20,20 @@ public class ProteinNormalizationPipelineCmdOpts extends PipelineCmdOptsBase {
 	public File getProDictionaryDirectory() {
 		return new File(proDictionaryDirectory);
 	}
+	
+	public void setProDictionaryDirectory(File dictionaryDirectory) {
+		this.proDictionaryDirectory = dictionaryDirectory.getAbsolutePath();
+	}
 
 	/**
 	 * @return the proOboFile
 	 */
 	public File getProOboFile() {
 		return new File(proOboFile);
+	}
+	
+	public void setProOboFile(File proOboFile) {
+		this.proOboFile = proOboFile.getAbsolutePath();
 	}
 
 	/* (non-Javadoc)
