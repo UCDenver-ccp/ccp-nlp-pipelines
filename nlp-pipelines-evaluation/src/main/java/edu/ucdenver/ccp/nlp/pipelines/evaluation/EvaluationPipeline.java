@@ -23,6 +23,8 @@ import edu.ucdenver.ccp.nlp.ext.uima.annotators.comparison.AnnotationGroup;
 import edu.ucdenver.ccp.nlp.ext.uima.annotators.comparison.SimpleAnnotationComparator_AE;
 import edu.ucdenver.ccp.nlp.ext.uima.annotators.converters.AnnotationSetOverrider_AE;
 import edu.ucdenver.ccp.nlp.ext.uima.annotators.converters.AnnotatorOverrider_AE;
+import edu.ucdenver.ccp.nlp.ext.uima.annotators.filter.SlotRemovalFilter_AE;
+import edu.ucdenver.ccp.nlp.ext.uima.annotators.filter.SlotRemovalFilter_AE.SlotRemovalOption;
 
 /**
  * Generic class representing a simple NLP component evaluation pipeline.
@@ -31,6 +33,23 @@ import edu.ucdenver.ccp.nlp.ext.uima.annotators.converters.AnnotatorOverrider_AE
  * 
  */
 public class EvaluationPipeline {
+
+	/**
+	 * Allows specific handling of slot mentions during annotation comparison
+	 * 
+	 * @author Colorado Computational Pharmacology, UC Denver; ccpsupport@ucdenver.edu
+	 * 
+	 */
+	public enum SlotHandling {
+		/**
+		 * Remove all slot mentions
+		 */
+		REMOVE_ALL,
+		/**
+		 * No Operation, i.e. do nothing
+		 */
+		NOP
+	}
 
 	private final SpanComparatorType spanComparatorType;
 	private final MentionComparatorType mentionComparatorType;
@@ -96,15 +115,20 @@ public class EvaluationPipeline {
 	 * Adds components that apply the proper annotation set IDs and annotator IDs, as well as the
 	 * component that will do the actual comparison
 	 * 
+	 * @param slotRemovalOption
+	 *            allows specific handling of slot mentions prior to annotation comparison, valid
+	 *            options are {@link SlotRemovalOption#REMOVE_ALL},
+	 *            {@link SlotRemovalOption#REMOVE_PRIMITIVE},
+	 *            {@link SlotRemovalOption#REMOVE_COMPLEX}, or null to leave the slots as they are.
 	 * @throws UIMAException
 	 * @throws IOException
 	 */
-	public void run() throws UIMAException, IOException {
+	public void run(SlotRemovalOption slotRemovalOption) throws UIMAException, IOException {
 		List<AnalysisEngineDescription> aeDescs = new ArrayList<AnalysisEngineDescription>();
 		aeDescs.addAll(goldStandardAnnotationLoaderDescriptions);
 		aeDescs.addAll(getGoldStandardAnnotationAssignerAes());
 		aeDescs.addAll(pipelineToEvaluate);
-		aeDescs.addAll(getAnnotationComparisonComponents());
+		aeDescs.addAll(getAnnotationComparisonComponents(slotRemovalOption));
 		SimplePipeline.runPipeline(collectionReader, aeDescs.toArray(new AnalysisEngineDescription[aeDescs.size()]));
 	}
 
@@ -128,10 +152,14 @@ public class EvaluationPipeline {
 	/**
 	 * Set up for strict comparison currently.
 	 * 
+	 * @param slotRemovalOption
+	 *            allows specific handling of slot mentions prior to annotation comparison
+	 * 
 	 * @return
 	 * @throws ResourceInitializationException
 	 */
-	private List<AnalysisEngineDescription> getAnnotationComparisonComponents() throws ResourceInitializationException {
+	private List<AnalysisEngineDescription> getAnnotationComparisonComponents(SlotRemovalOption slotRemovalOption)
+			throws ResourceInitializationException {
 
 		/* Assign all non-gold annotations to the eval annotator */
 		AnalysisEngineDescription evalAnnotatorOverriderDescription = AnnotatorOverrider_AE
@@ -154,7 +182,15 @@ public class EvaluationPipeline {
 				.createAnalysisEngineDescription(tsd, spanComparatorType, mentionComparatorType, evalResultsOutputFile,
 						goldGroup, evalGroup);
 
-		return CollectionsUtil.createList(evalAnnotatorOverriderDescription, evalAnnotationSetOverriderDescription,
-				annotationComparatorDescription);
+		List<AnalysisEngineDescription> aeList = new ArrayList<AnalysisEngineDescription>();
+		if (slotRemovalOption != null) {
+			aeList.add(SlotRemovalFilter_AE.getDescription(tsd, slotRemovalOption));
+		}
+
+		aeList.add(evalAnnotatorOverriderDescription);
+		aeList.add(evalAnnotationSetOverriderDescription);
+		aeList.add(annotationComparatorDescription);
+
+		return aeList;
 	}
 }

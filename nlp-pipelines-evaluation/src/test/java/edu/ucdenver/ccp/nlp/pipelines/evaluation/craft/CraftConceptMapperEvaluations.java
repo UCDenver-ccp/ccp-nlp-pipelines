@@ -213,7 +213,7 @@ public class CraftConceptMapperEvaluations extends DefaultTestCase {
 		AnalysisEngineDescription sentenceDetectorDesc = getSentenceDetectorDescription(tsd);
 		evalPipeline.addPipelineComponent(sentenceDetectorDesc);
 		evalPipeline.addPipelineComponents(conceptMapperDescriptions);
-		evalPipeline.run();
+		evalPipeline.run(null);
 
 		// assertTrue(evalResultsFile.exists());
 	}
