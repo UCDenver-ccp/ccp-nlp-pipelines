@@ -36,4 +36,14 @@ public class NCBOPipelineFactory {
 	
 	}
 	
+	public static AnalysisEngineDescription getPipelineAeDescriptions(TypeSystemDescription tsd,
+			int parameterValuesIndex, String [] ontId) throws UIMAException, IOException {
+		
+		AnalysisEngineDescription NCBOAggregateDesc = NCBOPermutationFactory.
+			buildNCBOAggregatePermutation(parameterValuesIndex, tsd, ontId);
+		
+		return NCBOAggregateDesc;
+	
+	}
+	
 }
