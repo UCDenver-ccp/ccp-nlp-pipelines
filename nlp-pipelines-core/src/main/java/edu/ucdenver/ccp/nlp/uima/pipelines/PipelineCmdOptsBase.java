@@ -24,6 +24,10 @@ public class PipelineCmdOptsBase {
 	@Option(name = "-r", usage = "Used in Medline processing pipelines. If set to true, all Medline records missing abstracts are left un-processed.")
 	private boolean requirePresenceOfAbstract = false;
 
+	@Option(name = "-z", usage = "the obo file to use if hierarchical evaluation is being conducted", required = false)
+	private File oboFile;
+	
+	
 	public int getNumToSkip() {
 		return numToSkip;
 	}
@@ -82,6 +86,20 @@ public class PipelineCmdOptsBase {
 	
 	public void setRequirePresenceOfAbstract(boolean requireAbstractPresence) {
 		this.requirePresenceOfAbstract = requireAbstractPresence;
+	}
+
+	/**
+	 * @return the oboFile
+	 */
+	public File getOboFile() {
+		return oboFile;
+	}
+
+	/**
+	 * @param oboFile the oboFile to set
+	 */
+	public void setOboFile(File oboFile) {
+		this.oboFile = oboFile;
 	}
 
 }
