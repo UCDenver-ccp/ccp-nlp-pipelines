@@ -12,6 +12,7 @@ import org.geneontology.oboedit.dataadapter.OBOParseException;
 
 import edu.ucdenver.ccp.common.file.FileUtil;
 import edu.ucdenver.ccp.common.file.FileUtil.CleanDirectory;
+import edu.ucdenver.ccp.datasource.fileparsers.obo.OboUtil.ObsoleteTermHandling;
 import edu.ucdenver.ccp.datasource.fileparsers.pro.ProOntologyClassIterator;
 import edu.ucdenver.ccp.fileparsers.ncbi.taxonomy.NcbiTaxonomyClassIterator;
 import edu.ucdenver.ccp.fileparsers.obo.CellTypeOntologyClassIterator;
@@ -160,7 +161,7 @@ public class ConceptMapperDictionaryFileFactory {
 			}
 		}
 		logger.info("Building dictionary file: " + soCmDictFile);
-		SequenceOntologyClassIterator soIter = new SequenceOntologyClassIterator(inputOboFile);
+		SequenceOntologyClassIterator soIter = new SequenceOntologyClassIterator(inputOboFile, ObsoleteTermHandling.EXCLUDE_OBSOLETE_TERMS);
 		OboToDictionary.buildDictionary(soCmDictFile, soIter, null, synonymType);
 		return soCmDictFile;
 	}
@@ -177,7 +178,7 @@ public class ConceptMapperDictionaryFileFactory {
 			}
 		}
 		logger.info("Building dictionary file: " + soCmDictFile);
-		SequenceOntologyClassIterator soIter = new SequenceOntologyClassIterator(outputDirectory, cleanDictFile);
+		SequenceOntologyClassIterator soIter = new SequenceOntologyClassIterator(outputDirectory, cleanDictFile, ObsoleteTermHandling.EXCLUDE_OBSOLETE_TERMS);
 		OboToDictionary.buildDictionary(soCmDictFile, soIter, null, synonymType);
 		return soCmDictFile;
 	}
@@ -201,7 +202,7 @@ public class ConceptMapperDictionaryFileFactory {
 			}
 		}
 		logger.info("Building dictionary file: " + prCmDictFile);
-		ProOntologyClassIterator prIter = new ProOntologyClassIterator(inputOboFile);
+		ProOntologyClassIterator prIter = new ProOntologyClassIterator(inputOboFile, ObsoleteTermHandling.EXCLUDE_OBSOLETE_TERMS);
 		OboToDictionary.buildDictionary(prCmDictFile, prIter, null, synonymType);
 		return prCmDictFile;
 	}
@@ -218,7 +219,7 @@ public class ConceptMapperDictionaryFileFactory {
 			}
 		}
 		logger.info("Building dictionary file: " + prCmDictFile);
-		ProOntologyClassIterator prIter = new ProOntologyClassIterator(outputDirectory, cleanDictFile);
+		ProOntologyClassIterator prIter = new ProOntologyClassIterator(outputDirectory, cleanDictFile, ObsoleteTermHandling.EXCLUDE_OBSOLETE_TERMS);
 		OboToDictionary.buildDictionary(prCmDictFile, prIter, null, synonymType);
 		return prCmDictFile;
 	}
@@ -242,7 +243,7 @@ public class ConceptMapperDictionaryFileFactory {
 			}
 		}
 		logger.info("Building dictionary file: " + taxonCmDictFile);
-		NcbiTaxonomyClassIterator taxonIter = new NcbiTaxonomyClassIterator(inputOboFile);
+		NcbiTaxonomyClassIterator taxonIter = new NcbiTaxonomyClassIterator(inputOboFile, ObsoleteTermHandling.EXCLUDE_OBSOLETE_TERMS);
 		OboToDictionary.buildDictionary(taxonCmDictFile, taxonIter, null, synonymType);
 		return taxonCmDictFile;
 	}
@@ -259,7 +260,7 @@ public class ConceptMapperDictionaryFileFactory {
 			}
 		}
 		logger.info("Building dictionary file: " + taxonCmDictFile);
-		NcbiTaxonomyClassIterator taxonIter = new NcbiTaxonomyClassIterator(outputDirectory, cleanDictFile);
+		NcbiTaxonomyClassIterator taxonIter = new NcbiTaxonomyClassIterator(outputDirectory, cleanDictFile, ObsoleteTermHandling.EXCLUDE_OBSOLETE_TERMS);
 		OboToDictionary.buildDictionary(taxonCmDictFile, taxonIter, null, synonymType);
 		return taxonCmDictFile;
 	}
@@ -283,7 +284,7 @@ public class ConceptMapperDictionaryFileFactory {
 			}
 		}
 		logger.info("Building dictionary file: " + clCmDictFile);
-		CellTypeOntologyClassIterator clIter = new CellTypeOntologyClassIterator(inputOboFile);
+		CellTypeOntologyClassIterator clIter = new CellTypeOntologyClassIterator(inputOboFile, ObsoleteTermHandling.EXCLUDE_OBSOLETE_TERMS);
 		OboToDictionary.buildDictionary(clCmDictFile, clIter, null, synonymType);
 		return clCmDictFile;
 	}
@@ -300,7 +301,7 @@ public class ConceptMapperDictionaryFileFactory {
 			}
 		}
 		logger.info("Building dictionary file: " + clCmDictFile);
-		CellTypeOntologyClassIterator clIter = new CellTypeOntologyClassIterator(outputDirectory, cleanDictFile);
+		CellTypeOntologyClassIterator clIter = new CellTypeOntologyClassIterator(outputDirectory, cleanDictFile, ObsoleteTermHandling.EXCLUDE_OBSOLETE_TERMS);
 		OboToDictionary.buildDictionary(clCmDictFile, clIter, null, synonymType);
 		return clCmDictFile;
 	}
@@ -324,7 +325,7 @@ public class ConceptMapperDictionaryFileFactory {
 			}
 		}
 		logger.info("Building dictionary file: " + chebiCmDictFile);
-		ChebiOntologyClassIterator chebiIter = new ChebiOntologyClassIterator(inputOboFile);
+		ChebiOntologyClassIterator chebiIter = new ChebiOntologyClassIterator(inputOboFile, ObsoleteTermHandling.EXCLUDE_OBSOLETE_TERMS);
 		OboToDictionary.buildDictionary(chebiCmDictFile, chebiIter, null, synonymType);
 		return chebiCmDictFile;
 	}
@@ -341,7 +342,7 @@ public class ConceptMapperDictionaryFileFactory {
 			}
 		}
 		logger.info("Building dictionary file: " + chebiCmDictFile);
-		ChebiOntologyClassIterator chebiIter = new ChebiOntologyClassIterator(outputDirectory, cleanDictFile);
+		ChebiOntologyClassIterator chebiIter = new ChebiOntologyClassIterator(outputDirectory, cleanDictFile, ObsoleteTermHandling.EXCLUDE_OBSOLETE_TERMS);
 		OboToDictionary.buildDictionary(chebiCmDictFile, chebiIter, null, synonymType);
 		return chebiCmDictFile;
 	}
