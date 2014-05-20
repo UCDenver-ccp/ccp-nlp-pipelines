@@ -8,7 +8,8 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<ver.ccp.nlp>3.3-SNAPSHOT</ver.ccp.nlp>
+		<ver.ccp.nlp>3.3-HCbranch-SNAPSHOT</ver.ccp.nlp>
+		<ver.ccp.nlp.internal>3.3-SNAPSHOT</ver.ccp.nlp.internal>
 	</properties>
 
 	<dependencyManagement>
