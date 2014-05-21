@@ -36,17 +36,17 @@
 		<dependency>
 			<groupId>edu.ucdenver.ccp</groupId>
 			<artifactId>ccp-nlp-ext-uima-annotators-entitynormalization</artifactId>
-			<version>${ver.ccp.nlp.internal}</version>
+			<version>${ver.ccp.nlp}</version>
 		</dependency>
 		<dependency>
 			<groupId>edu.ucdenver.ccp</groupId>
 			<artifactId>ccp-nlp-uima-shims-internal</artifactId>
-			<version>${ver.ccp.nlp.internal}</version>
+			<version>${ver.ccp.nlp}</version>
 		</dependency>
 		<dependency>
 			<groupId>edu.ucdenver.ccp</groupId>
 			<artifactId>ccp-nlp-wrapper-ncbo</artifactId>
-			<version>${ver.ccp.nlp.internal}</version>
+			<version>${ver.ccp.nlp}</version>
 		</dependency>
 	</dependencies>
 
