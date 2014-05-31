@@ -16,8 +16,10 @@ import org.apache.uima.resource.ResourceInitializationException;
 import org.apache.uima.resource.metadata.TypeSystemDescription;
 import org.junit.Before;
 import org.junit.Ignore;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
+import org.junit.rules.TemporaryFolder;
 import org.uimafit.factory.TypeSystemDescriptionFactory;
 
 import edu.ucdenver.ccp.common.file.FileUtil.CleanDirectory;
@@ -47,22 +49,17 @@ public class CraftConceptMapperEvaluations extends DefaultTestCase {
 	 */
 	private static final CraftRelease CRAFT_VERSION = CraftRelease.MAIN;
 
-	// return
-	// TypeSystemDescriptionFactory.createTypeSystemDescription("edu.ucdenver.ccp.nlp.core.uima.TypeSystem",
-	// "edu.ucdenver.ccp.nlp.wrapper.conceptmapper.TypeSystem",
-	// "analysis_engine.primitive.DictTerm",
-	// "org.apache.uima.conceptMapper.support.tokenizer.TokenAnnotation",
-	// "edu.ucdenver.ccp.nlp.ext.uima.annotators.sentencedetectors.TypeSystem");
-
 	private static final String SENTENCE_DETECTOR_TYPE_SYSTEM_STR = "edu.ucdenver.ccp.nlp.ext.uima.annotators.sentencedetectors.TypeSystem";
 
 	private ConceptMapperPipelineCmdOpts cmdOptions;
 
+	@Rule
+	public TemporaryFolder testFolder = new TemporaryFolder();
+	
 	@Before
 	public void setUp() {
 		cmdOptions = new ConceptMapperPipelineCmdOpts();
-		// File workDirectory = folder.newFolder("cm-dict-dir");
-		File workDirectory = new File("/tmp/cm");
+		File workDirectory = testFolder.newFolder("cm-dict-dir");
 		cmdOptions.setDictionaryFile(workDirectory);
 		cmdOptions.setSpanClass(ExplicitSentenceCasInserter.SENTENCE_ANNOTATION_CLASS);
 	}
@@ -73,7 +70,7 @@ public class CraftConceptMapperEvaluations extends DefaultTestCase {
 	 * @throws UIMAException
 	 * @throws IOException
 	 */
-	@Ignore
+	@Ignore ("This is ignored because the obo file downloaded for CL is not in UTF-8 fails our pipeline.")
 	@Test
 	public void evaluateCmClPipelineAgainstCraft() throws UIMAException, IOException {
 		EnumSet<CraftConceptType> craftConceptTypes = EnumSet.of(CraftConceptType.CL);
@@ -90,7 +87,6 @@ public class CraftConceptMapperEvaluations extends DefaultTestCase {
 	 * @throws UIMAException
 	 * @throws IOException
 	 */
-	@Ignore
 	@Test
 	public void evaluateCmGoCcPipelineAgainstCraft() throws UIMAException, IOException {
 		EnumSet<CraftConceptType> craftConceptTypes = EnumSet.of(CraftConceptType.GOCC);
@@ -100,30 +96,12 @@ public class CraftConceptMapperEvaluations extends DefaultTestCase {
 		runConceptMapperEvaluationAgainstCraft(craftConceptTypes, cmPipelineDescs, tsd);
 	}
 
-	// /**
-	// * Evaluates the default ConceptMapper GO-BP+MF pipeline against the CRAFT corpus
-	// *
-	// * @throws UIMAException
-	// * @throws IOException
-	// */
-	// @Test
-	// public void evaluateCmGoBpMfPipelineAgainstCraft() throws UIMAException, IOException {
-	// EnumSet<CraftConceptType> craftConceptTypes = EnumSet.of(CraftConceptType.GO_BP_MF);
-	// TypeSystemDescription tsd = createConceptMapperTypeSystem(craftConceptTypes);
-	// List<AnalysisEngineDescription> cmPipelineDescs = ConceptMapperPipelineFactory
-	// .getGoBpMfPipelineAeDescriptions(tsd, cmdOptions,
-	// DictionaryParameterOperation.TREAT_AS_DIRECTORY,
-	// CleanDirectory.YES);
-	// runConceptMapperEvaluationAgainstCraft(craftConceptTypes, cmPipelineDescs, tsd);
-	// }
-
 	/**
 	 * Evaluates the default ConceptMapper CHEBI pipeline against the CRAFT corpus
 	 * 
 	 * @throws UIMAException
 	 * @throws IOException
 	 */
-	@Ignore
 	@Test
 	public void evaluateCmChebiPipelineAgainstCraft() throws UIMAException, IOException {
 		EnumSet<CraftConceptType> craftConceptTypes = EnumSet.of(CraftConceptType.CHEBI);
@@ -143,10 +121,9 @@ public class CraftConceptMapperEvaluations extends DefaultTestCase {
 	public void evaluateCmNcbiTaxonPipelineAgainstCraft() throws UIMAException, IOException {
 		EnumSet<CraftConceptType> craftConceptTypes = EnumSet.of(CraftConceptType.NCBITAXON);
 		TypeSystemDescription tsd = createConceptMapperTypeSystem();
-		cmdOptions.setDictionaryFile(new File("/tmp/cm/cmDict-NCBITAXON.xml"));
 		List<AnalysisEngineDescription> cmPipelineDescs = ConceptMapperPipelineFactory
-				.getNcbiTaxonPipelineAeDescriptions(tsd, cmdOptions, DictionaryParameterOperation.USE,
-						CleanDirectory.NO, 0);
+				.getNcbiTaxonPipelineAeDescriptions(tsd, cmdOptions, DictionaryParameterOperation.TREAT_AS_DIRECTORY,
+						CleanDirectory.YES, 0);
 		runConceptMapperEvaluationAgainstCraft(craftConceptTypes, cmPipelineDescs, tsd);
 	}
 
@@ -156,7 +133,6 @@ public class CraftConceptMapperEvaluations extends DefaultTestCase {
 	 * @throws UIMAException
 	 * @throws IOException
 	 */
-	@Ignore
 	@Test
 	public void evaluateCmProteinOntologyPipelineAgainstCraft() throws UIMAException, IOException {
 		EnumSet<CraftConceptType> craftConceptTypes = EnumSet.of(CraftConceptType.PR);
@@ -173,7 +149,6 @@ public class CraftConceptMapperEvaluations extends DefaultTestCase {
 	 * @throws UIMAException
 	 * @throws IOException
 	 */
-	@Ignore
 	@Test
 	public void evaluateCmSoPipelineAgainstCraft() throws UIMAException, IOException {
 		EnumSet<CraftConceptType> craftConceptTypes = EnumSet.of(CraftConceptType.SO);
