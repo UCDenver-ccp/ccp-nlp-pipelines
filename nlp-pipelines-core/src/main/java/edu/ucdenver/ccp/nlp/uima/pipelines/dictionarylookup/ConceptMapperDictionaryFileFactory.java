@@ -10,6 +10,7 @@ import java.util.EnumSet;
 import org.apache.log4j.Logger;
 import org.geneontology.oboedit.dataadapter.OBOParseException;
 
+import edu.ucdenver.ccp.common.file.CharacterEncoding;
 import edu.ucdenver.ccp.common.file.FileUtil;
 import edu.ucdenver.ccp.common.file.FileUtil.CleanDirectory;
 import edu.ucdenver.ccp.datasource.fileparsers.obo.OboUtil.ObsoleteTermHandling;
@@ -17,6 +18,7 @@ import edu.ucdenver.ccp.datasource.fileparsers.pro.ProOntologyClassIterator;
 import edu.ucdenver.ccp.fileparsers.ncbi.taxonomy.NcbiTaxonomyClassIterator;
 import edu.ucdenver.ccp.fileparsers.obo.CellTypeOntologyClassIterator;
 import edu.ucdenver.ccp.fileparsers.obo.ChebiOntologyClassIterator;
+import edu.ucdenver.ccp.fileparsers.obo.GenericOboClassIterator;
 import edu.ucdenver.ccp.fileparsers.obo.SequenceOntologyClassIterator;
 import edu.ucdenver.ccp.nlp.uima.pipelines.dictionarylookup.ConceptMapperDictionaryFileFactory.DictionaryNamespace;
 import edu.ucdenver.ccp.nlp.wrapper.conceptmapper.dictionary.eg.EntrezGeneDictionaryFactory;
@@ -44,7 +46,8 @@ public class ConceptMapperDictionaryFileFactory {
 		NCBI_TAXON,
 		PR,
 		SO,
-		EG
+		EG,
+		OBO
 	}
 
 	/**
@@ -83,6 +86,7 @@ public class ConceptMapperDictionaryFileFactory {
 			case EG:
 				return EntrezGeneDictionaryFactory.buildModelOrganismConceptMapperDictionary(outputDirectory,
 						outputDirectoryOp);
+				
 			default:
 				throw new IllegalArgumentException("Unknown concept mapper dictionary namespace: "
 						+ dictNamespace.name());
@@ -105,8 +109,8 @@ public class ConceptMapperDictionaryFileFactory {
 	 *            skipped
 	 * @return a reference to a newly created Concept Mapper dictionary file
 	 */
-	public static File createDictionaryFile(DictionaryNamespace dictNamespace, File inputFile, File outputDirectory,
-			boolean cleanDictFile, SynonymType synonymType) {
+	public static File createDictionaryFileFromOBO(DictionaryNamespace dictNamespace, File inputFile, File outputDirectory,
+			boolean cleanDictFile, SynonymType synonymType, CharacterEncoding charE) {
 		try {
 			switch (dictNamespace) {
 			case GO_CC:
@@ -131,6 +135,9 @@ public class ConceptMapperDictionaryFileFactory {
 			case EG:
 				return EntrezGeneDictionaryFactory.buildModelOrganismConceptMapperDictionary(inputFile,
 						outputDirectory, cleanDictFile);
+			case OBO:
+				return buildDictionaryFromOBO(inputFile, outputDirectory, cleanDictFile, synonymType, charE);
+				
 			default:
 				throw new IllegalArgumentException("Unknown concept mapper dictionary namespace: "
 						+ dictNamespace.name());
@@ -345,6 +352,23 @@ public class ConceptMapperDictionaryFileFactory {
 		ChebiOntologyClassIterator chebiIter = new ChebiOntologyClassIterator(outputDirectory, cleanDictFile, ObsoleteTermHandling.EXCLUDE_OBSOLETE_TERMS);
 		OboToDictionary.buildDictionary(chebiCmDictFile, chebiIter, null, synonymType);
 		return chebiCmDictFile;
+	}
+	
+	private static File buildDictionaryFromOBO(File inputOboFile, File outputDirectory, boolean cleanDictFile,
+			SynonymType synonymType, CharacterEncoding charE) throws IOException, OBOParseException {
+		File CmDictFile = new File(outputDirectory, "cmDict-OBO.xml");
+		if (CmDictFile.exists()) {
+			if (cleanDictFile) {
+				FileUtil.deleteFile(CmDictFile);
+			} else {
+				logger.info("Using pre-existing dictionary file: " + CmDictFile);
+				return CmDictFile;
+			}
+		}
+		logger.info("Building dictionary file: " + CmDictFile);
+		GenericOboClassIterator genIter = new GenericOboClassIterator(inputOboFile, charE, ObsoleteTermHandling.EXCLUDE_OBSOLETE_TERMS);
+		OboToDictionary.buildDictionary(CmDictFile, genIter, null, synonymType);
+		return CmDictFile;
 	}
 
 }
