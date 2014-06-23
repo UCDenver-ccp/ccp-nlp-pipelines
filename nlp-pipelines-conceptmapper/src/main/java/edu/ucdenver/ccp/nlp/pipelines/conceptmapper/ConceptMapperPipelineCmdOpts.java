@@ -1,11 +1,11 @@
-package edu.ucdenver.ccp.nlp.uima.pipelines.dictionarylookup;
+package edu.ucdenver.ccp.nlp.pipelines.conceptmapper;
 
 import java.io.File;
 
 import org.apache.uima.jcas.tcas.Annotation;
 import org.kohsuke.args4j.Option;
 
-import edu.ucdenver.ccp.nlp.uima.pipelines.PipelineCmdOptsBase;
+import edu.ucdenver.ccp.nlp.pipelines.PipelineCmdOptsBase;
 
 
 public class ConceptMapperPipelineCmdOpts extends PipelineCmdOptsBase {

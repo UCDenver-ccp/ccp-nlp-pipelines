@@ -1,9 +1,81 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <parent>
-    <groupId>edu.ucdenver.ccp</groupId>
-    <artifactId>nlp-pipelines</artifactId>
-    <version>0.4-SNAPSHOT</version>
-  </parent>
-  <artifactId>nlp-pipelines-conceptmapper-evaluation</artifactId>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>edu.ucdenver.ccp</groupId>
+		<artifactId>nlp-pipelines</artifactId>
+		<version>0.4-SNAPSHOT</version>
+	</parent>
+	<artifactId>nlp-pipelines-conceptmapper-evaluation</artifactId>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>edu.ucdenver.ccp</groupId>
+			<artifactId>ccp-nlp-uima-collections</artifactId>
+			<version>${ver.ccp.nlp}</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>edu.ucdenver.ccp</groupId>
+			<artifactId>ccp-nlp-uima-annotators</artifactId>
+			<version>${ver.ccp.nlp}</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>edu.ucdenver.ccp</groupId>
+			<artifactId>ccp-nlp-uima-serialization</artifactId>
+			<version>${ver.ccp.nlp}</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+		<!-- <dependency> <groupId>edu.ucdenver.ccp</groupId> <artifactId>nlp-pipelines-core-internal</artifactId> 
+			<version>${version}</version> </dependency> -->
+		<dependency>
+			<groupId>edu.ucdenver.ccp</groupId>
+			<artifactId>common</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>edu.ucdenver.ccp</groupId>
+			<artifactId>wrapper-cleartk</artifactId>
+			<version>0.1</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>edu.ucdenver.ccp</groupId>
+			<artifactId>craft-collection-reader-ccp</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+		</dependency>
+	</dependencies>
+
+
+	<repositories>
+		<repository>
+			<id>bionlp-sourceforge</id>
+			<url>http://bionlp.svn.sourceforge.net/viewvc/bionlp/repo/</url>
+		</repository>
+	</repositories>
+
+
+	<build>
+		<plugins>
+			<!-- specify the java version -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+
+
 </project>

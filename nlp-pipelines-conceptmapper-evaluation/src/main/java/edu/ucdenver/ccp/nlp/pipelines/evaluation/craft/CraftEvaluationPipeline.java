@@ -1,7 +1,7 @@
 /**
  * 
  */
-package edu.ucdenver.ccp.nlp.pipelines.evaluation;
+package edu.ucdenver.ccp.nlp.pipelines.evaluation.craft;
 
 import java.util.Collection;
 import java.util.Set;
@@ -15,8 +15,9 @@ import org.uimafit.factory.CollectionReaderFactory;
 import edu.ucdenver.ccp.craft.CraftConceptType;
 import edu.ucdenver.ccp.craft.CraftRelease;
 import edu.ucdenver.ccp.craft.uima.cr.CcpCraftCollectionReader;
-import edu.ucdenver.ccp.nlp.ext.uima.annotators.comparison.AnnotationComparator_AE.MentionComparatorType;
-import edu.ucdenver.ccp.nlp.ext.uima.annotators.comparison.AnnotationComparator_AE.SpanComparatorType;
+import edu.ucdenver.ccp.nlp.pipelines.evaluation.EvaluationPipeline;
+import edu.ucdenver.ccp.nlp.uima.annotators.comparison.AnnotationComparator_AE.MentionComparatorType;
+import edu.ucdenver.ccp.nlp.uima.annotators.comparison.AnnotationComparator_AE.SpanComparatorType;
 
 /**
  * @author Colorado Computational Pharmacology, UC Denver; ccpsupport@ucdenver.edu

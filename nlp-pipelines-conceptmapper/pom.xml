@@ -1,9 +1,73 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <parent>
-    <groupId>edu.ucdenver.ccp</groupId>
-    <artifactId>nlp-pipelines</artifactId>
-    <version>0.4-SNAPSHOT</version>
-  </parent>
-  <artifactId>nlp-pipelines-conceptmapper</artifactId>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>edu.ucdenver.ccp</groupId>
+		<artifactId>nlp-pipelines</artifactId>
+		<version>0.4-SNAPSHOT</version>
+	</parent>
+	<artifactId>nlp-pipelines-conceptmapper</artifactId>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>args4j</groupId>
+			<artifactId>args4j</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>edu.ucdenver.ccp</groupId>
+			<artifactId>common</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>edu.ucdenver.ccp</groupId>
+			<artifactId>nlp-pipelines-core</artifactId>
+			<version>${version}</version>
+		</dependency>
+		<dependency>
+			<groupId>edu.ucdenver.ccp</groupId>
+			<artifactId>ccp-nlp-core</artifactId>
+			<version>${ver.ccp.nlp}</version>
+		</dependency>
+		<dependency>
+			<groupId>edu.ucdenver.ccp</groupId>
+			<artifactId>datasource-fileparsers</artifactId>
+			<version>0.4-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>edu.ucdenver.ccp</groupId>
+			<artifactId>ccp-nlp-uima-annotators</artifactId>
+			<version>${ver.ccp.nlp}</version>
+		</dependency>
+		<dependency>
+			<groupId>edu.ucdenver.ccp</groupId>
+			<artifactId>ccp-nlp-uima-serialization</artifactId>
+			<version>${ver.ccp.nlp}</version>
+		</dependency>
+		<dependency>
+			<groupId>edu.ucdenver.ccp</groupId>
+			<artifactId>ccp-nlp-wrapper-conceptmapper</artifactId>
+			<version>${ver.ccp.nlp}</version>
+		</dependency>
+		<!-- <dependency>
+			<groupId>edu.ucdenver.ccp</groupId>
+			<artifactId>ccp-nlp-ext-uima-annotators-entitynormalization</artifactId>
+			<version>${ver.ccp.nlp}</version>
+		</dependency>
+		<dependency>
+			<groupId>edu.ucdenver.ccp</groupId>
+			<artifactId>ccp-nlp-uima-shims-internal</artifactId>
+			<version>${ver.ccp.nlp}</version>
+		</dependency>
+		<dependency>
+			<groupId>edu.ucdenver.ccp</groupId>
+			<artifactId>ccp-nlp-wrapper-ncbo</artifactId>
+			<version>${ver.ccp.nlp}</version> 
+		</dependency> -->
+	</dependencies>
+
+
+
 </project>

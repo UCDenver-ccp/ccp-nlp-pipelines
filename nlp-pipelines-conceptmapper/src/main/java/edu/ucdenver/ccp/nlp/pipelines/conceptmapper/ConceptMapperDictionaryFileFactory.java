@@ -1,7 +1,7 @@
 /**
  * 
  */
-package edu.ucdenver.ccp.nlp.uima.pipelines.dictionarylookup;
+package edu.ucdenver.ccp.nlp.pipelines.conceptmapper;
 
 import java.io.File;
 import java.io.IOException;
@@ -14,18 +14,19 @@ import edu.ucdenver.ccp.common.file.CharacterEncoding;
 import edu.ucdenver.ccp.common.file.FileUtil;
 import edu.ucdenver.ccp.common.file.FileUtil.CleanDirectory;
 import edu.ucdenver.ccp.datasource.fileparsers.obo.OboUtil.ObsoleteTermHandling;
+import edu.ucdenver.ccp.datasource.fileparsers.obo.impl.CellTypeOntologyClassIterator;
+import edu.ucdenver.ccp.datasource.fileparsers.obo.impl.ChebiOntologyClassIterator;
+import edu.ucdenver.ccp.datasource.fileparsers.obo.impl.GenericOboClassIterator;
+import edu.ucdenver.ccp.datasource.fileparsers.obo.impl.NcbiTaxonomyClassIterator;
+import edu.ucdenver.ccp.datasource.fileparsers.obo.impl.SequenceOntologyClassIterator;
 import edu.ucdenver.ccp.datasource.fileparsers.pro.ProOntologyClassIterator;
-import edu.ucdenver.ccp.fileparsers.ncbi.taxonomy.NcbiTaxonomyClassIterator;
-import edu.ucdenver.ccp.fileparsers.obo.CellTypeOntologyClassIterator;
-import edu.ucdenver.ccp.fileparsers.obo.ChebiOntologyClassIterator;
-import edu.ucdenver.ccp.fileparsers.obo.GenericOboClassIterator;
-import edu.ucdenver.ccp.fileparsers.obo.SequenceOntologyClassIterator;
-import edu.ucdenver.ccp.nlp.uima.pipelines.dictionarylookup.ConceptMapperDictionaryFileFactory.DictionaryNamespace;
 import edu.ucdenver.ccp.nlp.wrapper.conceptmapper.dictionary.eg.EntrezGeneDictionaryFactory;
 import edu.ucdenver.ccp.nlp.wrapper.conceptmapper.dictionary.obo.GoDictionaryFactory;
 import edu.ucdenver.ccp.nlp.wrapper.conceptmapper.dictionary.obo.GoDictionaryFactory.GoNamespace;
 import edu.ucdenver.ccp.nlp.wrapper.conceptmapper.dictionary.obo.OboToDictionary;
 import edu.ucdenver.ccp.nlp.wrapper.conceptmapper.dictionary.obo.OboToDictionary.SynonymType;
+
+
 
 /**
  * Always creates a new dictionary file by downloading a new data file

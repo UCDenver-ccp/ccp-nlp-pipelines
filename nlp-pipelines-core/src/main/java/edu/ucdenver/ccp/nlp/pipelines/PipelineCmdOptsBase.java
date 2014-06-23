@@ -1,4 +1,4 @@
-package edu.ucdenver.ccp.nlp.uima.pipelines;
+package edu.ucdenver.ccp.nlp.pipelines;
 
 import java.io.File;
 

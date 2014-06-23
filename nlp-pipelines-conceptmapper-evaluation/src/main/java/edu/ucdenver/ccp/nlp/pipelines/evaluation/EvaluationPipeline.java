@@ -17,14 +17,14 @@ import org.apache.uima.resource.metadata.TypeSystemDescription;
 import org.uimafit.pipeline.SimplePipeline;
 
 import edu.ucdenver.ccp.common.collections.CollectionsUtil;
-import edu.ucdenver.ccp.nlp.ext.uima.annotators.comparison.AnnotationComparator_AE.MentionComparatorType;
-import edu.ucdenver.ccp.nlp.ext.uima.annotators.comparison.AnnotationComparator_AE.SpanComparatorType;
-import edu.ucdenver.ccp.nlp.ext.uima.annotators.comparison.AnnotationGroup;
-import edu.ucdenver.ccp.nlp.ext.uima.annotators.comparison.SimpleAnnotationComparator_AE;
-import edu.ucdenver.ccp.nlp.ext.uima.annotators.converters.AnnotationSetOverrider_AE;
-import edu.ucdenver.ccp.nlp.ext.uima.annotators.converters.AnnotatorOverrider_AE;
-import edu.ucdenver.ccp.nlp.ext.uima.annotators.filter.SlotRemovalFilter_AE;
-import edu.ucdenver.ccp.nlp.ext.uima.annotators.filter.SlotRemovalFilter_AE.SlotRemovalOption;
+import edu.ucdenver.ccp.nlp.uima.annotators.comparison.AnnotationComparator_AE.MentionComparatorType;
+import edu.ucdenver.ccp.nlp.uima.annotators.comparison.AnnotationComparator_AE.SpanComparatorType;
+import edu.ucdenver.ccp.nlp.uima.annotators.comparison.AnnotationGroup;
+import edu.ucdenver.ccp.nlp.uima.annotators.comparison.SimpleAnnotationComparator_AE;
+import edu.ucdenver.ccp.nlp.uima.annotators.converter.AnnotationSetOverrider_AE;
+import edu.ucdenver.ccp.nlp.uima.annotators.converter.AnnotatorOverrider_AE;
+import edu.ucdenver.ccp.nlp.uima.annotators.filter.SlotRemovalFilter_AE;
+import edu.ucdenver.ccp.nlp.uima.annotators.filter.SlotRemovalFilter_AE.SlotRemovalOption;
 
 /**
  * Generic class representing a simple NLP component evaluation pipeline.
