@@ -7,7 +7,7 @@
 	<packaging>pom</packaging>
 	<modules>
 		<module>nlp-pipelines-conceptmapper</module>
-		<module>nlp-pipelines-conceptmapper-evaluation</module>
+		<module>nlp-pipelines-evaluation</module>
 		<module>nlp-pipelines-core</module>
 	</modules>
 
