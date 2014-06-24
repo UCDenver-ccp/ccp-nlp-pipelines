@@ -1,0 +1,356 @@
+CL:0000232	red blood cell	413	427	695
+CL:0000081	blood cell	417	427	640
+CL:0000000	cell	423	427	593
+CL:0000071	blood vessel endothelial cell	417	427	362
+CL:0000359	vascular associated smooth muscle cell	417	427	285
+CL:0000037	hematopoietic progenitor cell	642	672	988
+CL:0000837	hematopoietic progenitor cell	642	672	988
+CL:0000000	cell	667	672	756
+CL:0000037	hematopoietic stem cell	1070	1093	1000
+CL:0000034	stem cell	1084	1093	882
+CL:0000000	cell	1089	1093	790
+CL:0000561	amacrine cell	1201	1207	611
+CL:0000638	alpha cell	1201	1207	611
+CL:0000000	cell	1203	1207	604
+CL:0000000	cell	1306	1310	604
+CL:0000038	erythroid progenitor cell	1296	1310	438
+CL:0000764	erythroid lineage cell	1296	1310	438
+CL:0000000	cell	1430	1434	623
+CL:0000785	mature B cell	1430	1445	593
+CL:0000812	mature T cell	1430	1445	593
+CL:0000824	mature natural killer cell	1430	1445	544
+CL:0000841	mature myeloid dendritic cell	1430	1445	544
+CL:0000791	mature alpha-beta T cell	1430	1445	517
+CL:0000800	mature gamma-delta T cell	1430	1445	517
+CL:0000038	erythroid progenitor cell	1420	1434	487
+CL:0000764	erythroid lineage cell	1420	1434	487
+CL:0000000	cell	1567	1572	799
+CL:0000037	hematopoietic progenitor cell	1553	1572	754
+CL:0000837	hematopoietic progenitor cell	1553	1572	754
+CL:0000000	cell	1656	1660	833
+CL:0000000	cell	1738	1743	799
+CL:0000738	white blood cell	1781	1798	966
+CL:0000081	blood cell	1787	1798	849
+CL:0000000	cell	1793	1798	756
+CL:0000071	blood vessel endothelial cell	1787	1798	588
+CL:0000359	vascular associated smooth muscle cell	1787	1798	511
+CL:0000000	cell	1963	1968	799
+CL:0000081	blood cell	2051	2062	849
+CL:0000000	cell	2057	2062	756
+CL:0000071	blood vessel endothelial cell	2051	2062	588
+CL:0000359	vascular associated smooth muscle cell	2051	2062	511
+CL:0000000	cell	2248	2253	799
+CL:0000232	erythrocyte	2367	2379	799
+CL:0000235	macrophage	2384	2395	966
+CL:0000034	stem cell	2472	2482	966
+CL:0000000	cell	2477	2482	799
+CL:0000037	hematopoietic stem cell	2577	2601	893
+CL:0000034	stem cell	2591	2601	799
+CL:0000000	cell	2596	2601	737
+CL:0000081	blood cell	2676	2687	849
+CL:0000000	cell	2682	2687	756
+CL:0000071	blood vessel endothelial cell	2676	2687	588
+CL:0000359	vascular associated smooth muscle cell	2676	2687	511
+CL:0000232	erythrocyte	2710	2722	799
+CL:0000763	myeloid cell	2724	2737	966
+CL:0000000	cell	2732	2737	799
+CL:0000049	myeloid stem cell	2724	2737	754
+CL:0000782	myeloid dendritic cell	2724	2737	754
+CL:0000839	myeloid progenitor cell	2724	2737	754
+CL:0000542	lymphocyte	2743	2754	966
+CL:0000000	cell	3458	3463	799
+CL:0000038	erythroid progenitor cell	3448	3463	754
+CL:0000764	erythroid lineage cell	3448	3463	754
+CL:0000038	erythroid progenitor cell	3465	3491	988
+CL:0000000	cell	3486	3491	756
+CL:0000084	T cell	5571	5591	663
+CL:0000000	cell	5571	5575	623
+CL:0000492	T-helper cell	5571	5591	435
+CL:0000545	T-helper 1 cell	5571	5591	385
+CL:0000546	T-helper 2 cell	5571	5591	385
+CL:0000784	T-associated plasma cells	5571	5591	369
+CL:0000561	amacrine cell	5631	5637	611
+CL:0000638	alpha cell	5631	5637	611
+CL:0000000	cell	5633	5637	604
+CL:0000057	fibroblast	5919	5930	737
+CL:0000213	lining cell	5951	5961	841
+CL:0000000	cell	5951	5955	790
+CL:0000000	cell	6047	6051	604
+CL:0000038	erythroid progenitor cell	6037	6051	438
+CL:0000764	erythroid lineage cell	6037	6051	438
+CL:0000232	red blood cell	6411	6426	983
+CL:0000081	blood cell	6415	6426	849
+CL:0000000	cell	6421	6426	756
+CL:0000071	blood vessel endothelial cell	6415	6426	588
+CL:0000359	vascular associated smooth muscle cell	6415	6426	511
+CL:0000000	cell	6564	6569	799
+CL:0000037	hematopoietic progenitor cell	6550	6569	754
+CL:0000837	hematopoietic progenitor cell	6550	6569	754
+CL:0000000	cell	6711	6716	756
+CL:0000038	erythroid progenitor cell	6701	6716	637
+CL:0000764	erythroid lineage cell	6701	6716	637
+CL:0000000	cell	6736	6740	790
+CL:0000000	cell	7076	7081	799
+CL:0000037	hematopoietic progenitor cell	7062	7081	754
+CL:0000837	hematopoietic progenitor cell	7062	7081	754
+CL:0000000	cell	7192	7196	833
+CL:0000232	red blood cell	7365	7369	983
+CL:0000081	blood cell	7365	7369	849
+CL:0000000	cell	7365	7369	756
+CL:0000189	red muscle cell	7365	7369	612
+CL:0000071	blood vessel endothelial cell	7365	7369	588
+CL:0000497	red sensitive photoreceptor cell	7365	7369	563
+CL:0000359	vascular associated smooth muscle cell	7365	7369	511
+CL:0000134	mesenchymal cell	7532	7549	983
+CL:0000000	cell	7544	7549	799
+CL:0000335	mesenchyme condensation cell	7532	7549	719
+CL:0000038	erythroid progenitor cell	7696	7722	898
+CL:0000000	cell	7717	7722	737
+CL:0000134	mesenchymal cell	7737	7754	866
+CL:0000000	cell	7749	7754	756
+CL:0000335	mesenchyme condensation cell	7737	7754	601
+CL:0000547	proerythroblast	8482	8497	666
+CL:0000763	myeloid cell	8547	8560	966
+CL:0000000	cell	8555	8560	799
+CL:0000049	myeloid stem cell	8547	8560	754
+CL:0000782	myeloid dendritic cell	8547	8560	754
+CL:0000839	myeloid progenitor cell	8547	8560	754
+CL:0000081	blood cell	11165	11176	849
+CL:0000000	cell	11171	11176	756
+CL:0000071	blood vessel endothelial cell	11165	11176	588
+CL:0000359	vascular associated smooth muscle cell	11165	11176	511
+CL:0000081	blood cell	11233	11244	773
+CL:0000000	cell	11239	11244	726
+CL:0000071	blood vessel endothelial cell	11233	11244	512
+CL:0000359	vascular associated smooth muscle cell	11233	11244	435
+CL:0000232	red blood cell	11297	11301	816
+CL:0000081	blood cell	11297	11301	756
+CL:0000000	cell	11297	11301	719
+CL:0000189	red muscle cell	11297	11301	538
+CL:0000071	blood vessel endothelial cell	11297	11301	495
+CL:0000497	red sensitive photoreceptor cell	11297	11301	489
+CL:0000359	vascular associated smooth muscle cell	11297	11301	419
+CL:0000558	reticulocyte	11715	11727	666
+CL:0000034	stem cell	12628	12637	640
+CL:0000000	cell	12633	12637	593
+CL:0000000	cell	12721	12726	966
+CL:0000000	cell	15047	15052	799
+CL:0000000	cell	15421	15425	623
+CL:0000232	erythrocyte	15467	15479	799
+CL:0000000	cell	15673	15678	799
+CL:0000000	cell	15726	15731	756
+CL:0000232	red blood cell	15770	15774	845
+CL:0000081	blood cell	15770	15774	773
+CL:0000000	cell	15770	15774	726
+CL:0000189	red muscle cell	15770	15774	552
+CL:0000071	blood vessel endothelial cell	15770	15774	512
+CL:0000497	red sensitive photoreceptor cell	15770	15774	503
+CL:0000359	vascular associated smooth muscle cell	15770	15774	435
+CL:0000134	mesenchymal cell	15909	15926	983
+CL:0000000	cell	15921	15926	799
+CL:0000335	mesenchyme condensation cell	15909	15926	719
+CL:0000081	blood cell	16042	16052	833
+CL:0000000	cell	16048	16052	770
+CL:0000071	blood vessel endothelial cell	16042	16052	555
+CL:0000224	cell by nuclear number	16048	16060	538
+CL:0000359	vascular associated smooth muscle cell	16042	16052	478
+CL:0000000	cell	16459	16464	799
+CL:0000038	erythroid progenitor cell	16449	16464	754
+CL:0000764	erythroid lineage cell	16449	16464	754
+CL:0000561	amacrine cell	16494	16500	611
+CL:0000638	alpha cell	16494	16500	611
+CL:0000000	cell	16496	16500	604
+CL:0000000	cell	16558	16563	799
+CL:0000037	hematopoietic progenitor cell	16544	16563	754
+CL:0000837	hematopoietic progenitor cell	16544	16563	754
+CL:0000000	cell	16655	16660	714
+CL:0000000	cell	16906	16911	737
+CL:0000038	erythroid progenitor cell	16896	16911	588
+CL:0000764	erythroid lineage cell	16896	16911	588
+CL:0000081	blood cell	16980	16991	849
+CL:0000000	cell	16986	16991	756
+CL:0000071	blood vessel endothelial cell	16980	16991	588
+CL:0000359	vascular associated smooth muscle cell	16980	16991	511
+CL:0000000	cell	17139	17144	737
+CL:0000000	cell	17228	17233	756
+CL:0000000	cell	17326	17331	726
+CL:0000000	cell	17419	17424	799
+CL:0000038	erythroid progenitor cell	17409	17424	754
+CL:0000764	erythroid lineage cell	17409	17424	754
+CL:0000000	cell	17445	17450	714
+CL:0000000	cell	17542	17547	737
+CL:0000081	blood cell	17589	17600	966
+CL:0000000	cell	17595	17600	799
+CL:0000071	blood vessel endothelial cell	17589	17600	705
+CL:0000359	vascular associated smooth muscle cell	17589	17600	628
+CL:0000081	blood cell	17653	17664	966
+CL:0000000	cell	17659	17664	799
+CL:0000071	blood vessel endothelial cell	17653	17664	705
+CL:0000359	vascular associated smooth muscle cell	17653	17664	628
+CL:0000000	cell	17940	17945	756
+CL:0000502	type D enteroendocrine cell	17935	17945	588
+CL:0000508	type G enteroendocrine cell	17935	17945	588
+CL:0000084	T cell	18038	18059	916
+CL:0000492	T-helper cell	18038	18059	688
+CL:0000000	cell	18038	18042	666
+CL:0000545	T-helper 1 cell	18038	18059	638
+CL:0000546	T-helper 2 cell	18038	18059	638
+CL:0000784	T-associated plasma cells	18038	18059	622
+CL:0000561	amacrine cell	18086	18092	611
+CL:0000638	alpha cell	18086	18092	611
+CL:0000000	cell	18088	18092	604
+CL:0000000	cell	18122	18127	799
+CL:0000038	erythroid progenitor cell	18112	18127	754
+CL:0000764	erythroid lineage cell	18112	18127	754
+CL:0000057	fibroblast	18572	18582	604
+CL:0000000	cell	19607	19612	799
+CL:0000000	cell	19639	19643	604
+CL:0000232	erythrocyte	19688	19700	966
+CL:0000000	cell	20081	20086	756
+CL:0000038	erythroid progenitor cell	20071	20086	637
+CL:0000764	erythroid lineage cell	20071	20086	637
+CL:0000000	cell	20147	20151	586
+CL:0000000	cell	21912	21917	799
+CL:0000037	hematopoietic progenitor cell	21898	21917	754
+CL:0000837	hematopoietic progenitor cell	21898	21917	754
+CL:0000000	cell	22486	22491	756
+CL:0000037	hematopoietic progenitor cell	22472	22491	637
+CL:0000837	hematopoietic progenitor cell	22472	22491	637
+CL:0000000	cell	23542	23546	790
+CL:0000000	cell	23649	23654	756
+CL:0000038	erythroid progenitor cell	23639	23654	637
+CL:0000764	erythroid lineage cell	23639	23654	637
+CL:0000000	cell	23684	23689	966
+CL:0000000	cell	23776	23781	737
+CL:0000445	apoptosis fated cell	23766	23781	552
+CL:0000037	hematopoietic stem cell	23974	23998	983
+CL:0000034	stem cell	23988	23998	849
+CL:0000000	cell	23993	23998	756
+CL:0000000	cell	24160	24165	756
+CL:0000037	hematopoietic progenitor cell	24146	24165	637
+CL:0000837	hematopoietic progenitor cell	24146	24165	637
+CL:0000000	cell	24270	24275	756
+CL:0000038	erythroid progenitor cell	24260	24275	637
+CL:0000764	erythroid lineage cell	24260	24275	637
+CL:0000000	cell	24336	24341	737
+CL:0000038	erythroid progenitor cell	24326	24341	588
+CL:0000764	erythroid lineage cell	24326	24341	588
+CL:0000025	egg	24847	24851	966
+CL:0000000	cell	25297	25302	799
+CL:0000038	erythroid progenitor cell	25287	25302	754
+CL:0000764	erythroid lineage cell	25287	25302	754
+CL:0000000	cell	25967	25972	966
+CL:0000081	blood cell	26220	26231	966
+CL:0000000	cell	26226	26231	799
+CL:0000071	blood vessel endothelial cell	26220	26231	705
+CL:0000359	vascular associated smooth muscle cell	26220	26231	628
+CL:0000037	hematopoietic progenitor cell	26549	26579	988
+CL:0000837	hematopoietic progenitor cell	26549	26579	988
+CL:0000000	cell	26574	26579	756
+CL:0000081	blood cell	27754	27764	716
+CL:0000000	cell	27760	27764	623
+CL:0000071	blood vessel endothelial cell	27754	27764	438
+CL:0000359	vascular associated smooth muscle cell	27754	27764	361
+CL:0000084	T cell	29078	29098	589
+CL:0000000	cell	29078	29082	586
+CL:0000492	T-helper cell	29078	29098	361
+CL:0000545	T-helper 1 cell	29078	29098	311
+CL:0000546	T-helper 2 cell	29078	29098	311
+CL:0000784	T-associated plasma cells	29078	29098	295
+CL:0000000	cell	29367	29372	737
+CL:0000000	cell	29555	29560	737
+CL:0000057	fibroblast	29938	29949	756
+CL:0000000	cell	30092	30097	799
+CL:0000000	cell	30287	30292	756
+CL:0000000	cell	30456	30461	966
+CL:0000000	cell	30688	30692	604
+CL:0000000	cell	30853	30858	726
+CL:0000232	red blood cell	31068	31072	797
+CL:0000081	blood cell	31068	31072	745
+CL:0000000	cell	31068	31072	714
+CL:0000189	red muscle cell	31068	31072	529
+CL:0000071	blood vessel endothelial cell	31068	31072	484
+CL:0000497	red sensitive photoreceptor cell	31068	31072	479
+CL:0000359	vascular associated smooth muscle cell	31068	31072	407
+CL:0000000	cell	31102	31107	799
+CL:0000232	erythrocyte	31178	31190	553
+CL:0000000	cell	31347	31352	799
+CL:0000232	erythrocyte	31508	31520	726
+CL:0000000	cell	31725	31730	799
+CL:0000232	erythrocyte	31896	31908	756
+CL:0000034	stem cell	33451	33460	744
+CL:0000232	red blood cell	33421	33425	574
+CL:0000081	blood cell	33421	33425	544
+CL:0000000	cell	33421	33425	533
+CL:0000189	red muscle cell	33421	33425	332
+CL:0000071	blood vessel endothelial cell	33421	33425	283
+CL:0000497	red sensitive photoreceptor cell	33421	33425	282
+CL:0000359	vascular associated smooth muscle cell	33421	33425	207
+CL:0000222	mesodermal cell	33705	33721	816
+CL:0000000	cell	33716	33721	737
+CL:0000000	cell	34019	34024	799
+CL:0000037	hematopoietic progenitor cell	34005	34024	754
+CL:0000837	hematopoietic progenitor cell	34005	34024	754
+CL:0000000	cell	34286	34291	799
+CL:0000038	erythroid progenitor cell	34276	34291	754
+CL:0000764	erythroid lineage cell	34276	34291	754
+CL:0000235	macrophage	34307	34318	799
+CL:0000084	T cell	34380	34387	849
+CL:0000000	cell	34382	34387	756
+CL:0000492	T-helper cell	34380	34387	637
+CL:0000784	T-associated plasma cells	34380	34387	604
+CL:0000545	T-helper 1 cell	34380	34387	588
+CL:0000546	T-helper 2 cell	34380	34387	588
+CL:0000000	cell	34913	34918	737
+CL:0000038	erythroid progenitor cell	34903	34918	588
+CL:0000764	erythroid lineage cell	34903	34918	588
+CL:0000547	proerythroblast	34970	34986	737
+CL:0000000	cell	37066	37071	799
+CL:0000037	hematopoietic progenitor cell	37052	37071	754
+CL:0000837	hematopoietic progenitor cell	37052	37071	754
+CL:0000232	red blood cell	38029	38033	983
+CL:0000081	blood cell	38029	38033	849
+CL:0000000	cell	38029	38033	756
+CL:0000189	red muscle cell	38029	38033	612
+CL:0000071	blood vessel endothelial cell	38029	38033	588
+CL:0000497	red sensitive photoreceptor cell	38029	38033	563
+CL:0000359	vascular associated smooth muscle cell	38029	38033	511
+CL:0000000	cell	38431	38436	726
+CL:0000232	red blood cell	38664	38668	797
+CL:0000081	blood cell	38664	38668	745
+CL:0000000	cell	38664	38668	714
+CL:0000189	red muscle cell	38664	38668	529
+CL:0000071	blood vessel endothelial cell	38664	38668	484
+CL:0000497	red sensitive photoreceptor cell	38664	38668	479
+CL:0000359	vascular associated smooth muscle cell	38664	38668	407
+CL:0000000	cell	38704	38709	799
+CL:0000232	erythrocyte	38779	38791	560
+CL:0000000	cell	39064	39068	760
+CL:0000057	fibroblast	39053	39063	593
+CL:0000000	cell	39404	39409	737
+CL:0000000	cell	39769	39773	623
+CL:0000000	cell	39854	39859	966
+CL:0000232	red blood cell	39986	39990	893
+CL:0000081	blood cell	39986	39990	799
+CL:0000000	cell	39986	39990	737
+CL:0000189	red muscle cell	39986	39990	574
+CL:0000785	mature B cell	39979	39990	574
+CL:0000812	mature T cell	39979	39990	574
+CL:0000071	blood vessel endothelial cell	39986	39990	538
+CL:0000497	red sensitive photoreceptor cell	39986	39990	525
+CL:0000824	mature natural killer cell	39979	39990	525
+CL:0000841	mature myeloid dendritic cell	39979	39990	525
+CL:0000791	mature alpha-beta T cell	39979	39990	498
+CL:0000800	mature gamma-delta T cell	39979	39990	498
+CL:0000359	vascular associated smooth muscle cell	39986	39990	462
+CL:0000080	circulating cell	40035	40052	790
+CL:0000000	cell	40047	40052	726
+CL:0000000	cell	40338	40343	756
+CL:0000038	erythroid progenitor cell	40328	40343	637
+CL:0000764	erythroid lineage cell	40328	40343	637
+CL:0000000	cell	40381	40386	726
+CL:0000000	cell	40557	40562	726
+CL:0000038	erythroid progenitor cell	40547	40562	561
+CL:0000764	erythroid lineage cell	40547	40562	561
+CL:0000000	cell	40659	40664	719
+CL:0000000	cell	41371	41375	1000

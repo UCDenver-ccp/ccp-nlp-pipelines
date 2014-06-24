@@ -1,0 +1,390 @@
+T1	ontology_term 12 20	Neuronal
+N1	Reference T1 DOID:8117	
+T2	ontology_term 12 20	Neuronal
+N2	Reference T2 DOID:8117	
+T3	ontology_term 139 153	retinoblastoma
+N3	Reference T3 DOID:768	
+T4	ontology_term 139 153	retinoblastoma
+N4	Reference T4 DOID:768	
+T5	ontology_term 314 321	neurons
+N5	Reference T5 DOID:8117	
+T6	ontology_term 314 321	neurons
+N6	Reference T6 DOID:8117	
+T7	ontology_term 495 502	retinal
+N7	Reference T7 DOID:3612	
+T8	ontology_term 495 502	retinal
+N8	Reference T8 DOID:3612	
+T9	ontology_term 1688 1702	retinoblastoma
+N9	Reference T9 DOID:768	
+T10	ontology_term 1688 1702	retinoblastoma
+N10	Reference T10 DOID:768	
+T11	ontology_term 2234 2241	retinal
+N11	Reference T11 DOID:3612	
+T12	ontology_term 2234 2241	retinal
+N12	Reference T12 DOID:3612	
+T13	ontology_term 2242 2249	neurons
+N13	Reference T13 DOID:8117	
+T14	ontology_term 2242 2249	neurons
+N14	Reference T14 DOID:8117	
+T15	ontology_term 2437 2444	neurons
+N15	Reference T15 DOID:8117	
+T16	ontology_term 2437 2444	neurons
+N16	Reference T16 DOID:8117	
+T17	ontology_term 2557 2565	neuronal
+N17	Reference T17 DOID:8117	
+T18	ontology_term 2557 2565	neuronal
+N18	Reference T18 DOID:8117	
+T19	ontology_term 3041 3048	retinal
+N19	Reference T19 DOID:3612	
+T20	ontology_term 3041 3048	retinal
+N20	Reference T20 DOID:3612	
+T21	ontology_term 3120 3127	retinal
+N21	Reference T21 DOID:3612	
+T22	ontology_term 3120 3127	retinal
+N22	Reference T22 DOID:3612	
+T23	ontology_term 3528 3535	retinal
+N23	Reference T23 DOID:3612	
+T24	ontology_term 3528 3535	retinal
+N24	Reference T24 DOID:3612	
+T25	ontology_term 4056 4063	Retinal
+N25	Reference T25 DOID:3612	
+T26	ontology_term 4056 4063	Retinal
+N26	Reference T26 DOID:3612	
+T27	ontology_term 4996 5003	retinal
+N27	Reference T27 DOID:3612	
+T28	ontology_term 4996 5003	retinal
+N28	Reference T28 DOID:3612	
+T29	ontology_term 5627 5641	retinoblastoma
+N29	Reference T29 DOID:768	
+T30	ontology_term 5627 5641	retinoblastoma
+N30	Reference T30 DOID:768	
+T31	ontology_term 5694 5701	retinal
+N31	Reference T31 DOID:3612	
+T32	ontology_term 5694 5701	retinal
+N32	Reference T32 DOID:3612	
+T33	ontology_term 8644 8652	neuronal
+N33	Reference T33 DOID:8117	
+T34	ontology_term 8644 8652	neuronal
+N34	Reference T34 DOID:8117	
+T35	ontology_term 8928 8935	neurons
+N35	Reference T35 DOID:8117	
+T36	ontology_term 8928 8935	neurons
+N36	Reference T36 DOID:8117	
+T37	ontology_term 9414 9420	neuron
+N37	Reference T37 DOID:8117	
+T38	ontology_term 9414 9420	neuron
+N38	Reference T38 DOID:8117	
+T39	ontology_term 9749 9756	retinal
+N39	Reference T39 DOID:3612	
+T40	ontology_term 9749 9756	retinal
+N40	Reference T40 DOID:3612	
+T41	ontology_term 9757 9764	neurons
+N41	Reference T41 DOID:8117	
+T42	ontology_term 9757 9764	neurons
+N42	Reference T42 DOID:8117	
+T43	ontology_term 10588 10595	neurons
+N43	Reference T43 DOID:8117	
+T44	ontology_term 10588 10595	neurons
+N44	Reference T44 DOID:8117	
+T45	ontology_term 10683 10690	neurons
+N45	Reference T45 DOID:8117	
+T46	ontology_term 10683 10690	neurons
+N46	Reference T46 DOID:8117	
+T47	ontology_term 11220 11228	neuronal
+N47	Reference T47 DOID:8117	
+T48	ontology_term 11220 11228	neuronal
+N48	Reference T48 DOID:8117	
+T49	ontology_term 11267 11274	neurons
+N49	Reference T49 DOID:8117	
+T50	ontology_term 11267 11274	neurons
+N50	Reference T50 DOID:8117	
+T51	ontology_term 13965 13972	neurons
+N51	Reference T51 DOID:8117	
+T52	ontology_term 13965 13972	neurons
+N52	Reference T52 DOID:8117	
+T53	ontology_term 14456 14463	retinal
+N53	Reference T53 DOID:3612	
+T54	ontology_term 14456 14463	retinal
+N54	Reference T54 DOID:3612	
+T55	ontology_term 16720 16727	neurons
+N55	Reference T55 DOID:8117	
+T56	ontology_term 16720 16727	neurons
+N56	Reference T56 DOID:8117	
+T57	ontology_term 16865 16873	neuronal
+N57	Reference T57 DOID:8117	
+T58	ontology_term 16865 16873	neuronal
+N58	Reference T58 DOID:8117	
+T59	ontology_term 17103 17110	neurons
+N59	Reference T59 DOID:8117	
+T60	ontology_term 17103 17110	neurons
+N60	Reference T60 DOID:8117	
+T61	ontology_term 18142 18149	retinal
+N61	Reference T61 DOID:3612	
+T62	ontology_term 18142 18149	retinal
+N62	Reference T62 DOID:3612	
+T63	ontology_term 18726 18733	neurons
+N63	Reference T63 DOID:8117	
+T64	ontology_term 18726 18733	neurons
+N64	Reference T64 DOID:8117	
+T65	ontology_term 19536 19543	neurons
+N65	Reference T65 DOID:8117	
+T66	ontology_term 19536 19543	neurons
+N66	Reference T66 DOID:8117	
+T67	ontology_term 24434 24441	neurons
+N67	Reference T67 DOID:8117	
+T68	ontology_term 24434 24441	neurons
+N68	Reference T68 DOID:8117	
+T69	ontology_term 24564 24571	retinal
+N69	Reference T69 DOID:3612	
+T70	ontology_term 24564 24571	retinal
+N70	Reference T70 DOID:3612	
+T71	ontology_term 25660 25667	neurons
+N71	Reference T71 DOID:8117	
+T72	ontology_term 25660 25667	neurons
+N72	Reference T72 DOID:8117	
+T73	ontology_term 27896 27903	retinal
+N73	Reference T73 DOID:3612	
+T74	ontology_term 27896 27903	retinal
+N74	Reference T74 DOID:3612	
+T75	ontology_term 28587 28594	retinal
+N75	Reference T75 DOID:3612	
+T76	ontology_term 28587 28594	retinal
+N76	Reference T76 DOID:3612	
+T77	ontology_term 28761 28768	retinal
+N77	Reference T77 DOID:3612	
+T78	ontology_term 28761 28768	retinal
+N78	Reference T78 DOID:3612	
+T79	ontology_term 29392 29400	neuronal
+N79	Reference T79 DOID:8117	
+T80	ontology_term 29392 29400	neuronal
+N80	Reference T80 DOID:8117	
+T81	ontology_term 32947 32954	Neurons
+N81	Reference T81 DOID:8117	
+T82	ontology_term 32947 32954	Neurons
+N82	Reference T82 DOID:8117	
+T83	ontology_term 33038 33045	retinal
+N83	Reference T83 DOID:3612	
+T84	ontology_term 33038 33045	retinal
+N84	Reference T84 DOID:3612	
+T85	ontology_term 33046 33053	neurons
+N85	Reference T85 DOID:8117	
+T86	ontology_term 33046 33053	neurons
+N86	Reference T86 DOID:8117	
+T87	ontology_term 34720 34727	retinal
+N87	Reference T87 DOID:3612	
+T88	ontology_term 34720 34727	retinal
+N88	Reference T88 DOID:3612	
+T89	ontology_term 34728 34735	neurons
+N89	Reference T89 DOID:8117	
+T90	ontology_term 34728 34735	neurons
+N90	Reference T90 DOID:8117	
+T91	ontology_term 34824 34831	retinal
+N91	Reference T91 DOID:3612	
+T92	ontology_term 34824 34831	retinal
+N92	Reference T92 DOID:3612	
+T93	ontology_term 35099 35106	retinal
+N93	Reference T93 DOID:3612	
+T94	ontology_term 35099 35106	retinal
+N94	Reference T94 DOID:3612	
+T95	ontology_term 35107 35114	neurons
+N95	Reference T95 DOID:8117	
+T96	ontology_term 35107 35114	neurons
+N96	Reference T96 DOID:8117	
+T97	ontology_term 35144 35151	retinal
+N97	Reference T97 DOID:3612	
+T98	ontology_term 35144 35151	retinal
+N98	Reference T98 DOID:3612	
+T99	ontology_term 35292 35299	retinal
+N99	Reference T99 DOID:3612	
+T100	ontology_term 35292 35299	retinal
+N100	Reference T100 DOID:3612	
+T101	ontology_term 35300 35307	neurons
+N101	Reference T101 DOID:8117	
+T102	ontology_term 35300 35307	neurons
+N102	Reference T102 DOID:8117	
+T103	ontology_term 35321 35328	retinal
+N103	Reference T103 DOID:3612	
+T104	ontology_term 35321 35328	retinal
+N104	Reference T104 DOID:3612	
+T105	ontology_term 35613 35620	neurons
+N105	Reference T105 DOID:8117	
+T106	ontology_term 35613 35620	neurons
+N106	Reference T106 DOID:8117	
+T107	ontology_term 35732 35740	neuronal
+N107	Reference T107 DOID:8117	
+T108	ontology_term 35732 35740	neuronal
+N108	Reference T108 DOID:8117	
+T109	ontology_term 35815 35822	neurons
+N109	Reference T109 DOID:8117	
+T110	ontology_term 35815 35822	neurons
+N110	Reference T110 DOID:8117	
+T111	ontology_term 35882 35889	retinal
+N111	Reference T111 DOID:3612	
+T112	ontology_term 35882 35889	retinal
+N112	Reference T112 DOID:3612	
+T113	ontology_term 35954 35961	neurons
+N113	Reference T113 DOID:8117	
+T114	ontology_term 35954 35961	neurons
+N114	Reference T114 DOID:8117	
+T115	ontology_term 36099 36106	neurons
+N115	Reference T115 DOID:8117	
+T116	ontology_term 36099 36106	neurons
+N116	Reference T116 DOID:8117	
+T117	ontology_term 36152 36159	neurons
+N117	Reference T117 DOID:8117	
+T118	ontology_term 36152 36159	neurons
+N118	Reference T118 DOID:8117	
+T119	ontology_term 37116 37123	retinal
+N119	Reference T119 DOID:3612	
+T120	ontology_term 37116 37123	retinal
+N120	Reference T120 DOID:3612	
+T121	ontology_term 37500 37507	retinal
+N121	Reference T121 DOID:3612	
+T122	ontology_term 37500 37507	retinal
+N122	Reference T122 DOID:3612	
+T123	ontology_term 38813 38820	retinal
+N123	Reference T123 DOID:3612	
+T124	ontology_term 38813 38820	retinal
+N124	Reference T124 DOID:3612	
+T125	ontology_term 40226 40233	retinal
+N125	Reference T125 DOID:3612	
+T126	ontology_term 40226 40233	retinal
+N126	Reference T126 DOID:3612	
+T127	ontology_term 40574 40581	retinal
+N127	Reference T127 DOID:3612	
+T128	ontology_term 40574 40581	retinal
+N128	Reference T128 DOID:3612	
+T129	ontology_term 41969 41976	retinal
+N129	Reference T129 DOID:3612	
+T130	ontology_term 41969 41976	retinal
+N130	Reference T130 DOID:3612	
+T131	ontology_term 42852 42860	neuronal
+N131	Reference T131 DOID:8117	
+T132	ontology_term 42852 42860	neuronal
+N132	Reference T132 DOID:8117	
+T133	ontology_term 42903 42910	Retinal
+N133	Reference T133 DOID:3612	
+T134	ontology_term 42903 42910	Retinal
+N134	Reference T134 DOID:3612	
+T135	ontology_term 43013 43021	neuronal
+N135	Reference T135 DOID:8117	
+T136	ontology_term 43013 43021	neuronal
+N136	Reference T136 DOID:8117	
+T137	ontology_term 43286 43293	neurons
+N137	Reference T137 DOID:8117	
+T138	ontology_term 43286 43293	neurons
+N138	Reference T138 DOID:8117	
+T139	ontology_term 43339 43346	neurons
+N139	Reference T139 DOID:8117	
+T140	ontology_term 43339 43346	neurons
+N140	Reference T140 DOID:8117	
+T141	ontology_term 43571 43579	neuronal
+N141	Reference T141 DOID:8117	
+T142	ontology_term 43571 43579	neuronal
+N142	Reference T142 DOID:8117	
+T143	ontology_term 43737 43744	neurons
+N143	Reference T143 DOID:8117	
+T144	ontology_term 43737 43744	neurons
+N144	Reference T144 DOID:8117	
+T145	ontology_term 44139 44146	retinal
+N145	Reference T145 DOID:3612	
+T146	ontology_term 44139 44146	retinal
+N146	Reference T146 DOID:3612	
+T147	ontology_term 44301 44308	retinal
+N147	Reference T147 DOID:3612	
+T148	ontology_term 44301 44308	retinal
+N148	Reference T148 DOID:3612	
+T149	ontology_term 45248 45262	retinoblastoma
+N149	Reference T149 DOID:768	
+T150	ontology_term 45248 45262	retinoblastoma
+N150	Reference T150 DOID:768	
+T151	ontology_term 45886 45893	retinal
+N151	Reference T151 DOID:3612	
+T152	ontology_term 45886 45893	retinal
+N152	Reference T152 DOID:3612	
+T153	ontology_term 45894 45901	neurons
+N153	Reference T153 DOID:8117	
+T154	ontology_term 45894 45901	neurons
+N154	Reference T154 DOID:8117	
+T155	ontology_term 46350 46358	neuronal
+N155	Reference T155 DOID:8117	
+T156	ontology_term 46350 46358	neuronal
+N156	Reference T156 DOID:8117	
+T157	ontology_term 48031 48038	neurons
+N157	Reference T157 DOID:8117	
+T158	ontology_term 48031 48038	neurons
+N158	Reference T158 DOID:8117	
+T159	ontology_term 48121 48128	neurons
+N159	Reference T159 DOID:8117	
+T160	ontology_term 48121 48128	neurons
+N160	Reference T160 DOID:8117	
+T161	ontology_term 48239 48247	neuronal
+N161	Reference T161 DOID:8117	
+T162	ontology_term 48239 48247	neuronal
+N162	Reference T162 DOID:8117	
+T163	ontology_term 49330 49337	retinal
+N163	Reference T163 DOID:3612	
+T164	ontology_term 49330 49337	retinal
+N164	Reference T164 DOID:3612	
+T165	ontology_term 49975 49982	retinal
+N165	Reference T165 DOID:3612	
+T166	ontology_term 49975 49982	retinal
+N166	Reference T166 DOID:3612	
+T167	ontology_term 50663 50670	neurons
+N167	Reference T167 DOID:8117	
+T168	ontology_term 50663 50670	neurons
+N168	Reference T168 DOID:8117	
+T169	ontology_term 51224 51231	neurons
+N169	Reference T169 DOID:8117	
+T170	ontology_term 51224 51231	neurons
+N170	Reference T170 DOID:8117	
+T171	ontology_term 51970 51984	retinoblastoma
+N171	Reference T171 DOID:768	
+T172	ontology_term 51970 51984	retinoblastoma
+N172	Reference T172 DOID:768	
+T173	ontology_term 52685 52692	neurons
+N173	Reference T173 DOID:8117	
+T174	ontology_term 52685 52692	neurons
+N174	Reference T174 DOID:8117	
+T175	ontology_term 52769 52776	neurons
+N175	Reference T175 DOID:8117	
+T176	ontology_term 52769 52776	neurons
+N176	Reference T176 DOID:8117	
+T177	ontology_term 52881 52889	neuronal
+N177	Reference T177 DOID:8117	
+T178	ontology_term 52881 52889	neuronal
+N178	Reference T178 DOID:8117	
+T179	ontology_term 62639 62646	retinal
+N179	Reference T179 DOID:3612	
+T180	ontology_term 62639 62646	retinal
+N180	Reference T180 DOID:3612	
+T181	ontology_term 63226 63233	retinal
+N181	Reference T181 DOID:3612	
+T182	ontology_term 63226 63233	retinal
+N182	Reference T182 DOID:3612	
+T183	ontology_term 63920 63927	Retinal
+N183	Reference T183 DOID:3612	
+T184	ontology_term 63920 63927	Retinal
+N184	Reference T184 DOID:3612	
+T185	ontology_term 64248 64255	retinal
+N185	Reference T185 DOID:3612	
+T186	ontology_term 64248 64255	retinal
+N186	Reference T186 DOID:3612	
+T187	ontology_term 65518 65525	retinal
+N187	Reference T187 DOID:3612	
+T188	ontology_term 65518 65525	retinal
+N188	Reference T188 DOID:3612	
+T189	ontology_term 67301 67315	retinoblastoma
+N189	Reference T189 DOID:768	
+T190	ontology_term 67301 67315	retinoblastoma
+N190	Reference T190 DOID:768	
+T191	ontology_term 67331 67338	retinal
+N191	Reference T191 DOID:3612	
+T192	ontology_term 67331 67338	retinal
+N192	Reference T192 DOID:3612	
+T193	ontology_term 67362 67369	retinal
+N193	Reference T193 DOID:3612	
+T194	ontology_term 67362 67369	retinal
+N194	Reference T194 DOID:3612	
+T195	ontology_term 67933 67942	Blindness
+N195	Reference T195 DOID:1432	

@@ -1,0 +1,524 @@
+T1	ontology_term 12 20	Neuronal
+N1	Reference T1 CL:0000540	
+T2	ontology_term 45 49	Cell
+N2	Reference T2 CL:0000000	
+T3	ontology_term 271 275	cell
+N3	Reference T3 CL:0000000	
+T4	ontology_term 314 321	neurons
+N4	Reference T4 CL:0000540	
+T5	ontology_term 495 508	retinal cells
+N5	Reference T5 CL:0009004	
+T6	ontology_term 651 655	cell
+N6	Reference T6 CL:0000000	
+T7	ontology_term 712 716	cell
+N7	Reference T7 CL:0000000	
+T8	ontology_term 785 799	amacrine cells
+N8	Reference T8 CL:0000561	
+T9	ontology_term 820 832	interneurons
+N9	Reference T9 CL:0000099	
+T10	ontology_term 1319 1324	cells
+N10	Reference T10 CL:0000000	
+T11	ontology_term 1978 1983	cells
+N11	Reference T11 CL:0000000	
+T12	ontology_term 2242 2249	neurons
+N12	Reference T12 CL:0000540	
+T13	ontology_term 2271 2276	cells
+N13	Reference T13 CL:0000000	
+T14	ontology_term 2360 2364	cell
+N14	Reference T14 CL:0000000	
+T15	ontology_term 2428 2444	amacrine neurons
+N15	Reference T15 CL:0000561	
+T16	ontology_term 2557 2565	neuronal
+N16	Reference T16 CL:0000540	
+T17	ontology_term 2610 2614	cell
+N17	Reference T17 CL:0000000	
+T18	ontology_term 2654 2658	cell
+N18	Reference T18 CL:0000000	
+T19	ontology_term 2714 2718	cell
+N19	Reference T19 CL:0000000	
+T20	ontology_term 2866 2870	cell
+N20	Reference T20 CL:0000000	
+T21	ontology_term 3041 3064	retinal progenitor cell
+N21	Reference T21 CL:0002672	
+T22	ontology_term 3139 3144	cells
+N22	Reference T22 CL:0000000	
+T23	ontology_term 3241 3245	cell
+N23	Reference T23 CL:0000000	
+T24	ontology_term 3303 3307	cell
+N24	Reference T24 CL:0000000	
+T25	ontology_term 3455 3459	cell
+N25	Reference T25 CL:0000000	
+T26	ontology_term 3623 3637	amacrine cells
+N26	Reference T26 CL:0000561	
+T27	ontology_term 3662 3666	cell
+N27	Reference T27 CL:0000000	
+T28	ontology_term 3743 3757	amacrine cells
+N28	Reference T28 CL:0000561	
+T29	ontology_term 3776 3780	cell
+N29	Reference T29 CL:0000000	
+T30	ontology_term 4020 4024	Cell
+N30	Reference T30 CL:0000000	
+T31	ontology_term 4155 4159	cell
+N31	Reference T31 CL:0000000	
+T32	ontology_term 4222 4226	cell
+N32	Reference T32 CL:0000000	
+T33	ontology_term 4524 4529	cells
+N33	Reference T33 CL:0000000	
+T34	ontology_term 4573 4587	amacrine cells
+N34	Reference T34 CL:0000561	
+T35	ontology_term 4664 4668	cell
+N35	Reference T35 CL:0000000	
+T36	ontology_term 5212 5217	cells
+N36	Reference T36 CL:0000000	
+T37	ontology_term 5237 5242	cells
+N37	Reference T37 CL:0000000	
+T38	ontology_term 5278 5283	cells
+N38	Reference T38 CL:0000000	
+T39	ontology_term 5671 5675	cell
+N39	Reference T39 CL:0000000	
+T40	ontology_term 5713 5717	cell
+N40	Reference T40 CL:0000000	
+T41	ontology_term 5824 5829	cells
+N41	Reference T41 CL:0000000	
+T42	ontology_term 5871 5875	cell
+N42	Reference T42 CL:0000000	
+T43	ontology_term 6075 6079	cell
+N43	Reference T43 CL:0000000	
+T44	ontology_term 6245 6255	fibroblast
+N44	Reference T44 CL:0000057	
+T45	ontology_term 6327 6338	fibroblasts
+N45	Reference T45 CL:0000057	
+T46	ontology_term 6787 6792	cells
+N46	Reference T46 CL:0000000	
+T47	ontology_term 7281 7292	fibroblasts
+N47	Reference T47 CL:0000057	
+T48	ontology_term 7417 7421	cell
+N48	Reference T48 CL:0000000	
+T49	ontology_term 7885 7890	cells
+N49	Reference T49 CL:0000000	
+T50	ontology_term 7993 7998	cells
+N50	Reference T50 CL:0000000	
+T51	ontology_term 8017 8028	fibroblasts
+N51	Reference T51 CL:0000057	
+T52	ontology_term 8168 8173	cells
+N52	Reference T52 CL:0000000	
+T53	ontology_term 8644 8652	neuronal
+N53	Reference T53 CL:0000540	
+T54	ontology_term 8928 8935	neurons
+N54	Reference T54 CL:0000540	
+T55	ontology_term 8993 8997	cell
+N55	Reference T55 CL:0000000	
+T56	ontology_term 9414 9420	neuron
+N56	Reference T56 CL:0000540	
+T57	ontology_term 9554 9559	cells
+N57	Reference T57 CL:0000000	
+T58	ontology_term 9757 9764	neurons
+N58	Reference T58 CL:0000540	
+T59	ontology_term 10058 10072	amacrine cells
+N59	Reference T59 CL:0000561	
+T60	ontology_term 10127 10139	interneurons
+N60	Reference T60 CL:0000099	
+T61	ontology_term 10547 10552	cells
+N61	Reference T61 CL:0000000	
+T62	ontology_term 10588 10595	neurons
+N62	Reference T62 CL:0000540	
+T63	ontology_term 10683 10690	neurons
+N63	Reference T63 CL:0000540	
+T64	ontology_term 10937 10948	fibroblasts
+N64	Reference T64 CL:0000057	
+T65	ontology_term 11220 11228	neuronal
+N65	Reference T65 CL:0000540	
+T66	ontology_term 11267 11274	neurons
+N66	Reference T66 CL:0000540	
+T67	ontology_term 12158 12162	cell
+N67	Reference T67 CL:0000000	
+T68	ontology_term 12903 12908	cells
+N68	Reference T68 CL:0000000	
+T69	ontology_term 13162 13167	cells
+N69	Reference T69 CL:0000000	
+T70	ontology_term 13799 13804	cells
+N70	Reference T70 CL:0000000	
+T71	ontology_term 13927 13932	cells
+N71	Reference T71 CL:0000000	
+T72	ontology_term 13965 13972	neurons
+N72	Reference T72 CL:0000540	
+T73	ontology_term 14036 14040	cell
+N73	Reference T73 CL:0000000	
+T74	ontology_term 14138 14143	cells
+N74	Reference T74 CL:0000000	
+T75	ontology_term 14288 14292	cell
+N75	Reference T75 CL:0000000	
+T76	ontology_term 14414 14419	Cells
+N76	Reference T76 CL:0000000	
+T77	ontology_term 14589 14594	cells
+N77	Reference T77 CL:0000000	
+T78	ontology_term 14658 14675	rod bipolar cells
+N78	Reference T78 CL:0000751	
+T79	ontology_term 14770 14775	cells
+N79	Reference T79 CL:0000000	
+T80	ontology_term 14826 14831	cells
+N80	Reference T80 CL:0000000	
+T81	ontology_term 15851 15855	cell
+N81	Reference T81 CL:0000000	
+T82	ontology_term 15908 15912	cell
+N82	Reference T82 CL:0000000	
+T83	ontology_term 16555 16559	cell
+N83	Reference T83 CL:0000000	
+T84	ontology_term 16678 16683	cells
+N84	Reference T84 CL:0000000	
+T85	ontology_term 16712 16727	bipolar neurons
+N85	Reference T85 CL:0000103	
+T86	ontology_term 16785 16789	cell
+N86	Reference T86 CL:0000000	
+T87	ontology_term 16865 16873	neuronal
+N87	Reference T87 CL:0000540	
+T88	ontology_term 16953 16958	cells
+N88	Reference T88 CL:0000000	
+T89	ontology_term 17103 17110	neurons
+N89	Reference T89 CL:0000540	
+T90	ontology_term 17174 17178	cell
+N90	Reference T90 CL:0000000	
+T91	ontology_term 18177 18182	cells
+N91	Reference T91 CL:0000000	
+T92	ontology_term 18541 18546	cells
+N92	Reference T92 CL:0000000	
+T93	ontology_term 18579 18584	cells
+N93	Reference T93 CL:0000000	
+T94	ontology_term 18726 18733	neurons
+N94	Reference T94 CL:0000540	
+T95	ontology_term 18788 18792	cell
+N95	Reference T95 CL:0000000	
+T96	ontology_term 18852 18857	cells
+N96	Reference T96 CL:0000000	
+T97	ontology_term 18912 18916	cell
+N97	Reference T97 CL:0000000	
+T98	ontology_term 19536 19543	neurons
+N98	Reference T98 CL:0000540	
+T99	ontology_term 19963 19977	amacrine cells
+N99	Reference T99 CL:0000561	
+T100	ontology_term 20003 20008	cells
+N100	Reference T100 CL:0000000	
+T101	ontology_term 20053 20058	cells
+N101	Reference T101 CL:0000000	
+T102	ontology_term 20241 20257	ON bipolar cells
+N102	Reference T102 CL:0000749	
+T103	ontology_term 20506 20510	cell
+N103	Reference T103 CL:0000000	
+T104	ontology_term 21241 21246	cells
+N104	Reference T104 CL:0000000	
+T105	ontology_term 21733 21738	cells
+N105	Reference T105 CL:0000000	
+T106	ontology_term 21768 21772	cell
+N106	Reference T106 CL:0000000	
+T107	ontology_term 22159 22173	amacrine cells
+N107	Reference T107 CL:0000561	
+T108	ontology_term 22455 22459	Cell
+N108	Reference T108 CL:0000000	
+T109	ontology_term 22536 22540	cell
+N109	Reference T109 CL:0000000	
+T110	ontology_term 22597 22602	cells
+N110	Reference T110 CL:0000000	
+T111	ontology_term 22829 22833	cell
+N111	Reference T111 CL:0000000	
+T112	ontology_term 22982 22986	cell
+N112	Reference T112 CL:0000000	
+T113	ontology_term 23296 23300	cell
+N113	Reference T113 CL:0000000	
+T114	ontology_term 23343 23356	amacrine cell
+N114	Reference T114 CL:0000561	
+T115	ontology_term 23898 23902	cell
+N115	Reference T115 CL:0000000	
+T116	ontology_term 23937 23941	cell
+N116	Reference T116 CL:0000000	
+T117	ontology_term 23962 23966	cell
+N117	Reference T117 CL:0000000	
+T118	ontology_term 24425 24441	amacrine neurons
+N118	Reference T118 CL:0000561	
+T119	ontology_term 25118 25122	cell
+N119	Reference T119 CL:0000000	
+T120	ontology_term 25188 25193	cells
+N120	Reference T120 CL:0000000	
+T121	ontology_term 25490 25495	cells
+N121	Reference T121 CL:0000000	
+T122	ontology_term 25590 25604	amacrine cells
+N122	Reference T122 CL:0000561	
+T123	ontology_term 25652 25667	bipolar neurons
+N123	Reference T123 CL:0000103	
+T124	ontology_term 25724 25738	amacrine cells
+N124	Reference T124 CL:0000561	
+T125	ontology_term 26019 26024	cells
+N125	Reference T125 CL:0000000	
+T126	ontology_term 26448 26453	cells
+N126	Reference T126 CL:0000000	
+T127	ontology_term 26481 26486	cells
+N127	Reference T127 CL:0000000	
+T128	ontology_term 26772 26777	cells
+N128	Reference T128 CL:0000000	
+T129	ontology_term 27152 27156	cell
+N129	Reference T129 CL:0000000	
+T130	ontology_term 27405 27409	cell
+N130	Reference T130 CL:0000000	
+T131	ontology_term 27571 27575	cell
+N131	Reference T131 CL:0000000	
+T132	ontology_term 28225 28229	cell
+N132	Reference T132 CL:0000000	
+T133	ontology_term 28344 28348	cell
+N133	Reference T133 CL:0000000	
+T134	ontology_term 28456 28460	cell
+N134	Reference T134 CL:0000000	
+T135	ontology_term 28514 28519	cells
+N135	Reference T135 CL:0000000	
+T136	ontology_term 28718 28723	cells
+N136	Reference T136 CL:0000000	
+T137	ontology_term 28843 28847	cell
+N137	Reference T137 CL:0000000	
+T138	ontology_term 28965 28970	cells
+N138	Reference T138 CL:0000000	
+T139	ontology_term 29392 29400	neuronal
+N139	Reference T139 CL:0000540	
+T140	ontology_term 29401 29406	cells
+N140	Reference T140 CL:0000000	
+T141	ontology_term 29433 29443	adipocytes
+N141	Reference T141 CL:0000136	
+T142	ontology_term 29761 29765	cell
+N142	Reference T142 CL:0000000	
+T143	ontology_term 30041 30046	cells
+N143	Reference T143 CL:0000000	
+T144	ontology_term 30464 30469	cells
+N144	Reference T144 CL:0000000	
+T145	ontology_term 30606 30610	cell
+N145	Reference T145 CL:0000000	
+T146	ontology_term 30957 30962	cells
+N146	Reference T146 CL:0000000	
+T147	ontology_term 31201 31206	cells
+N147	Reference T147 CL:0000000	
+T148	ontology_term 31247 31252	cells
+N148	Reference T148 CL:0000000	
+T149	ontology_term 31442 31447	cells
+N149	Reference T149 CL:0000000	
+T150	ontology_term 31460 31465	cells
+N150	Reference T150 CL:0000000	
+T151	ontology_term 31540 31545	cells
+N151	Reference T151 CL:0000000	
+T152	ontology_term 31744 31749	cells
+N152	Reference T152 CL:0000000	
+T153	ontology_term 31974 31978	cell
+N153	Reference T153 CL:0000000	
+T154	ontology_term 32055 32060	cells
+N154	Reference T154 CL:0000000	
+T155	ontology_term 32074 32086	neuroblastic
+N155	Reference T155 CL:0000031	
+T156	ontology_term 32165 32170	cells
+N156	Reference T156 CL:0000000	
+T157	ontology_term 32258 32263	cells
+N157	Reference T157 CL:0000000	
+T158	ontology_term 32671 32685	amacrine cells
+N158	Reference T158 CL:0000561	
+T159	ontology_term 32947 32954	Neurons
+N159	Reference T159 CL:0000540	
+T160	ontology_term 33046 33053	neurons
+N160	Reference T160 CL:0000540	
+T161	ontology_term 33070 33074	cell
+N161	Reference T161 CL:0000000	
+T162	ontology_term 33103 33107	cell
+N162	Reference T162 CL:0000000	
+T163	ontology_term 33650 33655	cells
+N163	Reference T163 CL:0000000	
+T164	ontology_term 33744 33749	cells
+N164	Reference T164 CL:0000000	
+T165	ontology_term 34402 34407	cells
+N165	Reference T165 CL:0000000	
+T166	ontology_term 34412 34424	Müller cells
+N166	Reference T166 CL:0011107	
+T167	ontology_term 34728 34735	neurons
+N167	Reference T167 CL:0000540	
+T168	ontology_term 35107 35114	neurons
+N168	Reference T168 CL:0000540	
+T169	ontology_term 35300 35307	neurons
+N169	Reference T169 CL:0000540	
+T170	ontology_term 35613 35620	neurons
+N170	Reference T170 CL:0000540	
+T171	ontology_term 35732 35740	neuronal
+N171	Reference T171 CL:0000540	
+T172	ontology_term 35815 35822	neurons
+N172	Reference T172 CL:0000540	
+T173	ontology_term 35942 35961	cholinergic neurons
+N173	Reference T173 CL:0000108	
+T174	ontology_term 36099 36106	neurons
+N174	Reference T174 CL:0000540	
+T175	ontology_term 36152 36159	neurons
+N175	Reference T175 CL:0000540	
+T176	ontology_term 36726 36730	cell
+N176	Reference T176 CL:0000000	
+T177	ontology_term 37484 37489	cells
+N177	Reference T177 CL:0000000	
+T178	ontology_term 38198 38203	cells
+N178	Reference T178 CL:0000000	
+T179	ontology_term 38705 38709	Cell
+N179	Reference T179 CL:0000000	
+T180	ontology_term 38813 38826	retinal cells
+N180	Reference T180 CL:0009004	
+T181	ontology_term 40545 40549	cell
+N181	Reference T181 CL:0000000	
+T182	ontology_term 41326 41330	cell
+N182	Reference T182 CL:0000000	
+T183	ontology_term 42398 42402	cell
+N183	Reference T183 CL:0000000	
+T184	ontology_term 42462 42466	cell
+N184	Reference T184 CL:0000000	
+T185	ontology_term 42583 42588	cells
+N185	Reference T185 CL:0000000	
+T186	ontology_term 42780 42784	cell
+N186	Reference T186 CL:0000000	
+T187	ontology_term 42852 42860	neuronal
+N187	Reference T187 CL:0000540	
+T188	ontology_term 42903 42915	Retinal Cell
+N188	Reference T188 CL:0009004	
+T189	ontology_term 43013 43021	neuronal
+N189	Reference T189 CL:0000540	
+T190	ontology_term 43022 43026	cell
+N190	Reference T190 CL:0000000	
+T191	ontology_term 43259 43263	cell
+N191	Reference T191 CL:0000000	
+T192	ontology_term 43286 43293	neurons
+N192	Reference T192 CL:0000540	
+T193	ontology_term 43339 43346	neurons
+N193	Reference T193 CL:0000540	
+T194	ontology_term 43571 43579	neuronal
+N194	Reference T194 CL:0000540	
+T195	ontology_term 43737 43744	neurons
+N195	Reference T195 CL:0000540	
+T196	ontology_term 43904 43918	amacrine cells
+N196	Reference T196 CL:0000561	
+T197	ontology_term 43967 43972	cells
+N197	Reference T197 CL:0000000	
+T198	ontology_term 44139 44151	retinal cell
+N198	Reference T198 CL:0009004	
+T199	ontology_term 44301 44314	retinal cells
+N199	Reference T199 CL:0009004	
+T200	ontology_term 44475 44479	cell
+N200	Reference T200 CL:0000000	
+T201	ontology_term 44947 44952	cells
+N201	Reference T201 CL:0000000	
+T202	ontology_term 45100 45104	cell
+N202	Reference T202 CL:0000000	
+T203	ontology_term 45614 45619	cells
+N203	Reference T203 CL:0000000	
+T204	ontology_term 45630 45635	cells
+N204	Reference T204 CL:0000000	
+T205	ontology_term 45894 45901	neurons
+N205	Reference T205 CL:0000540	
+T206	ontology_term 46147 46159	interneurons
+N206	Reference T206 CL:0000099	
+T207	ontology_term 46350 46358	neuronal
+N207	Reference T207 CL:0000540	
+T208	ontology_term 46359 46364	cells
+N208	Reference T208 CL:0000000	
+T209	ontology_term 46391 46401	adipocytes
+N209	Reference T209 CL:0000136	
+T210	ontology_term 47409 47413	cell
+N210	Reference T210 CL:0000000	
+T211	ontology_term 47942 47946	cell
+N211	Reference T211 CL:0000000	
+T212	ontology_term 48031 48038	neurons
+N212	Reference T212 CL:0000540	
+T213	ontology_term 48071 48075	cell
+N213	Reference T213 CL:0000000	
+T214	ontology_term 48111 48128	forebrain neurons
+N214	Reference T214 CL:0012001	
+T215	ontology_term 48239 48247	neuronal
+N215	Reference T215 CL:0000540	
+T216	ontology_term 48489 48503	cells in vitro
+N216	Reference T216 CL:0001034	
+T217	ontology_term 49330 49343	retinal cells
+N217	Reference T217 CL:0009004	
+T218	ontology_term 49975 49988	retinal cells
+N218	Reference T218 CL:0009004	
+T219	ontology_term 50629 50634	cells
+N219	Reference T219 CL:0000000	
+T220	ontology_term 50645 50649	cell
+N220	Reference T220 CL:0000000	
+T221	ontology_term 50663 50670	neurons
+N221	Reference T221 CL:0000540	
+T222	ontology_term 50826 50831	cells
+N222	Reference T222 CL:0000000	
+T223	ontology_term 50936 50941	cells
+N223	Reference T223 CL:0000000	
+T224	ontology_term 51088 51093	cells
+N224	Reference T224 CL:0000000	
+T225	ontology_term 51224 51231	neurons
+N225	Reference T225 CL:0000540	
+T226	ontology_term 51383 51394	enterocytes
+N226	Reference T226 CL:0000584	
+T227	ontology_term 51677 51682	cells
+N227	Reference T227 CL:0000000	
+T228	ontology_term 51795 51799	cell
+N228	Reference T228 CL:0000000	
+T229	ontology_term 51892 51897	cells
+N229	Reference T229 CL:0000000	
+T230	ontology_term 52352 52356	cell
+N230	Reference T230 CL:0000000	
+T231	ontology_term 52685 52692	neurons
+N231	Reference T231 CL:0000540	
+T232	ontology_term 52760 52776	amacrine neurons
+N232	Reference T232 CL:0000561	
+T233	ontology_term 52881 52889	neuronal
+N233	Reference T233 CL:0000540	
+T234	ontology_term 52890 52895	cells
+N234	Reference T234 CL:0000000	
+T235	ontology_term 52987 52991	cell
+N235	Reference T235 CL:0000000	
+T236	ontology_term 53632 53637	cells
+N236	Reference T236 CL:0000000	
+T237	ontology_term 55060 55065	cells
+N237	Reference T237 CL:0000000	
+T238	ontology_term 55956 55961	cells
+N238	Reference T238 CL:0000000	
+T239	ontology_term 56293 56298	cells
+N239	Reference T239 CL:0000000	
+T240	ontology_term 56733 56738	cells
+N240	Reference T240 CL:0000000	
+T241	ontology_term 56814 56819	cells
+N241	Reference T241 CL:0000000	
+T242	ontology_term 56875 56879	cell
+N242	Reference T242 CL:0000000	
+T243	ontology_term 57122 57127	cells
+N243	Reference T243 CL:0000000	
+T244	ontology_term 57229 57233	cell
+N244	Reference T244 CL:0000000	
+T245	ontology_term 59797 59800	ECL
+N245	Reference T245 CL:0000504	
+T246	ontology_term 61478 61482	Cell
+N246	Reference T246 CL:0000000	
+T247	ontology_term 61699 61704	cells
+N247	Reference T247 CL:0000000	
+T248	ontology_term 62322 62327	cells
+N248	Reference T248 CL:0000000	
+T249	ontology_term 62810 62815	cells
+N249	Reference T249 CL:0000000	
+T250	ontology_term 62853 62858	cells
+N250	Reference T250 CL:0000000	
+T251	ontology_term 63179 63183	Cell
+N251	Reference T251 CL:0000000	
+T252	ontology_term 63359 63364	cells
+N252	Reference T252 CL:0000000	
+T253	ontology_term 63428 63445	rod bipolar cells
+N253	Reference T253 CL:0000751	
+T254	ontology_term 63530 63535	cells
+N254	Reference T254 CL:0000000	
+T255	ontology_term 63587 63592	cells
+N255	Reference T255 CL:0000000	
+T256	ontology_term 64376 64381	cells
+N256	Reference T256 CL:0000000	
+T257	ontology_term 65518 65531	retinal cells
+N257	Reference T257 CL:0009004	
+T258	ontology_term 67071 67075	cell
+N258	Reference T258 CL:0000000	
+T259	ontology_term 67160 67172	neuroblastic
+N259	Reference T259 CL:0000031	
+T260	ontology_term 67331 67354	retinal progenitor cell
+N260	Reference T260 CL:0002672	
+T261	ontology_term 67381 67385	cell
+N261	Reference T261 CL:0000000	
+T262	ontology_term 67439 67452	amacrine cell
+N262	Reference T262 CL:0000561	

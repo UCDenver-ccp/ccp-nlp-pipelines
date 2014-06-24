@@ -1,0 +1,562 @@
+CL:0000233	platelet	55	64	966
+CL:0000232	red blood cell	69	84	983
+CL:0000081	blood cell	73	84	849
+CL:0000000	cell	79	84	756
+CL:0000071	blood vessel endothelial cell	73	84	588
+CL:0000359	vascular associated smooth muscle cell	73	84	511
+CL:0000232	erythrocyte	364	376	966
+CL:0000232	red blood cell	496	511	983
+CL:0000081	blood cell	500	511	849
+CL:0000000	cell	506	511	756
+CL:0000071	blood vessel endothelial cell	500	511	588
+CL:0000359	vascular associated smooth muscle cell	500	511	511
+CL:0000232	red blood cell	629	644	983
+CL:0000081	blood cell	633	644	849
+CL:0000000	cell	639	644	756
+CL:0000071	blood vessel endothelial cell	633	644	588
+CL:0000359	vascular associated smooth muscle cell	633	644	511
+CL:0000232	erythrocyte	662	674	966
+CL:0000000	cell	924	928	623
+CL:0000232	red blood cell	971	986	983
+CL:0000081	blood cell	975	986	849
+CL:0000000	cell	981	986	756
+CL:0000071	blood vessel endothelial cell	975	986	588
+CL:0000359	vascular associated smooth muscle cell	975	986	511
+CL:0000233	platelet	1022	1031	966
+CL:0000000	cell	1042	1047	966
+CL:0000233	platelet	1159	1168	966
+CL:0000232	red blood cell	1275	1290	983
+CL:0000081	blood cell	1279	1290	849
+CL:0000000	cell	1285	1290	756
+CL:0000071	blood vessel endothelial cell	1279	1290	588
+CL:0000359	vascular associated smooth muscle cell	1279	1290	511
+CL:0000232	red blood cell	1380	1395	983
+CL:0000081	blood cell	1384	1395	849
+CL:0000000	cell	1390	1395	756
+CL:0000071	blood vessel endothelial cell	1384	1395	588
+CL:0000359	vascular associated smooth muscle cell	1384	1395	511
+CL:0000000	cell	1466	1474	595
+CL:0000232	red blood cell	1564	1579	983
+CL:0000081	blood cell	1568	1579	849
+CL:0000000	cell	1574	1579	756
+CL:0000071	blood vessel endothelial cell	1568	1579	588
+CL:0000359	vascular associated smooth muscle cell	1568	1579	511
+CL:0000233	platelet	1621	1630	966
+CL:0000000	cell	1640	1644	833
+CL:0000502	type D enteroendocrine cell	1640	1650	650
+CL:0000508	type G enteroendocrine cell	1640	1650	650
+CL:0000144	cell by function	1682	1700	719
+CL:0000000	cell	1682	1690	595
+CL:0000000	cell	1823	1827	833
+CL:0000502	type D enteroendocrine cell	1823	1833	650
+CL:0000508	type G enteroendocrine cell	1823	1833	650
+CL:0000000	cell	3018	3026	532
+CL:0000000	cell	5002	5010	595
+CL:0000746	cardiomyocyte	5656	5670	799
+CL:0000232	red blood cell	5758	5773	983
+CL:0000081	blood cell	5762	5773	849
+CL:0000000	cell	5768	5773	756
+CL:0000071	blood vessel endothelial cell	5762	5773	588
+CL:0000359	vascular associated smooth muscle cell	5762	5773	511
+CL:0000233	platelet	5778	5787	966
+CL:0000232	red blood cell	5823	5838	983
+CL:0000081	blood cell	5827	5838	849
+CL:0000000	cell	5833	5838	756
+CL:0000071	blood vessel endothelial cell	5827	5838	588
+CL:0000359	vascular associated smooth muscle cell	5827	5838	511
+CL:0000233	platelet	5843	5852	966
+CL:0000232	red blood cell	5963	5978	893
+CL:0000081	blood cell	5967	5978	799
+CL:0000000	cell	5973	5978	737
+CL:0000071	blood vessel endothelial cell	5967	5978	538
+CL:0000359	vascular associated smooth muscle cell	5967	5978	462
+CL:0000232	red blood cell	5985	6000	983
+CL:0000081	blood cell	5989	6000	849
+CL:0000000	cell	5995	6000	756
+CL:0000071	blood vessel endothelial cell	5989	6000	588
+CL:0000359	vascular associated smooth muscle cell	5989	6000	511
+CL:0000232	red blood cell	6280	6294	1000
+CL:0000081	blood cell	6284	6294	882
+CL:0000000	cell	6290	6294	790
+CL:0000071	blood vessel endothelial cell	6284	6294	604
+CL:0000359	vascular associated smooth muscle cell	6284	6294	528
+CL:0000232	red blood cell	6351	6366	983
+CL:0000081	blood cell	6355	6366	849
+CL:0000000	cell	6361	6366	756
+CL:0000071	blood vessel endothelial cell	6355	6366	588
+CL:0000359	vascular associated smooth muscle cell	6355	6366	511
+CL:0000232	red blood cell	6425	6439	743
+CL:0000081	blood cell	6429	6439	666
+CL:0000000	cell	6435	6439	604
+CL:0000071	blood vessel endothelial cell	6429	6439	388
+CL:0000359	vascular associated smooth muscle cell	6429	6439	312
+CL:0000114	surface ectoderm cell	6719	6731	629
+CL:0000000	cell	6719	6723	623
+CL:0000232	red blood cell	7063	7077	1000
+CL:0000081	blood cell	7067	7077	882
+CL:0000000	cell	7073	7077	790
+CL:0000071	blood vessel endothelial cell	7067	7077	604
+CL:0000359	vascular associated smooth muscle cell	7067	7077	528
+CL:0000682	M cell	7162	7179	880
+CL:0000000	cell	7162	7170	595
+CL:0000232	red blood cell	7216	7231	983
+CL:0000081	blood cell	7220	7231	849
+CL:0000000	cell	7226	7231	756
+CL:0000071	blood vessel endothelial cell	7220	7231	588
+CL:0000359	vascular associated smooth muscle cell	7220	7231	511
+CL:0000232	red blood cell	7233	7247	695
+CL:0000081	blood cell	7237	7247	640
+CL:0000000	cell	7243	7247	593
+CL:0000071	blood vessel endothelial cell	7237	7247	362
+CL:0000359	vascular associated smooth muscle cell	7237	7247	285
+CL:0000233	platelet	7275	7284	633
+CL:0000232	red blood cell	7430	7445	983
+CL:0000081	blood cell	7434	7445	849
+CL:0000000	cell	7440	7445	756
+CL:0000071	blood vessel endothelial cell	7434	7445	588
+CL:0000359	vascular associated smooth muscle cell	7434	7445	511
+CL:0000232	red blood cell	7647	7662	893
+CL:0000081	blood cell	7651	7662	799
+CL:0000000	cell	7657	7662	737
+CL:0000071	blood vessel endothelial cell	7651	7662	538
+CL:0000359	vascular associated smooth muscle cell	7651	7662	462
+CL:0000232	red blood cell	7979	7994	893
+CL:0000081	blood cell	7983	7994	799
+CL:0000000	cell	7989	7994	737
+CL:0000071	blood vessel endothelial cell	7983	7994	538
+CL:0000359	vascular associated smooth muscle cell	7983	7994	462
+CL:0000233	platelet	8009	8018	799
+CL:0000232	red blood cell	8254	8269	983
+CL:0000081	blood cell	8258	8269	849
+CL:0000000	cell	8264	8269	756
+CL:0000071	blood vessel endothelial cell	8258	8269	588
+CL:0000359	vascular associated smooth muscle cell	8258	8269	511
+CL:0000233	platelet	8274	8283	799
+CL:0000232	red blood cell	8522	8537	983
+CL:0000081	blood cell	8526	8537	849
+CL:0000000	cell	8532	8537	756
+CL:0000071	blood vessel endothelial cell	8526	8537	588
+CL:0000359	vascular associated smooth muscle cell	8526	8537	511
+CL:0000232	red blood cell	9199	9213	666
+CL:0000081	blood cell	9203	9213	623
+CL:0000000	cell	9209	9213	586
+CL:0000071	blood vessel endothelial cell	9203	9213	345
+CL:0000359	vascular associated smooth muscle cell	9203	9213	269
+CL:0000232	red blood cell	9467	9481	743
+CL:0000081	blood cell	9471	9481	666
+CL:0000000	cell	9477	9481	604
+CL:0000071	blood vessel endothelial cell	9471	9481	388
+CL:0000359	vascular associated smooth muscle cell	9471	9481	312
+CL:0000232	red blood cell	9727	9742	983
+CL:0000081	blood cell	9731	9742	849
+CL:0000000	cell	9737	9742	756
+CL:0000071	blood vessel endothelial cell	9731	9742	588
+CL:0000359	vascular associated smooth muscle cell	9731	9742	511
+CL:0000232	red blood cell	10216	10231	893
+CL:0000081	blood cell	10220	10231	799
+CL:0000000	cell	10226	10231	737
+CL:0000071	blood vessel endothelial cell	10220	10231	538
+CL:0000359	vascular associated smooth muscle cell	10220	10231	462
+CL:0000232	red blood cell	10333	10348	983
+CL:0000081	blood cell	10337	10348	849
+CL:0000000	cell	10343	10348	756
+CL:0000071	blood vessel endothelial cell	10337	10348	588
+CL:0000359	vascular associated smooth muscle cell	10337	10348	511
+CL:0000232	red blood cell	10595	10610	983
+CL:0000081	blood cell	10599	10610	849
+CL:0000000	cell	10605	10610	756
+CL:0000071	blood vessel endothelial cell	10599	10610	588
+CL:0000359	vascular associated smooth muscle cell	10599	10610	511
+CL:0000233	platelet	11049	11058	756
+CL:0000232	red blood cell	11189	11203	647
+CL:0000081	blood cell	11193	11203	612
+CL:0000786	plasma cell	11199	11210	607
+CL:0000000	cell	11199	11203	581
+CL:0000071	blood vessel endothelial cell	11193	11203	334
+CL:0000359	vascular associated smooth muscle cell	11193	11203	257
+CL:0000232	red blood cell	11243	11258	845
+CL:0000081	blood cell	11247	11258	773
+CL:0000000	cell	11253	11258	726
+CL:0000071	blood vessel endothelial cell	11247	11258	512
+CL:0000359	vascular associated smooth muscle cell	11247	11258	435
+CL:0000232	red blood cell	11526	11540	743
+CL:0000081	blood cell	11530	11540	666
+CL:0000000	cell	11536	11540	604
+CL:0000071	blood vessel endothelial cell	11530	11540	388
+CL:0000359	vascular associated smooth muscle cell	11530	11540	312
+CL:0000232	red blood cell	11608	11622	743
+CL:0000081	blood cell	11612	11622	666
+CL:0000000	cell	11618	11622	604
+CL:0000071	blood vessel endothelial cell	11612	11622	388
+CL:0000359	vascular associated smooth muscle cell	11612	11622	312
+CL:0000232	red blood cell	11712	11726	743
+CL:0000081	blood cell	11716	11726	666
+CL:0000000	cell	11722	11726	604
+CL:0000071	blood vessel endothelial cell	11716	11726	388
+CL:0000359	vascular associated smooth muscle cell	11716	11726	312
+CL:0000000	cell	11827	11832	966
+CL:0000232	red blood cell	11918	11933	893
+CL:0000081	blood cell	11922	11933	799
+CL:0000000	cell	11928	11933	737
+CL:0000071	blood vessel endothelial cell	11922	11933	538
+CL:0000359	vascular associated smooth muscle cell	11922	11933	462
+CL:0000502	D cell	11979	11992	770
+CL:0000000	cell	11979	11983	593
+CL:0000592	large luteal cell	11972	11983	394
+CL:0000000	cell	12230	12234	604
+CL:0000232	red blood cell	12280	12295	983
+CL:0000081	blood cell	12284	12295	849
+CL:0000000	cell	12290	12295	756
+CL:0000071	blood vessel endothelial cell	12284	12295	588
+CL:0000359	vascular associated smooth muscle cell	12284	12295	511
+CL:0000502	D cell	12354	12372	794
+CL:0000682	M cell	12349	12362	652
+CL:0000000	cell	12354	12362	552
+CL:0000232	red blood cell	12513	12527	909
+CL:0000081	blood cell	12517	12527	833
+CL:0000000	cell	12523	12527	770
+CL:0000071	blood vessel endothelial cell	12517	12527	555
+CL:0000359	vascular associated smooth muscle cell	12517	12527	478
+CL:0000232	red blood cell	12903	12917	743
+CL:0000081	blood cell	12907	12917	666
+CL:0000000	cell	12913	12917	604
+CL:0000071	blood vessel endothelial cell	12907	12917	388
+CL:0000359	vascular associated smooth muscle cell	12907	12917	312
+CL:0000000	cell	12990	12998	552
+CL:0000000	cell	13084	13089	799
+CL:0000181	metabolising cell	13185	13204	873
+CL:0000000	cell	13185	13193	595
+CL:0000232	red blood cell	13252	13267	893
+CL:0000081	blood cell	13256	13267	799
+CL:0000000	cell	13262	13267	737
+CL:0000071	blood vessel endothelial cell	13256	13267	538
+CL:0000359	vascular associated smooth muscle cell	13256	13267	462
+CL:0000232	red blood cell	13360	13375	983
+CL:0000081	blood cell	13364	13375	849
+CL:0000000	cell	13370	13375	756
+CL:0000071	blood vessel endothelial cell	13364	13375	588
+CL:0000359	vascular associated smooth muscle cell	13364	13375	511
+CL:0000232	red blood cell	13459	13474	816
+CL:0000081	blood cell	13463	13474	756
+CL:0000000	cell	13469	13474	719
+CL:0000071	blood vessel endothelial cell	13463	13474	495
+CL:0000359	vascular associated smooth muscle cell	13463	13474	419
+CL:0000000	cell	13524	13529	756
+CL:0000502	type D enteroendocrine cell	13519	13529	588
+CL:0000508	type G enteroendocrine cell	13519	13529	588
+CL:0000000	cell	13573	13578	756
+CL:0000000	cell	13645	13650	756
+CL:0000502	type D enteroendocrine cell	13640	13650	588
+CL:0000508	type G enteroendocrine cell	13640	13650	588
+CL:0000000	cell	13753	13758	756
+CL:0000502	type D enteroendocrine cell	13748	13758	588
+CL:0000508	type G enteroendocrine cell	13748	13758	588
+CL:0000000	cell	13840	13845	756
+CL:0000232	red blood cell	13951	13965	695
+CL:0000081	blood cell	13955	13965	640
+CL:0000682	M cell	13961	13974	603
+CL:0000000	cell	13961	13965	593
+CL:0000071	blood vessel endothelial cell	13955	13965	362
+CL:0000359	vascular associated smooth muscle cell	13955	13965	285
+CL:0000232	red blood cell	14157	14172	983
+CL:0000081	blood cell	14161	14172	849
+CL:0000000	cell	14167	14172	756
+CL:0000071	blood vessel endothelial cell	14161	14172	588
+CL:0000359	vascular associated smooth muscle cell	14161	14172	511
+CL:0000232	red blood cell	14546	14561	893
+CL:0000081	blood cell	14550	14561	799
+CL:0000000	cell	14556	14561	737
+CL:0000071	blood vessel endothelial cell	14550	14561	538
+CL:0000359	vascular associated smooth muscle cell	14550	14561	462
+CL:0000232	red blood cell	14603	14618	983
+CL:0000081	blood cell	14607	14618	849
+CL:0000000	cell	14613	14618	756
+CL:0000071	blood vessel endothelial cell	14607	14618	588
+CL:0000359	vascular associated smooth muscle cell	14607	14618	511
+CL:0000232	red blood cell	14777	14791	743
+CL:0000081	blood cell	14781	14791	666
+CL:0000000	cell	14787	14791	604
+CL:0000071	blood vessel endothelial cell	14781	14791	388
+CL:0000359	vascular associated smooth muscle cell	14781	14791	312
+CL:0000000	cell	14862	14870	552
+CL:0000232	red blood cell	14954	14968	1000
+CL:0000081	blood cell	14958	14968	882
+CL:0000000	cell	14964	14968	790
+CL:0000071	blood vessel endothelial cell	14958	14968	604
+CL:0000359	vascular associated smooth muscle cell	14958	14968	528
+CL:0000232	red blood cell	15017	15032	816
+CL:0000081	blood cell	15021	15032	756
+CL:0000000	cell	15027	15032	719
+CL:0000071	blood vessel endothelial cell	15021	15032	495
+CL:0000359	vascular associated smooth muscle cell	15021	15032	419
+CL:0000232	red blood cell	15179	15194	983
+CL:0000081	blood cell	15183	15194	849
+CL:0000000	cell	15189	15194	756
+CL:0000071	blood vessel endothelial cell	15183	15194	588
+CL:0000359	vascular associated smooth muscle cell	15183	15194	511
+CL:0000000	cell	15496	15500	586
+CL:0000738	leucocyte	15638	15648	966
+CL:0000232	red blood cell	15650	15665	983
+CL:0000081	blood cell	15654	15665	849
+CL:0000000	cell	15660	15665	756
+CL:0000071	blood vessel endothelial cell	15654	15665	588
+CL:0000359	vascular associated smooth muscle cell	15654	15665	511
+CL:0000682	M cell	15701	15714	652
+CL:0000000	cell	15706	15714	552
+CL:0000682	M cell	15723	15736	652
+CL:0000000	cell	15728	15736	552
+CL:0000682	M cell	15750	15763	603
+CL:0000000	cell	15755	15763	532
+CL:0000233	platelet	15791	15800	966
+CL:0000775	neutrophil	15802	15814	966
+CL:0000542	lymphocyte	15816	15827	966
+CL:0000576	monocyte	15829	15838	966
+CL:0000771	eosinophil	15840	15852	966
+CL:0000767	basophil	15857	15867	880
+CL:0000233	platelet	15929	15937	666
+CL:0000233	platelet	16019	16027	790
+CL:0000233	platelet	16142	16150	833
+CL:0000233	platelet	16266	16274	833
+CL:0000233	platelet	16324	16332	790
+CL:0000233	platelet	16567	16575	833
+CL:0000233	platelet	16630	16638	790
+CL:0000233	platelet	16652	16660	666
+CL:0000000	cell	16764	16769	756
+CL:0000000	cell	16876	16881	799
+CL:0000000	cell	16920	16925	799
+CL:0000233	platelet	17039	17047	666
+CL:0000233	platelet	17196	17204	666
+CL:0000233	platelet	17295	17304	737
+CL:0000233	platelet	17402	17411	799
+CL:0000233	platelet	17631	17640	756
+CL:0000233	platelet	17653	17662	799
+CL:0000233	platelet	17697	17706	799
+CL:0000233	platelet	17770	17779	799
+CL:0000233	platelet	17814	17822	770
+CL:0000233	platelet	17847	17855	790
+CL:0000233	platelet	18072	18080	790
+CL:0000233	platelet	18338	18346	666
+CL:0000233	platelet	18642	18651	799
+CL:0000233	platelet	18741	18750	756
+CL:0000233	platelet	18787	18795	586
+CL:0000000	cell	19251	19255	833
+CL:0000502	type D enteroendocrine cell	19251	19260	666
+CL:0000508	type G enteroendocrine cell	19251	19260	666
+CL:0000000	cell	19315	19320	756
+CL:0000232	red blood cell	19426	19441	983
+CL:0000081	blood cell	19430	19441	849
+CL:0000000	cell	19436	19441	756
+CL:0000071	blood vessel endothelial cell	19430	19441	588
+CL:0000359	vascular associated smooth muscle cell	19430	19441	511
+CL:0000232	red blood cell	19646	19661	983
+CL:0000081	blood cell	19650	19661	849
+CL:0000000	cell	19656	19661	756
+CL:0000071	blood vessel endothelial cell	19650	19661	588
+CL:0000359	vascular associated smooth muscle cell	19650	19661	511
+CL:0000000	cell	19677	19682	966
+CL:0000232	red blood cell	19779	19794	983
+CL:0000081	blood cell	19783	19794	849
+CL:0000000	cell	19789	19794	756
+CL:0000071	blood vessel endothelial cell	19783	19794	588
+CL:0000359	vascular associated smooth muscle cell	19783	19794	511
+CL:0000232	red blood cell	19907	19922	983
+CL:0000081	blood cell	19911	19922	849
+CL:0000000	cell	19917	19922	756
+CL:0000071	blood vessel endothelial cell	19911	19922	588
+CL:0000359	vascular associated smooth muscle cell	19911	19922	511
+CL:0000232	red blood cell	21102	21116	743
+CL:0000081	blood cell	21106	21116	666
+CL:0000000	cell	21112	21116	604
+CL:0000071	blood vessel endothelial cell	21106	21116	388
+CL:0000359	vascular associated smooth muscle cell	21106	21116	312
+CL:0000232	red blood cell	21255	21270	893
+CL:0000081	blood cell	21259	21270	799
+CL:0000000	cell	21265	21270	737
+CL:0000071	blood vessel endothelial cell	21259	21270	538
+CL:0000359	vascular associated smooth muscle cell	21259	21270	462
+CL:0000000	cell	21307	21312	756
+CL:0000232	red blood cell	21739	21753	909
+CL:0000081	blood cell	21743	21753	833
+CL:0000682	M cell	21749	21762	791
+CL:0000000	cell	21749	21753	770
+CL:0000071	blood vessel endothelial cell	21743	21753	555
+CL:0000359	vascular associated smooth muscle cell	21743	21753	478
+CL:0000232	red blood cell	21954	21969	983
+CL:0000081	blood cell	21958	21969	849
+CL:0000000	cell	21964	21969	756
+CL:0000071	blood vessel endothelial cell	21958	21969	588
+CL:0000359	vascular associated smooth muscle cell	21958	21969	511
+CL:0000232	red blood cell	22311	22326	983
+CL:0000081	blood cell	22315	22326	849
+CL:0000000	cell	22321	22326	756
+CL:0000071	blood vessel endothelial cell	22315	22326	588
+CL:0000359	vascular associated smooth muscle cell	22315	22326	511
+CL:0000232	red blood cell	22475	22489	743
+CL:0000081	blood cell	22479	22489	666
+CL:0000000	cell	22485	22489	604
+CL:0000071	blood vessel endothelial cell	22479	22489	388
+CL:0000359	vascular associated smooth muscle cell	22479	22489	312
+CL:0000232	red blood cell	23147	23162	983
+CL:0000081	blood cell	23151	23162	849
+CL:0000000	cell	23157	23162	756
+CL:0000071	blood vessel endothelial cell	23151	23162	588
+CL:0000359	vascular associated smooth muscle cell	23151	23162	511
+CL:0000232	red blood cell	23206	23221	983
+CL:0000081	blood cell	23210	23221	849
+CL:0000000	cell	23216	23221	756
+CL:0000071	blood vessel endothelial cell	23210	23221	588
+CL:0000359	vascular associated smooth muscle cell	23210	23221	511
+CL:0000232	red blood cell	23539	23553	862
+CL:0000081	blood cell	23543	23553	806
+CL:0000682	M cell	23549	23562	770
+CL:0000000	cell	23549	23553	760
+CL:0000071	blood vessel endothelial cell	23543	23553	528
+CL:0000359	vascular associated smooth muscle cell	23543	23553	452
+CL:0000232	red blood cell	23601	23615	743
+CL:0000081	blood cell	23605	23615	666
+CL:0000000	cell	23611	23615	604
+CL:0000071	blood vessel endothelial cell	23605	23615	388
+CL:0000359	vascular associated smooth muscle cell	23605	23615	312
+CL:0000682	M cell	23790	23803	916
+CL:0000000	cell	23790	23794	833
+CL:0000232	red blood cell	23859	23874	783
+CL:0000081	blood cell	23863	23874	737
+CL:0000000	cell	23869	23874	711
+CL:0000071	blood vessel endothelial cell	23863	23874	476
+CL:0000359	vascular associated smooth muscle cell	23863	23874	399
+CL:0000232	red blood cell	24315	24329	695
+CL:0000081	blood cell	24319	24329	640
+CL:0000682	M cell	24325	24338	603
+CL:0000000	cell	24325	24329	593
+CL:0000071	blood vessel endothelial cell	24319	24329	362
+CL:0000359	vascular associated smooth muscle cell	24319	24329	285
+CL:0000232	red blood cell	24665	24680	983
+CL:0000081	blood cell	24669	24680	849
+CL:0000000	cell	24675	24680	756
+CL:0000071	blood vessel endothelial cell	24669	24680	588
+CL:0000359	vascular associated smooth muscle cell	24669	24680	511
+CL:0000232	red blood cell	24981	24995	862
+CL:0000081	blood cell	24985	24995	806
+CL:0000000	cell	24991	24995	760
+CL:0000071	blood vessel endothelial cell	24985	24995	528
+CL:0000359	vascular associated smooth muscle cell	24985	24995	452
+CL:0000232	red blood cell	25250	25265	893
+CL:0000081	blood cell	25254	25265	799
+CL:0000000	cell	25260	25265	737
+CL:0000071	blood vessel endothelial cell	25254	25265	538
+CL:0000359	vascular associated smooth muscle cell	25254	25265	462
+CL:0000233	platelet	25417	25425	833
+CL:0000233	platelet	25468	25476	623
+CL:0000233	platelet	25575	25584	966
+CL:0000233	platelet	25713	25722	799
+CL:0000233	platelet	25879	25888	799
+CL:0000233	platelet	26288	26296	833
+CL:0000233	platelet	26317	26325	593
+CL:0000232	red blood cell	26469	26484	983
+CL:0000081	blood cell	26473	26484	849
+CL:0000000	cell	26479	26484	756
+CL:0000071	blood vessel endothelial cell	26473	26484	588
+CL:0000359	vascular associated smooth muscle cell	26473	26484	511
+CL:0000232	red blood cell	26854	26869	983
+CL:0000081	blood cell	26858	26869	849
+CL:0000000	cell	26864	26869	756
+CL:0000071	blood vessel endothelial cell	26858	26869	588
+CL:0000359	vascular associated smooth muscle cell	26858	26869	511
+CL:0000000	cell	26900	26904	604
+CL:0000232	erythrocyte	26921	26933	966
+CL:0000232	erythrocyte	26988	26999	666
+CL:0000000	cell	28290	28294	623
+CL:0000502	type D enteroendocrine cell	28290	28299	413
+CL:0000508	type G enteroendocrine cell	28290	28299	413
+CL:0000233	platelet	28641	28649	833
+CL:0000232	red blood cell	28784	28799	893
+CL:0000081	blood cell	28788	28799	799
+CL:0000000	cell	28794	28799	737
+CL:0000071	blood vessel endothelial cell	28788	28799	538
+CL:0000359	vascular associated smooth muscle cell	28788	28799	462
+CL:0000232	red blood cell	28877	28892	983
+CL:0000081	blood cell	28881	28892	849
+CL:0000000	cell	28887	28892	756
+CL:0000071	blood vessel endothelial cell	28881	28892	588
+CL:0000359	vascular associated smooth muscle cell	28881	28892	511
+CL:0000232	red blood cell	29425	29439	743
+CL:0000081	blood cell	29429	29439	666
+CL:0000000	cell	29435	29439	604
+CL:0000071	blood vessel endothelial cell	29429	29439	388
+CL:0000359	vascular associated smooth muscle cell	29429	29439	312
+CL:0000232	red blood cell	29986	30001	617
+CL:0000081	blood cell	29990	30001	570
+CL:0000000	cell	29996	30001	544
+CL:0000071	blood vessel endothelial cell	29990	30001	309
+CL:0000359	vascular associated smooth muscle cell	29990	30001	233
+CL:0000232	erythrocyte	30241	30253	966
+CL:0000232	red blood cell	30363	30378	893
+CL:0000081	blood cell	30367	30378	799
+CL:0000000	cell	30373	30378	737
+CL:0000071	blood vessel endothelial cell	30367	30378	538
+CL:0000359	vascular associated smooth muscle cell	30367	30378	462
+CL:0000232	red blood cell	30892	30906	743
+CL:0000081	blood cell	30896	30906	666
+CL:0000000	cell	30902	30906	604
+CL:0000071	blood vessel endothelial cell	30896	30906	388
+CL:0000359	vascular associated smooth muscle cell	30896	30906	312
+CL:0000232	red blood cell	31336	31350	743
+CL:0000081	blood cell	31340	31350	666
+CL:0000000	cell	31346	31350	604
+CL:0000071	blood vessel endothelial cell	31340	31350	388
+CL:0000359	vascular associated smooth muscle cell	31340	31350	312
+CL:0000232	red blood cell	31909	31924	983
+CL:0000081	blood cell	31913	31924	849
+CL:0000000	cell	31919	31924	756
+CL:0000071	blood vessel endothelial cell	31913	31924	588
+CL:0000359	vascular associated smooth muscle cell	31913	31924	511
+CL:0000233	platelet	32477	32485	833
+CL:0000233	platelet	32655	32663	790
+CL:0000233	platelet	32687	32695	623
+CL:0000233	platelet	32904	32907	790
+CL:0000233	platelet	32979	32988	570
+CL:0000233	platelet	33004	33012	790
+CL:0000233	platelet	33134	33143	737
+CL:0000233	platelet	33434	33443	799
+CL:0000233	platelet	33898	33906	666
+CL:0000000	cell	34057	34061	833
+CL:0000000	cell	34168	34172	593
+CL:0000232	red blood cell	34210	34225	893
+CL:0000081	blood cell	34214	34225	799
+CL:0000000	cell	34220	34225	737
+CL:0000071	blood vessel endothelial cell	34214	34225	538
+CL:0000359	vascular associated smooth muscle cell	34214	34225	462
+CL:0000233	platelet	34230	34239	966
+CL:0000232	red blood cell	34342	34357	983
+CL:0000081	blood cell	34346	34357	849
+CL:0000000	cell	34352	34357	756
+CL:0000071	blood vessel endothelial cell	34346	34357	588
+CL:0000359	vascular associated smooth muscle cell	34346	34357	511
+CL:0000233	platelet	34362	34371	966
+CL:0000738	leucocyte	34477	34487	966
+CL:0000232	red blood cell	34489	34504	983
+CL:0000081	blood cell	34493	34504	849
+CL:0000000	cell	34499	34504	756
+CL:0000071	blood vessel endothelial cell	34493	34504	588
+CL:0000359	vascular associated smooth muscle cell	34493	34504	511
+CL:0000682	M cell	34532	34545	652
+CL:0000000	cell	34537	34545	552
+CL:0000682	M cell	34554	34567	652
+CL:0000000	cell	34559	34567	552
+CL:0000682	M cell	34581	34594	603
+CL:0000000	cell	34586	34594	532
+CL:0000233	platelet	34622	34630	666
+CL:0000775	neutrophil	34639	34651	966
+CL:0000542	lymphocyte	34653	34664	966
+CL:0000576	monocyte	34666	34675	966
+CL:0000771	eosinophil	34677	34689	966
+CL:0000767	basophil	34691	34701	880
+CL:0000232	red blood cell	35707	35722	983
+CL:0000081	blood cell	35711	35722	849
+CL:0000000	cell	35717	35722	756
+CL:0000071	blood vessel endothelial cell	35711	35722	588
+CL:0000359	vascular associated smooth muscle cell	35711	35722	511
+CL:0000233	platelet	35727	35736	966
+CL:0000233	platelet	35818	35827	966
+CL:0000000	cell	35862	35866	604
+CL:0000233	platelet	35959	35967	623

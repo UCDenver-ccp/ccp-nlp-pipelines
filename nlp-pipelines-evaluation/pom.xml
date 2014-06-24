@@ -42,6 +42,11 @@
 		</dependency>
 		<dependency>
 			<groupId>edu.ucdenver.ccp</groupId>
+			<artifactId>common</artifactId>
+			<type>test-jar</type>
+		</dependency>
+		<dependency>
+			<groupId>edu.ucdenver.ccp</groupId>
 			<artifactId>wrapper-cleartk</artifactId>
 			<version>0.1</version>
 			<type>jar</type>

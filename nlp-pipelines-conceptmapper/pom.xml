@@ -33,6 +33,11 @@
 		</dependency>
 		<dependency>
 			<groupId>edu.ucdenver.ccp</groupId>
+			<artifactId>ccp-nlp-uima-collections</artifactId>
+			<version>${ver.ccp.nlp}</version>
+		</dependency>
+		<dependency>
+			<groupId>edu.ucdenver.ccp</groupId>
 			<artifactId>datasource-fileparsers</artifactId>
 			<version>0.4-SNAPSHOT</version>
 		</dependency>
@@ -51,21 +56,20 @@
 			<artifactId>ccp-nlp-wrapper-conceptmapper</artifactId>
 			<version>${ver.ccp.nlp}</version>
 		</dependency>
-		<!-- <dependency>
-			<groupId>edu.ucdenver.ccp</groupId>
-			<artifactId>ccp-nlp-ext-uima-annotators-entitynormalization</artifactId>
-			<version>${ver.ccp.nlp}</version>
+		<dependency>
+			<groupId>org.cleartk</groupId>
+			<artifactId>cleartk-opennlp-tools</artifactId>
+			<version>0.10.3</version>
 		</dependency>
 		<dependency>
-			<groupId>edu.ucdenver.ccp</groupId>
-			<artifactId>ccp-nlp-uima-shims-internal</artifactId>
-			<version>${ver.ccp.nlp}</version>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>edu.ucdenver.ccp</groupId>
-			<artifactId>ccp-nlp-wrapper-ncbo</artifactId>
-			<version>${ver.ccp.nlp}</version> 
-		</dependency> -->
+		<!-- <dependency> <groupId>edu.ucdenver.ccp</groupId> <artifactId>ccp-nlp-ext-uima-annotators-entitynormalization</artifactId> 
+			<version>${ver.ccp.nlp}</version> </dependency> <dependency> <groupId>edu.ucdenver.ccp</groupId> 
+			<artifactId>ccp-nlp-uima-shims-internal</artifactId> <version>${ver.ccp.nlp}</version> 
+			</dependency> <dependency> <groupId>edu.ucdenver.ccp</groupId> <artifactId>ccp-nlp-wrapper-ncbo</artifactId> 
+			<version>${ver.ccp.nlp}</version> </dependency> -->
 	</dependencies>
 
 

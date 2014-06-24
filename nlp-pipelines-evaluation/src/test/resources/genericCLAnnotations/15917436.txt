@@ -1,0 +1,12 @@
+CL:0000000	cell	5022	5027	737
+CL:0000000	cell	5498	5503	737
+CL:0000000	cell	5576	5580	604
+CL:0000000	cell	5676	5681	756
+CL:0000000	cell	33947	33951	790
+CL:0000502	type D enteroendocrine cell	33947	33957	563
+CL:0000508	type G enteroendocrine cell	33947	33957	563
+CL:0000000	cell	34074	34078	623
+CL:0000502	type D enteroendocrine cell	34074	34083	580
+CL:0000508	type G enteroendocrine cell	34074	34083	580
+CL:0000226	single nucleate cell	34067	34078	487
+CL:0000035	single fate stem cell	34067	34078	438

@@ -1,0 +1,518 @@
+CL:0000670	primordial germ cell	0	3	567
+CL:0000670	primordial germ cell	257	260	611
+CL:0000670	primordial germ cell	287	290	611
+CL:0000670	primordial germ cell	300	303	611
+CL:0000670	primordial germ cell	574	577	567
+CL:0000670	primordial germ cell	604	607	567
+CL:0000670	primordial germ cell	796	799	567
+CL:0000670	primordial germ cell	873	876	567
+CL:0000670	primordial germ cell	991	994	567
+CL:0000670	primordial germ cell	1162	1165	567
+CL:0000670	primordial germ cell	1332	1335	567
+CL:0000670	primordial germ cell	1501	1504	567
+CL:0000670	primordial germ cell	1548	1551	611
+CL:0000670	primordial germ cell	2196	2199	611
+CL:0000000	cell	2303	2311	552
+CL:0000670	primordial germ cell	2386	2389	611
+CL:0000670	primordial germ cell	2563	2566	530
+CL:0000670	primordial germ cell	2601	2604	704
+CL:0000670	primordial germ cell	2641	2644	734
+CL:0000670	primordial germ cell	2655	2658	611
+CL:0000000	cell	2778	2786	699
+CL:0000670	primordial germ cell	2810	2813	611
+CL:0000670	primordial germ cell	3039	3042	611
+CL:0000670	primordial germ cell	3226	3229	548
+CL:0000670	primordial germ cell	3369	3372	611
+CL:0000670	primordial germ cell	3527	3530	611
+CL:0000670	primordial germ cell	3640	3643	611
+CL:0000213	lining cell	3887	3897	802
+CL:0000000	cell	3887	3891	770
+CL:0000670	primordial germ cell	3916	3919	611
+CL:0000746	cardiac myocyte	4229	4245	866
+CL:0000187	myocyte	4237	4245	756
+CL:0000670	primordial germ cell	4335	4338	611
+CL:0000670	primordial germ cell	4414	4417	611
+CL:0000670	primordial germ cell	4632	4635	611
+CL:0000670	primordial germ cell	4721	4724	611
+CL:0000670	primordial germ cell	4786	4789	611
+CL:0000670	primordial germ cell	4928	4931	611
+CL:0000670	primordial germ cell	5120	5123	548
+CL:0000670	primordial germ cell	5308	5311	611
+CL:0000670	primordial germ cell	5395	5398	611
+CL:0000670	primordial germ cell	5629	5632	567
+CL:0000670	primordial germ cell	5657	5660	567
+CL:0000670	primordial germ cell	5689	5692	611
+CL:0000670	primordial germ cell	5834	5837	567
+CL:0000670	primordial germ cell	6020	6023	567
+CL:0000670	primordial germ cell	6132	6135	548
+CL:0000670	primordial germ cell	6644	6647	548
+CL:0000670	primordial germ cell	6780	6783	567
+CL:0000670	primordial germ cell	6990	6993	548
+CL:0000670	primordial germ cell	7071	7074	567
+CL:0000670	primordial germ cell	7147	7150	567
+CL:0000670	primordial germ cell	7242	7245	548
+CL:0000670	primordial germ cell	7323	7326	567
+CL:0000670	primordial germ cell	7448	7451	567
+CL:0000670	primordial germ cell	7498	7501	567
+CL:0000670	primordial germ cell	7565	7568	567
+CL:0000000	cell	7606	7610	833
+CL:0000670	primordial germ cell	7691	7694	567
+CL:0000670	primordial germ cell	7817	7820	611
+CL:0000670	primordial germ cell	7847	7850	537
+CL:0000670	primordial germ cell	7988	7991	530
+CL:0000670	primordial germ cell	8010	8013	611
+CL:0000670	primordial germ cell	8021	8024	548
+CL:0000670	primordial germ cell	8068	8071	567
+CL:0000670	primordial germ cell	8193	8196	548
+CL:0000670	primordial germ cell	8245	8248	567
+CL:0000670	primordial germ cell	8307	8310	611
+CL:0000670	primordial germ cell	8345	8348	567
+CL:0000670	primordial germ cell	8541	8544	611
+CL:0000670	primordial germ cell	8555	8558	567
+CL:0000670	primordial germ cell	8705	8708	548
+CL:0000670	primordial germ cell	8744	8747	537
+CL:0000670	primordial germ cell	8807	8810	611
+CL:0000670	primordial germ cell	8821	8824	567
+CL:0000670	primordial germ cell	8970	8973	548
+CL:0000670	primordial germ cell	9009	9012	537
+CL:0000670	primordial germ cell	9096	9099	548
+CL:0000670	primordial germ cell	9168	9171	567
+CL:0000670	primordial germ cell	9435	9438	526
+CL:0000670	primordial germ cell	9481	9484	530
+CL:0000670	primordial germ cell	9747	9750	548
+CL:0000670	primordial germ cell	10242	10245	548
+CL:0000670	primordial germ cell	10291	10294	537
+CL:0000670	primordial germ cell	10661	10664	567
+CL:0000670	primordial germ cell	10721	10724	530
+CL:0000670	primordial germ cell	10876	10879	567
+CL:0000000	cell	10931	10942	900
+CL:0000000	cell	10944	10948	666
+CL:0000670	primordial germ cell	11008	11011	526
+CL:0000670	primordial germ cell	11071	11074	611
+CL:0000670	primordial germ cell	11276	11279	567
+CL:0000670	primordial germ cell	11325	11328	537
+CL:0000000	cell	11429	11437	552
+CL:0000670	primordial germ cell	11503	11506	567
+CL:0000670	primordial germ cell	11530	11533	611
+CL:0000670	primordial germ cell	11910	11913	567
+CL:0000670	primordial germ cell	11939	11942	567
+CL:0000670	primordial germ cell	12004	12007	548
+CL:0000670	primordial germ cell	12093	12096	567
+CL:0000670	primordial germ cell	12344	12347	567
+CL:0000670	primordial germ cell	12462	12465	567
+CL:0000670	primordial germ cell	12586	12589	567
+CL:0000670	primordial germ cell	12942	12945	567
+CL:0000670	primordial germ cell	13099	13102	567
+CL:0000670	primordial germ cell	13375	13378	548
+CL:0000670	primordial germ cell	13499	13502	537
+CL:0000670	primordial germ cell	13603	13606	567
+CL:0000670	primordial germ cell	13706	13709	567
+CL:0000670	primordial germ cell	14115	14118	548
+CL:0000670	primordial germ cell	14380	14383	567
+CL:0000670	primordial germ cell	14430	14433	567
+CL:0000670	primordial germ cell	14449	14452	567
+CL:0000670	primordial germ cell	14636	14639	567
+CL:0000670	primordial germ cell	14665	14668	567
+CL:0000670	primordial germ cell	14743	14746	567
+CL:0000670	primordial germ cell	15139	15142	567
+CL:0000670	primordial germ cell	15172	15175	567
+CL:0000670	primordial germ cell	15271	15274	567
+CL:0000670	primordial germ cell	15369	15372	567
+CL:0000670	primordial germ cell	15407	15410	537
+CL:0000670	primordial germ cell	15490	15493	548
+CL:0000670	primordial germ cell	15814	15817	567
+CL:0000670	primordial germ cell	15876	15879	567
+CL:0000670	primordial germ cell	16301	16304	567
+CL:0000670	primordial germ cell	16320	16323	567
+CL:0000670	primordial germ cell	16508	16511	567
+CL:0000670	primordial germ cell	16549	16552	567
+CL:0000670	primordial germ cell	16722	16725	611
+CL:0000670	primordial germ cell	16850	16853	530
+CL:0000670	primordial germ cell	17092	17095	567
+CL:0000670	primordial germ cell	17396	17399	567
+CL:0000670	primordial germ cell	17677	17680	548
+CL:0000670	primordial germ cell	17780	17783	567
+CL:0000670	primordial germ cell	17896	17899	567
+CL:0000670	primordial germ cell	17949	17952	567
+CL:0000670	primordial germ cell	18172	18175	567
+CL:0000670	primordial germ cell	18373	18376	567
+CL:0000670	primordial germ cell	18401	18404	567
+CL:0000670	primordial germ cell	18733	18736	611
+CL:0000670	primordial germ cell	18747	18750	567
+CL:0000670	primordial germ cell	18831	18834	567
+CL:0000670	primordial germ cell	18941	18944	567
+CL:0000670	primordial germ cell	19171	19174	567
+CL:0000670	primordial germ cell	19570	19573	611
+CL:0000670	primordial germ cell	19584	19587	567
+CL:0000670	primordial germ cell	19634	19637	567
+CL:0000670	primordial germ cell	19825	19828	567
+CL:0000670	primordial germ cell	20063	20066	567
+CL:0000670	primordial germ cell	20120	20123	537
+CL:0000670	primordial germ cell	20286	20289	611
+CL:0000670	primordial germ cell	20347	20350	611
+CL:0000670	primordial germ cell	20361	20364	567
+CL:0000670	primordial germ cell	20475	20478	567
+CL:0000670	primordial germ cell	20685	20688	567
+CL:0000670	primordial germ cell	20748	20751	567
+CL:0000670	primordial germ cell	21046	21049	567
+CL:0000670	primordial germ cell	21233	21236	611
+CL:0000670	primordial germ cell	21247	21250	567
+CL:0000670	primordial germ cell	21573	21576	734
+CL:0000670	primordial germ cell	21660	21663	611
+CL:0000670	primordial germ cell	21674	21677	567
+CL:0000670	primordial germ cell	21729	21732	611
+CL:0000670	primordial germ cell	21960	21963	567
+CL:0000670	primordial germ cell	22202	22205	567
+CL:0000670	primordial germ cell	22419	22422	611
+CL:0000670	primordial germ cell	22437	22440	548
+CL:0000670	primordial germ cell	22608	22611	548
+CL:0000670	primordial germ cell	22741	22744	537
+CL:0000670	primordial germ cell	22790	22793	567
+CL:0000670	primordial germ cell	23129	23132	567
+CL:0000670	primordial germ cell	23269	23272	567
+CL:0000182	hepatocyte	23693	23704	966
+CL:0000670	primordial germ cell	23724	23727	567
+CL:0000182	hepatocyte	23811	23822	756
+CL:0000670	primordial germ cell	23801	23804	567
+CL:0000000	cell	23895	23900	756
+CL:0000502	type D enteroendocrine cell	23892	23900	588
+CL:0000508	type G enteroendocrine cell	23892	23900	588
+CL:0000182	hepatocyte	23981	23992	756
+CL:0000670	primordial germ cell	23971	23974	567
+CL:0000182	hepatocyte	24015	24026	756
+CL:0000670	primordial germ cell	24005	24008	567
+CL:0000561	amacrine cell	24142	24148	611
+CL:0000638	alpha cell	24142	24148	611
+CL:0000000	cell	24144	24148	604
+CL:0000182	hepatocyte	24180	24191	756
+CL:0000670	primordial germ cell	24170	24173	567
+CL:0000000	cell	24233	24241	552
+CL:0000670	primordial germ cell	24458	24461	734
+CL:0000670	primordial germ cell	24544	24547	567
+CL:0000136	fat cell	24780	24794	786
+CL:0000000	cell	24780	24788	718
+CL:0000565	fat body cell	24780	24794	558
+CL:0000182	hepatocyte	25025	25036	966
+CL:0000670	primordial germ cell	25044	25047	567
+CL:0000182	hepatocyte	25157	25168	756
+CL:0000670	primordial germ cell	25147	25150	567
+CL:0000670	primordial germ cell	25582	25585	567
+CL:0000670	primordial germ cell	25861	25864	567
+CL:0000670	primordial germ cell	26087	26090	567
+CL:0000670	primordial germ cell	26240	26243	567
+CL:0000182	hepatocyte	26367	26378	799
+CL:0000182	hepatocyte	26429	26440	966
+CL:0000670	primordial germ cell	26455	26458	567
+CL:0000670	primordial germ cell	26482	26485	567
+CL:0000182	hepatocyte	26579	26590	737
+CL:0000670	primordial germ cell	26567	26570	548
+CL:0000670	primordial germ cell	26728	26731	548
+CL:0000670	primordial germ cell	26822	26825	530
+CL:0000670	primordial germ cell	26958	26961	567
+CL:0000670	primordial germ cell	27122	27125	567
+CL:0000670	primordial germ cell	27267	27270	611
+CL:0000670	primordial germ cell	27281	27284	567
+CL:0000670	primordial germ cell	27342	27345	537
+CL:0000670	primordial germ cell	27527	27530	522
+CL:0000670	primordial germ cell	27638	27641	567
+CL:0000670	primordial germ cell	27670	27673	567
+CL:0000670	primordial germ cell	27703	27706	567
+CL:0000670	primordial germ cell	27888	27891	567
+CL:0000670	primordial germ cell	27902	27905	567
+CL:0000670	primordial germ cell	28063	28066	611
+CL:0000670	primordial germ cell	28077	28080	567
+CL:0000670	primordial germ cell	28125	28128	567
+CL:0000670	primordial germ cell	28238	28241	567
+CL:0000670	primordial germ cell	28373	28376	548
+CL:0000670	primordial germ cell	28437	28440	567
+CL:0000670	primordial germ cell	28592	28595	567
+CL:0000670	primordial germ cell	28640	28643	567
+CL:0000670	primordial germ cell	28742	28745	537
+CL:0000540	neuron	28821	28829	514
+CL:0000100	motoneuron	28821	28829	486
+CL:0000540	neuron	28879	28885	666
+CL:0000100	motoneuron	28879	28885	595
+CL:0000670	primordial germ cell	28928	28931	611
+CL:0000540	neuron	28950	28957	560
+CL:0000100	motoneuron	28950	28957	510
+CL:0000670	primordial germ cell	28969	28972	611
+CL:0000540	neuron	28991	28998	560
+CL:0000100	motoneuron	28991	28998	510
+CL:0000598	pyramidal neuron	29093	29110	849
+CL:0000540	neuron	29103	29110	756
+CL:0000100	motoneuron	29103	29110	706
+CL:0000670	primordial germ cell	29171	29174	567
+CL:0000670	primordial germ cell	29198	29201	567
+CL:0000125	neuroglia	29271	29276	699
+CL:0000670	primordial germ cell	29369	29372	537
+CL:0000540	neuron	29449	29457	595
+CL:0000100	motoneuron	29449	29457	566
+CL:0000540	neuron	29565	29572	966
+CL:0000100	motoneuron	29565	29572	916
+CL:0000670	primordial germ cell	29580	29583	548
+CL:0000125	neuroglia	29710	29715	510
+CL:0000540	neuron	29913	29920	756
+CL:0000120	granule cell	29900	29912	716
+CL:0000100	motoneuron	29913	29920	706
+CL:0000000	cell	29908	29912	623
+CL:0000095	neuron associated cell	29908	29920	612
+CL:0000047	neuronal stem cell	29908	29920	587
+CL:0000670	primordial germ cell	29944	29947	548
+CL:0000129	microglia	29981	29991	595
+CL:0000542	lymphocyte	30023	30034	532
+CL:0000670	primordial germ cell	30078	30081	567
+CL:0000670	primordial germ cell	30129	30132	537
+CL:0000540	neuron	30206	30213	799
+CL:0000100	motoneuron	30206	30213	750
+CL:0000540	neuron	30332	30339	799
+CL:0000100	motoneuron	30332	30339	750
+CL:0000000	cell	30489	30494	799
+CL:0000670	primordial germ cell	30679	30682	567
+CL:0000670	primordial germ cell	30894	30897	611
+CL:0000670	primordial germ cell	31135	31138	611
+CL:0000670	primordial germ cell	31300	31303	611
+CL:0000670	primordial germ cell	31477	31480	611
+CL:0000000	cell	31565	31573	552
+CL:0000670	primordial germ cell	31773	31776	567
+CL:0000670	primordial germ cell	31902	31905	567
+CL:0000670	primordial germ cell	32091	32094	567
+CL:0000670	primordial germ cell	32116	32119	567
+CL:0000670	primordial germ cell	32300	32303	611
+CL:0000670	primordial germ cell	32501	32504	611
+CL:0000670	primordial germ cell	32643	32646	567
+CL:0000670	primordial germ cell	32794	32797	567
+CL:0000670	primordial germ cell	32914	32917	567
+CL:0000670	primordial germ cell	33310	33313	611
+CL:0000670	primordial germ cell	33405	33408	567
+CL:0000670	primordial germ cell	33744	33747	567
+CL:0000670	primordial germ cell	34149	34152	611
+CL:0000670	primordial germ cell	34329	34332	548
+CL:0000670	primordial germ cell	34452	34455	567
+CL:0000182	hepatocyte	34484	34494	604
+CL:0000182	hepatocyte	34595	34606	966
+CL:0000670	primordial germ cell	34625	34628	567
+CL:0000182	hepatocyte	34760	34771	737
+CL:0000670	primordial germ cell	34748	34751	548
+CL:0000670	primordial germ cell	34809	34812	537
+CL:0000670	primordial germ cell	35172	35175	548
+CL:0000670	primordial germ cell	35451	35454	567
+CL:0000182	hepatocyte	35525	35535	604
+CL:0000670	primordial germ cell	35632	35635	611
+CL:0000182	hepatocyte	35779	35789	593
+CL:0000182	hepatocyte	35883	35893	623
+CL:0000670	primordial germ cell	36051	36054	548
+CL:0000670	primordial germ cell	36304	36307	548
+CL:0000670	primordial germ cell	36482	36485	548
+CL:0000670	primordial germ cell	36655	36658	567
+CL:0000670	primordial germ cell	36709	36712	548
+CL:0000670	primordial germ cell	36833	36836	548
+CL:0000670	primordial germ cell	37081	37084	567
+CL:0000670	primordial germ cell	37134	37137	548
+CL:0000670	primordial germ cell	37203	37206	567
+CL:0000670	primordial germ cell	37365	37368	611
+CL:0000670	primordial germ cell	37517	37520	548
+CL:0000670	primordial germ cell	37588	37591	611
+CL:0000670	primordial germ cell	37757	37760	530
+CL:0000670	primordial germ cell	37870	37873	567
+CL:0000670	primordial germ cell	38006	38009	567
+CL:0000598	pyramidal neuron	38070	38087	966
+CL:0000540	neuron	38080	38087	799
+CL:0000100	motoneuron	38080	38087	750
+CL:0000127	astrocyte	38160	38170	966
+CL:0000670	primordial germ cell	38291	38294	611
+CL:0000000	cell	38410	38418	552
+CL:0000129	microglia	38493	38503	595
+CL:0000670	primordial germ cell	38603	38606	567
+CL:0000670	primordial germ cell	38721	38724	567
+CL:0000670	primordial germ cell	38852	38855	567
+CL:0000670	primordial germ cell	39111	39114	567
+CL:0000670	primordial germ cell	39258	39261	548
+CL:0000670	primordial germ cell	39379	39382	567
+CL:0000670	primordial germ cell	39443	39446	548
+CL:0000670	primordial germ cell	39564	39567	548
+CL:0000182	hepatocyte	39621	39631	604
+CL:0000670	primordial germ cell	39771	39774	567
+CL:0000670	primordial germ cell	40208	40211	567
+CL:0000670	primordial germ cell	40323	40326	567
+CL:0000670	primordial germ cell	40502	40505	537
+CL:0000670	primordial germ cell	40661	40664	548
+CL:0000670	primordial germ cell	40812	40815	567
+CL:0000670	primordial germ cell	40968	40971	611
+CL:0000670	primordial germ cell	41043	41046	697
+CL:0000670	primordial germ cell	41078	41081	567
+CL:0000670	primordial germ cell	41311	41314	567
+CL:0000670	primordial germ cell	41899	41902	530
+CL:0000670	primordial germ cell	42153	42156	567
+CL:0000670	primordial germ cell	42434	42437	537
+CL:0000023	oocyte	42502	42509	966
+CL:0000670	primordial germ cell	42515	42518	567
+CL:0000670	primordial germ cell	43027	43030	548
+CL:0000670	primordial germ cell	43218	43221	567
+CL:0000670	primordial germ cell	43391	43394	567
+CL:0000670	primordial germ cell	43589	43592	567
+CL:0000670	primordial germ cell	43642	43645	611
+CL:0000670	primordial germ cell	43800	43803	611
+CL:0000670	primordial germ cell	43981	43984	611
+CL:0000000	cell	44003	44011	552
+CL:0000000	cell	44138	44146	532
+CL:0000670	primordial germ cell	44200	44203	548
+CL:0000670	primordial germ cell	44375	44378	548
+CL:0000670	primordial germ cell	44523	44526	611
+CL:0000670	primordial germ cell	44591	44594	567
+CL:0000670	primordial germ cell	44850	44853	567
+CL:0000670	primordial germ cell	44913	44916	548
+CL:0000000	cell	45769	45774	756
+CL:0000000	cell	45879	45883	586
+CL:0000670	primordial germ cell	46801	46804	537
+CL:0000670	primordial germ cell	46815	46818	567
+CL:0000670	primordial germ cell	47114	47117	567
+CL:0000670	primordial germ cell	47128	47131	567
+CL:0000670	primordial germ cell	47191	47194	567
+CL:0000670	primordial germ cell	47205	47208	567
+CL:0000670	primordial germ cell	48451	48454	611
+CL:0000670	primordial germ cell	48462	48465	537
+CL:0000670	primordial germ cell	48717	48720	530
+CL:0000182	hepatocyte	53559	53569	790
+CL:0000182	hepatocyte	53605	53616	799
+CL:0000670	primordial germ cell	53641	53644	567
+CL:0000670	primordial germ cell	53655	53658	548
+CL:0000000	cell	53792	53797	966
+CL:0000000	cell	54002	54010	532
+CL:0000154	protein secreting cell	54002	54018	388
+CL:0000826	pro-B cell	54002	54018	360
+CL:0000827	pro-T cell	54002	54018	360
+CL:0000000	cell	54053	54058	966
+CL:0000670	primordial germ cell	57306	57309	530
+CL:0000670	primordial germ cell	57328	57331	611
+CL:0000670	primordial germ cell	63170	63173	548
+CL:0000670	primordial germ cell	63221	63224	611
+CL:0000670	primordial germ cell	63243	63246	611
+CL:0000670	primordial germ cell	63579	63582	567
+CL:0000670	primordial germ cell	63944	63947	567
+CL:0000670	primordial germ cell	64083	64086	548
+CL:0000670	primordial germ cell	64283	64286	611
+CL:0000670	primordial germ cell	64305	64308	611
+CL:0000670	primordial germ cell	64421	64424	530
+CL:0000670	primordial germ cell	64500	64503	567
+CL:0000670	primordial germ cell	64522	64525	611
+CL:0000670	primordial germ cell	64809	64812	567
+CL:0000000	cell	65347	65351	833
+CL:0000670	primordial germ cell	66452	66455	670
+CL:0000670	primordial germ cell	66829	66832	567
+CL:0000670	primordial germ cell	66911	66914	689
+CL:0000670	primordial germ cell	67115	67118	567
+CL:0000670	primordial germ cell	67283	67286	567
+CL:0000670	primordial germ cell	67370	67373	567
+CL:0000352	embryonic stem cell	67671	67691	966
+CL:0000034	stem cell	67681	67691	849
+CL:0000000	cell	67686	67691	756
+CL:0000670	primordial germ cell	67837	67840	611
+CL:0000670	primordial germ cell	67854	67857	611
+CL:0000670	primordial germ cell	67875	67878	611
+CL:0000670	primordial germ cell	68022	68025	537
+CL:0000670	primordial germ cell	68072	68075	567
+CL:0000670	primordial germ cell	68109	68112	611
+CL:0000670	primordial germ cell	68120	68123	530
+CL:0000670	primordial germ cell	68294	68297	567
+CL:0000670	primordial germ cell	68616	68619	611
+CL:0000670	primordial germ cell	68630	68633	611
+CL:0000000	cell	68857	68861	604
+CL:0000154	protein secreting cell	68857	68869	424
+CL:0000826	pro-B cell	68857	68869	396
+CL:0000827	pro-T cell	68857	68869	396
+CL:0000670	primordial germ cell	69011	69014	697
+CL:0000670	primordial germ cell	69051	69054	548
+CL:0000746	cardiac myocyte	69085	69101	866
+CL:0000187	myocyte	69093	69101	756
+CL:0000670	primordial germ cell	69133	69136	567
+CL:0000670	primordial germ cell	69345	69348	567
+CL:0000670	primordial germ cell	69473	69476	611
+CL:0000670	primordial germ cell	69487	69490	567
+CL:0000670	primordial germ cell	69540	69543	530
+CL:0000670	primordial germ cell	69581	69584	567
+CL:0000670	primordial germ cell	69711	69714	567
+CL:0000670	primordial germ cell	69825	69828	611
+CL:0000670	primordial germ cell	69839	69842	567
+CL:0000670	primordial germ cell	69991	69994	548
+CL:0000670	primordial germ cell	70099	70102	567
+CL:0000670	primordial germ cell	70113	70116	567
+CL:0000670	primordial germ cell	70239	70242	548
+CL:0000670	primordial germ cell	70333	70336	567
+CL:0000670	primordial germ cell	70426	70429	530
+CL:0000670	primordial germ cell	70440	70443	567
+CL:0000000	cell	70507	70515	552
+CL:0000670	primordial germ cell	70750	70753	548
+CL:0000670	primordial germ cell	71219	71222	548
+CL:0000670	primordial germ cell	71389	71392	611
+CL:0000670	primordial germ cell	71403	71406	567
+CL:0000670	primordial germ cell	71716	71719	537
+CL:0000670	primordial germ cell	71900	71903	526
+CL:0000670	primordial germ cell	71922	71925	611
+CL:0000670	primordial germ cell	72301	72304	567
+CL:0000670	primordial germ cell	72351	72354	526
+CL:0000670	primordial germ cell	72365	72368	567
+CL:0000670	primordial germ cell	72542	72545	548
+CL:0000670	primordial germ cell	72812	72815	548
+CL:0000670	primordial germ cell	72933	72936	530
+CL:0000670	primordial germ cell	72955	72958	611
+CL:0000670	primordial germ cell	73122	73125	548
+CL:0000670	primordial germ cell	73202	73205	567
+CL:0000670	primordial germ cell	73258	73261	611
+CL:0000670	primordial germ cell	73280	73283	611
+CL:0000670	primordial germ cell	73428	73431	567
+CL:0000670	primordial germ cell	73899	73902	567
+CL:0000670	primordial germ cell	73921	73924	611
+CL:0000670	primordial germ cell	74286	74289	537
+CL:0000670	primordial germ cell	74347	74350	611
+CL:0000670	primordial germ cell	74370	74373	611
+CL:0000670	primordial germ cell	75256	75259	611
+CL:0000670	primordial germ cell	75278	75281	611
+CL:0000670	primordial germ cell	75458	75461	567
+CL:0000670	primordial germ cell	75536	75539	567
+CL:0000670	primordial germ cell	75644	75647	567
+CL:0000670	primordial germ cell	75798	75801	611
+CL:0000670	primordial germ cell	75812	75815	567
+CL:0000670	primordial germ cell	75939	75942	611
+CL:0000670	primordial germ cell	75961	75964	611
+CL:0000182	hepatocyte	76045	76056	756
+CL:0000670	primordial germ cell	76071	76074	567
+CL:0000182	hepatocyte	76157	76168	799
+CL:0000182	hepatocyte	76317	76328	966
+CL:0000670	primordial germ cell	76343	76346	611
+CL:0000670	primordial germ cell	76357	76360	567
+CL:0000000	cell	76378	76382	790
+CL:0000182	hepatocyte	76533	76544	966
+CL:0000670	primordial germ cell	76656	76659	611
+CL:0000670	primordial germ cell	76721	76724	530
+CL:0000670	primordial germ cell	76760	76763	611
+CL:0000182	hepatocyte	76842	76853	966
+CL:0000670	primordial germ cell	76868	76871	611
+CL:0000670	primordial germ cell	76890	76893	611
+CL:0000670	primordial germ cell	76991	76994	567
+CL:0000182	hepatocyte	77039	77050	799
+CL:0000182	hepatocyte	77152	77163	966
+CL:0000670	primordial germ cell	77178	77181	611
+CL:0000670	primordial germ cell	77200	77203	611
+CL:0000670	primordial germ cell	77265	77268	548
+CL:0000670	primordial germ cell	77304	77307	530
+CL:0000670	primordial germ cell	77379	77382	611
+CL:0000670	primordial germ cell	77485	77488	567
+CL:0000670	primordial germ cell	77507	77510	611
+CL:0000670	primordial germ cell	77580	77583	611
+CL:0000670	primordial germ cell	77602	77605	611
+CL:0000670	primordial germ cell	77746	77749	567
+CL:0000670	primordial germ cell	77931	77934	567
+CL:0000670	primordial germ cell	78030	78033	567
+CL:0000670	primordial germ cell	78125	78128	530
+CL:0000540	neuron	78211	78219	552
+CL:0000100	motoneuron	78211	78219	523
+CL:0000670	primordial germ cell	78251	78254	567
+CL:0000670	primordial germ cell	78489	78492	548
+CL:0000670	primordial germ cell	78522	78525	611
+CL:0000670	primordial germ cell	78625	78628	611
+CL:0000670	primordial germ cell	78639	78642	548
+CL:0000670	primordial germ cell	78758	78761	567
+CL:0000670	primordial germ cell	78772	78775	548
+CL:0000670	primordial germ cell	78968	78971	548
+CL:0000670	primordial germ cell	79051	79054	567
+CL:0000670	primordial germ cell	79799	79802	567
