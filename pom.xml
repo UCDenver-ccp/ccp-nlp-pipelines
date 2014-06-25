@@ -47,6 +47,14 @@
 		</dependencies>
 	</dependencyManagement>
 
+	<repositories>
+		<repository>
+			<id>bionlp-sourceforge</id>
+			<url>http://bionlp.svn.sourceforge.net/viewvc/bionlp/repo/</url>
+		</repository>
+	</repositories>
+
+
 	<build>
 		<pluginManagement>
 			<plugins>
