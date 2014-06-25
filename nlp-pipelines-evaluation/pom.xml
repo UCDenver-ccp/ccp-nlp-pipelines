@@ -47,13 +47,6 @@
 		</dependency>
 		<dependency>
 			<groupId>edu.ucdenver.ccp</groupId>
-			<artifactId>wrapper-cleartk</artifactId>
-			<version>0.1</version>
-			<type>jar</type>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>edu.ucdenver.ccp</groupId>
 			<artifactId>craft-collection-reader-ccp</artifactId>
 			<version>1.0</version>
 		</dependency>
