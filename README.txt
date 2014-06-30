@@ -2,7 +2,7 @@ Colorado Computational Pharmacology, University of Colorado School of Medicine  
 
 The pipelines presented in this project were developed to produce concept annotations from any biomedical ontology on any collection of text documents and also to evaluate any annotations produced by automatic annotators on the Colorado Richly Annotation Full-Text (CRAFT) Corpus (http://bionlp-corpora.sourceforge.net/CRAFT/). 
 
-These pipelies are derived from those used in the evaluation and analysis of three different automatic annotators on the CRAFT corpus, as seen in Funk et al. 2014 (citation below). This work found that Concept Mapper, a UIMA dictionary based annotator, (https://uima.apache.org/downloads/sandbox/ConceptMapperAnnotatorUserGuide/ConceptMapperAnnotatorUserGuide.html) was the best performer on a majority of the ontologies and is natively UIMA, so the pipeline makes use it as an automatic annotator.
+These pipelines are derived from those used in the evaluation and analysis of three different automatic annotators on the CRAFT corpus, as seen in Funk et al. 2014 (citation below). This work found that Concept Mapper, a UIMA dictionary based annotator, (https://uima.apache.org/downloads/sandbox/ConceptMapperAnnotatorUserGuide/ConceptMapperAnnotatorUserGuide.html) was the best performer on a majority of the ontologies and is natively UIMA, so the pipeline makes use it as an automatic annotator.
 
 Funk C, Baumgartner W, Garcia B, Roeder C, Bada M, Cohen KB, Hunter LE & Verspoor K (2014). Large-scale biomedical concept recognition: an evaluation of current automatic annotators and their parameters. BMC Bioinformatics, 15, 59.
 
