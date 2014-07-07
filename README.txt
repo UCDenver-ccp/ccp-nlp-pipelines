@@ -54,7 +54,7 @@ dependency by adding the following to your pom.xml file:
 
 <repository>
     <id>bionlp-sourceforge</id>
-    <url>http://bionlp.svn.sourceforge.net/viewvc/bionlp/repo/</url>
+    <url>http://svn.code.sf.net/p/bionlp/code/repo/</url>
 </repository>
 
 
