@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>edu.ucdenver.ccp</groupId>
 	<artifactId>nlp-pipelines</artifactId>
-	<version>0.4-SNAPSHOT</version>
+	<version>0.6-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<modules>
 		<module>nlp-pipelines-conceptmapper</module>
@@ -67,6 +67,71 @@
 						<source>1.6</source>
 						<target>1.6</target>
 					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-source-plugin</artifactId>
+					<version>2.1.2</version>
+					<executions>
+						<execution>
+							<id>attach-sources</id>
+							<phase>verify</phase>
+							<goals>
+								<goal>jar-no-fork</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+				<!-- javadoc -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-javadoc-plugin</artifactId>
+					<version>2.8</version>
+					<configuration>
+						<notimestamp>true</notimestamp>
+						<linksource>true</linksource>
+						<links>
+							<link>http://download.oracle.com/javase/6/docs/api/</link>
+							<link>http://junit.sourceforge.net/javadoc/</link>
+						</links>
+					</configuration>
+					<executions>
+						<execution>
+							<id>attach-javadocs</id>
+							<goals>
+								<goal>jar</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>license-maven-plugin</artifactId>
+					<version>1.7</version>
+					<configuration>
+						<verbose>false</verbose>
+						<encoding>UTF-8</encoding>
+						<inceptionYear>2014</inceptionYear>
+						<organizationName>Regents of the University of Colorado</organizationName>
+						<projectName>Colorado Computational Pharmacology's NLP pipelines
+							module</projectName>
+						<licenseName>bsd_3</licenseName>
+					</configuration>
+					<executions>
+						<execution>
+							<id>first</id>
+							<goals>
+								<goal>update-file-header</goal>
+							</goals>
+							<phase>process-sources</phase>
+							<configuration>
+								<roots>
+									<root>src/main/java</root>
+									<root>src/test/java</root>
+								</roots>
+							</configuration>
+						</execution>
+					</executions>
 				</plugin>
 			</plugins>
 		</pluginManagement>
