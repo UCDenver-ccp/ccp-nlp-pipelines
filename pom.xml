@@ -68,6 +68,35 @@
 						<target>1.6</target>
 					</configuration>
 				</plugin>
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>license-maven-plugin</artifactId>
+					<version>1.7</version>
+					<configuration>
+						<verbose>false</verbose>
+						<encoding>UTF-8</encoding>
+						<inceptionYear>2014</inceptionYear>
+						<organizationName>Regents of the University of Colorado</organizationName>
+						<projectName>Colorado Computational Pharmacology's NLP pipelines
+							module</projectName>
+						<licenseName>bsd_3</licenseName>
+					</configuration>
+					<executions>
+						<execution>
+							<id>first</id>
+							<goals>
+								<goal>update-file-header</goal>
+							</goals>
+							<phase>process-sources</phase>
+							<configuration>
+								<roots>
+									<root>src/main/java</root>
+									<root>src/test/java</root>
+								</roots>
+							</configuration>
+						</execution>
+					</executions>
+				</plugin>
 			</plugins>
 		</pluginManagement>
 	</build>
