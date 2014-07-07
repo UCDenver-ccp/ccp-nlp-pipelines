@@ -1,6 +1,3 @@
-/**
- * 
- */
 package edu.ucdenver.ccp.nlp.pipelines.evaluation.craft;
 
 import java.util.Collection;

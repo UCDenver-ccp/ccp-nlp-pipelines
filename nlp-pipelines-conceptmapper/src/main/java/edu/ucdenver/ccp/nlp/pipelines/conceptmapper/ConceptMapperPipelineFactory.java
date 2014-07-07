@@ -1,6 +1,3 @@
-/**
- * 
- */
 package edu.ucdenver.ccp.nlp.pipelines.conceptmapper;
 
 import java.io.File;
