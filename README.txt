@@ -43,18 +43,13 @@ dependency by adding the following to your pom.xml file:
 
 <dependency>
     <groupId>edu.ucdenver.ccp</groupId>
-    <artifactId>nlp-pipelines-core</artifactId>
-    <version>0.4-SNAPSHOT</version>
-</dependency>
-<dependency>
-    <groupId>edu.ucdenver.ccp</groupId>
     <artifactId>nlp-pipelines-conceptmapper</artifactId>
-    <version>0.4-SNAPSHOT</version>
+    <version>0.5</version>
 </dependency>
 <dependency>
     <groupId>edu.ucdenver.ccp</groupId>
     <artifactId>nlp-pipelines-evaluation</artifactId>
-    <version>0.4-SNAPSHOT</version>
+    <version>0.5</version>
 </dependency>
 
 <repository>
