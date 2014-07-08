@@ -36,7 +36,9 @@ package edu.ucdenver.ccp.nlp.pipelines.conceptmapper;
 
 import static org.junit.Assert.assertTrue;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 
 import org.apache.log4j.Logger;
@@ -96,14 +98,24 @@ public class EntityFinderTest extends DefaultUIMATestCase {
 		File knownAnnotations = new File("src" + File.separator + "test" + File.separator 
 				+ "resources" + File.separator + "17608565_CL.a1");
 		File outputAnnFile = new File(outputDir).listFiles()[0];
-		assertTrue("Annotation file produced is what is expected", knownAnnotations.length() == outputAnnFile.length());
+		
+		int linesKnown = 0;
+		int linesNew = 0;
+		BufferedReader readerKnown = new BufferedReader(new FileReader(knownAnnotations));
+		BufferedReader readerNew = new BufferedReader(new FileReader(knownAnnotations));
+		while(readerKnown.readLine() != null) linesKnown++;
+		readerKnown.close();
+		while(readerNew.readLine() != null) linesNew++;
+		readerNew.close();
+		
+		assertTrue("Annotation file produced is what is expected", linesKnown == linesNew);
 	}
 	
 	@Test
 	public void testEntityFinderWithNonCRAFTOntology() throws UIMAException, IOException {
 		String inputTextFileDir = inputTextFiles;
 		String outputDir = testFolder.newFolder("tempOutputDir").getAbsolutePath();
-		String ontology = "CL";
+		String ontology = "OBO";
 		String oboFile = oboFilesDir + File.separator + "doid.obo";
 		String outputDictDir = testFolder.newFolder("tempDictDir").getAbsolutePath();
 		
@@ -114,7 +126,17 @@ public class EntityFinderTest extends DefaultUIMATestCase {
 		File knownAnnotations = new File("src" + File.separator + "test" + File.separator 
 				+ "resources" + File.separator + "17608565_DOID.a1");
 		File outputAnnFile = new File(outputDir).listFiles()[0];
-		assertTrue("Annotation file produced is what is expected", knownAnnotations.length() == outputAnnFile.length());
+		
+		int linesKnown = 0;
+		int linesNew = 0;
+		BufferedReader readerKnown = new BufferedReader(new FileReader(knownAnnotations));
+		BufferedReader readerNew = new BufferedReader(new FileReader(knownAnnotations));
+		while(readerKnown.readLine() != null) linesKnown++;
+		readerKnown.close();
+		while(readerNew.readLine() != null) linesNew++;
+		readerNew.close();
+		
+		assertTrue("Annotation file produced is what is expected", linesKnown == linesNew);
 	}
 	
 }
