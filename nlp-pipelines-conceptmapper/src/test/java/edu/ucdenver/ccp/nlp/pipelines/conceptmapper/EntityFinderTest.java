@@ -102,7 +102,7 @@ public class EntityFinderTest extends DefaultUIMATestCase {
 		int linesKnown = 0;
 		int linesNew = 0;
 		BufferedReader readerKnown = new BufferedReader(new FileReader(knownAnnotations));
-		BufferedReader readerNew = new BufferedReader(new FileReader(knownAnnotations));
+		BufferedReader readerNew = new BufferedReader(new FileReader(outputAnnFile));
 		while(readerKnown.readLine() != null) linesKnown++;
 		readerKnown.close();
 		while(readerNew.readLine() != null) linesNew++;
@@ -130,7 +130,7 @@ public class EntityFinderTest extends DefaultUIMATestCase {
 		int linesKnown = 0;
 		int linesNew = 0;
 		BufferedReader readerKnown = new BufferedReader(new FileReader(knownAnnotations));
-		BufferedReader readerNew = new BufferedReader(new FileReader(knownAnnotations));
+		BufferedReader readerNew = new BufferedReader(new FileReader(outputAnnFile));
 		while(readerKnown.readLine() != null) linesKnown++;
 		readerKnown.close();
 		while(readerNew.readLine() != null) linesNew++;
