@@ -175,6 +175,9 @@ public class ConceptMapperPipelineFactory {
 			case GO_MF:
 				return getGoMfPipelineAeDescriptions(tsd, cmdOptions, dictParamOp, workDirectoryOp,
 						parameterCombinationIndex);
+			case GO:
+				return getGoPipelineAeDescriptions(tsd, cmdOptions, dictParamOp, workDirectoryOp,
+						parameterCombinationIndex);
 			case NCBI_TAXON:
 				return getNcbiTaxonPipelineAeDescriptions(tsd, cmdOptions, dictParamOp, workDirectoryOp,
 						parameterCombinationIndex);
@@ -221,6 +224,13 @@ public class ConceptMapperPipelineFactory {
 			ConceptMapperPipelineCmdOpts cmdOptions, DictionaryParameterOperation dictParamOp,
 			CleanDirectory workDirectoryOp, int parameterCombinationIndex) throws UIMAException, IOException {
 		return getPipelineAeDescriptions(tsd, cmdOptions, dictParamOp, DictionaryNamespace.PR, workDirectoryOp,
+				parameterCombinationIndex);
+	}
+	
+	public static List<AnalysisEngineDescription> getGoPipelineAeDescriptions(TypeSystemDescription tsd,
+			ConceptMapperPipelineCmdOpts cmdOptions, DictionaryParameterOperation dictParamOp,
+			CleanDirectory workDirectoryOp, int parameterCombinationIndex) throws UIMAException, IOException {
+		return getPipelineAeDescriptions(tsd, cmdOptions, dictParamOp, DictionaryNamespace.GO, workDirectoryOp,
 				parameterCombinationIndex);
 	}
 

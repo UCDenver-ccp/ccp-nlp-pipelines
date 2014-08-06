@@ -70,6 +70,7 @@ public class ConceptMapperDictionaryFileFactory {
 	private static final Logger logger = Logger.getLogger(ConceptMapperPipelineFactory.class);
 
 	public enum DictionaryNamespace {
+		GO,
 		GO_CC,
 		GO_MF,
 		GO_BP,
@@ -96,6 +97,9 @@ public class ConceptMapperDictionaryFileFactory {
 			// in case one already exists, if not then no need to
 			boolean cleanDictFile = outputDirectoryOp.equals(CleanDirectory.YES);
 			switch (dictNamespace) {
+			case GO: 
+				return GoDictionaryFactory.buildConceptMapperDictionary(EnumSet.of(GoNamespace.CC,GoNamespace.BP,GoNamespace.MF), outputDirectory,
+						outputDirectoryOp, synonymType);
 			case GO_CC:
 				return GoDictionaryFactory.buildConceptMapperDictionary(EnumSet.of(GoNamespace.CC), outputDirectory,
 						outputDirectoryOp, synonymType);
@@ -145,6 +149,9 @@ public class ConceptMapperDictionaryFileFactory {
 			boolean cleanDictFile, SynonymType synonymType, CharacterEncoding charE) {
 		try {
 			switch (dictNamespace) {
+			case GO:
+				return GoDictionaryFactory.buildConceptMapperDictionary(EnumSet.of(GoNamespace.CC,GoNamespace.BP,GoNamespace.MF), inputFile,
+						outputDirectory, cleanDictFile, synonymType);
 			case GO_CC:
 				return GoDictionaryFactory.buildConceptMapperDictionary(EnumSet.of(GoNamespace.CC), inputFile,
 						outputDirectory, cleanDictFile, synonymType);
