@@ -116,7 +116,7 @@ public class EntityFinder {
 			paramValuesIndex = 31;
 			dictName = DictionaryNamespace.OBO;
 		} else {
-			System.err.println(ontology + " is not a valid ontology. Pleasue use one of: SO, CHEBI, PR, CL, GO, GO_BP, GO_CC, GO_MF, NCBI_TAXON, EG or OBO");
+			System.err.println(ontology + " is not a valid ontology. Please use one of: SO, CHEBI, PR, CL, GO, GO_BP, GO_CC, GO_MF, NCBI_TAXON, EG or OBO");
 		}
 		
 		SynonymType synonymType = ConceptMapperPermutationFactory.getSynonymType(paramValuesIndex);
