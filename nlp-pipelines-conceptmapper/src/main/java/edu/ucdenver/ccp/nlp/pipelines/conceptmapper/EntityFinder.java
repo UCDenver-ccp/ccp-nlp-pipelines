@@ -140,7 +140,7 @@ public class EntityFinder {
 		
 		AnalysisEngineDescription removeSlot = SlotRemovalFilter_AE.getDescription(tsd, SlotRemovalOption.REMOVE_ALL);
 		
-		AnalysisEngineDescription removeDuplicateAnnotations = DuplicateAnnotationRemovalFilter_AE.createAnalysisEngineDescription(tsd);
+		//AnalysisEngineDescription removeDuplicateAnnotations = DuplicateAnnotationRemovalFilter_AE.createAnalysisEngineDescription(tsd);
 		
 		//AnalysisEngineDescription XmiPrinter = XmiPrinterAE.getDescription(tsd, CcpDocumentMetadataHandler.class, outputDirectory);
 		AnalysisEngineDescription BionlpPrinter = BionlpFormatPrinter_AE.createAnalysisEngineDescription(tsd, outputDirectory, true);
@@ -151,7 +151,7 @@ public class EntityFinder {
 		pipeline.add(sentenceDetectorDesc);
 		pipeline.addAll(cmDesc);
 		pipeline.add(removeSlot);
-		pipeline.add(removeDuplicateAnnotations);
+		//pipeline.add(removeDuplicateAnnotations);
 		//pipeline.add(XmiPrinter);
 		pipeline.add(BionlpPrinter);
 		//pipeline.add(inlinePrinterAe);
