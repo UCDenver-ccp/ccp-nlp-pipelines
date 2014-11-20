@@ -60,7 +60,7 @@ import edu.ucdenver.ccp.common.file.CharacterEncoding;
 import edu.ucdenver.ccp.nlp.core.annotation.Span;
 import edu.ucdenver.ccp.nlp.core.uima.annotation.CCPTextAnnotation;
 import edu.ucdenver.ccp.nlp.pipelines.conceptmapper.ConceptMapperDictionaryFileFactory.DictionaryNamespace;
-import edu.ucdenver.ccp.nlp.uima.annotators.filter.DuplicateAnnotationRemovalFilter_AE;
+//import edu.ucdenver.ccp.nlp.uima.annotators.filter.DuplicateAnnotationRemovalFilter_AE;
 import edu.ucdenver.ccp.nlp.uima.annotators.filter.SlotRemovalFilter_AE;
 import edu.ucdenver.ccp.nlp.uima.annotators.filter.SlotRemovalFilter_AE.SlotRemovalOption;
 import edu.ucdenver.ccp.nlp.uima.collections.file.FileSystemCollectionReader;
