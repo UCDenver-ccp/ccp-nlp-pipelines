@@ -42,8 +42,10 @@ import java.util.List;
 
 import org.apache.uima.UIMAException;
 import org.apache.uima.analysis_engine.AnalysisEngineDescription;
+import org.apache.uima.cas.CAS;
 import org.apache.uima.collection.CollectionReader;
 import org.apache.uima.collection.CollectionReaderDescription;
+import org.apache.uima.jcas.tcas.Annotation;
 import org.apache.uima.resource.ResourceInitializationException;
 import org.apache.uima.resource.metadata.TypeSystemDescription;
 import org.cleartk.syntax.opennlp.SentenceAnnotator;
@@ -53,12 +55,24 @@ import org.uimafit.factory.CollectionReaderFactory;
 import org.uimafit.factory.TypeSystemDescriptionFactory;
 import org.uimafit.pipeline.SimplePipeline;
 
+import edu.ucdenver.ccp.common.collections.CollectionsUtil;
 import edu.ucdenver.ccp.common.file.CharacterEncoding;
+import edu.ucdenver.ccp.nlp.core.annotation.Span;
+import edu.ucdenver.ccp.nlp.core.uima.annotation.CCPTextAnnotation;
 import edu.ucdenver.ccp.nlp.pipelines.conceptmapper.ConceptMapperDictionaryFileFactory.DictionaryNamespace;
+import edu.ucdenver.ccp.nlp.uima.annotators.filter.DuplicateAnnotationRemovalFilter_AE;
 import edu.ucdenver.ccp.nlp.uima.annotators.filter.SlotRemovalFilter_AE;
 import edu.ucdenver.ccp.nlp.uima.annotators.filter.SlotRemovalFilter_AE.SlotRemovalOption;
 import edu.ucdenver.ccp.nlp.uima.collections.file.FileSystemCollectionReader;
 import edu.ucdenver.ccp.nlp.uima.serialization.bionlp.BionlpFormatPrinter_AE;
+import edu.ucdenver.ccp.nlp.uima.serialization.inline.InlinePrinter;
+import edu.ucdenver.ccp.nlp.uima.serialization.inline.InlineTag;
+import edu.ucdenver.ccp.nlp.uima.serialization.inline.InlineTagExtractor_ImplBase;
+import edu.ucdenver.ccp.nlp.uima.serialization.inline.InlineTag.InlinePostfixTag;
+import edu.ucdenver.ccp.nlp.uima.serialization.inline.InlineTag.InlinePrefixTag;
+import edu.ucdenver.ccp.nlp.uima.serialization.xmi.XmiPrinterAE;
+import edu.ucdenver.ccp.nlp.uima.shims.annotation.impl.CcpAnnotationDataExtractor;
+import edu.ucdenver.ccp.nlp.uima.shims.document.impl.CcpDocumentMetadataHandler;
 import edu.ucdenver.ccp.nlp.uima.util.TypeSystemUtil;
 import edu.ucdenver.ccp.nlp.uima.util.View;
 import edu.ucdenver.ccp.nlp.wrapper.conceptmapper.ConceptMapperPermutationFactory;
@@ -126,13 +140,57 @@ public class EntityFinder {
 		
 		AnalysisEngineDescription removeSlot = SlotRemovalFilter_AE.getDescription(tsd, SlotRemovalOption.REMOVE_ALL);
 		
+		AnalysisEngineDescription removeDuplicateAnnotations = DuplicateAnnotationRemovalFilter_AE.createAnalysisEngineDescription(tsd);
+		
+		//AnalysisEngineDescription XmiPrinter = XmiPrinterAE.getDescription(tsd, CcpDocumentMetadataHandler.class, outputDirectory);
 		AnalysisEngineDescription BionlpPrinter = BionlpFormatPrinter_AE.createAnalysisEngineDescription(tsd, outputDirectory, true);
+		
+		//AnalysisEngineDescription inlinePrinterAe = InlinePrinter.createAnalysisEngineDescription(tsd, outputDirectory,
+		//		CAS.NAME_DEFAULT_SOFA, CcpDocumentMetadataHandler.class, SimpleInlineAnnotationExtractor.class);
 		
 		pipeline.add(sentenceDetectorDesc);
 		pipeline.addAll(cmDesc);
 		pipeline.add(removeSlot);
+		pipeline.add(removeDuplicateAnnotations);
+		//pipeline.add(XmiPrinter);
 		pipeline.add(BionlpPrinter);
+		//pipeline.add(inlinePrinterAe);
 		SimplePipeline.runPipeline(cr, pipeline.toArray(new AnalysisEngineDescription[pipeline.size()]));
+	}
+	
+	/**
+	 * A very straightforward extension of the {@link InlineTagExtractor_ImplBase}. This class
+	 * returns XML tags whose names are determined by the annotation class mention name.
+	 * 
+	 * @author bill
+	 * 
+	 */
+	private static class SimpleInlineAnnotationExtractor extends InlineTagExtractor_ImplBase {
+
+		/**
+		 * Constructor states that CCPTextAnnotations and the CcpAnnotationDataExtractor will be
+		 * used
+		 */
+		public SimpleInlineAnnotationExtractor() {
+			super(CCPTextAnnotation.type, new CcpAnnotationDataExtractor());
+		}
+
+		/**
+		 * Returns XML tags using the annotation's class mention name, e.g. <mention_name>covered
+		 * text</mention_name>
+		 * 
+		 * @see edu.uchsc.ccp.uima.ae.util.printer.inline.InlineTagExtractor_ImplBase#getInlineTags(org.apache.uima.jcas.tcas.Annotation)
+		 */
+		@Override
+		protected List<InlineTag> getInlineTags(Annotation annotation) {
+			CCPTextAnnotation ccpTa = (CCPTextAnnotation) annotation;
+			String type = ccpTa.getClassMention().getMentionName();
+			Span span = new Span(ccpTa.getBegin(), ccpTa.getEnd());
+			InlineTag openTag = new InlinePrefixTag(String.format("<%s>", type), span);
+			InlineTag closeTag = new InlinePostfixTag(String.format("</%s>", type), span);
+			return CollectionsUtil.createList(openTag, closeTag);
+		}
+
 	}
 	
 	/**
