@@ -90,8 +90,9 @@ public class EntityFinderTest extends DefaultUIMATestCase {
 		String ontology = "CL";
 		String oboFile = oboFilesDir + File.separator + "cl-basic.obo";
 		String outputDictDir = testFolder.newFolder("tempDictDir").getAbsolutePath();
+		String cleanDictFile = "true";
 		
-		String [] args = {inputTextFileDir, outputDir, ontology, oboFile, outputDictDir};
+		String [] args = {inputTextFileDir, outputDir, ontology, oboFile, outputDictDir, cleanDictFile};
 		
 		EntityFinder.main(args);
 		
@@ -118,8 +119,9 @@ public class EntityFinderTest extends DefaultUIMATestCase {
 		String ontology = "OBO";
 		String oboFile = oboFilesDir + File.separator + "doid.obo";
 		String outputDictDir = testFolder.newFolder("tempDictDir").getAbsolutePath();
+		String cleanDictFile = "true";
 		
-		String [] args = {inputTextFileDir, outputDir, ontology, oboFile, outputDictDir};
+		String [] args = {inputTextFileDir, outputDir, ontology, oboFile, outputDictDir, cleanDictFile};
 		
 		EntityFinder.main(args);
 		
