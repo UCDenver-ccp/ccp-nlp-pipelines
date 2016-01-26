@@ -196,21 +196,21 @@ public class CraftRunGenericComparison {
 		switch (annotFilterOp) {
 		case REMOVE_GO_BPMF:
 			descList.add(OntologyClassRemovalFilter_AE.getDescription(tsd, CcpAnnotationDataExtractor.class,
-					GO_BP_ROOT_ID, oboFile, CharacterEncoding.UTF_8));
+					GO_BP_ROOT_ID, oboFile));
 			descList.add(OntologyClassRemovalFilter_AE.getDescription(tsd, CcpAnnotationDataExtractor.class,
-					GO_MF_ROOT_ID, oboFile, CharacterEncoding.UTF_8));
+					GO_MF_ROOT_ID, oboFile));
 			return descList;
 		case REMOVE_GO_CCBP:
 			descList.add(OntologyClassRemovalFilter_AE.getDescription(tsd, CcpAnnotationDataExtractor.class,
-					GO_CC_ROOT_ID, oboFile, CharacterEncoding.UTF_8));
+					GO_CC_ROOT_ID, oboFile));
 			descList.add(OntologyClassRemovalFilter_AE.getDescription(tsd, CcpAnnotationDataExtractor.class,
-					GO_BP_ROOT_ID, oboFile, CharacterEncoding.UTF_8));
+					GO_BP_ROOT_ID, oboFile));
 			return descList;
 		case REMOVE_GO_CCMF:
 			descList.add(OntologyClassRemovalFilter_AE.getDescription(tsd, CcpAnnotationDataExtractor.class,
-					GO_CC_ROOT_ID, oboFile, CharacterEncoding.UTF_8));
+					GO_CC_ROOT_ID, oboFile));
 			descList.add(OntologyClassRemovalFilter_AE.getDescription(tsd, CcpAnnotationDataExtractor.class,
-					GO_MF_ROOT_ID, oboFile, CharacterEncoding.UTF_8));
+					GO_MF_ROOT_ID, oboFile));
 			return descList;
 		case NONE:
 			return descList;

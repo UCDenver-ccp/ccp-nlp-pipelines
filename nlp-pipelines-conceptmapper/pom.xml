@@ -38,11 +38,6 @@
 		</dependency>
 		<dependency>
 			<groupId>edu.ucdenver.ccp</groupId>
-			<artifactId>datasource-fileparsers</artifactId>
-			<version>0.4.1</version>
-		</dependency>
-		<dependency>
-			<groupId>edu.ucdenver.ccp</groupId>
 			<artifactId>ccp-nlp-uima-annotators</artifactId>
 			<version>${ver.ccp.nlp}</version>
 		</dependency>
@@ -65,11 +60,6 @@
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 		</dependency>
-		<!-- <dependency> <groupId>edu.ucdenver.ccp</groupId> <artifactId>ccp-nlp-ext-uima-annotators-entitynormalization</artifactId> 
-			<version>${ver.ccp.nlp}</version> </dependency> <dependency> <groupId>edu.ucdenver.ccp</groupId> 
-			<artifactId>ccp-nlp-uima-shims-internal</artifactId> <version>${ver.ccp.nlp}</version> 
-			</dependency> <dependency> <groupId>edu.ucdenver.ccp</groupId> <artifactId>ccp-nlp-wrapper-ncbo</artifactId> 
-			<version>${ver.ccp.nlp}</version> </dependency> -->
 	</dependencies>
 
 	<repositories>

@@ -67,7 +67,7 @@ direcotry:
 
 mvn -f nlp-pipelines-conceptmapper/pom.xml exec:java 
 -Dexec.mainClass="edu.ucdenver.ccp.nlp.pipelines.conceptmapper.EntityFinder" 
--Dexec.args="<InputDir> <OutputDir> <ontology> <OBOfile> <DictDir>"
+-Dexec.args="<InputDir> <OutputDir> <ontology> <OBOfile> <DictDir> <CleanDictFlag>"
 
 The parameters required are as follows:
 <InputDir> - Directory of text files for input. The text files should be named by 
@@ -100,6 +100,10 @@ specific ontology of interestes is not listed please use OBO.
 found at http://www.obofoundry.org/.
 
 <DictDir> - The directory where the Concept Mapper dictioary will be written. 
+
+<CleanDictFlag> - If true, previously build dictionary files are deleted and 
+the dictionary is recreated prior to use. If false, previously used dictionary 
+files are used if they are available.
 
 
 Evaluating annotations against CRAFT:

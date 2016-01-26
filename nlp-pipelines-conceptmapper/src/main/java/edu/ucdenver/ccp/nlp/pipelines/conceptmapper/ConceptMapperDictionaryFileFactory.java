@@ -39,15 +39,15 @@ import java.io.IOException;
 import java.util.EnumSet;
 
 import org.apache.log4j.Logger;
-import org.geneontology.oboedit.dataadapter.OBOParseException;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
 import edu.ucdenver.ccp.common.file.CharacterEncoding;
 import edu.ucdenver.ccp.common.file.FileUtil;
 import edu.ucdenver.ccp.common.file.FileUtil.CleanDirectory;
-import edu.ucdenver.ccp.datasource.fileparsers.obo.OboUtil.ObsoleteTermHandling;
+import edu.ucdenver.ccp.datasource.fileparsers.obo.OntologyUtil;
+import edu.ucdenver.ccp.datasource.fileparsers.obo.OntologyUtil.SynonymType;
 import edu.ucdenver.ccp.datasource.fileparsers.obo.impl.CellTypeOntologyClassIterator;
 import edu.ucdenver.ccp.datasource.fileparsers.obo.impl.ChebiOntologyClassIterator;
-import edu.ucdenver.ccp.datasource.fileparsers.obo.impl.GenericOboClassIterator;
 import edu.ucdenver.ccp.datasource.fileparsers.obo.impl.NcbiTaxonomyClassIterator;
 import edu.ucdenver.ccp.datasource.fileparsers.obo.impl.SequenceOntologyClassIterator;
 import edu.ucdenver.ccp.datasource.fileparsers.pro.ProOntologyClassIterator;
@@ -55,14 +55,12 @@ import edu.ucdenver.ccp.nlp.wrapper.conceptmapper.dictionary.eg.EntrezGeneDictio
 import edu.ucdenver.ccp.nlp.wrapper.conceptmapper.dictionary.obo.GoDictionaryFactory;
 import edu.ucdenver.ccp.nlp.wrapper.conceptmapper.dictionary.obo.GoDictionaryFactory.GoNamespace;
 import edu.ucdenver.ccp.nlp.wrapper.conceptmapper.dictionary.obo.OboToDictionary;
-import edu.ucdenver.ccp.nlp.wrapper.conceptmapper.dictionary.obo.OboToDictionary.SynonymType;
-
-
 
 /**
  * Always creates a new dictionary file by downloading a new data file
  * 
- * @author Center for Computational Pharmacology, UC Denver; ccpsupport@ucdenver.edu
+ * @author Center for Computational Pharmacology, UC Denver;
+ *         ccpsupport@ucdenver.edu
  * 
  */
 public class ConceptMapperDictionaryFileFactory {
@@ -70,17 +68,7 @@ public class ConceptMapperDictionaryFileFactory {
 	private static final Logger logger = Logger.getLogger(ConceptMapperPipelineFactory.class);
 
 	public enum DictionaryNamespace {
-		GO,
-		GO_CC,
-		GO_MF,
-		GO_BP,
-		CL,
-		CHEBI,
-		NCBI_TAXON,
-		PR,
-		SO,
-		EG,
-		OBO
+		GO, GO_CC, GO_MF, GO_BP, CL, CHEBI, NCBI_TAXON, PR, SO, EG, OBO
 	}
 
 	/**
@@ -93,13 +81,15 @@ public class ConceptMapperDictionaryFileFactory {
 			CleanDirectory outputDirectoryOp, SynonymType synonymType) {
 		try {
 			boolean cleanOutputDirectory = outputDirectoryOp.equals(CleanDirectory.YES);
-			// if we are downloading new source files, then we want to create a new dictionary file
+			// if we are downloading new source files, then we want to create a
+			// new dictionary file
 			// in case one already exists, if not then no need to
 			boolean cleanDictFile = outputDirectoryOp.equals(CleanDirectory.YES);
 			switch (dictNamespace) {
-			case GO: 
-				return GoDictionaryFactory.buildConceptMapperDictionary(EnumSet.of(GoNamespace.CC,GoNamespace.BP,GoNamespace.MF), outputDirectory,
-						outputDirectoryOp, synonymType);
+			case GO:
+				return GoDictionaryFactory.buildConceptMapperDictionary(
+						EnumSet.of(GoNamespace.CC, GoNamespace.BP, GoNamespace.MF), outputDirectory, outputDirectoryOp,
+						synonymType);
 			case GO_CC:
 				return GoDictionaryFactory.buildConceptMapperDictionary(EnumSet.of(GoNamespace.CC), outputDirectory,
 						outputDirectoryOp, synonymType);
@@ -122,14 +112,12 @@ public class ConceptMapperDictionaryFileFactory {
 			case EG:
 				return EntrezGeneDictionaryFactory.buildModelOrganismConceptMapperDictionary(outputDirectory,
 						outputDirectoryOp);
-				
+
 			default:
 				throw new IllegalArgumentException("Unknown concept mapper dictionary namespace: "
 						+ dictNamespace.name());
 			}
-		} catch (OBOParseException e) {
-			throw new RuntimeException("Error while constructing ConceptMapper dictionary.", e);
-		} catch (IOException e) {
+		} catch (IOException | OWLOntologyCreationException | IllegalArgumentException | IllegalAccessException e) {
 			throw new RuntimeException("Error while constructing ConceptMapper dictionary.", e);
 		}
 	}
@@ -140,18 +128,19 @@ public class ConceptMapperDictionaryFileFactory {
 	 * @param inputFile
 	 * @param outputDirectory
 	 * @param cleanDictFile
-	 *            if true, an already existing dictionary file is overwritten. If false, then the
-	 *            pre-existing dictionary file is used and the dictionary building step is therefore
-	 *            skipped
+	 *            if true, an already existing dictionary file is overwritten.
+	 *            If false, then the pre-existing dictionary file is used and
+	 *            the dictionary building step is therefore skipped
 	 * @return a reference to a newly created Concept Mapper dictionary file
 	 */
-	public static File createDictionaryFileFromOBO(DictionaryNamespace dictNamespace, File inputFile, File outputDirectory,
-			boolean cleanDictFile, SynonymType synonymType, CharacterEncoding charE) {
+	public static File createDictionaryFileFromOBO(DictionaryNamespace dictNamespace, File inputFile,
+			File outputDirectory, boolean cleanDictFile, SynonymType synonymType) {
 		try {
 			switch (dictNamespace) {
 			case GO:
-				return GoDictionaryFactory.buildConceptMapperDictionary(EnumSet.of(GoNamespace.CC,GoNamespace.BP,GoNamespace.MF), inputFile,
-						outputDirectory, cleanDictFile, synonymType);
+				return GoDictionaryFactory.buildConceptMapperDictionary(
+						EnumSet.of(GoNamespace.CC, GoNamespace.BP, GoNamespace.MF), inputFile, outputDirectory,
+						cleanDictFile, synonymType);
 			case GO_CC:
 				return GoDictionaryFactory.buildConceptMapperDictionary(EnumSet.of(GoNamespace.CC), inputFile,
 						outputDirectory, cleanDictFile, synonymType);
@@ -175,15 +164,15 @@ public class ConceptMapperDictionaryFileFactory {
 				return EntrezGeneDictionaryFactory.buildModelOrganismConceptMapperDictionary(inputFile,
 						outputDirectory, cleanDictFile);
 			case OBO:
-				return buildDictionaryFromOBO(inputFile, outputDirectory, cleanDictFile, synonymType, charE);
-				
+				return buildDictionaryFromOBO(inputFile, outputDirectory, cleanDictFile, synonymType);
+
 			default:
 				throw new IllegalArgumentException("Unknown concept mapper dictionary namespace: "
 						+ dictNamespace.name());
 			}
-		} catch (OBOParseException e) {
-			throw new RuntimeException("Error while constructing ConceptMapper dictionary.", e);
 		} catch (IOException e) {
+			throw new RuntimeException("Error while constructing ConceptMapper dictionary.", e);
+		} catch (OWLOntologyCreationException e) {
 			throw new RuntimeException("Error while constructing ConceptMapper dictionary.", e);
 		}
 	}
@@ -193,10 +182,11 @@ public class ConceptMapperDictionaryFileFactory {
 	 * @param soIter
 	 * @return
 	 * @throws IOException
+	 * @throws OWLOntologyCreationException
 	 * @throws OBOParseException
 	 */
 	private static File buildSequenceOntologyDictionary(File inputOboFile, File outputDirectory, boolean cleanDictFile,
-			SynonymType synonymType) throws IOException, OBOParseException {
+			SynonymType synonymType) throws IOException, OWLOntologyCreationException {
 		File soCmDictFile = new File(outputDirectory, "cmDict-SO.xml");
 		if (soCmDictFile.exists()) {
 			if (cleanDictFile) {
@@ -207,13 +197,14 @@ public class ConceptMapperDictionaryFileFactory {
 			}
 		}
 		logger.info("Building dictionary file: " + soCmDictFile);
-		SequenceOntologyClassIterator soIter = new SequenceOntologyClassIterator(inputOboFile, ObsoleteTermHandling.EXCLUDE_OBSOLETE_TERMS);
-		OboToDictionary.buildDictionary(soCmDictFile, soIter, null, synonymType);
+		OntologyUtil ontUtil = new OntologyUtil(inputOboFile);
+		OboToDictionary.buildDictionary(soCmDictFile, ontUtil, null, synonymType);
 		return soCmDictFile;
 	}
 
 	private static File buildSequenceOntologyDictionary(File outputDirectory, boolean cleanDictFile,
-			SynonymType synonymType) throws IOException, OBOParseException {
+			SynonymType synonymType) throws IOException, OWLOntologyCreationException, IllegalArgumentException,
+			IllegalAccessException {
 		File soCmDictFile = new File(outputDirectory, "cmDict-SO.xml");
 		if (soCmDictFile.exists()) {
 			if (cleanDictFile) {
@@ -224,8 +215,10 @@ public class ConceptMapperDictionaryFileFactory {
 			}
 		}
 		logger.info("Building dictionary file: " + soCmDictFile);
-		SequenceOntologyClassIterator soIter = new SequenceOntologyClassIterator(outputDirectory, cleanDictFile, ObsoleteTermHandling.EXCLUDE_OBSOLETE_TERMS);
-		OboToDictionary.buildDictionary(soCmDictFile, soIter, null, synonymType);
+		SequenceOntologyClassIterator soIter = new SequenceOntologyClassIterator(outputDirectory, cleanDictFile);
+		OntologyUtil ontUtil = new OntologyUtil(soIter.getOboFile());
+		soIter.close();
+		OboToDictionary.buildDictionary(soCmDictFile, ontUtil, null, synonymType);
 		return soCmDictFile;
 	}
 
@@ -234,10 +227,11 @@ public class ConceptMapperDictionaryFileFactory {
 	 * @param prIter
 	 * @return
 	 * @throws IOException
+	 * @throws OWLOntologyCreationException
 	 * @throws OBOParseException
 	 */
 	private static File buildProteinOntologyDictionary(File inputOboFile, File outputDirectory, boolean cleanDictFile,
-			SynonymType synonymType) throws IOException, OBOParseException {
+			SynonymType synonymType) throws IOException, OWLOntologyCreationException {
 		File prCmDictFile = new File(outputDirectory, "cmDict-PR.xml");
 		if (prCmDictFile.exists()) {
 			if (cleanDictFile) {
@@ -248,13 +242,14 @@ public class ConceptMapperDictionaryFileFactory {
 			}
 		}
 		logger.info("Building dictionary file: " + prCmDictFile);
-		ProOntologyClassIterator prIter = new ProOntologyClassIterator(inputOboFile, ObsoleteTermHandling.EXCLUDE_OBSOLETE_TERMS);
-		OboToDictionary.buildDictionary(prCmDictFile, prIter, null, synonymType);
+		OntologyUtil ontUtil = new OntologyUtil(inputOboFile);
+		OboToDictionary.buildDictionary(prCmDictFile, ontUtil, null, synonymType);
 		return prCmDictFile;
 	}
 
 	private static File buildProteinOntologyDictionary(File outputDirectory, boolean cleanDictFile,
-			SynonymType synonymType) throws IOException, OBOParseException {
+			SynonymType synonymType) throws IOException, OWLOntologyCreationException, IllegalArgumentException,
+			IllegalAccessException {
 		File prCmDictFile = new File(outputDirectory, "cmDict-PR.xml");
 		if (prCmDictFile.exists()) {
 			if (cleanDictFile) {
@@ -265,8 +260,10 @@ public class ConceptMapperDictionaryFileFactory {
 			}
 		}
 		logger.info("Building dictionary file: " + prCmDictFile);
-		ProOntologyClassIterator prIter = new ProOntologyClassIterator(outputDirectory, cleanDictFile, ObsoleteTermHandling.EXCLUDE_OBSOLETE_TERMS);
-		OboToDictionary.buildDictionary(prCmDictFile, prIter, null, synonymType);
+		ProOntologyClassIterator prIter = new ProOntologyClassIterator(outputDirectory, cleanDictFile);
+		OntologyUtil ontUtil = new OntologyUtil(prIter.getProOntologyOboFile());
+		prIter.close();
+		OboToDictionary.buildDictionary(prCmDictFile, ontUtil, null, synonymType);
 		return prCmDictFile;
 	}
 
@@ -275,10 +272,11 @@ public class ConceptMapperDictionaryFileFactory {
 	 * @param taxonIter
 	 * @return
 	 * @throws IOException
+	 * @throws OWLOntologyCreationException
 	 * @throws OBOParseException
 	 */
 	private static File buildNcbiTaxonDictionary(File inputOboFile, File outputDirectory, boolean cleanDictFile,
-			SynonymType synonymType) throws IOException, OBOParseException {
+			SynonymType synonymType) throws IOException, OWLOntologyCreationException {
 		File taxonCmDictFile = new File(outputDirectory, "cmDict-NCBITAXON.xml");
 		if (taxonCmDictFile.exists()) {
 			if (cleanDictFile) {
@@ -289,13 +287,13 @@ public class ConceptMapperDictionaryFileFactory {
 			}
 		}
 		logger.info("Building dictionary file: " + taxonCmDictFile);
-		NcbiTaxonomyClassIterator taxonIter = new NcbiTaxonomyClassIterator(inputOboFile, ObsoleteTermHandling.EXCLUDE_OBSOLETE_TERMS);
-		OboToDictionary.buildDictionary(taxonCmDictFile, taxonIter, null, synonymType);
+		OntologyUtil ontUtil = new OntologyUtil(inputOboFile);
+		OboToDictionary.buildDictionary(taxonCmDictFile, ontUtil, null, synonymType);
 		return taxonCmDictFile;
 	}
 
 	private static File buildNcbiTaxonDictionary(File outputDirectory, boolean cleanDictFile, SynonymType synonymType)
-			throws IOException, OBOParseException {
+			throws IOException, OWLOntologyCreationException, IllegalArgumentException, IllegalAccessException {
 		File taxonCmDictFile = new File(outputDirectory, "cmDict-NCBITAXON.xml");
 		if (taxonCmDictFile.exists()) {
 			if (cleanDictFile) {
@@ -306,8 +304,10 @@ public class ConceptMapperDictionaryFileFactory {
 			}
 		}
 		logger.info("Building dictionary file: " + taxonCmDictFile);
-		NcbiTaxonomyClassIterator taxonIter = new NcbiTaxonomyClassIterator(outputDirectory, cleanDictFile, ObsoleteTermHandling.EXCLUDE_OBSOLETE_TERMS);
-		OboToDictionary.buildDictionary(taxonCmDictFile, taxonIter, null, synonymType);
+		NcbiTaxonomyClassIterator taxonIter = new NcbiTaxonomyClassIterator(outputDirectory, cleanDictFile);
+		OntologyUtil ontUtil = new OntologyUtil(taxonIter.getOboFile());
+		taxonIter.close();
+		OboToDictionary.buildDictionary(taxonCmDictFile, ontUtil, null, synonymType);
 		return taxonCmDictFile;
 	}
 
@@ -316,10 +316,11 @@ public class ConceptMapperDictionaryFileFactory {
 	 * @param clIter
 	 * @return
 	 * @throws IOException
+	 * @throws OWLOntologyCreationException
 	 * @throws OBOParseException
 	 */
 	private static File buildCellTypeDictionary(File inputOboFile, File outputDirectory, boolean cleanDictFile,
-			SynonymType synonymType) throws IOException, OBOParseException {
+			SynonymType synonymType) throws IOException, OWLOntologyCreationException {
 		File clCmDictFile = new File(outputDirectory, "cmDict-CL.xml");
 		if (clCmDictFile.exists()) {
 			if (cleanDictFile) {
@@ -330,13 +331,13 @@ public class ConceptMapperDictionaryFileFactory {
 			}
 		}
 		logger.info("Building dictionary file: " + clCmDictFile);
-		CellTypeOntologyClassIterator clIter = new CellTypeOntologyClassIterator(inputOboFile, ObsoleteTermHandling.EXCLUDE_OBSOLETE_TERMS);
-		OboToDictionary.buildDictionary(clCmDictFile, clIter, null, synonymType);
+		OntologyUtil ontUtil = new OntologyUtil(inputOboFile);
+		OboToDictionary.buildDictionary(clCmDictFile, ontUtil, null, synonymType);
 		return clCmDictFile;
 	}
 
 	private static File buildCellTypeDictionary(File outputDirectory, boolean cleanDictFile, SynonymType synonymType)
-			throws IOException, OBOParseException {
+			throws IOException, OWLOntologyCreationException, IllegalArgumentException, IllegalAccessException {
 		File clCmDictFile = new File(outputDirectory, "cmDict-CL.xml");
 		if (clCmDictFile.exists()) {
 			if (cleanDictFile) {
@@ -347,8 +348,10 @@ public class ConceptMapperDictionaryFileFactory {
 			}
 		}
 		logger.info("Building dictionary file: " + clCmDictFile);
-		CellTypeOntologyClassIterator clIter = new CellTypeOntologyClassIterator(outputDirectory, cleanDictFile, ObsoleteTermHandling.EXCLUDE_OBSOLETE_TERMS);
-		OboToDictionary.buildDictionary(clCmDictFile, clIter, null, synonymType);
+		CellTypeOntologyClassIterator clIter = new CellTypeOntologyClassIterator(outputDirectory, cleanDictFile);
+		OntologyUtil ontUtil = new OntologyUtil(clIter.getOboFile());
+		clIter.close();
+		OboToDictionary.buildDictionary(clCmDictFile, ontUtil, null, synonymType);
 		return clCmDictFile;
 	}
 
@@ -357,10 +360,11 @@ public class ConceptMapperDictionaryFileFactory {
 	 * @param chebiIter
 	 * @return
 	 * @throws IOException
+	 * @throws OWLOntologyCreationException
 	 * @throws OBOParseException
 	 */
 	private static File buildChebiDictionary(File inputOboFile, File outputDirectory, boolean cleanDictFile,
-			SynonymType synonymType) throws IOException, OBOParseException {
+			SynonymType synonymType) throws IOException, OWLOntologyCreationException {
 		File chebiCmDictFile = new File(outputDirectory, "cmDict-CHEBI.xml");
 		if (chebiCmDictFile.exists()) {
 			if (cleanDictFile) {
@@ -371,13 +375,13 @@ public class ConceptMapperDictionaryFileFactory {
 			}
 		}
 		logger.info("Building dictionary file: " + chebiCmDictFile);
-		ChebiOntologyClassIterator chebiIter = new ChebiOntologyClassIterator(inputOboFile, ObsoleteTermHandling.EXCLUDE_OBSOLETE_TERMS);
-		OboToDictionary.buildDictionary(chebiCmDictFile, chebiIter, null, synonymType);
+		OntologyUtil ontUtil = new OntologyUtil(inputOboFile);
+		OboToDictionary.buildDictionary(chebiCmDictFile, ontUtil, null, synonymType);
 		return chebiCmDictFile;
 	}
 
 	private static File buildChebiDictionary(File outputDirectory, boolean cleanDictFile, SynonymType synonymType)
-			throws IOException, OBOParseException {
+			throws IOException, OWLOntologyCreationException, IllegalArgumentException, IllegalAccessException {
 		File chebiCmDictFile = new File(outputDirectory, "cmDict-CHEBI.xml");
 		if (chebiCmDictFile.exists()) {
 			if (cleanDictFile) {
@@ -388,13 +392,15 @@ public class ConceptMapperDictionaryFileFactory {
 			}
 		}
 		logger.info("Building dictionary file: " + chebiCmDictFile);
-		ChebiOntologyClassIterator chebiIter = new ChebiOntologyClassIterator(outputDirectory, cleanDictFile, ObsoleteTermHandling.EXCLUDE_OBSOLETE_TERMS);
-		OboToDictionary.buildDictionary(chebiCmDictFile, chebiIter, null, synonymType);
+		ChebiOntologyClassIterator chebiIter = new ChebiOntologyClassIterator(outputDirectory, cleanDictFile);
+		OntologyUtil ontUtil = new OntologyUtil(chebiIter.getOboFile());
+		chebiIter.close();
+		OboToDictionary.buildDictionary(chebiCmDictFile, ontUtil, null, synonymType);
 		return chebiCmDictFile;
 	}
-	
+
 	private static File buildDictionaryFromOBO(File inputOboFile, File outputDirectory, boolean cleanDictFile,
-			SynonymType synonymType, CharacterEncoding charE) throws IOException, OBOParseException {
+			SynonymType synonymType) throws IOException, OWLOntologyCreationException {
 		File CmDictFile = new File(outputDirectory, "cmDict-OBO.xml");
 		if (CmDictFile.exists()) {
 			if (cleanDictFile) {
@@ -405,8 +411,8 @@ public class ConceptMapperDictionaryFileFactory {
 			}
 		}
 		logger.info("Building dictionary file: " + CmDictFile);
-		GenericOboClassIterator genIter = new GenericOboClassIterator(inputOboFile, charE, ObsoleteTermHandling.EXCLUDE_OBSOLETE_TERMS);
-		OboToDictionary.buildDictionary(CmDictFile, genIter, null, synonymType);
+		OntologyUtil ontUtil = new OntologyUtil(inputOboFile);
+		OboToDictionary.buildDictionary(CmDictFile, ontUtil, null, synonymType);
 		return CmDictFile;
 	}
 
