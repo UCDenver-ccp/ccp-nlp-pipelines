@@ -3,7 +3,7 @@
 	<parent>
 		<groupId>edu.ucdenver.ccp</groupId>
 		<artifactId>nlp-pipelines</artifactId>
-		<version>0.5.2-SNAPSHOT</version>
+		<version>0.5.2</version>
 	</parent>
 	<artifactId>nlp-pipelines-core</artifactId>
 
