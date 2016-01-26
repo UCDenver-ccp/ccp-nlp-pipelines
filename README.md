@@ -29,12 +29,12 @@ Code in the [master branch](https://github.com/UCDenver-ccp/common/tree/master) 
 <dependency>
     <groupId>edu.ucdenver.ccp</groupId>
     <artifactId>nlp-pipelines-conceptmapper</artifactId>
-    <version>0.5.1</version>
+    <version>0.5.2</version>
 </dependency>
 <dependency>
     <groupId>edu.ucdenver.ccp</groupId>
     <artifactId>nlp-pipelines-evaluation</artifactId>
-    <version>0.5.1</version>
+    <version>0.5.2</version>
 </dependency>
 
 <repository>
