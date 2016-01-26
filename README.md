@@ -60,7 +60,7 @@ annotations from a directory of text files, do the following:
 
 > mvn -f nlp-pipelines-conceptmapper/pom.xml exec:java 
 > -Dexec.mainClass="edu.ucdenver.ccp.nlp.pipelines.conceptmapper.EntityFinder" 
-> -Dexec.args="<InputDir> <OutputDir> <ontology> <OBOfile> <DictDir> <CleanDictFlag>"
+> -Dexec.args="\<InputDir\> \<OutputDir\> \<ontology\> \<OBOfile\> \<DictDir\> \<CleanDictFlag\>"
 
 The parameters required are as follows:
 
