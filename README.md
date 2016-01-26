@@ -64,12 +64,12 @@ annotations from a directory of text files, do the following:
 
 The parameters required are as follows:
 
-* <InputDir> - Directory of text files for input. The text files should be named by 
+* \<InputDir\> - Directory of text files for input. The text files should be named by 
 the identifier of the article and have a file extension of ".txt". The text files 
 can be in ASCII or UTF-8 encoding but must be plain text (i.e. not XML). It is possible to use a 
 different collection reader with XML or other input but it requires editing the source.
 
-* <OutputDir> - Directory where annotations will be written. Output is one ".a1" 
+* \<OutputDir\> - Directory where annotations will be written. Output is one ".a1" 
 file per input text file in the BioNLP/Brat format. More information about the output format can be seen [here](http://2011.bionlp-st.org/home/file-formats). Simply, the format stores one annotation per line (and an extra line for the ontology concept reference). Annotation lines take the form of 
 
 > annotation\_id [tab] annotation\_type span\_start\_offset  span\_end\_offset [tab] covered\_text 
@@ -86,7 +86,7 @@ Serialization of two sample Gene Ontology annotations using the BioNLP format ar
 > T7 go\_term 1841 1862	embryonic development  
 > N7 Reference T7 GO:0009790
 
-* <ontology> - Specifies which ontology concepts are used for annotation. If an ontology evaluated in Funk et al. 2014 is selected, then the best parameter combinations discovered in the published evaluation are used. The 
+* \<ontology\> - Specifies which ontology concepts are used for annotation. If an ontology evaluated in Funk et al. 2014 is selected, then the best parameter combinations discovered in the published evaluation are used. The 
 ontologies with specific parameter combinations are: 
   * CHEBI - Chemical Entities of 
 Biological Interest
@@ -103,12 +103,12 @@ Molecular Function
 If the 
 specific ontology of interestes is not listed please use "OBO" as the value for this parameter.
 
-* <OBOfile> - The OBO or OWL ontology file. A large list of biomedical ontologies can be 
+* \<OBOfile\> - The OBO or OWL ontology file. A large list of biomedical ontologies can be 
 found at http://www.obofoundry.org/.
 
-* <DictDir> - The directory where the Concept Mapper dictionary will be written. 
+* \<DictDir\> - The directory where the Concept Mapper dictionary will be written. 
 
-* <CleanDictFlag> - If true, previously build dictionary files are deleted and 
+* \<CleanDictFlag\> - If true, previously build dictionary files are deleted and 
 the dictionary is recreated prior to use. If false, previously used dictionary 
 files are used if they are available.
 
@@ -124,12 +124,12 @@ format. The following command will run the evaluation pipeline:
 
 > mvn -f nlp-pipelines-evaluation/pom.xml exec:java 
 -Dexec.mainClass="edu.ucdenver.ccp.nlp.pipelines.evaluation.craft.
-CraftRunGenericComparison" -Dexec.args="<ontology> <AnnotationDir> <outputFile 
-<comparisonSpanMatcher> OPTIONAL:<scoreCutoff>"
+CraftRunGenericComparison" -Dexec.args="\<ontology\> \<AnnotationDir\> \<outputFile 
+\<comparisonSpanMatcher\> OPTIONAL:\<scoreCutoff\>"
 
 The parameters are as follows:
 
-* <ontology> - Specifies which ontology the annotations are from. It must be one of 
+* \<ontology\> - Specifies which ontology the annotations are from. It must be one of 
 the ontologies annotated in CRAFT. The ontologies are:    
   * CHEBI - Chemical Entities of Biological Interest
   * SO - Sequence Ontology
@@ -141,19 +141,19 @@ the ontologies annotated in CRAFT. The ontologies are:
   * NCBI_TAXON - NCBI Taxonomy
   * EG - Entrez Gene
 
-* <AnnotationDir> - The directory where the annotations are placed. The directory 
+* \<AnnotationDir\> - The directory where the annotations are placed. The directory 
 should contain on annotation file for each of the 67 CRAFT documents following 
 the naming convention of "PMID.txt". Each concept annotation should be on a 
 single tab delimited line, should be formatted as follows:
 
 > ConceptID [tab] covered\_text [tab] span\_start\_offset [tab] span\_end\_offset [tab] OPTIONAL:score
 
-* <outputFile> - The output filename that will be produced. It lists True Positives 
+* \<outputFile\> - The output filename that will be produced. It lists True Positives 
 (TP), False Positives (FP), and False Negatives (FN) for each document along with 
 how overall performance in terms of Precision (P), Recall (R), and F1-measure 
 (F).
 
-* <comparisonSpanMatcher> - Specifies how to compare the annotations based on their 
+* \<comparisonSpanMatcher\> - Specifies how to compare the annotations based on their 
 text span. Results will differ depending on which parameter is chosen. The 
 options are as follows:
   * STRICT - Text spans must match exactly. This is the strictest option.
@@ -166,7 +166,7 @@ options are as follows:
   * SHARED_START_OR_END - The annotation and gold standard must share either the 
     beginning or end, but not both. 
 
-* OPTIONAL:<scoreCutoff> - The cutoff parameter is optional. If your annotation 
+* OPTIONAL:\<scoreCutoff\> - The cutoff parameter is optional. If your annotation 
 produces a confidence score it can be included and annotations can be filtered 
 based off of it. Only annotations with scores >= cutoff parameter provided are 
 used.
@@ -176,13 +176,13 @@ A script in nlp-pipelines/scripts named "convertA1forEvaluation.pl" converts
 BioNLP/Brat format annotations produced by the concept annotation pipeline to the 
 required format for evaluation against CRAFT. The correct usage is:
 
->./convertA1forEvaluation.pl <inputA1Dir> <outputDir>
+>./convertA1forEvaluation.pl \<inputA1Dir\> \<outputDir\>
 
 where:
-* <inputA1Dir> - is the directory that contains the A1 annotation files for every 
+* \<inputA1Dir\> - is the directory that contains the A1 annotation files for every 
 corresponding article in CRAFT.
 
-* <outputDir> - the directory where output will be written.
+* \<outputDir\> - the directory where output will be written.
 
 
 ##License
@@ -219,11 +219,11 @@ Copyright (c) 2014, Regents of the University of Colorado
 
 Any documentation, advertising materials, publications and other materials 
 related to redistribution and use must acknowledge that the software was 
-developed by Christopher Funk <Christopher.Funk@ucdenver.edu>, William A 
-Baumgartner Jr <William.Baumgartner@ucdenver.edu>, Christophe Roeder, and Karin 
-Verspoor <Karin.Verspoor@ucdenver.edu> and should reference the following 
+developed by Christopher Funk \<Christopher.Funk@ucdenver.edu\>, William A 
+Baumgartner Jr \<William.Baumgartner@ucdenver.edu\>, Christophe Roeder, and Karin 
+Verspoor \<Karin.Verspoor@ucdenver.edu\> and should reference the following 
 publication:
 
->Funk C, Baumgartner W, Garcia B, Roeder C, Bada M, Cohen KB, Hunter LE & Verspoor 
+\>Funk C, Baumgartner W, Garcia B, Roeder C, Bada M, Cohen KB, Hunter LE & Verspoor 
 K (2014). Large-scale biomedical concept recognition: an evaluation of current 
 automatic annotators and their parameters. BMC Bioinformatics, 15, 59.
