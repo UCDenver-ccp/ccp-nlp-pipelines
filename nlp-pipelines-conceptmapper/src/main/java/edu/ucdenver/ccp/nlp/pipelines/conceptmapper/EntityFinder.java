@@ -93,6 +93,37 @@ public class EntityFinder {
 
 		AnalysisEngineDescription sentenceDetectorDesc = getSentenceDetectorDescription(tsd);
 
+		List<AnalysisEngineDescription> cmDesc = initConceptMapperAggregateDescriptions(tsd, ontology, oboFile, oboDir,
+				cleanDictionaryFile);
+
+		AnalysisEngineDescription removeSlot = SlotRemovalFilter_AE.getDescription(tsd, SlotRemovalOption.REMOVE_ALL);
+
+		// AnalysisEngineDescription removeDuplicateAnnotations =
+		// DuplicateAnnotationRemovalFilter_AE.createAnalysisEngineDescription(tsd);
+
+		// AnalysisEngineDescription XmiPrinter =
+		// XmiPrinterAE.getDescription(tsd, CcpDocumentMetadataHandler.class,
+		// outputDirectory);
+		AnalysisEngineDescription BionlpPrinter = BionlpFormatPrinter_AE.createAnalysisEngineDescription(tsd,
+				outputDirectory, true);
+
+		// AnalysisEngineDescription inlinePrinterAe =
+		// InlinePrinter.createAnalysisEngineDescription(tsd, outputDirectory,
+		// CAS.NAME_DEFAULT_SOFA, CcpDocumentMetadataHandler.class,
+		// SimpleInlineAnnotationExtractor.class);
+
+		pipeline.add(sentenceDetectorDesc);
+		pipeline.addAll(cmDesc);
+		pipeline.add(removeSlot);
+		// pipeline.add(removeDuplicateAnnotations);
+		// pipeline.add(XmiPrinter);
+		pipeline.add(BionlpPrinter);
+		// pipeline.add(inlinePrinterAe);
+		SimplePipeline.runPipeline(cr, pipeline.toArray(new AnalysisEngineDescription[pipeline.size()]));
+	}
+
+	public static List<AnalysisEngineDescription> initConceptMapperAggregateDescriptions(TypeSystemDescription tsd,
+			String ontology, File oboFile, File oboDir, boolean cleanDictionaryFile) throws IOException, UIMAException {
 		int paramValuesIndex = 0;
 		DictionaryNamespace dictName = null;
 
@@ -136,34 +167,15 @@ public class EntityFinder {
 
 		SynonymType synonymType = ConceptMapperPermutationFactory.getSynonymType(paramValuesIndex);
 
-		ConceptMapperPipelineCmdOpts cmdOptions = getCmdOpts(dictName, oboDir, oboFile, cleanDictionaryFile, synonymType);
+		ConceptMapperPipelineCmdOpts cmdOptions = getCmdOpts(dictName, oboDir, oboFile, cleanDictionaryFile,
+				synonymType);
+		/*
+		 * the next command returns three AE descriptions 1) ConceptMapper, 2)
+		 * CCP type system conversion AE 3) token removal
+		 */
 		List<AnalysisEngineDescription> cmDesc = ConceptMapperPipelineFactory.getPipelineAeDescriptions(tsd,
 				cmdOptions, paramValuesIndex);
-
-		AnalysisEngineDescription removeSlot = SlotRemovalFilter_AE.getDescription(tsd, SlotRemovalOption.REMOVE_ALL);
-
-		// AnalysisEngineDescription removeDuplicateAnnotations =
-		// DuplicateAnnotationRemovalFilter_AE.createAnalysisEngineDescription(tsd);
-
-		// AnalysisEngineDescription XmiPrinter =
-		// XmiPrinterAE.getDescription(tsd, CcpDocumentMetadataHandler.class,
-		// outputDirectory);
-		AnalysisEngineDescription BionlpPrinter = BionlpFormatPrinter_AE.createAnalysisEngineDescription(tsd,
-				outputDirectory, true);
-
-		// AnalysisEngineDescription inlinePrinterAe =
-		// InlinePrinter.createAnalysisEngineDescription(tsd, outputDirectory,
-		// CAS.NAME_DEFAULT_SOFA, CcpDocumentMetadataHandler.class,
-		// SimpleInlineAnnotationExtractor.class);
-
-		pipeline.add(sentenceDetectorDesc);
-		pipeline.addAll(cmDesc);
-		pipeline.add(removeSlot);
-		// pipeline.add(removeDuplicateAnnotations);
-		// pipeline.add(XmiPrinter);
-		pipeline.add(BionlpPrinter);
-		// pipeline.add(inlinePrinterAe);
-		SimplePipeline.runPipeline(cr, pipeline.toArray(new AnalysisEngineDescription[pipeline.size()]));
+		return cmDesc;
 	}
 
 	/**
