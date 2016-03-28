@@ -13,7 +13,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<ver.ccp.nlp>3.3.1</ver.ccp.nlp>
+		<ver.ccp.nlp>3.3.2-SNAPSHOT</ver.ccp.nlp>
 	</properties>
 
 	<dependencyManagement>
