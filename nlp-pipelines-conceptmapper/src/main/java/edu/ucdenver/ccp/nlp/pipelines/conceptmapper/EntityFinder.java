@@ -40,6 +40,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.apache.uima.UIMAException;
 import org.apache.uima.analysis_engine.AnalysisEngineDescription;
 import org.apache.uima.collection.CollectionReader;
@@ -76,6 +77,7 @@ import edu.ucdenver.ccp.nlp.wrapper.conceptmapper.ConceptMapperPermutationFactor
 
 public class EntityFinder {
 
+	private static final Logger logger = Logger.getLogger(EntityFinder.class);
 	private static final CharacterEncoding ENCODING = CharacterEncoding.UTF_8;
 	private static final String SENTENCE_DETECTOR_TYPE_SYSTEM_STR = "org.cleartk.token.type.Sentence"; // "edu.ucdenver.ccp.nlp.ext.uima.annotators.sentencedetectors.TypeSystem";
 
@@ -93,6 +95,37 @@ public class EntityFinder {
 
 		AnalysisEngineDescription sentenceDetectorDesc = getSentenceDetectorDescription(tsd);
 
+		List<AnalysisEngineDescription> cmDesc = initConceptMapperAggregateDescriptions(tsd, ontology, oboFile, oboDir,
+				cleanDictionaryFile);
+
+		AnalysisEngineDescription removeSlot = SlotRemovalFilter_AE.getDescription(tsd, SlotRemovalOption.REMOVE_ALL);
+
+		// AnalysisEngineDescription removeDuplicateAnnotations =
+		// DuplicateAnnotationRemovalFilter_AE.createAnalysisEngineDescription(tsd);
+
+		// AnalysisEngineDescription XmiPrinter =
+		// XmiPrinterAE.getDescription(tsd, CcpDocumentMetadataHandler.class,
+		// outputDirectory);
+		AnalysisEngineDescription BionlpPrinter = BionlpFormatPrinter_AE.createAnalysisEngineDescription(tsd,
+				outputDirectory, true);
+
+		// AnalysisEngineDescription inlinePrinterAe =
+		// InlinePrinter.createAnalysisEngineDescription(tsd, outputDirectory,
+		// CAS.NAME_DEFAULT_SOFA, CcpDocumentMetadataHandler.class,
+		// SimpleInlineAnnotationExtractor.class);
+
+		pipeline.add(sentenceDetectorDesc);
+		pipeline.addAll(cmDesc);
+		pipeline.add(removeSlot);
+		// pipeline.add(removeDuplicateAnnotations);
+		// pipeline.add(XmiPrinter);
+		pipeline.add(BionlpPrinter);
+		// pipeline.add(inlinePrinterAe);
+		SimplePipeline.runPipeline(cr, pipeline.toArray(new AnalysisEngineDescription[pipeline.size()]));
+	}
+
+	public static List<AnalysisEngineDescription> initConceptMapperAggregateDescriptions(TypeSystemDescription tsd,
+			String ontology, File oboFile, File oboDir, boolean cleanDictionaryFile) throws IOException, UIMAException {
 		int paramValuesIndex = 0;
 		DictionaryNamespace dictName = null;
 
@@ -136,34 +169,15 @@ public class EntityFinder {
 
 		SynonymType synonymType = ConceptMapperPermutationFactory.getSynonymType(paramValuesIndex);
 
-		ConceptMapperPipelineCmdOpts cmdOptions = getCmdOpts(dictName, oboDir, oboFile, cleanDictionaryFile, synonymType);
+		ConceptMapperPipelineCmdOpts cmdOptions = getCmdOpts(dictName, oboDir, oboFile, cleanDictionaryFile,
+				synonymType);
+		/*
+		 * the next command returns three AE descriptions 1) ConceptMapper, 2)
+		 * CCP type system conversion AE 3) token removal
+		 */
 		List<AnalysisEngineDescription> cmDesc = ConceptMapperPipelineFactory.getPipelineAeDescriptions(tsd,
 				cmdOptions, paramValuesIndex);
-
-		AnalysisEngineDescription removeSlot = SlotRemovalFilter_AE.getDescription(tsd, SlotRemovalOption.REMOVE_ALL);
-
-		// AnalysisEngineDescription removeDuplicateAnnotations =
-		// DuplicateAnnotationRemovalFilter_AE.createAnalysisEngineDescription(tsd);
-
-		// AnalysisEngineDescription XmiPrinter =
-		// XmiPrinterAE.getDescription(tsd, CcpDocumentMetadataHandler.class,
-		// outputDirectory);
-		AnalysisEngineDescription BionlpPrinter = BionlpFormatPrinter_AE.createAnalysisEngineDescription(tsd,
-				outputDirectory, true);
-
-		// AnalysisEngineDescription inlinePrinterAe =
-		// InlinePrinter.createAnalysisEngineDescription(tsd, outputDirectory,
-		// CAS.NAME_DEFAULT_SOFA, CcpDocumentMetadataHandler.class,
-		// SimpleInlineAnnotationExtractor.class);
-
-		pipeline.add(sentenceDetectorDesc);
-		pipeline.addAll(cmDesc);
-		pipeline.add(removeSlot);
-		// pipeline.add(removeDuplicateAnnotations);
-		// pipeline.add(XmiPrinter);
-		pipeline.add(BionlpPrinter);
-		// pipeline.add(inlinePrinterAe);
-		SimplePipeline.runPipeline(cr, pipeline.toArray(new AnalysisEngineDescription[pipeline.size()]));
+		return cmDesc;
 	}
 
 	/**
@@ -230,8 +244,10 @@ public class EntityFinder {
 	private static ConceptMapperPipelineCmdOpts getCmdOpts(DictionaryNamespace dictNamespace, File oboDir,
 			File oboFile, boolean cleanDictFile, SynonymType synonymType) throws IOException {
 		ConceptMapperPipelineCmdOpts cmdOptions = new ConceptMapperPipelineCmdOpts();
+		logger.info("Retrieving ConceptMapper dictionary...");
 		File cmDictFile = ConceptMapperDictionaryFileFactory.createDictionaryFileFromOBO(dictNamespace, oboFile,
 				oboDir, cleanDictFile, synonymType);
+		logger.info("Dictionary retrieved.");
 		cmdOptions.setDictionaryFile(cmDictFile);
 		cmdOptions.setSpanClass(Sentence.class);
 		return cmdOptions;

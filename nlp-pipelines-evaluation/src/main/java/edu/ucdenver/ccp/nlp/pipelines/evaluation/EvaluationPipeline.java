@@ -211,7 +211,7 @@ public class EvaluationPipeline {
 
 		AnalysisEngineDescription annotationComparatorDescription = SimpleAnnotationComparator_AE
 				.createAnalysisEngineDescription(tsd, spanComparatorType, mentionComparatorType, evalResultsOutputFile,
-						goldGroup, evalGroup);
+						goldGroup, evalGroup, -1);
 
 		List<AnalysisEngineDescription> aeList = new ArrayList<AnalysisEngineDescription>();
 		if (slotRemovalOption != null) {

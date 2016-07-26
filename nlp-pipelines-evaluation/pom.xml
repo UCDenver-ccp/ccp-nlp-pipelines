@@ -3,7 +3,7 @@
 	<parent>
 		<groupId>edu.ucdenver.ccp</groupId>
 		<artifactId>nlp-pipelines</artifactId>
-		<version>0.5.2</version>
+		<version>0.5.3</version>
 	</parent>
 	<artifactId>nlp-pipelines-evaluation</artifactId>
 
@@ -47,7 +47,7 @@
 		<dependency>
 			<groupId>edu.ucdenver.ccp</groupId>
 			<artifactId>craft-collection-reader-ccp</artifactId>
-			<version>1.0.1</version>
+			<version>1.0.2</version>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>

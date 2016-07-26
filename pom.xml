@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>edu.ucdenver.ccp</groupId>
 	<artifactId>nlp-pipelines</artifactId>
-	<version>0.5.2</version>
+	<version>0.5.3</version>
 	<packaging>pom</packaging>
 	<modules>
 		<module>nlp-pipelines-conceptmapper</module>
@@ -13,7 +13,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<ver.ccp.nlp>3.3.1</ver.ccp.nlp>
+		<ver.ccp.nlp>3.3.2</ver.ccp.nlp>
 	</properties>
 
 	<dependencyManagement>

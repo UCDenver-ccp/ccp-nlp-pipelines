@@ -139,17 +139,17 @@ public class ConceptMapperDictionaryFileFactory {
 			switch (dictNamespace) {
 			case GO:
 				return GoDictionaryFactory.buildConceptMapperDictionary(
-						EnumSet.of(GoNamespace.CC, GoNamespace.BP, GoNamespace.MF), inputFile, outputDirectory,
+						EnumSet.of(GoNamespace.CC, GoNamespace.BP, GoNamespace.MF), outputDirectory, inputFile,
 						cleanDictFile, synonymType);
 			case GO_CC:
-				return GoDictionaryFactory.buildConceptMapperDictionary(EnumSet.of(GoNamespace.CC), inputFile,
-						outputDirectory, cleanDictFile, synonymType);
+				return GoDictionaryFactory.buildConceptMapperDictionary(EnumSet.of(GoNamespace.CC), outputDirectory,
+						inputFile, cleanDictFile, synonymType);
 			case GO_BP:
-				return GoDictionaryFactory.buildConceptMapperDictionary(EnumSet.of(GoNamespace.BP), inputFile,
-						outputDirectory, cleanDictFile, synonymType);
+				return GoDictionaryFactory.buildConceptMapperDictionary(EnumSet.of(GoNamespace.BP), outputDirectory,
+						inputFile, cleanDictFile, synonymType);
 			case GO_MF:
-				return GoDictionaryFactory.buildConceptMapperDictionary(EnumSet.of(GoNamespace.MF), inputFile,
-						outputDirectory, cleanDictFile, synonymType);
+				return GoDictionaryFactory.buildConceptMapperDictionary(EnumSet.of(GoNamespace.MF), outputDirectory,
+						inputFile, cleanDictFile, synonymType);
 			case CHEBI:
 				return buildChebiDictionary(inputFile, outputDirectory, cleanDictFile, synonymType);
 			case CL:
