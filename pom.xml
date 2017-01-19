@@ -8,6 +8,7 @@
 		<module>nlp-pipelines-conceptmapper</module>
 		<module>nlp-pipelines-evaluation</module>
 		<module>nlp-pipelines-core</module>
+		<module>nlp-pipelines-runner</module>
 	</modules>
 
 
