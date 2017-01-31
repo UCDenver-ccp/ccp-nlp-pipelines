@@ -8,6 +8,10 @@ import java.util.Set;
 import edu.ucdenver.ccp.nlp.pipelines.runlog.ExternalIdentifier.ExternalIdentifierType;
 
 public interface RunCatalog {
+	
+	public enum RunStatus {
+		COMPLETE, OUTSTANDING
+	}
 
 	public void addDocumentCollection(DocumentCollection dc);
 
@@ -35,7 +39,7 @@ public interface RunCatalog {
 	 * @return a mapping from run-key to file lists indicating lists of files
 	 *         that are awaiting processing by the specified run-key.
 	 */
-	public Map<String, Set<Document>> getMissingRunsMap(DocumentCollection collection);
+	public Map<String, Map<RunStatus, Set<Document>>> getRunsMap(DocumentCollection collection);
 
 	public Set<File> getAnnotationFilesForDocumentId(ExternalIdentifierType idType, String documentId, String runKey);
 
@@ -53,5 +57,7 @@ public interface RunCatalog {
 	 *         DocumentCollection
 	 */
 	List<String> getDocumentCollectionRunKeys(String docCollectionShortName);
+
+	public void addRunKeyToDocumentCollection(String docCollectionShortName, String runKey);
 
 }

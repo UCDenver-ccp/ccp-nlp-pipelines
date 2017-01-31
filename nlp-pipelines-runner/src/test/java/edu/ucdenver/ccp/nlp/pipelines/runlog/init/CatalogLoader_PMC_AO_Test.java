@@ -14,6 +14,7 @@ import org.junit.Test;
 import edu.ucdenver.ccp.common.file.FileUtil;
 import edu.ucdenver.ccp.common.test.DefaultTestCase;
 import edu.ucdenver.ccp.nlp.pipelines.runlog.Neo4jRunCatalog;
+import edu.ucdenver.ccp.nlp.pipelines.runlog.RunCatalogUtil;
 import edu.ucdenver.ccp.nlp.pipelines.runlog.init.CatalogLoader_PMC_OA.DocumentMetadata;
 
 public class CatalogLoader_PMC_AO_Test extends DefaultTestCase {
@@ -59,12 +60,14 @@ public class CatalogLoader_PMC_AO_Test extends DefaultTestCase {
 
 		try (Neo4jRunCatalog catalog = new Neo4jRunCatalog(libraryBaseDir, catalogDir);) {
 			CatalogLoader_PMC_OA.initCatalog(pmcBulkBaseDir, libraryBaseDir, catalog, map);
+			RunCatalogUtil.getCatalogRunSummary(catalog);
 		}
 
 		File expectedDoc1InLibrary = new File(libraryBaseDir, "oa_package/08/e0/PMC13900.nxml.gz");
 		File expectedDoc2InLibrary = new File(libraryBaseDir, "oa_package/b0/ac/PMC13901.nxml.gz");
 		assertTrue(expectedDoc1InLibrary.exists());
 		assertTrue(expectedDoc2InLibrary.exists());
+		
 
 	}
 

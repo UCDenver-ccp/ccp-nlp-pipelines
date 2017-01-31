@@ -23,6 +23,7 @@ import edu.ucdenver.ccp.nlp.pipelines.runlog.Document.FileType;
 import edu.ucdenver.ccp.nlp.pipelines.runlog.DocumentCollection;
 import edu.ucdenver.ccp.nlp.pipelines.runlog.DocumentCollection.PMC_OA_DocumentCollection;
 import edu.ucdenver.ccp.nlp.pipelines.runlog.RunCatalog;
+import edu.ucdenver.ccp.nlp.pipelines.runner.PipelineKey;
 import lombok.Data;
 
 /**
@@ -56,6 +57,13 @@ public class CatalogLoader_PMC_OA {
 	static void initCatalog(File bulkPmcBaseDirectory, File libraryBaseDirectory, RunCatalog catalog,
 			Map<String, DocumentMetadata> filename2MetadataMap) throws IOException {
 		DocumentCollection dc = new PMC_OA_DocumentCollection();
+		/*
+		 * We add the XML2TXT run key to the PMC OA document collection b/c
+		 * every document will require conversion from the native nxml format to
+		 * plain text
+		 */
+		catalog.addDocumentCollection(dc);
+		catalog.addRunKeyToDocumentCollection(dc.getShortname(), PipelineKey.XML2TXT.name());
 		int count = 0;
 		for (Iterator<File> fileIter = FileUtil.getFileIterator(bulkPmcBaseDirectory, true, ".nxml.gz"); fileIter
 				.hasNext();) {

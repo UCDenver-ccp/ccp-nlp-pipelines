@@ -145,6 +145,7 @@ public class Neo4jRunCatalog implements RunCatalog, Closeable {
 		return dc;
 	}
 
+	@Override
 	public void addRunKeyToDocumentCollection(String shortname, String newKey) {
 		try (Transaction tx = graphDb.beginTx()) {
 			Node dcNode = getDocumentCollectionNodeByShortName(shortname);
@@ -360,10 +361,23 @@ public class Neo4jRunCatalog implements RunCatalog, Closeable {
 		return null;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * edu.ucdenver.ccp.nlp.pipelines.runlog.RunCatalog#getRunsMap(edu.ucdenver.
+	 * ccp.nlp.pipelines.runlog.DocumentCollection)
+	 */
 	@Override
-	public Map<String, Set<Document>> getMissingRunsMap(DocumentCollection dc) {
-		Map<String, Set<Document>> map = new HashMap<String, Set<Document>>();
+	public Map<String, Map<RunStatus, Set<Document>>> getRunsMap(DocumentCollection dc) {
+		/*
+		 * map from runkey to runstatus (completed, outstanding) to documents
+		 */
+		Map<String, Map<RunStatus, Set<Document>>> map = new HashMap<String, Map<RunStatus, Set<Document>>>();
 		Set<String> runKeys = new HashSet<String>(getDocumentCollectionRunKeys(dc.getShortname()));
+		for (String key : runKeys) {
+			map.put(key, new HashMap<RunStatus, Set<Document>>());
+		}
 		try (Transaction tx = graphDb.beginTx()) {
 			Node dcNode = getDocumentCollectionNode(dc);
 			for (Relationship r : dcNode.getRelationships(Relation.HAS_MEMBER)) {
@@ -375,9 +389,11 @@ public class Neo4jRunCatalog implements RunCatalog, Closeable {
 					String runkey = toAnnotationOutput(aoNode).getRunKey();
 					docRunKeys.add(runkey);
 				}
+				docRunKeys.forEach(key -> CollectionsUtil.addToOne2ManyUniqueMap(RunStatus.COMPLETE, d, map.get(key)));
 				Set<String> possibleRunKeys = new HashSet<String>(runKeys);
 				possibleRunKeys.removeAll(docRunKeys);
-				possibleRunKeys.forEach(key -> CollectionsUtil.addToOne2ManyUniqueMap(key, d, map));
+				possibleRunKeys
+						.forEach(key -> CollectionsUtil.addToOne2ManyUniqueMap(RunStatus.OUTSTANDING, d, map.get(key)));
 			}
 		}
 		return map;
@@ -447,7 +463,7 @@ public class Neo4jRunCatalog implements RunCatalog, Closeable {
 		}
 
 		if (docNode.hasProperty(DocNodeProperty.SOURCE_FILE_LICENSE.name())) {
-			String sourceFileLicense = docNode.getProperty(DocNodeProperty.LOCAL_TEXT_FILE.name()).toString();
+			String sourceFileLicense = docNode.getProperty(DocNodeProperty.SOURCE_FILE_LICENSE.name()).toString();
 			d.setSourceFileLicense(sourceFileLicense);
 		}
 

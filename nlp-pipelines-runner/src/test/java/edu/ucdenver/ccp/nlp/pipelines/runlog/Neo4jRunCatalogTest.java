@@ -19,6 +19,7 @@ import edu.ucdenver.ccp.common.test.DefaultTestCase;
 import edu.ucdenver.ccp.nlp.pipelines.runlog.Document.FileType;
 import edu.ucdenver.ccp.nlp.pipelines.runlog.DocumentCollection.PMC_OA_DocumentCollection;
 import edu.ucdenver.ccp.nlp.pipelines.runlog.ExternalIdentifier.ExternalIdentifierType;
+import edu.ucdenver.ccp.nlp.pipelines.runlog.RunCatalog.RunStatus;
 import edu.ucdenver.ccp.nlp.pipelines.runner.PmcPipelineBase;
 
 public class Neo4jRunCatalogTest extends DefaultTestCase {
@@ -142,11 +143,13 @@ public class Neo4jRunCatalogTest extends DefaultTestCase {
 			Set<String> expectedRunKeys = CollectionsUtil.createSet("CM_CL_v0.5.4", "CM_HP_v0.5.4");
 			List<String> runKeys = catalog.getDocumentCollectionRunKeys(new PMC_OA_DocumentCollection().getShortname());
 			assertEquals(expectedRunKeys, new HashSet<String>(runKeys));
+			
+			
 		}
 	}
 
 	@Test
-	public void testGetMissingRunsMap() throws IOException {
+	public void testGetRunsMap() throws IOException {
 		File libraryBaseDirectory = folder.newFolder("library");
 		File catalogDirectory = folder.newFolder("catalog");
 		try (Neo4jRunCatalog catalog = new Neo4jRunCatalog(libraryBaseDirectory, catalogDirectory);) {
@@ -157,11 +160,19 @@ public class Neo4jRunCatalogTest extends DefaultTestCase {
 			catalog.addDocument(D2, DC);
 			catalog.addAnnotationOutput(D2, AO2);
 
-			Map<String, Set<Document>> missingRunsMap = catalog.getMissingRunsMap(new PMC_OA_DocumentCollection());
+			Map<String, Map<RunStatus, Set<Document>>> runsMap = catalog.getRunsMap(new PMC_OA_DocumentCollection());
 
-			Map<String, Set<Document>> expectedMissingRunsMap = new HashMap<String, Set<Document>>();
-			expectedMissingRunsMap.put("CM_HP_v0.5.4", CollectionsUtil.createSet(D2));
-			assertEquals(expectedMissingRunsMap, missingRunsMap);
+			Map<String, Map<RunStatus, Set<Document>>> expectedRunsMap = new HashMap<String, Map<RunStatus, Set<Document>>>();
+			expectedRunsMap.put("CM_CL_v0.5.4", new HashMap<RunStatus, Set<Document>>());
+			expectedRunsMap.put("CM_HP_v0.5.4", new HashMap<RunStatus, Set<Document>>());
+			
+			CollectionsUtil.addToOne2ManyUniqueMap(RunStatus.COMPLETE, D1, expectedRunsMap.get("CM_CL_v0.5.4"));
+			CollectionsUtil.addToOne2ManyUniqueMap(RunStatus.COMPLETE, D2, expectedRunsMap.get("CM_CL_v0.5.4"));
+			CollectionsUtil.addToOne2ManyUniqueMap(RunStatus.COMPLETE, D1, expectedRunsMap.get("CM_HP_v0.5.4"));
+			CollectionsUtil.addToOne2ManyUniqueMap(RunStatus.OUTSTANDING, D2, expectedRunsMap.get("CM_HP_v0.5.4"));
+			
+			assertEquals(expectedRunsMap, runsMap);
+			RunCatalogUtil.getCatalogRunSummary(catalog);
 		}
 	}
 
