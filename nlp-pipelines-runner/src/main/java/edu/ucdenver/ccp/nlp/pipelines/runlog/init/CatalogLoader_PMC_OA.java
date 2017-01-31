@@ -132,7 +132,10 @@ public class CatalogLoader_PMC_OA {
 			String citation = toks[1];
 			String journal = citation.substring(0, citation.indexOf('.') + 1);
 			String pmcid = toks[2];
-			String pmid = StringUtil.removePrefix(toks[3], "PMID:");
+			String pmid = null;
+			if (!toks[3].trim().isEmpty()) {
+				pmid = StringUtil.removePrefix(toks[3], "PMID:");
+			}
 			String license = toks[4];
 
 			DocumentMetadata dm = new DocumentMetadata(remotePath, citation, journal, pmcid, pmid, license);
