@@ -43,9 +43,8 @@ public class Neo4jRunCatalogTest extends DefaultTestCase {
 
 	@Test
 	public void testAddDocCollection() throws IOException {
-		File libraryBaseDirectory = folder.newFolder("library");
 		File catalogDirectory = folder.newFolder("catalog");
-		try (Neo4jRunCatalog catalog = new Neo4jRunCatalog(libraryBaseDirectory, catalogDirectory);) {
+		try (Neo4jRunCatalog catalog = new Neo4jRunCatalog(catalogDirectory);) {
 			PMC_OA_DocumentCollection dc = new PMC_OA_DocumentCollection();
 			dc.addRunKey("CM_CL_v0.5.4");
 			dc.addRunKey("CM_HP_v0.5.4");
@@ -59,9 +58,8 @@ public class Neo4jRunCatalogTest extends DefaultTestCase {
 
 	@Test
 	public void testAddRunKeyToDocCollection() throws IOException {
-		File libraryBaseDirectory = folder.newFolder("library");
 		File catalogDirectory = folder.newFolder("catalog");
-		try (Neo4jRunCatalog catalog = new Neo4jRunCatalog(libraryBaseDirectory, catalogDirectory);) {
+		try (Neo4jRunCatalog catalog = new Neo4jRunCatalog(catalogDirectory);) {
 			PMC_OA_DocumentCollection dc = new PMC_OA_DocumentCollection();
 			dc.addRunKey("CM_CL_v0.5.4");
 			dc.addRunKey("CM_HP_v0.5.4");
@@ -83,9 +81,8 @@ public class Neo4jRunCatalogTest extends DefaultTestCase {
 
 	@Test
 	public void testAddDocument() throws IOException {
-		File libraryBaseDirectory = folder.newFolder("library");
 		File catalogDirectory = folder.newFolder("catalog");
-		try (Neo4jRunCatalog catalog = new Neo4jRunCatalog(libraryBaseDirectory, catalogDirectory);) {
+		try (Neo4jRunCatalog catalog = new Neo4jRunCatalog(catalogDirectory);) {
 			catalog.addDocument(D1, DC);
 
 			Document retrievedDoc = catalog.getDocumentById(ExternalIdentifierType.PUBMED, "1234567");
@@ -97,9 +94,8 @@ public class Neo4jRunCatalogTest extends DefaultTestCase {
 
 	@Test
 	public void testAddPipeline() throws IOException {
-		File libraryBaseDirectory = folder.newFolder("library");
 		File catalogDirectory = folder.newFolder("catalog");
-		try (Neo4jRunCatalog catalog = new Neo4jRunCatalog(libraryBaseDirectory, catalogDirectory);) {
+		try (Neo4jRunCatalog catalog = new Neo4jRunCatalog(catalogDirectory);) {
 			catalog.addAnnotationPipeline(AP);
 
 			Set<AnnotationPipeline> pipelines = catalog.getAnnotationPipelines();
@@ -109,9 +105,8 @@ public class Neo4jRunCatalogTest extends DefaultTestCase {
 
 	@Test
 	public void testAddAnnotationOutput() throws IOException {
-		File libraryBaseDirectory = folder.newFolder("library");
 		File catalogDirectory = folder.newFolder("catalog");
-		try (Neo4jRunCatalog catalog = new Neo4jRunCatalog(libraryBaseDirectory, catalogDirectory);) {
+		try (Neo4jRunCatalog catalog = new Neo4jRunCatalog(catalogDirectory);) {
 			catalog.addDocument(D1, DC);
 			catalog.addAnnotationOutput(D1, AO1);
 			catalog.addAnnotationOutput(D1, AO3);
@@ -119,8 +114,8 @@ public class Neo4jRunCatalogTest extends DefaultTestCase {
 			Document retrievedDoc = catalog.getDocumentById(ExternalIdentifierType.PUBMED, "1234567");
 			assertEquals(D1, retrievedDoc);
 
-			Set<File> expectedFiles = CollectionsUtil.createSet(new File("/local/source1.CM_CL_v0.5.4.ann"), new File(
-					"/local/source1.CM_HP_v0.5.4.ann"));
+			Set<File> expectedFiles = CollectionsUtil.createSet(new File("/local/source1.CM_CL_v0.5.4.ann"),
+					new File("/local/source1.CM_HP_v0.5.4.ann"));
 			Set<File> annotationFiles = catalog.getAnnotationFilesForDocumentId(ExternalIdentifierType.PUBMED,
 					"1234567", "CM_CL_v0.5.4");
 			assertEquals(expectedFiles, annotationFiles);
@@ -130,9 +125,8 @@ public class Neo4jRunCatalogTest extends DefaultTestCase {
 
 	@Test
 	public void testGetRunKeysForCollection() throws IOException {
-		File libraryBaseDirectory = folder.newFolder("library");
 		File catalogDirectory = folder.newFolder("catalog");
-		try (Neo4jRunCatalog catalog = new Neo4jRunCatalog(libraryBaseDirectory, catalogDirectory);) {
+		try (Neo4jRunCatalog catalog = new Neo4jRunCatalog(catalogDirectory);) {
 			catalog.addDocument(D1, DC);
 			catalog.addAnnotationOutput(D1, AO1);
 			catalog.addAnnotationOutput(D1, AO3);
@@ -143,16 +137,14 @@ public class Neo4jRunCatalogTest extends DefaultTestCase {
 			Set<String> expectedRunKeys = CollectionsUtil.createSet("CM_CL_v0.5.4", "CM_HP_v0.5.4");
 			List<String> runKeys = catalog.getDocumentCollectionRunKeys(new PMC_OA_DocumentCollection().getShortname());
 			assertEquals(expectedRunKeys, new HashSet<String>(runKeys));
-			
-			
+
 		}
 	}
 
 	@Test
 	public void testGetRunsMap() throws IOException {
-		File libraryBaseDirectory = folder.newFolder("library");
 		File catalogDirectory = folder.newFolder("catalog");
-		try (Neo4jRunCatalog catalog = new Neo4jRunCatalog(libraryBaseDirectory, catalogDirectory);) {
+		try (Neo4jRunCatalog catalog = new Neo4jRunCatalog(catalogDirectory);) {
 			catalog.addDocument(D1, DC);
 			catalog.addAnnotationOutput(D1, AO1);
 			catalog.addAnnotationOutput(D1, AO3);
@@ -165,12 +157,12 @@ public class Neo4jRunCatalogTest extends DefaultTestCase {
 			Map<String, Map<RunStatus, Set<Document>>> expectedRunsMap = new HashMap<String, Map<RunStatus, Set<Document>>>();
 			expectedRunsMap.put("CM_CL_v0.5.4", new HashMap<RunStatus, Set<Document>>());
 			expectedRunsMap.put("CM_HP_v0.5.4", new HashMap<RunStatus, Set<Document>>());
-			
+
 			CollectionsUtil.addToOne2ManyUniqueMap(RunStatus.COMPLETE, D1, expectedRunsMap.get("CM_CL_v0.5.4"));
 			CollectionsUtil.addToOne2ManyUniqueMap(RunStatus.COMPLETE, D2, expectedRunsMap.get("CM_CL_v0.5.4"));
 			CollectionsUtil.addToOne2ManyUniqueMap(RunStatus.COMPLETE, D1, expectedRunsMap.get("CM_HP_v0.5.4"));
 			CollectionsUtil.addToOne2ManyUniqueMap(RunStatus.OUTSTANDING, D2, expectedRunsMap.get("CM_HP_v0.5.4"));
-			
+
 			assertEquals(expectedRunsMap, runsMap);
 			RunCatalogUtil.getCatalogRunSummary(catalog);
 		}

@@ -72,7 +72,7 @@ public class Neo4jRunCatalog implements RunCatalog, Closeable {
 		SOURCE, ID
 	}
 
-	public Neo4jRunCatalog(File libraryBaseDirectory, File catalogDirectory) {
+	public Neo4jRunCatalog(File catalogDirectory) {
 		graphDb = new GraphDatabaseFactory().newEmbeddedDatabase(catalogDirectory);
 		registerShutdownHook(graphDb);
 	}

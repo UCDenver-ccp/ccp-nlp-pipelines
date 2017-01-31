@@ -58,7 +58,7 @@ public class CatalogLoader_PMC_AO_Test extends DefaultTestCase {
 		assertTrue(doc1Nxml.createNewFile());
 		assertTrue(doc2Nxml.createNewFile());
 
-		try (Neo4jRunCatalog catalog = new Neo4jRunCatalog(libraryBaseDir, catalogDir);) {
+		try (Neo4jRunCatalog catalog = new Neo4jRunCatalog(catalogDir);) {
 			CatalogLoader_PMC_OA.initCatalog(pmcBulkBaseDir, libraryBaseDir, catalog, map);
 			RunCatalogUtil.getCatalogRunSummary(catalog);
 		}

@@ -29,13 +29,14 @@ public class Main_LoadCatalog_PMC_OA_neo4j {
 		File pmcBulkDirectory = new File(args[2]);
 
 		/* open a connection to the Neo4j Embedded DB */
-		try (Neo4jRunCatalog catalog = new Neo4jRunCatalog(libraryBaseDirectory, catalogDirectory);) {
+		try (Neo4jRunCatalog catalog = new Neo4jRunCatalog(catalogDirectory);) {
 
 			CatalogLoader_PMC_OA loader = new CatalogLoader_PMC_OA(catalog, libraryBaseDirectory);
 			loader.initCatalogWithBulkPmc(pmcBulkDirectory);
 
 		} catch (IOException e) {
 			logger.error("Exception thrown (possibly during neo4j close() operation)...", e);
+			System.exit(-1);
 		}
 
 	}
