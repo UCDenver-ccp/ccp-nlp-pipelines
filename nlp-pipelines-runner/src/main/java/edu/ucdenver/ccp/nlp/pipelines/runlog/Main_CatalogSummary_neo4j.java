@@ -18,6 +18,7 @@ public class Main_CatalogSummary_neo4j {
 		BasicConfigurator.configure();
 		File catalogDirectory = new File(args[0]);
 		try (Neo4jRunCatalog catalog = new Neo4jRunCatalog(catalogDirectory)) {
+			RunCatalogUtil.removeEmptyDocumentCollections(catalog);
 			RunCatalogUtil.getCatalogRunSummary(catalog);
 		} catch (IOException e) {
 			logger.error("Exception thrown (possibly during neo4j close() operation)...", e);

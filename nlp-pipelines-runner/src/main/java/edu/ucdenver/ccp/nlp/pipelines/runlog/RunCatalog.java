@@ -60,4 +60,8 @@ public interface RunCatalog {
 
 	public void addRunKeyToDocumentCollection(String docCollectionShortName, String runKey);
 
+	public int getDocumentCount(DocumentCollection dc);
+
+	public void removeEmptyDocumentCollections();
+
 }

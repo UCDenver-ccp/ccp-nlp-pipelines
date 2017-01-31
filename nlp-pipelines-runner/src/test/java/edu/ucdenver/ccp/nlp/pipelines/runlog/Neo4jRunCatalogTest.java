@@ -168,4 +168,23 @@ public class Neo4jRunCatalogTest extends DefaultTestCase {
 		}
 	}
 
+	@Test
+	public void testDeleteEmptyDocCollection() throws IOException {
+		File catalogDirectory = folder.newFolder("catalog");
+		try (Neo4jRunCatalog catalog = new Neo4jRunCatalog(catalogDirectory)) {
+			catalog.addDocumentCollection(DC);
+			assertEquals(1, catalog.getDocumentCollections().size());
+			catalog.removeEmptyDocumentCollections();
+			assertEquals(0, catalog.getDocumentCollections().size());
+
+			catalog.addDocument(D1, DC);
+			assertEquals(1, catalog.getDocumentCollections().size());
+			catalog.removeEmptyDocumentCollections();
+			/*
+			 * The doc collection is no longer empty so it should not be deleted
+			 */
+			assertEquals(1, catalog.getDocumentCollections().size());
+		}
+	}
+
 }

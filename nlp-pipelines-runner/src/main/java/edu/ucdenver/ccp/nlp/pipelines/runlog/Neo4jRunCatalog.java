@@ -197,14 +197,6 @@ public class Neo4jRunCatalog implements RunCatalog, Closeable {
 		}
 	}
 
-	private boolean catalogContainsCollection(DocumentCollection dc) {
-		try (Transaction tx = graphDb.beginTx()) {
-			Node dcNode = graphDb.findNode(Label.label(NodeType.DOCUMENT_COLLECTION.name()),
-					DocCollectionNodeProperty.SHORTNAME.name(), dc.getShortname());
-			return dcNode != null;
-		}
-	}
-
 	private Node getDocumentCollectionNode(DocumentCollection dc) {
 		Node dcNode = graphDb.findNode(Label.label(NodeType.DOCUMENT_COLLECTION.name()),
 				DocCollectionNodeProperty.SHORTNAME.name(), dc.getShortname());
@@ -494,6 +486,40 @@ public class Neo4jRunCatalog implements RunCatalog, Closeable {
 			}
 		}
 		return annotFiles;
+	}
+
+	@Override
+	public int getDocumentCount(DocumentCollection dc) {
+		try (Transaction tx = graphDb.beginTx()) {
+			Node dcNode = getDocumentCollectionNodeByShortName(dc.getShortname());
+			Set<Document> uniqueDocs = new HashSet<Document>();
+			for (Relationship r : dcNode.getRelationships(Relation.HAS_MEMBER)) {
+				Node docNode = r.getOtherNode(dcNode);
+				uniqueDocs.add(toDocument(docNode));
+			}
+			return uniqueDocs.size();
+		}
+
+	}
+
+	@Override
+	public void removeEmptyDocumentCollections() {
+		try (Transaction tx = graphDb.beginTx()) {
+			Set<Node> emptyDocCollections = new HashSet<Node>();
+			for (ResourceIterator<Node> dcNodeIter = graphDb
+					.findNodes(Label.label(NodeType.DOCUMENT_COLLECTION.name())); dcNodeIter.hasNext();) {
+				Node dcNode = dcNodeIter.next();
+				if (!dcNode.getRelationships(Relation.HAS_MEMBER).iterator().hasNext()) {
+					emptyDocCollections.add(dcNode);
+				}
+			}
+
+			for (Node dcNode : emptyDocCollections) {
+				logger.warn("Deleting empty document collection: " + toDocumentCollection(dcNode).getShortname());
+				dcNode.delete();
+			}
+			tx.success();
+		}
 	}
 
 }

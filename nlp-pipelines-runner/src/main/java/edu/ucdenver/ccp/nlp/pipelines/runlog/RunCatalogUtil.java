@@ -19,8 +19,12 @@ public class RunCatalogUtil {
 		 * for each document collection get the missing runs map and output
 		 * counts; completed run count would be nice too
 		 */
-		System.out.println("-----------------  Pipeline Run Summaries  -----------------\n");
 		List<DocumentCollection> documentCollections = getSortedDocumentCollections(catalog);
+		System.out.println("-----------------  Document Collections  -----------------\n");
+		documentCollections.forEach(dc -> System.out
+				.println(dc.getShortname() + "\t" + dc.getLongname() + "\t" + catalog.getDocumentCount(dc)));
+		System.out.println();
+		System.out.println("-----------------  Pipeline Run Summaries  -----------------\n");
 		for (DocumentCollection dc : documentCollections) {
 			System.out.println("  ========== " + dc.getLongname() + " ==========");
 			Map<String, Map<RunStatus, Set<Document>>> missingRunsMap = catalog.getRunsMap(dc);
@@ -56,6 +60,10 @@ public class RunCatalogUtil {
 			}
 		});
 		return documentCollections;
+	}
+
+	public static void removeEmptyDocumentCollections(RunCatalog catalog) {
+		catalog.removeEmptyDocumentCollections();
 	}
 
 }
