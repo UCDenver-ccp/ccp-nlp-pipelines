@@ -108,19 +108,21 @@ public class Neo4jRunCatalog implements RunCatalog, Closeable {
 
 	@Override
 	public void addDocumentCollection(DocumentCollection dc) {
-		try (Transaction tx = graphDb.beginTx()) {
-			Label label = Label.label(NodeType.DOCUMENT_COLLECTION.name());
-			Node dcNode = graphDb.createNode(label);
-			dcNode.setProperty(DocCollectionNodeProperty.SHORTNAME.name(), dc.getShortname());
-			dcNode.setProperty(DocCollectionNodeProperty.LONGNAME.name(), dc.getLongname());
-			dcNode.setProperty(DocCollectionNodeProperty.DESCRIPTION.name(), dc.getDescription());
+		if (this.getDocumentCollectionByShortName(dc.getShortname()) == null) {
+			try (Transaction tx = graphDb.beginTx()) {
+				Label label = Label.label(NodeType.DOCUMENT_COLLECTION.name());
+				Node dcNode = graphDb.createNode(label);
+				dcNode.setProperty(DocCollectionNodeProperty.SHORTNAME.name(), dc.getShortname());
+				dcNode.setProperty(DocCollectionNodeProperty.LONGNAME.name(), dc.getLongname());
+				dcNode.setProperty(DocCollectionNodeProperty.DESCRIPTION.name(), dc.getDescription());
 
-			if (dc.getRunKeys() != null && !dc.getRunKeys().isEmpty()) {
-				dcNode.setProperty(DocCollectionNodeProperty.RUN_KEYS.name(),
-						dc.getRunKeys().toArray(new String[dc.getRunKeys().size()]));
+				if (dc.getRunKeys() != null && !dc.getRunKeys().isEmpty()) {
+					dcNode.setProperty(DocCollectionNodeProperty.RUN_KEYS.name(),
+							dc.getRunKeys().toArray(new String[dc.getRunKeys().size()]));
+				}
+
+				tx.success();
 			}
-
-			tx.success();
 		}
 	}
 
