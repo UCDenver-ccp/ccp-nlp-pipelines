@@ -108,10 +108,12 @@ public class Neo4jRunCatalog implements RunCatalog, Closeable {
 
 	@Override
 	public void addDocumentCollection(DocumentCollection dc) {
-		if (this.getDocumentCollectionByShortName(dc.getShortname()) == null) {
-			try (Transaction tx = graphDb.beginTx()) {
+		try (Transaction tx = graphDb.beginTx()) {
+			Node dcNode = graphDb.findNode(Label.label(NodeType.DOCUMENT_COLLECTION.name()),
+					DocCollectionNodeProperty.SHORTNAME.name(), dc.getShortname());
+			if (dcNode == null) {
 				Label label = Label.label(NodeType.DOCUMENT_COLLECTION.name());
-				Node dcNode = graphDb.createNode(label);
+				dcNode = graphDb.createNode(label);
 				dcNode.setProperty(DocCollectionNodeProperty.SHORTNAME.name(), dc.getShortname());
 				dcNode.setProperty(DocCollectionNodeProperty.LONGNAME.name(), dc.getLongname());
 				dcNode.setProperty(DocCollectionNodeProperty.DESCRIPTION.name(), dc.getDescription());
@@ -192,6 +194,14 @@ public class Neo4jRunCatalog implements RunCatalog, Closeable {
 		try (Transaction tx = graphDb.beginTx()) {
 			Node dcNode = getDocumentCollectionNodeByShortName(shortname);
 			return toDocumentCollection(dcNode);
+		}
+	}
+
+	private boolean catalogContainsCollection(DocumentCollection dc) {
+		try (Transaction tx = graphDb.beginTx()) {
+			Node dcNode = graphDb.findNode(Label.label(NodeType.DOCUMENT_COLLECTION.name()),
+					DocCollectionNodeProperty.SHORTNAME.name(), dc.getShortname());
+			return dcNode != null;
 		}
 	}
 
