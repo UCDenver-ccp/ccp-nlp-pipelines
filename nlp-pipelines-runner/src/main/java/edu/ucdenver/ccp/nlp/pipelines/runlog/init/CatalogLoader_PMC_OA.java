@@ -5,8 +5,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -51,12 +49,12 @@ public class CatalogLoader_PMC_OA {
 	}
 
 	public void initCatalogWithBulkPmc(File bulkPmcBaseDirectory) throws IOException {
-		Map<String, DocumentMetadata> pmcid2MetadataMap = loadPmcOaMetadataMap(bulkPmcBaseDirectory, false);
-		initCatalog(bulkPmcBaseDirectory, pmcLibraryBaseDirectory, catalog, pmcid2MetadataMap);
+		Map<String, DocumentMetadata> filename2MetadataMap = loadPmcOaMetadataMap(bulkPmcBaseDirectory, false);
+		initCatalog(bulkPmcBaseDirectory, pmcLibraryBaseDirectory, catalog, filename2MetadataMap);
 	}
 
 	static void initCatalog(File bulkPmcBaseDirectory, File libraryBaseDirectory, RunCatalog catalog,
-			Map<String, DocumentMetadata> pmcid2MetadataMap) throws IOException {
+			Map<String, DocumentMetadata> filename2MetadataMap) throws IOException {
 		DocumentCollection dc = new PMC_OA_DocumentCollection();
 		int count = 0;
 		for (Iterator<File> fileIter = FileUtil.getFileIterator(bulkPmcBaseDirectory, true, ".nxml.gz"); fileIter
@@ -66,9 +64,9 @@ public class CatalogLoader_PMC_OA {
 			if (count++ % 50000 == 0) {
 				logger.info("Initializing catalog with PMC OA documents: " + (count - 1));
 			}
-			String pmcId = StringUtils.removeEnd(file.getName(), ".nxml.gz");
-			if (pmcid2MetadataMap.containsKey(pmcId)) {
-				DocumentMetadata dm = pmcid2MetadataMap.get(pmcId);
+			String nxmlFileName = StringUtils.removeEnd(file.getName(), ".nxml.gz");
+			if (filename2MetadataMap.containsKey(nxmlFileName)) {
+				DocumentMetadata dm = filename2MetadataMap.get(nxmlFileName);
 
 				/*
 				 * move the file into the correct 2-level randomized directory
@@ -143,7 +141,11 @@ public class CatalogLoader_PMC_OA {
 			String license = toks[4];
 
 			DocumentMetadata dm = new DocumentMetadata(remotePath, citation, journal, pmcid, pmid, license);
-			map.put(pmcid, dm);
+			// the .nxml file name should be the name of the tarball in the
+			// oa_file_list.txt file.
+			String tarballName = remotePath.substring(remotePath.lastIndexOf("/") + 1);
+			tarballName = StringUtils.removeEnd(tarballName, ".tar.gz");
+			map.put(tarballName, dm);
 		}
 		return map;
 	}
