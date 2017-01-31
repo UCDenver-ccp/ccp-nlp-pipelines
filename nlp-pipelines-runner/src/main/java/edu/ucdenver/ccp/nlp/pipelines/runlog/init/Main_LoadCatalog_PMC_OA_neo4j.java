@@ -3,6 +3,7 @@ package edu.ucdenver.ccp.nlp.pipelines.runlog.init;
 import java.io.File;
 import java.io.IOException;
 
+import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
 
 import edu.ucdenver.ccp.nlp.pipelines.runlog.Neo4jRunCatalog;
@@ -21,6 +22,7 @@ public class Main_LoadCatalog_PMC_OA_neo4j {
 	 *            unpacked, but compressed, PMC OA .nxml files
 	 */
 	public static void main(String[] args) {
+		BasicConfigurator.configure();
 
 		File libraryBaseDirectory = new File(args[0]);
 		File catalogDirectory = new File(args[1]);

@@ -4,6 +4,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -55,9 +58,14 @@ public class CatalogLoader_PMC_OA {
 	static void initCatalog(File bulkPmcBaseDirectory, File libraryBaseDirectory, RunCatalog catalog,
 			Map<String, DocumentMetadata> pmcid2MetadataMap) throws IOException {
 		DocumentCollection dc = new PMC_OA_DocumentCollection();
+		int count = 0;
 		for (Iterator<File> fileIter = FileUtil.getFileIterator(bulkPmcBaseDirectory, true, ".nxml.gz"); fileIter
 				.hasNext();) {
 			File file = fileIter.next();
+
+			if (count++ % 50000 == 0) {
+				logger.info("Initializing catalog with PMC OA documents: " + (count - 1));
+			}
 			String pmcId = StringUtils.removeEnd(file.getName(), ".nxml.gz");
 			if (pmcid2MetadataMap.containsKey(pmcId)) {
 				DocumentMetadata dm = pmcid2MetadataMap.get(pmcId);
@@ -68,12 +76,9 @@ public class CatalogLoader_PMC_OA {
 				 */
 				String localPath = dm.getRemotePath().substring(0, dm.getRemotePath().lastIndexOf('/'));
 				File storagePath = new File(libraryBaseDirectory, localPath + File.separator + file.getName());
-				FileUtil.mkdir(storagePath);
-				if (!file.renameTo(storagePath)) {
-					logger.warn("Failed to move file to library storage location: " + storagePath.getAbsolutePath()
-							+ " from: " + file.getAbsolutePath());
-				}
+				FileUtil.mkdir(storagePath.getParentFile());
 
+				Files.move(file.toPath(), storagePath.toPath());
 				/* add the document to the catalog */
 				Document d = new Document(dm.getPmid(), dm.getPmcid(), storagePath, FileType.XML, dm.getJournal(),
 						dm.getCitation());
