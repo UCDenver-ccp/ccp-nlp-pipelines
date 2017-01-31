@@ -441,7 +441,11 @@ public class Neo4jRunCatalog implements RunCatalog, Closeable {
 		if (docNode == null) {
 			return null;
 		}
-		String pmid = docNode.getProperty(DocNodeProperty.PMID.name()).toString();
+
+		String pmid = null;
+		if (docNode.hasProperty(DocNodeProperty.PMID.name())) {
+			pmid = docNode.getProperty(DocNodeProperty.PMID.name()).toString();
+		}
 		String pmcid = docNode.getProperty(DocNodeProperty.PMCID.name()).toString();
 		File localSourceFile = new File(docNode.getProperty(DocNodeProperty.LOCAL_SOURCE_FILE.name()).toString());
 		FileType sourceFileType = FileType
