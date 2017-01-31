@@ -97,8 +97,8 @@ public class Neo4jRunCatalog implements RunCatalog, Closeable {
 	public void initializeIndexes() {
 		try (Transaction tx = graphDb.beginTx()) {
 			Schema schema = graphDb.schema();
-			documentIndexByPmid = schema.indexFor(Label.label(NodeType.DOCUMENT.name()))
-					.on(DocNodeProperty.PMID.name()).create();
+			documentIndexByPmid = schema.indexFor(Label.label(NodeType.DOCUMENT.name())).on(DocNodeProperty.PMID.name())
+					.create();
 			documentIndexByPmcid = schema.indexFor(Label.label(NodeType.DOCUMENT.name()))
 					.on(DocNodeProperty.PMCID.name()).create();
 			tx.success();
@@ -233,7 +233,9 @@ public class Neo4jRunCatalog implements RunCatalog, Closeable {
 			// Relationship.HAS_DOCUMENT_IDENTIFIER);
 			// }
 
-			dNode.setProperty(DocNodeProperty.PMID.name(), d.getPmid());
+			if (d.getPmid() != null) {
+				dNode.setProperty(DocNodeProperty.PMID.name(), d.getPmid());
+			}
 			dNode.setProperty(DocNodeProperty.PMCID.name(), d.getPmcid());
 			dNode.setProperty(DocNodeProperty.CITATION.name(), d.getCitation());
 			dNode.setProperty(DocNodeProperty.JOURNAL.name(), d.getJournal());
@@ -311,8 +313,8 @@ public class Neo4jRunCatalog implements RunCatalog, Closeable {
 
 			aoNode.setProperty(AnnotOutputNodeProperty.RUN_KEY.name(), ao.getRunKey());
 			aoNode.setProperty(AnnotOutputNodeProperty.RUN_DATE.name(), dateFormatter.print(ao.getRunDate()));
-			aoNode.setProperty(AnnotOutputNodeProperty.LOCAL_ANNOTATION_FILE.name(), ao.getLocalAnnotationFile()
-					.getAbsolutePath());
+			aoNode.setProperty(AnnotOutputNodeProperty.LOCAL_ANNOTATION_FILE.name(),
+					ao.getLocalAnnotationFile().getAbsolutePath());
 			aoNode.setProperty(AnnotOutputNodeProperty.ANNOTATION_COUNT.name(),
 					Integer.toString(ao.getAnnotationCount()));
 
@@ -338,12 +340,12 @@ public class Neo4jRunCatalog implements RunCatalog, Closeable {
 			return null;
 		}
 		String runKey = aoNode.getProperty(AnnotOutputNodeProperty.RUN_KEY.name()).toString();
-		DateTime runDate = dateFormatter.parseDateTime(aoNode.getProperty(AnnotOutputNodeProperty.RUN_DATE.name())
-				.toString());
-		File localAnnotationFile = new File(aoNode.getProperty(AnnotOutputNodeProperty.LOCAL_ANNOTATION_FILE.name())
-				.toString());
-		int annotationCount = Integer.parseInt(aoNode.getProperty(AnnotOutputNodeProperty.ANNOTATION_COUNT.name())
-				.toString());
+		DateTime runDate = dateFormatter
+				.parseDateTime(aoNode.getProperty(AnnotOutputNodeProperty.RUN_DATE.name()).toString());
+		File localAnnotationFile = new File(
+				aoNode.getProperty(AnnotOutputNodeProperty.LOCAL_ANNOTATION_FILE.name()).toString());
+		int annotationCount = Integer
+				.parseInt(aoNode.getProperty(AnnotOutputNodeProperty.ANNOTATION_COUNT.name()).toString());
 
 		return new AnnotationOutput(localAnnotationFile, runKey, runDate, annotationCount);
 	}
@@ -422,8 +424,8 @@ public class Neo4jRunCatalog implements RunCatalog, Closeable {
 		String pmid = docNode.getProperty(DocNodeProperty.PMID.name()).toString();
 		String pmcid = docNode.getProperty(DocNodeProperty.PMCID.name()).toString();
 		File localSourceFile = new File(docNode.getProperty(DocNodeProperty.LOCAL_SOURCE_FILE.name()).toString());
-		FileType sourceFileType = FileType.valueOf(docNode.getProperty(DocNodeProperty.SOURCE_FILE_TYPE.name())
-				.toString());
+		FileType sourceFileType = FileType
+				.valueOf(docNode.getProperty(DocNodeProperty.SOURCE_FILE_TYPE.name()).toString());
 		String journal = docNode.getProperty(DocNodeProperty.JOURNAL.name()).toString();
 		String citation = docNode.getProperty(DocNodeProperty.CITATION.name()).toString();
 		Document d = new Document(pmid, pmcid, localSourceFile, sourceFileType, journal, citation);

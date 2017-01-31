@@ -51,7 +51,7 @@ public class CatalogLoader_PMC_OA {
 	}
 
 	public void initCatalogWithBulkPmc(File bulkPmcBaseDirectory) throws IOException {
-		Map<String, DocumentMetadata> pmcid2MetadataMap = loadPmcOaMetadataMap(bulkPmcBaseDirectory);
+		Map<String, DocumentMetadata> pmcid2MetadataMap = loadPmcOaMetadataMap(bulkPmcBaseDirectory, false);
 		initCatalog(bulkPmcBaseDirectory, pmcLibraryBaseDirectory, catalog, pmcid2MetadataMap);
 	}
 
@@ -100,9 +100,13 @@ public class CatalogLoader_PMC_OA {
 	 *         the downloaded file
 	 * @throws IOException
 	 */
-	private Map<String, DocumentMetadata> loadPmcOaMetadataMap(File workDirectory) throws IOException {
-		File pmcOaListFile = FTPUtil.downloadFile("ftp.ncbi.nlm.nih.gov", "pub/pmc", "oa_file_list.txt",
-				edu.ucdenver.ccp.common.ftp.FTPUtil.FileType.ASCII, workDirectory);
+	private Map<String, DocumentMetadata> loadPmcOaMetadataMap(File workDirectory, boolean cleanOaFileList)
+			throws IOException {
+		File pmcOaListFile = new File(workDirectory, "oa_file_list.txt");
+		if (cleanOaFileList || !pmcOaListFile.exists()) {
+			pmcOaListFile = FTPUtil.downloadFile("ftp.ncbi.nlm.nih.gov", "pub/pmc", "oa_file_list.txt",
+					edu.ucdenver.ccp.common.ftp.FTPUtil.FileType.ASCII, workDirectory);
+		}
 		try (InputStream is = new FileInputStream(pmcOaListFile)) {
 			return parsePmcOaMetadata(is);
 		}
