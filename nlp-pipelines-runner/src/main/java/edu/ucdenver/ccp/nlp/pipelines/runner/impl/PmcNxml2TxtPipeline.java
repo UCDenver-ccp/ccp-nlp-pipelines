@@ -30,8 +30,9 @@ import edu.ucdenver.ccp.nlp.uima.util.View;
 public class PmcNxml2TxtPipeline extends PipelineBase {
 
 	private static final Logger logger = Logger.getLogger(PmcNxml2TxtPipeline.class);
+	private final String BROKER_URL;
 
-	public PmcNxml2TxtPipeline(File catalogDirectory, File configDir, int numToProcess) throws Exception {
+	public PmcNxml2TxtPipeline(File catalogDirectory, File configDir, int numToProcess, String brokerUrl) throws Exception {
 		/*
 		 * this pipeline processes the native .nxml files, so we read in the
 		 * FileVersion.SOURCE version
@@ -39,6 +40,7 @@ public class PmcNxml2TxtPipeline extends PipelineBase {
 		super(new PipelineParams(new PMC_OA_DocumentCollection().getShortname(), FileVersion.SOURCE,
 				CharacterEncoding.UTF_8, View.XML.viewName(), PipelineKey.XML2TXT, "pipeline description",
 				catalogDirectory, numToProcess, 0), configDir);
+		this.BROKER_URL = brokerUrl;
 	}
 
 	@Override
@@ -157,11 +159,12 @@ public class PmcNxml2TxtPipeline extends PipelineBase {
 		BasicConfigurator.configure();
 		File catalogDirectory = new File(args[0]);
 		File configDirectory = new File(args[1]);
+		String brokerUrl = args[2];
 		int numToProcess = 1; // <0 = process all
 		logger.info("Starting PmcNxml2TxtPipeline...\nCatalog directory=" + catalogDirectory.getAbsolutePath()
 				+ "\nConfig directory=" + configDirectory.getAbsolutePath() + "\nNum-to-process=" + numToProcess);
 		try {
-			PmcNxml2TxtPipeline pipeline = new PmcNxml2TxtPipeline(catalogDirectory, configDirectory, numToProcess);
+			PmcNxml2TxtPipeline pipeline = new PmcNxml2TxtPipeline(catalogDirectory, configDirectory, numToProcess, brokerUrl);
 			logger.info("Deploying pipeline components...");
 			pipeline.deployPipeline();
 			logger.info("Running pipeline...");

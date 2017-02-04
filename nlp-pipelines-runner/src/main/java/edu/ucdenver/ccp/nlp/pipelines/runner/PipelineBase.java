@@ -51,7 +51,7 @@ public abstract class PipelineBase {
 	}
 	
 	
-	protected static final String BROKER_URL = "tcp://localhost:61616";
+//	protected static final String BROKER_URL = "tcp://localhost:61616";
 
 	/**
 	 * path to saxon8.jar file (relative to $UIMA_HOME)

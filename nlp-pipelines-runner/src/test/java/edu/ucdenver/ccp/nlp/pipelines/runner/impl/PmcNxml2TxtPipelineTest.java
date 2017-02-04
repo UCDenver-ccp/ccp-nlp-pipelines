@@ -41,7 +41,7 @@ public class PmcNxml2TxtPipelineTest extends DefaultUIMATestCase {
 		// File configDir = folder.newFolder("conf");
 		File configDir = new File("/tmp/conf");
 		File catalogDirectory = folder.newFolder("catalog");
-		PmcNxml2TxtPipeline pipeline = new PmcNxml2TxtPipeline(catalogDirectory, configDir, 1);
+		PmcNxml2TxtPipeline pipeline = new PmcNxml2TxtPipeline(catalogDirectory, configDir, 1, "tcp://localhost:61616");
 	}
 
 	private static final DocumentCollection DC = new PMC_OA_DocumentCollection();
@@ -57,8 +57,8 @@ public class PmcNxml2TxtPipelineTest extends DefaultUIMATestCase {
 		try (Neo4jRunCatalog catalog = new Neo4jRunCatalog(catalogDirectory);) {
 			catalog.addDocument(D1, DC);
 		}
-		
-		PmcNxml2TxtPipeline pipeline = new PmcNxml2TxtPipeline(catalogDirectory, configDir, 1);
+
+		PmcNxml2TxtPipeline pipeline = new PmcNxml2TxtPipeline(catalogDirectory, configDir, 1, "tcp://localhost:61616");
 
 		File aggregateAeDescriptorFile = new File(configDir, "PMC_NXML2TXT/PMC_NXML2TXT_engine.xml");
 		IOUtils.copy(new FileInputStream(aggregateAeDescriptorFile),
@@ -75,9 +75,9 @@ public class PmcNxml2TxtPipelineTest extends DefaultUIMATestCase {
 
 		File expectedLocalTextFile = new File(sourceFolder, "PMC1234.txt.gz");
 		assertTrue(expectedLocalTextFile.exists());
-		
+
 		System.out.println("SOURCE FOLDER CONTENTS: " + Arrays.toString(sourceFolder.list()));
-		
+
 		File expectedAnnotFile = new File(sourceFolder, "PMC1234-sections.xmi.gz");
 		assertTrue(expectedAnnotFile.exists());
 
@@ -85,16 +85,16 @@ public class PmcNxml2TxtPipelineTest extends DefaultUIMATestCase {
 		 * query catalog to make sure new txt file and annotation file were
 		 * logged
 		 */
-		
+
 		try (Neo4jRunCatalog catalog = new Neo4jRunCatalog(catalogDirectory);) {
 			Document d = catalog.getDocumentById(ExternalIdentifierType.PMC, "PMC1234");
 			assertNotNull(d);
 			assertEquals(expectedLocalTextFile, d.getLocalTextFile());
-			Set<File> annotationFilesForDocumentId = catalog.getAnnotationFilesForDocumentId(ExternalIdentifierType.PMC, "PMC1234", "sections");
+			Set<File> annotationFilesForDocumentId = catalog.getAnnotationFilesForDocumentId(ExternalIdentifierType.PMC,
+					"PMC1234", "sections");
 			Set<File> expectedAnnotFiles = CollectionsUtil.createSet(expectedAnnotFile);
 			assertEquals(expectedAnnotFiles, annotationFilesForDocumentId);
 		}
-		
 
 	}
 
