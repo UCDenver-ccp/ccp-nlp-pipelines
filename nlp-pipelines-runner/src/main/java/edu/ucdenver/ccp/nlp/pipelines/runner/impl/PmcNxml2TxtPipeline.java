@@ -30,17 +30,16 @@ import edu.ucdenver.ccp.nlp.uima.util.View;
 public class PmcNxml2TxtPipeline extends PipelineBase {
 
 	private static final Logger logger = Logger.getLogger(PmcNxml2TxtPipeline.class);
-	private final String BROKER_URL;
 
-	public PmcNxml2TxtPipeline(File catalogDirectory, File configDir, int numToProcess, String brokerUrl) throws Exception {
+	public PmcNxml2TxtPipeline(File catalogDirectory, File configDir, int numToProcess, String brokerUrl)
+			throws Exception {
 		/*
 		 * this pipeline processes the native .nxml files, so we read in the
 		 * FileVersion.SOURCE version
 		 */
 		super(new PipelineParams(new PMC_OA_DocumentCollection().getShortname(), FileVersion.SOURCE,
 				CharacterEncoding.UTF_8, View.XML.viewName(), PipelineKey.XML2TXT, "pipeline description",
-				catalogDirectory, numToProcess, 0), configDir);
-		this.BROKER_URL = brokerUrl;
+				catalogDirectory, numToProcess, 0, brokerUrl), configDir);
 	}
 
 	@Override
@@ -76,7 +75,7 @@ public class PmcNxml2TxtPipeline extends PipelineBase {
 		int errorThresholdCount = 1;
 
 		return new DeploymentParams(serviceName, serviceDescription, scaleup, errorThresholdCount, endpoint,
-				BROKER_URL);
+				getPipelineParams().getBrokerUrl());
 	}
 
 	@Override
@@ -92,7 +91,7 @@ public class PmcNxml2TxtPipeline extends PipelineBase {
 			String xml2txt_endpoint = "nxml2txtQ";
 
 			DeploymentParams xml2txtDeployParams = new DeploymentParams("NXML2TXT", "Converts PMC NXML to plain text.",
-					xml2txt_scaleup, xml2txt_errorThreshold, xml2txt_endpoint, BROKER_URL);
+					xml2txt_scaleup, xml2txt_errorThreshold, xml2txt_endpoint, getPipelineParams().getBrokerUrl());
 			ServiceEngine xml2txtEngine = new ServiceEngine(xml2txtAeDesc, xml2txtDeployParams, "xml2txtAE",
 					DescriptorType.PRIMITIVE);
 			engines.add(xml2txtEngine);
@@ -109,7 +108,7 @@ public class PmcNxml2TxtPipeline extends PipelineBase {
 
 			DeploymentParams txtSerializerDeployParams = new DeploymentParams("TXTSerializer",
 					"Serializes the document text to a file.", txtSerializer_scaleup, txtSerializer_errorThreshold,
-					txtSerializer_endpoint, BROKER_URL);
+					txtSerializer_endpoint, getPipelineParams().getBrokerUrl());
 			ServiceEngine txtSerializerEngine = new ServiceEngine(txtSerializerAeDesc, txtSerializerDeployParams,
 					"docTxtSerializerAE", DescriptorType.PRIMITIVE);
 			engines.add(txtSerializerEngine);
@@ -124,7 +123,8 @@ public class PmcNxml2TxtPipeline extends PipelineBase {
 			String xmiPrinter_endpoint = "xmiPrinterQ";
 
 			DeploymentParams xmiPrinterDeployParams = new DeploymentParams("XMIPrinter", "Serializes the CAS to XMI.",
-					xmiPrinter_scaleup, xmiPrinter_errorThreshold, xmiPrinter_endpoint, BROKER_URL);
+					xmiPrinter_scaleup, xmiPrinter_errorThreshold, xmiPrinter_endpoint,
+					getPipelineParams().getBrokerUrl());
 			ServiceEngine xmiPrinterEngine = new ServiceEngine(xmiPrinterAeDesc, xmiPrinterDeployParams, "xmiPrinterAE",
 					DescriptorType.PRIMITIVE);
 			engines.add(xmiPrinterEngine);
@@ -140,7 +140,7 @@ public class PmcNxml2TxtPipeline extends PipelineBase {
 
 			DeploymentParams catalogAeDeployParams = new DeploymentParams("RunCatalog",
 					"Catalogs new annotation-output and document files.", catalogAe_scaleup, catalogAe_errorThreshold,
-					catalogAe_endpoint, BROKER_URL);
+					catalogAe_endpoint, getPipelineParams().getBrokerUrl());
 			ServiceEngine catalogAeEngine = new ServiceEngine(catalogAeDesc, catalogAeDeployParams, "runCatalogAE",
 					DescriptorType.PRIMITIVE);
 			engines.add(catalogAeEngine);
@@ -162,9 +162,11 @@ public class PmcNxml2TxtPipeline extends PipelineBase {
 		String brokerUrl = args[2];
 		int numToProcess = 1; // <0 = process all
 		logger.info("Starting PmcNxml2TxtPipeline...\nCatalog directory=" + catalogDirectory.getAbsolutePath()
-				+ "\nConfig directory=" + configDirectory.getAbsolutePath() + "\nNum-to-process=" + numToProcess);
+				+ "\nConfig directory=" + configDirectory.getAbsolutePath() + "\nNum-to-process=" + numToProcess
+				+ "\nBroker URL: " + brokerUrl);
 		try {
-			PmcNxml2TxtPipeline pipeline = new PmcNxml2TxtPipeline(catalogDirectory, configDirectory, numToProcess, brokerUrl);
+			PmcNxml2TxtPipeline pipeline = new PmcNxml2TxtPipeline(catalogDirectory, configDirectory, numToProcess,
+					brokerUrl);
 			logger.info("Deploying pipeline components...");
 			pipeline.deployPipeline();
 			logger.info("Running pipeline...");

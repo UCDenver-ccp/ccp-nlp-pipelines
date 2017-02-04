@@ -20,6 +20,7 @@ public class PipelineParams {
 	private final File catalogDirectory;
 	private final int numToProcess;
 	private final int numToSkip;
+	private final String brokerUrl;
 	
 	
 }
