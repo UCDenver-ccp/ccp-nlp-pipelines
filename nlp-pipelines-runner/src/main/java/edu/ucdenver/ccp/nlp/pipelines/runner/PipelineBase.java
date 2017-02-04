@@ -28,6 +28,8 @@ import org.apache.uima.resource.ResourceInitializationException;
 import org.apache.uima.resource.metadata.TypeSystemDescription;
 import org.apache.uima.resourceSpecifier.factory.DeploymentDescriptorFactory;
 import org.apache.uima.resourceSpecifier.factory.ServiceContext;
+import org.apache.uima.resourceSpecifier.factory.UimaASAggregateDeploymentDescriptor;
+import org.apache.uima.resourceSpecifier.factory.UimaASDeploymentDescriptor;
 import org.apache.uima.resourceSpecifier.factory.UimaASPrimitiveDeploymentDescriptor;
 import org.apache.uima.resourceSpecifier.factory.impl.ServiceContextImpl;
 import org.xml.sax.SAXException;
@@ -44,6 +46,11 @@ public abstract class PipelineBase {
 
 	private static final Logger logger = Logger.getLogger(PipelineBase.class);
 
+	public enum DescriptorType {
+		PRIMITIVE, AGGREGATE
+	}
+	
+	
 	protected static final String BROKER_URL = "tcp://localhost:61616";
 
 	/**
@@ -96,12 +103,13 @@ public abstract class PipelineBase {
 		for (ServiceEngine se : getServiceEngines()) {
 			logger.info("Configuring " + se.getAeDescription().getAnnotatorImplementationName() + " scaleup = "
 					+ se.getDeployParams().getScaleup());
-			File deploymentDescriptorFile = createDeploymentDescriptorFile(se.getAeDescription(), se.getDeployParams());
+			File deploymentDescriptorFile = createDeploymentDescriptorFile(se.getAeDescription(),
+					se.getDeployParams(), se.getDescriptorType());
 			pipelineComponentDeployDescriptorFiles.add(deploymentDescriptorFile);
 		}
 
 		pipelineDeploymentDescriptorFile = createDeploymentDescriptorFile(getPipelineDescription(),
-				getPipelineDeploymentParams());
+				getPipelineDeploymentParams(), DescriptorType.AGGREGATE);
 
 	}
 
@@ -203,21 +211,34 @@ public abstract class PipelineBase {
 	 * @throws IOException
 	 * @throws SAXException
 	 */
-	private File createDeploymentDescriptorFile(AnalysisEngineDescription aeDescription, DeploymentParams params)
+	private File createDeploymentDescriptorFile(AnalysisEngineDescription aeDescription, DeploymentParams params,
+			DescriptorType descriptorType)
 			throws ResourceInitializationException, FileNotFoundException, IOException, SAXException {
 		File aeDescriptorFile = serializeDescriptionToFile(aeDescription, params);
 		ServiceContext context = createServiceContext(aeDescriptorFile, params);
-		return createDeploymentDescriptor(context, params);
+		if (descriptorType == DescriptorType.PRIMITIVE) {
+			return createPrimitiveDeploymentDescriptor(context, params);
+		}
+		return createAggregateDeploymentDescriptor(context, params);
 	}
 
-	private File createDeploymentDescriptor(ServiceContext context, DeploymentParams params)
+	private File createPrimitiveDeploymentDescriptor(ServiceContext context, DeploymentParams params)
 			throws ResourceInitializationException, FileNotFoundException, IOException {
 		UimaASPrimitiveDeploymentDescriptor dd = DeploymentDescriptorFactory
 				.createPrimitiveDeploymentDescriptor(context);
 
 		dd.getProcessErrorHandlingSettings().setThresholdCount(params.getErrorThresholdCount());
 		dd.setScaleup(params.getScaleup());
-		return serializeDescriptionToFile(dd, params);
+		return serializeDescriptionToFile(dd.toXML(), params);
+	}
+	
+	private File createAggregateDeploymentDescriptor(ServiceContext context, DeploymentParams params)
+			throws ResourceInitializationException, FileNotFoundException, IOException {
+		UimaASAggregateDeploymentDescriptor dd = DeploymentDescriptorFactory
+				.createAggregateDeploymentDescriptor(context);
+
+//		dd.set
+		return serializeDescriptionToFile(dd.toXML(), params);
 	}
 
 	/**
@@ -240,14 +261,14 @@ public abstract class PipelineBase {
 	 * @throws IOException
 	 * @throws SAXException
 	 */
-	private File serializeDescriptionToFile(UimaASPrimitiveDeploymentDescriptor dd, DeploymentParams params)
+	private File serializeDescriptionToFile(String xml, DeploymentParams params)
 			throws FileNotFoundException, IOException {
 		String filename = params.getServiceName().replaceAll(" ", "_") + "_deploy.xml";
 		File outputDirectory = new File(configDir, params.getServiceName().replaceAll(" ", "_"));
 		FileUtil.mkdir(outputDirectory);
 		File outputFile = new File(outputDirectory, filename);
 		try (BufferedWriter writer = FileWriterUtil.initBufferedWriter(outputFile)) {
-			writer.write(dd.toXML());
+			writer.write(xml);
 		}
 		return outputFile;
 	}
@@ -278,6 +299,7 @@ public abstract class PipelineBase {
 		private final AnalysisEngineDescription aeDescription;
 		private final DeploymentParams deployParams;
 		private final String componentName;
+		private final DescriptorType descriptorType;
 	}
 
 	@RequiredArgsConstructor

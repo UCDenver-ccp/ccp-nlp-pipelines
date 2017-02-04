@@ -91,7 +91,8 @@ public class PmcNxml2TxtPipeline extends PipelineBase {
 
 			DeploymentParams xml2txtDeployParams = new DeploymentParams("NXML2TXT", "Converts PMC NXML to plain text.",
 					xml2txt_scaleup, xml2txt_errorThreshold, xml2txt_endpoint, BROKER_URL);
-			ServiceEngine xml2txtEngine = new ServiceEngine(xml2txtAeDesc, xml2txtDeployParams, "xml2txtAE");
+			ServiceEngine xml2txtEngine = new ServiceEngine(xml2txtAeDesc, xml2txtDeployParams, "xml2txtAE",
+					DescriptorType.PRIMITIVE);
 			engines.add(xml2txtEngine);
 		}
 		{
@@ -108,7 +109,7 @@ public class PmcNxml2TxtPipeline extends PipelineBase {
 					"Serializes the document text to a file.", txtSerializer_scaleup, txtSerializer_errorThreshold,
 					txtSerializer_endpoint, BROKER_URL);
 			ServiceEngine txtSerializerEngine = new ServiceEngine(txtSerializerAeDesc, txtSerializerDeployParams,
-					"docTxtSerializerAE");
+					"docTxtSerializerAE", DescriptorType.PRIMITIVE);
 			engines.add(txtSerializerEngine);
 		}
 		{
@@ -122,8 +123,8 @@ public class PmcNxml2TxtPipeline extends PipelineBase {
 
 			DeploymentParams xmiPrinterDeployParams = new DeploymentParams("XMIPrinter", "Serializes the CAS to XMI.",
 					xmiPrinter_scaleup, xmiPrinter_errorThreshold, xmiPrinter_endpoint, BROKER_URL);
-			ServiceEngine xmiPrinterEngine = new ServiceEngine(xmiPrinterAeDesc, xmiPrinterDeployParams,
-					"xmiPrinterAE");
+			ServiceEngine xmiPrinterEngine = new ServiceEngine(xmiPrinterAeDesc, xmiPrinterDeployParams, "xmiPrinterAE",
+					DescriptorType.PRIMITIVE);
 			engines.add(xmiPrinterEngine);
 		}
 		{
@@ -138,7 +139,8 @@ public class PmcNxml2TxtPipeline extends PipelineBase {
 			DeploymentParams catalogAeDeployParams = new DeploymentParams("RunCatalog",
 					"Catalogs new annotation-output and document files.", catalogAe_scaleup, catalogAe_errorThreshold,
 					catalogAe_endpoint, BROKER_URL);
-			ServiceEngine catalogAeEngine = new ServiceEngine(catalogAeDesc, catalogAeDeployParams, "runCatalogAE");
+			ServiceEngine catalogAeEngine = new ServiceEngine(catalogAeDesc, catalogAeDeployParams, "runCatalogAE",
+					DescriptorType.PRIMITIVE);
 			engines.add(catalogAeEngine);
 		}
 		return engines;
