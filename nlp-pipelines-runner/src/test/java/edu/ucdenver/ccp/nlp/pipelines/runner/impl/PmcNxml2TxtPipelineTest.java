@@ -36,13 +36,13 @@ public class PmcNxml2TxtPipelineTest extends DefaultUIMATestCase {
 
 	private File sourceFolder;
 
-	@Test
-	public void testDescriptorFileConstruction() throws Exception {
-		// File configDir = folder.newFolder("conf");
-		File configDir = new File("/tmp/conf");
-		File catalogDirectory = folder.newFolder("catalog");
-		PmcNxml2TxtPipeline pipeline = new PmcNxml2TxtPipeline(catalogDirectory, configDir, 1, "tcp://localhost:61616");
-	}
+//	@Test
+//	public void testDescriptorFileConstruction() throws Exception {
+//		// File configDir = folder.newFolder("conf");
+//		File configDir = new File("/tmp/conf");
+//		File catalogDirectory = folder.newFolder("catalog");
+//		PmcNxml2TxtPipeline pipeline = new PmcNxml2TxtPipeline(catalogDirectory, configDir, 1, "tcp://localhost:61616");
+//	}
 
 	private static final DocumentCollection DC = new PMC_OA_DocumentCollection();
 
@@ -61,8 +61,8 @@ public class PmcNxml2TxtPipelineTest extends DefaultUIMATestCase {
 		PmcNxml2TxtPipeline pipeline = new PmcNxml2TxtPipeline(catalogDirectory, configDir, 1, "tcp://localhost:61616");
 
 		File aggregateAeDescriptorFile = new File(configDir, "PMC_NXML2TXT/PMC_NXML2TXT_engine.xml");
-		IOUtils.copy(new FileInputStream(aggregateAeDescriptorFile),
-				new FileOutputStream(new File("/tmp/conf/aggregate.xml")));
+//		IOUtils.copy(new FileInputStream(aggregateAeDescriptorFile),
+//				new FileOutputStream(new File("/tmp/conf/aggregate.xml")));
 		AnalysisEngine engine = AnalysisEngineFactory.createEngineFromPath(aggregateAeDescriptorFile.getAbsolutePath());
 
 		engine.process(jcas);
