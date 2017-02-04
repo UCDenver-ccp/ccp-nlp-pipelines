@@ -108,6 +108,7 @@ public abstract class PipelineBase {
 			pipelineComponentDeployDescriptorFiles.add(deploymentDescriptorFile);
 		}
 
+		logger.info("Configuring AGGREGATE pipeline description...");
 		pipelineDeploymentDescriptorFile = createDeploymentDescriptorFile(getPipelineDescription(),
 				getPipelineDeploymentParams(), DescriptorType.AGGREGATE);
 
@@ -217,8 +218,10 @@ public abstract class PipelineBase {
 		File aeDescriptorFile = serializeDescriptionToFile(aeDescription, params);
 		ServiceContext context = createServiceContext(aeDescriptorFile, params);
 		if (descriptorType == DescriptorType.PRIMITIVE) {
+			logger.info("Returning primitive deployment descriptor");
 			return createPrimitiveDeploymentDescriptor(context, params);
 		}
+		logger.info("Returning aggregate deployment descriptor");
 		return createAggregateDeploymentDescriptor(context, params);
 	}
 
@@ -236,7 +239,6 @@ public abstract class PipelineBase {
 			throws ResourceInitializationException, FileNotFoundException, IOException {
 		UimaASAggregateDeploymentDescriptor dd = DeploymentDescriptorFactory
 				.createAggregateDeploymentDescriptor(context);
-
 //		dd.set
 		return serializeDescriptionToFile(dd.toXML(), params);
 	}

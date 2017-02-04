@@ -157,6 +157,7 @@ public class PmcNxml2TxtPipeline extends PipelineBase {
 	 */
 	public static void main(String[] args) {
 		BasicConfigurator.configure();
+		Logger.getRootLogger().setAdditivity(false);
 		File catalogDirectory = new File(args[0]);
 		File configDirectory = new File(args[1]);
 		String brokerUrl = args[2];
