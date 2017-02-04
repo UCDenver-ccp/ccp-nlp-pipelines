@@ -168,8 +168,13 @@ public abstract class PipelineBase {
 		}
 
 		logger.info("Deploying pipeline analysis engine...");
+		try {
 		String deployedServiceId = uimaAsEngine.deploy(pipelineDeploymentDescriptorFile.getAbsolutePath(), deployCtx);
 		deployedServiceIds.add(deployedServiceId);
+		} catch (Exception e) {
+			logger.error("########################################################################", e);
+			logger.error("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+		}
 
 		uimaAsEngine.addStatusCallbackListener(new DefaultCallbackListener(uimaAsEngine));
 
