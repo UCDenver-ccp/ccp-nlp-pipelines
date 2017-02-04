@@ -4,6 +4,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.Logger;
 import org.apache.uima.analysis_engine.AnalysisEngineDescription;
 import org.apache.uima.fit.factory.AnalysisEngineFactory;
 import org.apache.uima.flow.FlowControllerDescription;
@@ -26,6 +28,8 @@ import edu.ucdenver.ccp.nlp.uima.util.TypeSystemUtil;
 import edu.ucdenver.ccp.nlp.uima.util.View;
 
 public class PmcNxml2TxtPipeline extends PipelineBase {
+
+	private static final Logger logger = Logger.getLogger(PmcNxml2TxtPipeline.class);
 
 	public PmcNxml2TxtPipeline(File catalogDirectory, File configDir, int numToProcess) throws Exception {
 		/*
@@ -141,13 +145,24 @@ public class PmcNxml2TxtPipeline extends PipelineBase {
 
 	}
 
+	/**
+	 * @param args
+	 *            args[0] = catalog directory <br>
+	 *            args[1] = config directory (a work directory where UIMA
+	 *            descriptor files will be written)
+	 */
 	public static void main(String[] args) {
+		BasicConfigurator.configure();
 		File catalogDirectory = new File(args[0]);
 		File configDirectory = new File(args[1]);
 		int numToProcess = 1; // <0 = process all
+		logger.info("Starting PmcNxml2TxtPipeline...\nCatalog directory=" + catalogDirectory.getAbsolutePath()
+				+ "\nConfig directory=" + configDirectory.getAbsolutePath() + "\nNum-to-process=" + numToProcess);
 		try {
 			PmcNxml2TxtPipeline pipeline = new PmcNxml2TxtPipeline(catalogDirectory, configDirectory, numToProcess);
+			logger.info("Deploying pipeline components...");
 			pipeline.deployPipeline();
+			logger.info("Running pipeline...");
 			pipeline.runPipeline();
 		} catch (Exception e) {
 			e.printStackTrace();
