@@ -153,6 +153,7 @@ public abstract class PipelineBase {
 	public void deployPipeline() throws Exception {
 		deployedServiceIds = new HashSet<String>();
 		uimaAsEngine = new BaseUIMAAsynchronousEngine_impl();
+		uimaAsEngine.addStatusCallbackListener(new DefaultCallbackListener(uimaAsEngine));
 
 		CollectionReaderDescription crDesc = getCollectionReaderDescription(pipelineParams);
 		uimaAsEngine.setCollectionReader(CollectionReaderFactory.createReader(crDesc));
@@ -176,7 +177,6 @@ public abstract class PipelineBase {
 			logger.error("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 		}
 
-		uimaAsEngine.addStatusCallbackListener(new DefaultCallbackListener(uimaAsEngine));
 
 		logger.info("Initialize pipeline as UIMA AS service...");
 		deployCtx.put(UimaAsynchronousEngine.ServerUri, getPipelineDeploymentParams().getBrokerUrl());
@@ -243,7 +243,7 @@ public abstract class PipelineBase {
 	private File createAggregateDeploymentDescriptor(ServiceContext context, DeploymentParams params)
 			throws ResourceInitializationException, FileNotFoundException, IOException {
 		UimaASAggregateDeploymentDescriptor dd = DeploymentDescriptorFactory
-				.createAggregateDeploymentDescriptor(context);
+				.createAggregateDeploymentDescriptor(context); 
 //		dd.set
 		return serializeDescriptionToFile(dd.toXML(), params);
 	}
