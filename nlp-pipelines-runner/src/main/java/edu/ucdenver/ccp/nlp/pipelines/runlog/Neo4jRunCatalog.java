@@ -2,7 +2,6 @@ package edu.ucdenver.ccp.nlp.pipelines.runlog;
 
 import java.io.Closeable;
 import java.io.File;
-import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -15,8 +14,6 @@ import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormatter;
-import org.joda.time.format.ISODateTimeFormat;
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.Label;
 import org.neo4j.graphdb.Node;
@@ -30,6 +27,7 @@ import org.neo4j.graphdb.schema.Schema;
 
 import edu.ucdenver.ccp.common.collections.CollectionsUtil;
 import edu.ucdenver.ccp.nlp.pipelines.runlog.Document.FileType;
+import edu.ucdenver.ccp.nlp.pipelines.runlog.Document.FileVersion;
 import edu.ucdenver.ccp.nlp.pipelines.runlog.ExternalIdentifier.ExternalIdentifierType;
 import edu.ucdenver.ccp.nlp.pipelines.runner.PipelineBase;
 
@@ -38,8 +36,6 @@ public class Neo4jRunCatalog implements RunCatalog, Closeable {
 	private static final Logger logger = Logger.getLogger(Neo4jRunCatalog.class);
 
 	private GraphDatabaseService graphDb;
-
-	private static DateTimeFormatter dateFormatter = ISODateTimeFormat.dateTime();
 
 	private IndexDefinition documentIndexByPmid;
 	private IndexDefinition documentIndexByPmcid;
@@ -90,7 +86,7 @@ public class Neo4jRunCatalog implements RunCatalog, Closeable {
 	}
 
 	@Override
-	public void close() throws IOException {
+	public void close() {
 		graphDb.shutdown();
 	}
 
@@ -197,6 +193,10 @@ public class Neo4jRunCatalog implements RunCatalog, Closeable {
 		}
 	}
 
+	/**
+	 * @param dc
+	 * @return the document collection node, creates it if it doesn't exist
+	 */
 	private Node getDocumentCollectionNode(DocumentCollection dc) {
 		Node dcNode = graphDb.findNode(Label.label(NodeType.DOCUMENT_COLLECTION.name()),
 				DocCollectionNodeProperty.SHORTNAME.name(), dc.getShortname());
@@ -208,10 +208,24 @@ public class Neo4jRunCatalog implements RunCatalog, Closeable {
 		return dcNode;
 	}
 
-	private Node getDocumentCollectionNodeByShortName(String shortname) {
+	/**
+	 * @param documentCollectionShortName
+	 * @return the document collection node with the specified name. Returns
+	 *         null if it doesn't exist.
+	 */
+	private Node getDocumentCollectionNode(String documentCollectionShortName) {
 		Node dcNode = graphDb.findNode(Label.label(NodeType.DOCUMENT_COLLECTION.name()),
-				DocCollectionNodeProperty.SHORTNAME.name(), shortname);
+				DocCollectionNodeProperty.SHORTNAME.name(), documentCollectionShortName);
 		return dcNode;
+	}
+
+	private Node getDocumentCollectionNodeByShortName(String shortname) {
+		try (Transaction tx = graphDb.beginTx()) {
+			Node dcNode = graphDb.findNode(Label.label(NodeType.DOCUMENT_COLLECTION.name()),
+					DocCollectionNodeProperty.SHORTNAME.name(), shortname);
+			tx.success();
+			return dcNode;
+		}
 	}
 
 	@Override
@@ -317,7 +331,7 @@ public class Neo4jRunCatalog implements RunCatalog, Closeable {
 			Node aoNode = graphDb.createNode(label);
 
 			aoNode.setProperty(AnnotOutputNodeProperty.RUN_KEY.name(), ao.getRunKey());
-			aoNode.setProperty(AnnotOutputNodeProperty.RUN_DATE.name(), dateFormatter.print(ao.getRunDate()));
+			aoNode.setProperty(AnnotOutputNodeProperty.RUN_DATE.name(), DATE_FORMATTER.print(ao.getRunDate()));
 			aoNode.setProperty(AnnotOutputNodeProperty.LOCAL_ANNOTATION_FILE.name(),
 					ao.getLocalAnnotationFile().getAbsolutePath());
 			aoNode.setProperty(AnnotOutputNodeProperty.ANNOTATION_COUNT.name(),
@@ -345,7 +359,7 @@ public class Neo4jRunCatalog implements RunCatalog, Closeable {
 			return null;
 		}
 		String runKey = aoNode.getProperty(AnnotOutputNodeProperty.RUN_KEY.name()).toString();
-		DateTime runDate = dateFormatter
+		DateTime runDate = DATE_FORMATTER
 				.parseDateTime(aoNode.getProperty(AnnotOutputNodeProperty.RUN_DATE.name()).toString());
 		File localAnnotationFile = new File(
 				aoNode.getProperty(AnnotOutputNodeProperty.LOCAL_ANNOTATION_FILE.name()).toString());
@@ -374,16 +388,26 @@ public class Neo4jRunCatalog implements RunCatalog, Closeable {
 	 */
 	@Override
 	public Map<String, Map<RunStatus, Set<Document>>> getRunsMap(DocumentCollection dc) {
-		/*
-		 * map from runkey to runstatus (completed, outstanding) to documents
-		 */
+		return getRunsMap(dc.getShortname());
+	}
+
+	/*
+	 * map from runkey to runstatus (completed, outstanding) to documents
+	 */
+	@Override
+	public Map<String, Map<RunStatus, Set<Document>>> getRunsMap(String docCollectionShortName) {
+
+		if (getDocumentCollectionNodeByShortName(docCollectionShortName) == null) {
+			return null;
+		}
+
 		Map<String, Map<RunStatus, Set<Document>>> map = new HashMap<String, Map<RunStatus, Set<Document>>>();
-		Set<String> runKeys = new HashSet<String>(getDocumentCollectionRunKeys(dc.getShortname()));
+		Set<String> runKeys = new HashSet<String>(getDocumentCollectionRunKeys(docCollectionShortName));
 		for (String key : runKeys) {
 			map.put(key, new HashMap<RunStatus, Set<Document>>());
 		}
 		try (Transaction tx = graphDb.beginTx()) {
-			Node dcNode = getDocumentCollectionNode(dc);
+			Node dcNode = getDocumentCollectionNode(docCollectionShortName);
 			for (Relationship r : dcNode.getRelationships(Relation.HAS_MEMBER)) {
 				Node docNode = r.getOtherNode(dcNode);
 				Document d = toDocument(docNode);
@@ -490,6 +514,37 @@ public class Neo4jRunCatalog implements RunCatalog, Closeable {
 			}
 		}
 		return annotFiles;
+	}
+
+	@Override
+	public void addFileVersionToDocument(Document d, File newFile, FileVersion fileVersion) {
+		try (Transaction tx = graphDb.beginTx()) {
+			Node docNode = getDocumentNodeById(ExternalIdentifierType.PMC, d.getPmcid());
+			switch (fileVersion) {
+			case SOURCE:
+				if (docNode.hasProperty(DocNodeProperty.LOCAL_SOURCE_FILE.name())) {
+					logger.error("Document (" + d.getPmcid() + ") already has a local source file ("
+							+ d.getLocalSourceFile().getAbsolutePath() + "). Cannot assign another: "
+							+ newFile.getAbsolutePath());
+				} else {
+					docNode.setProperty(DocNodeProperty.LOCAL_SOURCE_FILE.name(), newFile.getAbsolutePath());
+				}
+				break;
+			case LOCAL_TEXT:
+				if (docNode.hasProperty(DocNodeProperty.LOCAL_TEXT_FILE.name())) {
+					logger.error("Document (" + d.getPmcid() + ") already has a local text file ("
+							+ d.getLocalTextFile().getAbsolutePath() + "). Cannot assign another: "
+							+ newFile.getAbsolutePath());
+				} else {
+					docNode.setProperty(DocNodeProperty.LOCAL_TEXT_FILE.name(), newFile.getAbsolutePath());
+				}
+				break;
+			default:
+				throw new IllegalArgumentException(
+						"Unhandled FileVersion: " + fileVersion.name() + ". Code changes required.");
+			}
+			tx.success();
+		}
 	}
 
 	@Override

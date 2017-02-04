@@ -1,7 +1,6 @@
 package edu.ucdenver.ccp.nlp.pipelines.runlog;
 
 import java.io.File;
-import java.io.IOException;
 
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
@@ -20,11 +19,7 @@ public class Main_CatalogSummary_neo4j {
 		try (Neo4jRunCatalog catalog = new Neo4jRunCatalog(catalogDirectory)) {
 			RunCatalogUtil.removeEmptyDocumentCollections(catalog);
 			RunCatalogUtil.getCatalogRunSummary(catalog);
-		} catch (IOException e) {
-			logger.error("Exception thrown (possibly during neo4j close() operation)...", e);
-			System.exit(-1);
 		}
-
 	}
 
 }

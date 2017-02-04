@@ -54,7 +54,7 @@ public class CatalogLoader_PMC_OA {
 		initCatalog(bulkPmcBaseDirectory, pmcLibraryBaseDirectory, catalog, filename2MetadataMap);
 	}
 
-	static void initCatalog(File bulkPmcBaseDirectory, File libraryBaseDirectory, RunCatalog catalog,
+	public static void initCatalog(File bulkPmcBaseDirectory, File libraryBaseDirectory, RunCatalog catalog,
 			Map<String, DocumentMetadata> filename2MetadataMap) throws IOException {
 		DocumentCollection dc = new PMC_OA_DocumentCollection();
 		/*
@@ -124,7 +124,7 @@ public class CatalogLoader_PMC_OA {
 	 *         the specified input stream
 	 * @throws IOException
 	 */
-	static Map<String, DocumentMetadata> parsePmcOaMetadata(InputStream is) throws IOException {
+	public static Map<String, DocumentMetadata> parsePmcOaMetadata(InputStream is) throws IOException {
 		Map<String, DocumentMetadata> map = new HashMap<String, DocumentMetadata>();
 		int count = 0;
 		for (StreamLineIterator lineIter = new StreamLineIterator(is, CharacterEncoding.UTF_8, null); lineIter
@@ -159,7 +159,7 @@ public class CatalogLoader_PMC_OA {
 	}
 
 	@Data
-	static class DocumentMetadata {
+	public static class DocumentMetadata {
 		private final String remotePath;
 		private final String citation;
 		private final String journal;

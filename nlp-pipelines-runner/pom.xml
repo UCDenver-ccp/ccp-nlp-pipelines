@@ -25,6 +25,26 @@
 			<type>test-jar</type>
 		</dependency>
 		<dependency>
+			<groupId>edu.ucdenver.ccp</groupId>
+			<artifactId>ccp-nlp-uima-collections</artifactId>
+			<version>${ver.ccp.nlp}</version>
+		</dependency>
+		<dependency>
+			<groupId>edu.ucdenver.ccp</groupId>
+			<artifactId>ccp-nlp-uima-serialization</artifactId>
+			<version>${ver.ccp.nlp}</version>
+		</dependency>
+		<dependency>
+			<groupId>edu.ucdenver.ccp</groupId>
+			<artifactId>ccp-nlp-doc2txt</artifactId>
+			<version>${ver.ccp.nlp}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.uima</groupId>
+			<artifactId>uimaj-examples</artifactId>
+			<version>2.9.0</version>
+		</dependency>
+		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<scope>provided</scope>
@@ -40,4 +60,6 @@
 			<version>2.9.7</version>
 		</dependency>
 	</dependencies>
+
+	
 </project>

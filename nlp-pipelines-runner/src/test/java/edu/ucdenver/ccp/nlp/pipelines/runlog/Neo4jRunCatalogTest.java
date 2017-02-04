@@ -17,10 +17,11 @@ import org.junit.Test;
 import edu.ucdenver.ccp.common.collections.CollectionsUtil;
 import edu.ucdenver.ccp.common.test.DefaultTestCase;
 import edu.ucdenver.ccp.nlp.pipelines.runlog.Document.FileType;
+import edu.ucdenver.ccp.nlp.pipelines.runlog.Document.FileVersion;
 import edu.ucdenver.ccp.nlp.pipelines.runlog.DocumentCollection.PMC_OA_DocumentCollection;
 import edu.ucdenver.ccp.nlp.pipelines.runlog.ExternalIdentifier.ExternalIdentifierType;
 import edu.ucdenver.ccp.nlp.pipelines.runlog.RunCatalog.RunStatus;
-import edu.ucdenver.ccp.nlp.pipelines.runner.PmcPipelineBase;
+import edu.ucdenver.ccp.nlp.pipelines.runner.impl.PmcNxml2TxtPipeline;
 
 public class Neo4jRunCatalogTest extends DefaultTestCase {
 
@@ -28,6 +29,7 @@ public class Neo4jRunCatalogTest extends DefaultTestCase {
 
 	private static final Document D1 = new Document("1234567", "PMC1234567", new File("/local/source1.xml"),
 			FileType.XML, "BMC Bio.", "BMC Bio. v5 55-66. 2017.");
+	
 	private static final Document D2 = new Document("78787878", "PMC78787878", new File("/local/source2.xml"),
 			FileType.XML, "BMC Bio.", "BMC Bio. v6 77-88. 2017.");
 
@@ -39,7 +41,7 @@ public class Neo4jRunCatalogTest extends DefaultTestCase {
 			"CM_HP_v0.5.4", new DateTime(), 12);
 
 	private static final AnnotationPipeline AP = new AnnotationPipeline("ConceptMapper + CL",
-			"ConceptMapper using the CL ontology as the input dictionary.", PmcPipelineBase.class, "v0.5.4");
+			"ConceptMapper using the CL ontology as the input dictionary.", PmcNxml2TxtPipeline.class, "v0.5.4");
 
 	@Test
 	public void testAddDocCollection() throws IOException {
@@ -89,6 +91,26 @@ public class Neo4jRunCatalogTest extends DefaultTestCase {
 			assertEquals(D1, retrievedDoc);
 
 			assertNotNull(catalog.getDocumentCollectionByShortName(DC.getShortname()));
+		}
+	}
+	
+	@Test
+	public void testAddFileVersionToDocument() throws IOException {
+		File catalogDirectory = folder.newFolder("catalog");
+		try (Neo4jRunCatalog catalog = new Neo4jRunCatalog(catalogDirectory);) {
+			catalog.addDocument(D1, DC);
+			
+			Document retrievedDoc = catalog.getDocumentById(ExternalIdentifierType.PUBMED, "1234567");
+			assertEquals(D1, retrievedDoc);
+			
+			File txtFile = new File("/this/is/a/new/txt/file/version.txt");
+			catalog.addFileVersionToDocument(D1, txtFile, FileVersion.LOCAL_TEXT);
+			Document expectedDoc = new Document("1234567", "PMC1234567", new File("/local/source1.xml"),
+					FileType.XML, "BMC Bio.", "BMC Bio. v5 55-66. 2017.");
+			expectedDoc.setLocalTextFile(txtFile);
+			
+			retrievedDoc = catalog.getDocumentById(ExternalIdentifierType.PUBMED, "1234567");
+			assertEquals(expectedDoc, retrievedDoc);
 		}
 	}
 

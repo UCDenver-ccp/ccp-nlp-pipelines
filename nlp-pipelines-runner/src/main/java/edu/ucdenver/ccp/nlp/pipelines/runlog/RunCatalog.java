@@ -5,9 +5,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.joda.time.format.DateTimeFormatter;
+import org.joda.time.format.ISODateTimeFormat;
+
+import edu.ucdenver.ccp.nlp.pipelines.runlog.Document.FileVersion;
 import edu.ucdenver.ccp.nlp.pipelines.runlog.ExternalIdentifier.ExternalIdentifierType;
 
-public interface RunCatalog {
+public interface RunCatalog extends AutoCloseable {
+	
+	public static DateTimeFormatter DATE_FORMATTER = ISODateTimeFormat.dateTime();
 	
 	public enum RunStatus {
 		COMPLETE, OUTSTANDING
@@ -16,11 +22,15 @@ public interface RunCatalog {
 	public void addDocumentCollection(DocumentCollection dc);
 
 	public void addDocument(Document d, DocumentCollection dc);
+	
+	public void addFileVersionToDocument(Document d, File newFile, FileVersion fileVersion);
 
 	public void addAnnotationPipeline(AnnotationPipeline ap);
 
 	public void addAnnotationOutput(Document d, AnnotationOutput ao);
 
+	public void close();
+	
 	/**
 	 * @param collection
 	 * @param runKey
@@ -40,6 +50,7 @@ public interface RunCatalog {
 	 *         that are awaiting processing by the specified run-key.
 	 */
 	public Map<String, Map<RunStatus, Set<Document>>> getRunsMap(DocumentCollection collection);
+	public Map<String, Map<RunStatus, Set<Document>>> getRunsMap(String docCollectionShortName);
 
 	public Set<File> getAnnotationFilesForDocumentId(ExternalIdentifierType idType, String documentId, String runKey);
 

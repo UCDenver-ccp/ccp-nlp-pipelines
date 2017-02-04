@@ -19,6 +19,9 @@ public class Document {
 	private final String journal;
 	private final String citation;
 	
+	public enum FileVersion {
+		SOURCE, LOCAL_TEXT
+	}
 	
 	public enum FileType {
 		XML, TXT
