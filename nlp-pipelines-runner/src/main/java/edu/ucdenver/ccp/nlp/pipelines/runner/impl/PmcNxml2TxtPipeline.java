@@ -229,7 +229,7 @@ public class PmcNxml2TxtPipeline extends PipelineBase {
 		File catalogDirectory = new File(args[0]);
 		File configDirectory = new File(args[1]);
 		String brokerUrl = args[2];
-		int numToProcess = 1; // <0 = process all
+		int numToProcess = 2; // <0 = process all
 		logger.info("Starting PmcNxml2TxtPipeline...\nCatalog directory=" + catalogDirectory.getAbsolutePath()
 				+ "\nConfig directory=" + configDirectory.getAbsolutePath() + "\nNum-to-process=" + numToProcess
 				+ "\nBroker URL: " + brokerUrl);
