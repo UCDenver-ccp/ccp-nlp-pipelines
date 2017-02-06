@@ -46,6 +46,8 @@ public class Neo4jRunCatalog implements RunCatalog, Closeable {
 	private IndexDefinition documentIndexByPmid;
 	private IndexDefinition documentIndexByPmcid;
 
+	private final File catalogDirectory;
+
 	private static enum Relation implements RelationshipType {
 		HAS_MEMBER, HAS_ANNOTATIONS, CREATED_BY, HAS_DOCUMENT_IDENTIFIER
 	}
@@ -75,9 +77,17 @@ public class Neo4jRunCatalog implements RunCatalog, Closeable {
 	}
 
 	public Neo4jRunCatalog(File catalogDirectory) {
-		graphDb = new GraphDatabaseFactory().newEmbeddedDatabase(catalogDirectory);
-		logger.info("+++++++++++++++++++++++++++++++++++++++++++++DOCUMENT COLLECTIONS: " + getDocumentCollections().toString());
-//		registerShutdownHook(graphDb);
+		this.catalogDirectory = catalogDirectory;
+		resetNeo4jConnection();
+		logger.info("+++++++++++++++++++++++++++++++++++++++++++++DOCUMENT COLLECTIONS: "
+				+ getDocumentCollections().toString());
+		// registerShutdownHook(graphDb);
+	}
+
+	private void resetNeo4jConnection() {
+		if (graphDb == null || !graphDb.isAvailable(1000)) {
+			graphDb = new GraphDatabaseFactory().newEmbeddedDatabase(catalogDirectory);
+		}
 	}
 
 	private static void registerShutdownHook(final GraphDatabaseService graphDb) {
@@ -99,6 +109,7 @@ public class Neo4jRunCatalog implements RunCatalog, Closeable {
 	}
 
 	public void initializeIndexes() {
+		resetNeo4jConnection();
 		try (Transaction tx = graphDb.beginTx()) {
 			Schema schema = graphDb.schema();
 			documentIndexByPmid = schema.indexFor(Label.label(NodeType.DOCUMENT.name())).on(DocNodeProperty.PMID.name())
@@ -112,6 +123,7 @@ public class Neo4jRunCatalog implements RunCatalog, Closeable {
 
 	@Override
 	public void addDocumentCollection(DocumentCollection dc) {
+		resetNeo4jConnection();
 		try (Transaction tx = graphDb.beginTx()) {
 			Node dcNode = graphDb.findNode(Label.label(NodeType.DOCUMENT_COLLECTION.name()),
 					DocCollectionNodeProperty.SHORTNAME.name(), dc.getShortname());
@@ -155,6 +167,7 @@ public class Neo4jRunCatalog implements RunCatalog, Closeable {
 
 	@Override
 	public void addRunKeyToDocumentCollection(String shortname, String newKey) {
+		resetNeo4jConnection();
 		try (Transaction tx = graphDb.beginTx()) {
 			Node dcNode = getDocumentCollectionNodeByShortName(shortname);
 			updateRunKeysForDocCollectionNode(newKey, dcNode);
@@ -182,6 +195,7 @@ public class Neo4jRunCatalog implements RunCatalog, Closeable {
 	@Override
 	public Set<DocumentCollection> getDocumentCollections() {
 		Set<DocumentCollection> dcSet = new HashSet<DocumentCollection>();
+		resetNeo4jConnection();
 		try (Transaction tx = graphDb.beginTx()) {
 			try (ResourceIterator<Node> dcIter = graphDb.findNodes(Label.label(NodeType.DOCUMENT_COLLECTION.name()))) {
 				while (dcIter.hasNext()) {
@@ -195,6 +209,7 @@ public class Neo4jRunCatalog implements RunCatalog, Closeable {
 
 	@Override
 	public DocumentCollection getDocumentCollectionByShortName(String shortname) {
+		resetNeo4jConnection();
 		try (Transaction tx = graphDb.beginTx()) {
 			Node dcNode = getDocumentCollectionNodeByShortName(shortname);
 			return toDocumentCollection(dcNode);
@@ -228,6 +243,7 @@ public class Neo4jRunCatalog implements RunCatalog, Closeable {
 	}
 
 	private Node getDocumentCollectionNodeByShortName(String shortname) {
+		resetNeo4jConnection();
 		try (Transaction tx = graphDb.beginTx()) {
 			Node dcNode = graphDb.findNode(Label.label(NodeType.DOCUMENT_COLLECTION.name()),
 					DocCollectionNodeProperty.SHORTNAME.name(), shortname);
@@ -238,7 +254,7 @@ public class Neo4jRunCatalog implements RunCatalog, Closeable {
 
 	@Override
 	public void addDocument(Document d, DocumentCollection dc) {
-
+		resetNeo4jConnection();
 		try (Transaction tx = graphDb.beginTx()) {
 
 			Node dcNode = getDocumentCollectionNode(dc);
@@ -283,6 +299,7 @@ public class Neo4jRunCatalog implements RunCatalog, Closeable {
 
 	@Override
 	public void addAnnotationPipeline(AnnotationPipeline ap) {
+		resetNeo4jConnection();
 		try (Transaction tx = graphDb.beginTx()) {
 			Label label = Label.label(NodeType.ANNOTATION_PIPELINE.name());
 			Node apNode = graphDb.createNode(label);
@@ -299,6 +316,7 @@ public class Neo4jRunCatalog implements RunCatalog, Closeable {
 	@Override
 	public Set<AnnotationPipeline> getAnnotationPipelines() {
 		Set<AnnotationPipeline> apSet = new HashSet<AnnotationPipeline>();
+		resetNeo4jConnection();
 		try (Transaction tx = graphDb.beginTx()) {
 			try (ResourceIterator<Node> apIter = graphDb.findNodes(Label.label(NodeType.ANNOTATION_PIPELINE.name()))) {
 				while (apIter.hasNext()) {
@@ -334,6 +352,7 @@ public class Neo4jRunCatalog implements RunCatalog, Closeable {
 
 	@Override
 	public void addAnnotationOutput(Document doc, AnnotationOutput ao) {
+		resetNeo4jConnection();
 		try (Transaction tx = graphDb.beginTx()) {
 			Label label = Label.label(NodeType.ANNOTATION_OUTPUT.name());
 			Node aoNode = graphDb.createNode(label);
@@ -380,11 +399,12 @@ public class Neo4jRunCatalog implements RunCatalog, Closeable {
 	@Override
 	public List<File> getFilesToProcess(DocumentCollection collection, String runKey) {
 		List<File> filesToProcess = new ArrayList<File>();
+		resetNeo4jConnection();
 		try (Transaction tx = graphDb.beginTx()) {
 			// Database operations go here
 			tx.success();
 		}
-		return null;
+		throw new UnsupportedOperationException("getFilesToProcess() has not yet been implemented");
 	}
 
 	/*
@@ -414,6 +434,7 @@ public class Neo4jRunCatalog implements RunCatalog, Closeable {
 		for (String key : runKeys) {
 			map.put(key, new HashMap<RunStatus, Set<Document>>());
 		}
+		resetNeo4jConnection();
 		try (Transaction tx = graphDb.beginTx()) {
 			Node dcNode = getDocumentCollectionNode(docCollectionShortName);
 			for (Relationship r : dcNode.getRelationships(Relation.HAS_MEMBER)) {
@@ -447,6 +468,7 @@ public class Neo4jRunCatalog implements RunCatalog, Closeable {
 
 	@Override
 	public Document getDocumentById(ExternalIdentifierType idType, String documentId) {
+		resetNeo4jConnection();
 		try (Transaction tx = graphDb.beginTx()) {
 			Node docNode = getDocumentNodeById(idType, documentId);
 			return toDocument(docNode);
@@ -458,7 +480,10 @@ public class Neo4jRunCatalog implements RunCatalog, Closeable {
 			documentId = StringUtil.removeSuffix(documentId, ".nxml.gz");
 		}
 		try {
-			FileWriterUtil.printLines(CollectionsUtil.createList("================================================ GETTING NODE BY ID: " + documentId), new File("/tmp/log.txt"), CharacterEncoding.UTF_8, WriteMode.APPEND, FileSuffixEnforcement.OFF);
+			FileWriterUtil.printLines(
+					CollectionsUtil.createList(
+							"================================================ GETTING NODE BY ID: " + documentId),
+					new File("/tmp/log.txt"), CharacterEncoding.UTF_8, WriteMode.APPEND, FileSuffixEnforcement.OFF);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -523,10 +548,14 @@ public class Neo4jRunCatalog implements RunCatalog, Closeable {
 	@Override
 	public Set<File> getAnnotationFilesForDocumentId(ExternalIdentifierType idType, String documentId, String runKey) {
 		Set<File> annotFiles = new HashSet<File>();
+		resetNeo4jConnection();
 		try (Transaction tx = graphDb.beginTx()) {
 			Node docNode = getDocumentNodeById(idType, documentId);
 			try {
-				FileWriterUtil.printLines(CollectionsUtil.createList("********************* docnode is null: " + (docNode == null) + " -- documentId: " + documentId), new File("/tmp/log.txt"), CharacterEncoding.UTF_8, WriteMode.APPEND, FileSuffixEnforcement.OFF);
+				FileWriterUtil.printLines(
+						CollectionsUtil.createList("********************* docnode is null: " + (docNode == null)
+								+ " -- documentId: " + documentId),
+						new File("/tmp/log.txt"), CharacterEncoding.UTF_8, WriteMode.APPEND, FileSuffixEnforcement.OFF);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -542,9 +571,12 @@ public class Neo4jRunCatalog implements RunCatalog, Closeable {
 
 	@Override
 	public void addFileVersionToDocument(Document d, File newFile, FileVersion fileVersion) {
+		resetNeo4jConnection();
 		try (Transaction tx = graphDb.beginTx()) {
 			try {
-				FileWriterUtil.printLines(CollectionsUtil.createList("********************* doc is null: " + (d == null)), new File("/tmp/log.txt"), CharacterEncoding.UTF_8, WriteMode.APPEND, FileSuffixEnforcement.OFF);
+				FileWriterUtil.printLines(
+						CollectionsUtil.createList("********************* doc is null: " + (d == null)),
+						new File("/tmp/log.txt"), CharacterEncoding.UTF_8, WriteMode.APPEND, FileSuffixEnforcement.OFF);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -579,6 +611,7 @@ public class Neo4jRunCatalog implements RunCatalog, Closeable {
 
 	@Override
 	public int getDocumentCount(DocumentCollection dc) {
+		resetNeo4jConnection();
 		try (Transaction tx = graphDb.beginTx()) {
 			Node dcNode = getDocumentCollectionNodeByShortName(dc.getShortname());
 			Set<Document> uniqueDocs = new HashSet<Document>();
@@ -593,6 +626,7 @@ public class Neo4jRunCatalog implements RunCatalog, Closeable {
 
 	@Override
 	public void removeEmptyDocumentCollections() {
+		resetNeo4jConnection();
 		try (Transaction tx = graphDb.beginTx()) {
 			Set<Node> emptyDocCollections = new HashSet<Node>();
 			for (ResourceIterator<Node> dcNodeIter = graphDb
