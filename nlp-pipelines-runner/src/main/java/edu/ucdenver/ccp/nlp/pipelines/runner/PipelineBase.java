@@ -21,6 +21,7 @@ import org.apache.uima.cas.CAS;
 import org.apache.uima.collection.CollectionReaderDescription;
 import org.apache.uima.collection.EntityProcessStatus;
 import org.apache.uima.examples.flow.AdvancedFixedFlowController;
+import org.apache.uima.fit.factory.AnalysisEngineFactory;
 import org.apache.uima.fit.factory.CollectionReaderFactory;
 import org.apache.uima.fit.factory.FlowControllerFactory;
 import org.apache.uima.flow.FlowControllerDescription;
@@ -34,10 +35,13 @@ import org.apache.uima.resourceSpecifier.factory.UimaASAggregateDeploymentDescri
 import org.apache.uima.resourceSpecifier.factory.UimaASPrimitiveDeploymentDescriptor;
 import org.apache.uima.resourceSpecifier.factory.impl.ProcessErrorHandlingSettingsImpl;
 import org.apache.uima.resourceSpecifier.factory.impl.ServiceContextImpl;
+import org.apache.uima.util.InvalidXMLException;
 import org.xml.sax.SAXException;
 
+import edu.ucdenver.ccp.common.file.CharacterEncoding;
 import edu.ucdenver.ccp.common.file.FileUtil;
 import edu.ucdenver.ccp.common.file.FileWriterUtil;
+import edu.ucdenver.ccp.common.io.ClassPathUtil;
 import edu.ucdenver.ccp.nlp.uima.shims.document.impl.CcpDocumentMetadataHandler;
 import edu.ucdenver.ccp.nlp.uima.util.TypeSystemUtil;
 import lombok.Data;
@@ -127,13 +131,16 @@ public abstract class PipelineBase {
 
 	}
 
-	protected abstract AnalysisEngineDescription getPipelineDescription() throws ResourceInitializationException;
-
 	protected abstract DeploymentParams getPipelineDeploymentParams();
 
 	protected abstract List<ServiceEngine> createServiceEngines() throws ResourceInitializationException;
 
 	protected abstract TypeSystemDescription getPipelineTypeSystem();
+
+	/**
+	 * @return the path to the aggregate descriptor file (MUST BE IN CLASSPATH)
+	 */
+	protected abstract String getAggregateDescriptorPath();
 
 	protected CollectionReaderDescription getCollectionReaderDescription(PipelineParams params)
 			throws ResourceInitializationException {
@@ -141,6 +148,60 @@ public abstract class PipelineBase {
 				params.getCatalogDirectory(), params.getEncoding(), params.getPipelineKey(),
 				params.getDocumentCollectionName(), params.getDocFileVersion(), "en", false, params.getNumToProcess(),
 				params.getNumToSkip(), CcpDocumentMetadataHandler.class, params.getViewName());
+	}
+
+	/**
+	 * prefix to use in the descriptor file import statements. This placeholder
+	 * will be replaced by the actual path to the descriptor file.
+	 */
+	private static final String ENGINE_PLACEHOLDER_PREFIX = "ENGINE_DESCRIPTOR_PATH_";
+	/**
+	 * placeholder to use in the descriptor file to reference the location of
+	 * the flow controller descriptor file
+	 */
+	private static final String FLOW_CONTROLLER_PLACEHOLDER = "FLOW_CONTROLLER_PATH";
+
+	/**
+	 * @return the aggregate description for the pipeline to be run. This
+	 *         description is composed automatically be referencing the
+	 *         {@link #getServiceEngines()} and
+	 *         {@link #getFlowControllerDescription(String[])} methods.
+	 * @throws ResourceInitializationException
+	 */
+	protected AnalysisEngineDescription getPipelineDescription() throws ResourceInitializationException {
+		try {
+			List<String> componentNames = new ArrayList<String>();
+			String pipelineDescStr = ClassPathUtil.getContentsFromClasspathResource(getClass(),
+					getAggregateDescriptorPath(), CharacterEncoding.UTF_8);
+			int index = 1;
+			for (ServiceEngine se : getServiceEngines()) {
+				componentNames.add(se.getAeDescription().getAnnotatorImplementationName());
+				File engineDescriptorFile = getEngineDescriptorFile(se.getDeployParams(), getConfigDir());
+				pipelineDescStr = pipelineDescStr.replace(ENGINE_PLACEHOLDER_PREFIX + index++,
+						engineDescriptorFile.getAbsolutePath());
+			}
+			/* create the flow controller descriptor file */
+			FlowControllerDescription flowControllerDescription = getFlowControllerDescription(
+					componentNames.toArray(new String[componentNames.size()]));
+			File flowControllerDescriptorFile = File.createTempFile("flowctr_" + getPipelineParams().getPipelineKey(),
+					".xml");
+			try (BufferedWriter writer = FileWriterUtil.initBufferedWriter(flowControllerDescriptorFile)) {
+				flowControllerDescription.toXML(writer);
+			}
+
+			pipelineDescStr = pipelineDescStr.replace(FLOW_CONTROLLER_PLACEHOLDER,
+					flowControllerDescriptorFile.getAbsolutePath());
+
+			File pipelineDescriptorFile = File.createTempFile("aggregate_" + getPipelineParams().getPipelineKey(),
+					".xml");
+			try (BufferedWriter writer = FileWriterUtil.initBufferedWriter(pipelineDescriptorFile)) {
+				writer.write(pipelineDescStr);
+			}
+
+			return AnalysisEngineFactory.createEngineDescriptionFromPath(pipelineDescriptorFile.getAbsolutePath());
+		} catch (IOException | InvalidXMLException | SAXException e) {
+			throw new ResourceInitializationException(e);
+		}
 	}
 
 	/**
