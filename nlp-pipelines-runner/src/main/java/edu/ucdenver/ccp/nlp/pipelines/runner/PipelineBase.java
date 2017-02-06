@@ -26,11 +26,13 @@ import org.apache.uima.fit.factory.FlowControllerFactory;
 import org.apache.uima.flow.FlowControllerDescription;
 import org.apache.uima.resource.ResourceInitializationException;
 import org.apache.uima.resource.metadata.TypeSystemDescription;
+import org.apache.uima.resourceSpecifier.factory.DelegateConfiguration;
 import org.apache.uima.resourceSpecifier.factory.DeploymentDescriptorFactory;
+import org.apache.uima.resourceSpecifier.factory.ErrorHandlingSettings;
 import org.apache.uima.resourceSpecifier.factory.ServiceContext;
 import org.apache.uima.resourceSpecifier.factory.UimaASAggregateDeploymentDescriptor;
-import org.apache.uima.resourceSpecifier.factory.UimaASDeploymentDescriptor;
 import org.apache.uima.resourceSpecifier.factory.UimaASPrimitiveDeploymentDescriptor;
+import org.apache.uima.resourceSpecifier.factory.impl.ProcessErrorHandlingSettingsImpl;
 import org.apache.uima.resourceSpecifier.factory.impl.ServiceContextImpl;
 import org.xml.sax.SAXException;
 
@@ -41,6 +43,7 @@ import edu.ucdenver.ccp.nlp.uima.util.TypeSystemUtil;
 import lombok.Data;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 public abstract class PipelineBase {
 
@@ -49,9 +52,8 @@ public abstract class PipelineBase {
 	public enum DescriptorType {
 		PRIMITIVE, AGGREGATE
 	}
-	
-	
-//	protected static final String BROKER_URL = "tcp://localhost:61616";
+
+	// protected static final String BROKER_URL = "tcp://localhost:61616";
 
 	/**
 	 * path to saxon8.jar file (relative to $UIMA_HOME)
@@ -68,6 +70,7 @@ public abstract class PipelineBase {
 	@Getter
 	private final PipelineParams pipelineParams;
 
+	@Getter
 	private final File configDir;
 
 	private List<File> pipelineComponentDeployDescriptorFiles;
@@ -80,6 +83,12 @@ public abstract class PipelineBase {
 
 	private static long pipelineRunStartTime;
 
+	@Setter
+	private boolean debugFlag = false;
+
+	@Getter
+	private final List<ServiceEngine> serviceEngines;
+
 	/**
 	 * Creates an asynchronous analysis engine.
 	 * 
@@ -88,6 +97,7 @@ public abstract class PipelineBase {
 	public PipelineBase(PipelineParams params, File configDir) throws Exception {
 		this.pipelineParams = params;
 		this.configDir = configDir;
+		this.serviceEngines = createServiceEngines();
 
 		configurePipeline();
 	}
@@ -100,17 +110,20 @@ public abstract class PipelineBase {
 		 */
 		pipelineComponentDeployDescriptorFiles = new ArrayList<File>();
 		logger.info("Creating descriptor XML for pipeline component analysis engines...");
-		for (ServiceEngine se : getServiceEngines()) {
+		List<DelegateConfiguration> delegateConfigurations = new ArrayList<DelegateConfiguration>();
+		for (ServiceEngine se : serviceEngines) {
 			logger.info("Configuring " + se.getAeDescription().getAnnotatorImplementationName() + " scaleup = "
 					+ se.getDeployParams().getScaleup());
-			File deploymentDescriptorFile = createDeploymentDescriptorFile(se.getAeDescription(),
-					se.getDeployParams(), se.getDescriptorType());
+			ErrorHandlingSettings errorSettings = new ProcessErrorHandlingSettingsImpl();
+			delegateConfigurations.add(DeploymentDescriptorFactory.createPrimitiveDelegateConfiguration(
+					se.getAeDescription().getAnnotatorImplementationName(), errorSettings));
+			File deploymentDescriptorFile = createDeploymentDescriptorFile(se, null);
 			pipelineComponentDeployDescriptorFiles.add(deploymentDescriptorFile);
 		}
 
 		logger.info("Configuring AGGREGATE pipeline description...");
 		pipelineDeploymentDescriptorFile = createDeploymentDescriptorFile(getPipelineDescription(),
-				getPipelineDeploymentParams(), DescriptorType.AGGREGATE);
+				getPipelineDeploymentParams(), DescriptorType.AGGREGATE, delegateConfigurations);
 
 	}
 
@@ -118,7 +131,7 @@ public abstract class PipelineBase {
 
 	protected abstract DeploymentParams getPipelineDeploymentParams();
 
-	protected abstract List<ServiceEngine> getServiceEngines() throws ResourceInitializationException;
+	protected abstract List<ServiceEngine> createServiceEngines() throws ResourceInitializationException;
 
 	protected abstract TypeSystemDescription getPipelineTypeSystem();
 
@@ -170,18 +183,19 @@ public abstract class PipelineBase {
 
 		logger.info("Deploying pipeline analysis engine...");
 		try {
-		String deployedServiceId = uimaAsEngine.deploy(pipelineDeploymentDescriptorFile.getAbsolutePath(), deployCtx);
-		deployedServiceIds.add(deployedServiceId);
+			String deployedServiceId = uimaAsEngine.deploy(pipelineDeploymentDescriptorFile.getAbsolutePath(),
+					deployCtx);
+			deployedServiceIds.add(deployedServiceId);
 		} catch (Exception e) {
 			logger.error("########################################################################", e);
 			logger.error("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 		}
 
-
 		logger.info("Initialize pipeline as UIMA AS service...");
 		deployCtx.put(UimaAsynchronousEngine.ServerUri, getPipelineDeploymentParams().getBrokerUrl());
 		deployCtx.put(UimaAsynchronousEngine.ENDPOINT, getPipelineDeploymentParams().getEndpoint());
 		deployCtx.put(UimaAsynchronousEngine.CasPoolSize, 10);
+		deployCtx.put(UimaAsynchronousEngine.UimaEeDebug, debugFlag);
 		uimaAsEngine.initialize(deployCtx);
 	}
 
@@ -189,9 +203,7 @@ public abstract class PipelineBase {
 		try {
 			pipelineRunStartTime = System.nanoTime() / 1000000;
 
-			// send an empty CAS
-			CAS cas = uimaAsEngine.getCAS();
-			uimaAsEngine.sendCAS(cas);
+			uimaAsEngine.process();
 			uimaAsEngine.collectionProcessingComplete();
 			if (deployedServiceIds != null) {
 				for (String id : deployedServiceIds) {
@@ -206,9 +218,23 @@ public abstract class PipelineBase {
 		System.exit(0);
 	}
 
+	private File createDeploymentDescriptorFile(ServiceEngine se, List<DelegateConfiguration> delegateConfigurations)
+			throws ResourceInitializationException, FileNotFoundException, IOException, SAXException {
+		File aeDescriptorFile = serializeDescriptionToFile(se.getAeDescription(), se.getDeployParams());
+		se.setAeDescriptorFile(aeDescriptorFile);
+		ServiceContext context = createServiceContext(aeDescriptorFile, se.getDeployParams());
+		if (se.getDescriptorType() == DescriptorType.PRIMITIVE) {
+			logger.info("Returning primitive deployment descriptor");
+			return createPrimitiveDeploymentDescriptor(context, se.getDeployParams());
+		}
+		logger.info("Returning aggregate deployment descriptor");
+		return createAggregateDeploymentDescriptor(context, se.getDeployParams(), delegateConfigurations);
+	}
+
 	/**
 	 * @param aeDescription
 	 * @param params
+	 * @param delegateConfigurations
 	 * @return a reference to the serialized
 	 *         {@link UimaASPrimitiveDeploymentDescriptor} file for the
 	 *         specified {@link AnalysisEngine} description
@@ -218,7 +244,7 @@ public abstract class PipelineBase {
 	 * @throws SAXException
 	 */
 	private File createDeploymentDescriptorFile(AnalysisEngineDescription aeDescription, DeploymentParams params,
-			DescriptorType descriptorType)
+			DescriptorType descriptorType, List<DelegateConfiguration> delegateConfigurations)
 			throws ResourceInitializationException, FileNotFoundException, IOException, SAXException {
 		File aeDescriptorFile = serializeDescriptionToFile(aeDescription, params);
 		ServiceContext context = createServiceContext(aeDescriptorFile, params);
@@ -227,7 +253,7 @@ public abstract class PipelineBase {
 			return createPrimitiveDeploymentDescriptor(context, params);
 		}
 		logger.info("Returning aggregate deployment descriptor");
-		return createAggregateDeploymentDescriptor(context, params);
+		return createAggregateDeploymentDescriptor(context, params, delegateConfigurations);
 	}
 
 	private File createPrimitiveDeploymentDescriptor(ServiceContext context, DeploymentParams params)
@@ -239,12 +265,13 @@ public abstract class PipelineBase {
 		dd.setScaleup(params.getScaleup());
 		return serializeDescriptionToFile(dd.toXML(), params);
 	}
-	
-	private File createAggregateDeploymentDescriptor(ServiceContext context, DeploymentParams params)
+
+	private File createAggregateDeploymentDescriptor(ServiceContext context, DeploymentParams params,
+			List<DelegateConfiguration> delegateConfigs)
 			throws ResourceInitializationException, FileNotFoundException, IOException {
-		UimaASAggregateDeploymentDescriptor dd = DeploymentDescriptorFactory
-				.createAggregateDeploymentDescriptor(context); 
-//		dd.set
+		UimaASAggregateDeploymentDescriptor dd = DeploymentDescriptorFactory.createAggregateDeploymentDescriptor(
+				context, delegateConfigs.toArray(new DelegateConfiguration[delegateConfigs.size()]));
+		// dd.set
 		return serializeDescriptionToFile(dd.toXML(), params);
 	}
 
@@ -291,19 +318,31 @@ public abstract class PipelineBase {
 	 */
 	private File serializeDescriptionToFile(AnalysisEngineDescription description, DeploymentParams params)
 			throws FileNotFoundException, IOException, SAXException {
-		String filename = params.getServiceName().replaceAll(" ", "_") + "_engine.xml";
-		File outputDirectory = new File(configDir, params.getServiceName().replaceAll(" ", "_"));
-		FileUtil.mkdir(outputDirectory);
-		File outputFile = new File(outputDirectory, filename);
+		File outputFile = getEngineDescriptorFile(params, configDir);
+		FileUtil.mkdir(outputFile.getParentFile());
 		try (BufferedWriter writer = FileWriterUtil.initBufferedWriter(outputFile)) {
 			description.toXML(writer);
 		}
 		return outputFile;
 	}
 
+	/**
+	 * @param params
+	 * @param configDir
+	 * @return a reference to the AnalysisEngine descriptor file given a
+	 *         configDirectory and deployment parameters
+	 */
+	protected static File getEngineDescriptorFile(DeploymentParams params, File configDir) {
+		String filename = params.getServiceName().replaceAll(" ", "_") + "_engine.xml";
+		File outputDirectory = new File(configDir, params.getServiceName().replaceAll(" ", "_"));
+		File outputFile = new File(outputDirectory, filename);
+		return outputFile;
+	}
+
 	@Data
 	public static class ServiceEngine {
 		private final AnalysisEngineDescription aeDescription;
+		private File aeDescriptorFile;
 		private final DeploymentParams deployParams;
 		private final String componentName;
 		private final DescriptorType descriptorType;

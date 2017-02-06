@@ -3,6 +3,7 @@ package edu.ucdenver.ccp.nlp.pipelines.runner;
 import java.io.File;
 import java.util.Iterator;
 
+import org.apache.log4j.Logger;
 import org.apache.uima.UimaContext;
 import org.apache.uima.analysis_engine.AnalysisEngineDescription;
 import org.apache.uima.analysis_engine.AnalysisEngineProcessException;
@@ -33,6 +34,8 @@ import edu.ucdenver.ccp.uima.shims.document.DocumentMetadataHandler;
  */
 public class RunCatalogAE extends JCasAnnotator_ImplBase {
 
+	public static final Logger logger = Logger.getLogger(RunCatalogAE.class);
+
 	public static final String PARAM_CATALOG_DIRECTORY = "catalogDirectory";
 	@ConfigurationParameter(mandatory = true, description = "The base directory for the RunCatalog.")
 	private File catalogDirectory;
@@ -42,7 +45,7 @@ public class RunCatalogAE extends JCasAnnotator_ImplBase {
 	private String documentMetadataHandlerClassName;
 	private DocumentMetadataHandler documentMetaDataHandler;
 
-	private RunCatalog catalog = null;
+	// private RunCatalog catalog = null;
 
 	@Override
 	public void initialize(UimaContext aContext) throws ResourceInitializationException {
@@ -60,31 +63,43 @@ public class RunCatalogAE extends JCasAnnotator_ImplBase {
 		 * until the RunCatalogCollectionReader has closed its connection before
 		 * attempting to open a connection to the catalog.
 		 */
-		if (catalog == null) {
-			catalog = new Neo4jRunCatalog(catalogDirectory);
-		}
-		String documentId = documentMetaDataHandler.extractDocumentId(jCas);
-		Document document = catalog.getDocumentById(ExternalIdentifierType.PMC, documentId);
+		// if (catalog == null) {
+		// catalog = new Neo4jRunCatalog(catalogDirectory);
+		// }
 
-		for (Iterator<SerializedFileLog> aoIter = JCasUtil.iterator(jCas, SerializedFileLog.class); aoIter.hasNext();) {
-			SerializedFileLog sfLog = aoIter.next();
-			catalog.addFileVersionToDocument(document, new File(sfLog.getSerializedFile()),
-					FileVersion.valueOf(sfLog.getFileVersion()));
-		}
+		try (RunCatalog catalog = new Neo4jRunCatalog(catalogDirectory)) {
+			String documentId = documentMetaDataHandler.extractDocumentId(jCas);
+			Document document = catalog.getDocumentById(ExternalIdentifierType.PMC, documentId);
 
-		for (Iterator<AnnotationOutputLog> aoIter = JCasUtil.iterator(jCas, AnnotationOutputLog.class); aoIter
-				.hasNext();) {
-			AnnotationOutputLog aoLog = aoIter.next();
-			AnnotationOutput ao = new AnnotationOutput(new File(aoLog.getLocalAnnotationFile()), aoLog.getRunKey(),
-					RunCatalog.DATE_FORMATTER.parseDateTime(aoLog.getRunDate()), aoLog.getAnnotationCount());
-			catalog.addAnnotationOutput(document, ao);
+			if (JCasUtil.exists(jCas, SerializedFileLog.class)) {
+				for (Iterator<SerializedFileLog> aoIter = JCasUtil.iterator(jCas, SerializedFileLog.class); aoIter
+						.hasNext();) {
+					SerializedFileLog sfLog = aoIter.next();
+					logger.info("SerializedLog is null? " + (sfLog == null));
+					logger.info("Adding serialized file to catalog. file=" + sfLog.getSerializedFile()
+							+ " fileversion: " + sfLog.getFileVersion());
+					catalog.addFileVersionToDocument(document, new File(sfLog.getSerializedFile()),
+							FileVersion.valueOf(sfLog.getFileVersion()));
+				}
+			}
+
+			if (JCasUtil.exists(jCas, AnnotationOutputLog.class)) {
+				for (Iterator<AnnotationOutputLog> aoIter = JCasUtil.iterator(jCas, AnnotationOutputLog.class); aoIter
+						.hasNext();) {
+					AnnotationOutputLog aoLog = aoIter.next();
+					AnnotationOutput ao = new AnnotationOutput(new File(aoLog.getLocalAnnotationFile()),
+							aoLog.getRunKey(), RunCatalog.DATE_FORMATTER.parseDateTime(aoLog.getRunDate()),
+							aoLog.getAnnotationCount());
+					catalog.addAnnotationOutput(document, ao);
+				}
+			}
 		}
 	}
 
 	@Override
 	public void collectionProcessComplete() throws AnalysisEngineProcessException {
 		super.collectionProcessComplete();
-		catalog.close();
+		// catalog.close();
 	}
 
 	public static AnalysisEngineDescription getDescription(TypeSystemDescription tsd, File catalogDirectory,

@@ -1,6 +1,8 @@
 package edu.ucdenver.ccp.nlp.pipelines.runner.impl;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,8 +13,12 @@ import org.apache.uima.fit.factory.AnalysisEngineFactory;
 import org.apache.uima.flow.FlowControllerDescription;
 import org.apache.uima.resource.ResourceInitializationException;
 import org.apache.uima.resource.metadata.TypeSystemDescription;
+import org.apache.uima.util.InvalidXMLException;
+import org.xml.sax.SAXException;
 
 import edu.ucdenver.ccp.common.file.CharacterEncoding;
+import edu.ucdenver.ccp.common.file.FileWriterUtil;
+import edu.ucdenver.ccp.common.io.ClassPathUtil;
 import edu.ucdenver.ccp.nlp.doc2txt.pmc.PmcDocumentConverterAE;
 import edu.ucdenver.ccp.nlp.pipelines.runlog.Document.FileVersion;
 import edu.ucdenver.ccp.nlp.pipelines.runlog.DocumentCollection.PMC_OA_DocumentCollection;
@@ -42,21 +48,83 @@ public class PmcNxml2TxtPipeline extends PipelineBase {
 				catalogDirectory, numToProcess, 0, brokerUrl), configDir);
 	}
 
+	/**
+	 * prefix to use in the descriptor file import statements. This placeholder
+	 * will be replaced by the actual path to the descriptor file.
+	 */
+	private static final String ENGINE_PLACEHOLDER_PREFIX = "ENGINE_DESCRIPTOR_PATH_";
+	/**
+	 * placeholder to use in the descriptor file to reference the location of
+	 * the flow controller descriptor file
+	 */
+	private static final String FLOW_CONTROLLER_PLACEHOLDER = "FLOW_CONTROLLER_PATH";
+
 	@Override
 	protected AnalysisEngineDescription getPipelineDescription() throws ResourceInitializationException {
-		List<AnalysisEngineDescription> aeDescList = new ArrayList<AnalysisEngineDescription>();
-		List<String> componentNames = new ArrayList<String>();
-		int index = 0;
-		for (ServiceEngine se : getServiceEngines()) {
-			AnalysisEngineDescription aeDescription = se.getAeDescription();
-			aeDescList.add(aeDescription);
-			componentNames.add(aeDescription.getAnnotatorImplementationName() + "-" + index++);
+		try {
+			List<String> componentNames = new ArrayList<String>();
+			String pipelineDescStr = ClassPathUtil.getContentsFromClasspathResource(getClass(),
+					"/pipeline_descriptors/pmc_nxml2txt_aggregate.xml", CharacterEncoding.UTF_8);
+			int index = 1;
+			for (ServiceEngine se : getServiceEngines()) {
+				componentNames.add(se.getAeDescription().getAnnotatorImplementationName());
+				File engineDescriptorFile = getEngineDescriptorFile(se.getDeployParams(), getConfigDir());
+				pipelineDescStr = pipelineDescStr.replace(ENGINE_PLACEHOLDER_PREFIX + index++,
+						engineDescriptorFile.getAbsolutePath());
+			}
+			/* create the flow controller descriptor file */
+			FlowControllerDescription flowControllerDescription = getFlowControllerDescription(
+					componentNames.toArray(new String[componentNames.size()]));
+			File flowControllerDescriptorFile = new File(getConfigDir(), "pmc_nxml2txt_flowcontroller.xml");
+			try (BufferedWriter writer = FileWriterUtil.initBufferedWriter(flowControllerDescriptorFile)) {
+				flowControllerDescription.toXML(writer);
+			}
+
+			pipelineDescStr = pipelineDescStr.replace(FLOW_CONTROLLER_PLACEHOLDER,
+					flowControllerDescriptorFile.getAbsolutePath());
+
+			File pipelineDescriptorFile = new File(getConfigDir(), "pmc_nxml2txt_aggregate.xml");
+			try (BufferedWriter writer = FileWriterUtil.initBufferedWriter(pipelineDescriptorFile)) {
+				writer.write(pipelineDescStr);
+			}
+
+			return AnalysisEngineFactory.createEngineDescriptionFromPath(pipelineDescriptorFile.getAbsolutePath());
+		} catch (IOException | InvalidXMLException | SAXException e) {
+			throw new ResourceInitializationException(e);
 		}
 
-		FlowControllerDescription flowControllerDescription = getFlowControllerDescription(
-				componentNames.toArray(new String[componentNames.size()]));
-		return AnalysisEngineFactory.createEngineDescription(flowControllerDescription,
-				aeDescList.toArray(new AnalysisEngineDescription[aeDescList.size()]));
+		// List<AnalysisEngineDescription> aeDescList = new
+		// ArrayList<AnalysisEngineDescription>();
+		// List<String> componentNames = new ArrayList<String>();
+		// int index = 0;
+		// for (ServiceEngine se : getServiceEngines()) {
+		// // AnalysisEngineDescription aeDescription = se.getAeDescription();
+		// try {
+		//
+		// //aggregate descriptor must use "import" for each delegate in order
+		// to be correctly processed by the dd2spring.xsl
+		//
+		// AnalysisEngineDescription aeDescription = AnalysisEngineFactory
+		// .createEngineDescriptionFromPath(se.getAeDescriptorFile().getAbsolutePath());
+		// aeDescList.add(aeDescription);
+		// componentNames.add(aeDescription.getAnnotatorImplementationName() +
+		// "-" + index++);
+		// } catch (InvalidXMLException | IOException e) {
+		// throw new ResourceInitializationException(e);
+		// }
+		// }
+		//
+		// FlowControllerDescription flowControllerDescription =
+		// getFlowControllerDescription(
+		// componentNames.toArray(new String[componentNames.size()]));
+		//// return
+		// AnalysisEngineFactory.createEngineDescription(flowControllerDescription,
+		//// aeDescList.toArray(new
+		// AnalysisEngineDescription[aeDescList.size()]));
+		//
+		// AnalysisEngineDescription desc =
+		// AnalysisEngineFactory.createEngineDescription(flowControllerDescription);
+		// desc.
 
 	}
 
@@ -79,7 +147,7 @@ public class PmcNxml2TxtPipeline extends PipelineBase {
 	}
 
 	@Override
-	protected List<ServiceEngine> getServiceEngines() throws ResourceInitializationException {
+	protected List<ServiceEngine> createServiceEngines() throws ResourceInitializationException {
 		List<ServiceEngine> engines = new ArrayList<ServiceEngine>();
 		{
 			/* configure the XML2TXT AE */
@@ -168,6 +236,10 @@ public class PmcNxml2TxtPipeline extends PipelineBase {
 		try {
 			PmcNxml2TxtPipeline pipeline = new PmcNxml2TxtPipeline(catalogDirectory, configDirectory, numToProcess,
 					brokerUrl);
+
+			/* turn on debugging mode */
+			pipeline.setDebugFlag(true);
+
 			logger.info("Deploying pipeline components...");
 			pipeline.deployPipeline();
 			logger.info("Running pipeline...");

@@ -2,6 +2,7 @@ package edu.ucdenver.ccp.nlp.pipelines.runlog;
 
 import java.io.Closeable;
 import java.io.File;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -26,6 +27,11 @@ import org.neo4j.graphdb.schema.IndexDefinition;
 import org.neo4j.graphdb.schema.Schema;
 
 import edu.ucdenver.ccp.common.collections.CollectionsUtil;
+import edu.ucdenver.ccp.common.file.CharacterEncoding;
+import edu.ucdenver.ccp.common.file.FileWriterUtil;
+import edu.ucdenver.ccp.common.file.FileWriterUtil.FileSuffixEnforcement;
+import edu.ucdenver.ccp.common.file.FileWriterUtil.WriteMode;
+import edu.ucdenver.ccp.common.string.StringUtil;
 import edu.ucdenver.ccp.nlp.pipelines.runlog.Document.FileType;
 import edu.ucdenver.ccp.nlp.pipelines.runlog.Document.FileVersion;
 import edu.ucdenver.ccp.nlp.pipelines.runlog.ExternalIdentifier.ExternalIdentifierType;
@@ -70,7 +76,8 @@ public class Neo4jRunCatalog implements RunCatalog, Closeable {
 
 	public Neo4jRunCatalog(File catalogDirectory) {
 		graphDb = new GraphDatabaseFactory().newEmbeddedDatabase(catalogDirectory);
-		registerShutdownHook(graphDb);
+		logger.info("+++++++++++++++++++++++++++++++++++++++++++++DOCUMENT COLLECTIONS: " + getDocumentCollections().toString());
+//		registerShutdownHook(graphDb);
 	}
 
 	private static void registerShutdownHook(final GraphDatabaseService graphDb) {
@@ -87,6 +94,7 @@ public class Neo4jRunCatalog implements RunCatalog, Closeable {
 
 	@Override
 	public void close() {
+		logger.info("Shutting down catalog...");
 		graphDb.shutdown();
 	}
 
@@ -337,7 +345,7 @@ public class Neo4jRunCatalog implements RunCatalog, Closeable {
 			aoNode.setProperty(AnnotOutputNodeProperty.ANNOTATION_COUNT.name(),
 					Integer.toString(ao.getAnnotationCount()));
 
-			Node docNode = getDocumentNodeById(ExternalIdentifierType.PUBMED, doc.getPmid());
+			Node docNode = getDocumentNodeById(ExternalIdentifierType.PMC, doc.getPmcid());
 
 			docNode.createRelationshipTo(aoNode, Relation.HAS_ANNOTATIONS);
 
@@ -446,6 +454,16 @@ public class Neo4jRunCatalog implements RunCatalog, Closeable {
 	}
 
 	private Node getDocumentNodeById(ExternalIdentifierType idType, String documentId) {
+		if (documentId.endsWith(".nxml.gz")) {
+			documentId = StringUtil.removeSuffix(documentId, ".nxml.gz");
+		}
+		try {
+			FileWriterUtil.printLines(CollectionsUtil.createList("================================================ GETTING NODE BY ID: " + documentId), new File("/tmp/log.txt"), CharacterEncoding.UTF_8, WriteMode.APPEND, FileSuffixEnforcement.OFF);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		logger.info("================================================ GETTING NODE BY ID: " + documentId);
 		Node docNode = null;
 		switch (idType) {
 		case PMC:
@@ -507,6 +525,12 @@ public class Neo4jRunCatalog implements RunCatalog, Closeable {
 		Set<File> annotFiles = new HashSet<File>();
 		try (Transaction tx = graphDb.beginTx()) {
 			Node docNode = getDocumentNodeById(idType, documentId);
+			try {
+				FileWriterUtil.printLines(CollectionsUtil.createList("********************* docnode is null: " + (docNode == null) + " -- documentId: " + documentId), new File("/tmp/log.txt"), CharacterEncoding.UTF_8, WriteMode.APPEND, FileSuffixEnforcement.OFF);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			for (Relationship r : docNode.getRelationships(Relation.HAS_ANNOTATIONS)) {
 				Node aoNode = r.getOtherNode(docNode);
 				AnnotationOutput ao = toAnnotationOutput(aoNode);
@@ -519,6 +543,12 @@ public class Neo4jRunCatalog implements RunCatalog, Closeable {
 	@Override
 	public void addFileVersionToDocument(Document d, File newFile, FileVersion fileVersion) {
 		try (Transaction tx = graphDb.beginTx()) {
+			try {
+				FileWriterUtil.printLines(CollectionsUtil.createList("********************* doc is null: " + (d == null)), new File("/tmp/log.txt"), CharacterEncoding.UTF_8, WriteMode.APPEND, FileSuffixEnforcement.OFF);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			Node docNode = getDocumentNodeById(ExternalIdentifierType.PMC, d.getPmcid());
 			switch (fileVersion) {
 			case SOURCE:
