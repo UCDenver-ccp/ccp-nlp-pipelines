@@ -19,20 +19,22 @@ import edu.ucdenver.ccp.nlp.pipelines.runlog.Neo4jRunCatalog;
 import edu.ucdenver.ccp.nlp.pipelines.runlog.RunCatalogUtil;
 import edu.ucdenver.ccp.nlp.pipelines.runlog.init.CatalogLoader_PMC_OA.DocumentMetadata;
 
-public class InitSampleCatalog {
+/**
+ * Catalog contains a file with invalid XML -- to use to test error handling
+ */
+public class InitSampleCatalogWithBrokenXml {
 
 	private static String pmcOaFileListSampleLines = "2017-01-17 15:07:51\n"
 			+ "oa_package/08/e0/PMC13900.tar.gz\tBreast Cancer Res. 2001 Nov 2; 3(1):55-60\tPMC13900\tPMID:11250746\tNO-CC CODE\n"
 			+ "oa_package/b0/ac/PMC13901.tar.gz\tBreast Cancer Res. 2001 Nov 9; 3(1):61-65\tPMC13901\tPMID:11250747\tNO-CC CODE";
 
-	@Ignore
 	@Test
 	public void testBuildSampleCatalog() throws IOException {
 		File baseDir = new File("/tmp");
 
-		File libraryBaseDir = new File(baseDir, "library_base");
-		File catalogDir = new File(baseDir, "catalog_base");
-		File pmcBulkBaseDir = new File(baseDir, "pmc_bulk");
+		File libraryBaseDir = new File(baseDir, "library_base_broken");
+		File catalogDir = new File(baseDir, "catalog_base_broken");
+		File pmcBulkBaseDir = new File(baseDir, "pmc_bulk_broken");
 
 		FileUtil.cleanDirectory(libraryBaseDir);
 		FileUtil.cleanDirectory(catalogDir);
@@ -43,7 +45,7 @@ public class InitSampleCatalog {
 
 		FileUtil.mkdir(doc1Nxml.getParentFile());
 
-		ClassPathUtil.copyClasspathResourceToFile("/edu/ucdenver/ccp/nlp/pipelines/runner/impl/sample_pmc.xml", doc1Nxml);
+		ClassPathUtil.copyClasspathResourceToFile("/edu/ucdenver/ccp/nlp/pipelines/runner/impl/sample_pmc.broken.xml", doc1Nxml);
 		ClassPathUtil.copyClasspathResourceToFile("/edu/ucdenver/ccp/nlp/pipelines/runner/impl/sample_pmc.xml", doc2Nxml);
 		FileArchiveUtil.gzipFile(doc1Nxml);
 		FileArchiveUtil.gzipFile(doc2Nxml);
@@ -69,7 +71,7 @@ public class InitSampleCatalog {
 	@Test
 	public void removeRunKey() {
 		File baseDir = new File("/tmp");
-		File catalogDir = new File(baseDir, "catalog_base");
+		File catalogDir = new File(baseDir, "catalog_base_broken");
 		
 		try (Neo4jRunCatalog catalog = new Neo4jRunCatalog(catalogDir);) {
 			catalog.removeRunKeyFromDocumentCollection(new PMC_OA_DocumentCollection().getShortname(), "CONCEPTMAPPER_CHEBI");
@@ -79,7 +81,7 @@ public class InitSampleCatalog {
 	@Test
 	public void getCatalogRunSummary() {
 		File baseDir = new File("/tmp");
-		File catalogDir = new File(baseDir, "catalog_base");
+		File catalogDir = new File(baseDir, "catalog_base_broken");
 		try (Neo4jRunCatalog catalog = new Neo4jRunCatalog(catalogDir);) {
 			RunCatalogUtil.getCatalogRunSummary(catalog);
 		}
