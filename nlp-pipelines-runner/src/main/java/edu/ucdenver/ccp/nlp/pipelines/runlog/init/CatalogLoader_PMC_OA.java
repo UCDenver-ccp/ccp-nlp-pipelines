@@ -63,7 +63,7 @@ public class CatalogLoader_PMC_OA {
 		 * plain text
 		 */
 		catalog.addDocumentCollection(dc);
-		catalog.addRunKeyToDocumentCollection(dc.getShortname(), PipelineKey.XML2TXT.name());
+		catalog.addRunKeyToDocumentCollection(dc.getShortname(), "sections");
 		int count = 0;
 		for (Iterator<File> fileIter = FileUtil.getFileIterator(bulkPmcBaseDirectory, true, ".nxml.gz"); fileIter
 				.hasNext();) {
