@@ -19,8 +19,9 @@ import edu.ucdenver.ccp.nlp.pipelines.runner.PipelineBase;
 import edu.ucdenver.ccp.nlp.pipelines.runner.PipelineKey;
 import edu.ucdenver.ccp.nlp.pipelines.runner.PipelineParams;
 import edu.ucdenver.ccp.nlp.pipelines.runner.RunCatalogAE;
+import edu.ucdenver.ccp.nlp.pipelines.runner.serialization.AnnotationSerializer.IncludeCoveredText;
+import edu.ucdenver.ccp.nlp.pipelines.runner.serialization.AnnotationSerializerAE;
 import edu.ucdenver.ccp.nlp.uima.serialization.txt.DocumentTextSerializerAE;
-import edu.ucdenver.ccp.nlp.uima.serialization.xmi.XmiPrinterAE;
 import edu.ucdenver.ccp.nlp.uima.shims.document.impl.CcpDocumentMetadataHandler;
 import edu.ucdenver.ccp.nlp.uima.util.TypeSystemUtil;
 import edu.ucdenver.ccp.nlp.uima.util.View;
@@ -30,18 +31,19 @@ public class PmcNxml2TxtPipeline extends PipelineBase {
 	private static final Logger logger = Logger.getLogger(PmcNxml2TxtPipeline.class);
 	private static final String AGGREGATE_DESCRIPTOR_PATH_ON_CLASSPATH = "/pipeline_descriptors/pmc_nxml2txt_aggregate.xml";
 
-	public PmcNxml2TxtPipeline(File catalogDirectory, File configDir, int numToProcess, String brokerUrl)
-			throws Exception {
+	public PmcNxml2TxtPipeline(File catalogDirectory, File configDir, int numToProcess, String brokerUrl,
+			int casPoolSize) throws Exception {
 		/*
 		 * this pipeline processes the native .nxml files, so we read in the
 		 * FileVersion.SOURCE version
 		 */
 		super(new PipelineParams(new PMC_OA_DocumentCollection().getShortname(), FileVersion.SOURCE,
-				CharacterEncoding.UTF_8, View.XML.viewName(), PipelineKey.XML2TXT, "pipeline description",
-				catalogDirectory, numToProcess, 0, brokerUrl), configDir);
+				CharacterEncoding.UTF_8, View.XML.viewName(), "sections",
+				"Generate plain text versions of each PMC nxml document in the corpus. Serialize the plain text "
+						+ "to file as well as an annotation file containing document section boundaries.",
+				catalogDirectory, numToProcess, 0, brokerUrl, casPoolSize), configDir);
 	}
 
-	
 	/**
 	 * @return the path to the aggregate descriptor on the classpath
 	 */
@@ -76,7 +78,7 @@ public class PmcNxml2TxtPipeline extends PipelineBase {
 			AnalysisEngineDescription xml2txtAeDesc = PmcDocumentConverterAE.getDescription(getPipelineTypeSystem(),
 					CharacterEncoding.UTF_8, View.XML.viewName());
 
-			int xml2txt_scaleup = 1;
+			int xml2txt_scaleup = getPipelineParams().getCasPoolSize();
 			int xml2txt_errorThreshold = 0;
 			String xml2txt_endpoint = "nxml2txtQ";
 
@@ -92,7 +94,7 @@ public class PmcNxml2TxtPipeline extends PipelineBase {
 					.getDescription_SaveToSourceFileDirectory(getPipelineTypeSystem(), CcpDocumentMetadataHandler.class,
 							View.XML.viewName(), View.DEFAULT.viewName(), true, ".txt");
 
-			int txtSerializer_scaleup = 1;
+			int txtSerializer_scaleup = getPipelineParams().getCasPoolSize()/2;
 			int txtSerializer_errorThreshold = 0;
 			String txtSerializer_endpoint = "txtSerializerQ";
 
@@ -104,25 +106,31 @@ public class PmcNxml2TxtPipeline extends PipelineBase {
 			engines.add(txtSerializerEngine);
 		}
 		{
-			/* configure the XMI-output AE */
-			AnalysisEngineDescription xmiPrinterAeDesc = XmiPrinterAE.getDescription_SaveToSourceFileDirectory(
-					getPipelineTypeSystem(), CcpDocumentMetadataHandler.class, "sections", true);
+			/* serialize the section annotations */
+			String sourceViewName = View.DEFAULT.viewName();
+			String outputViewName = View.DEFAULT.viewName();
+			boolean compressOutput = true;
+			String outputFileInfix = "sections";
+			AnalysisEngineDescription annotSerializerDesc = AnnotationSerializerAE
+					.getDescription_SaveToSourceFileDirectory(getPipelineTypeSystem(), CcpDocumentMetadataHandler.class,
+							sourceViewName, outputViewName, compressOutput, outputFileInfix, IncludeCoveredText.NO);
 
-			int xmiPrinter_scaleup = 1;
-			int xmiPrinter_errorThreshold = 0;
-			String xmiPrinter_endpoint = "xmiPrinterQ";
+			int annotSerializer_scaleup = getPipelineParams().getCasPoolSize()/2;
+			int annotSerializer_errorThreshold = 0;
+			String annotSerializer_endpoint = "annotSerializerQ";
 
-			DeploymentParams xmiPrinterDeployParams = new DeploymentParams("XMIPrinter", "Serializes the CAS to XMI.",
-					xmiPrinter_scaleup, xmiPrinter_errorThreshold, xmiPrinter_endpoint,
-					getPipelineParams().getBrokerUrl());
-			ServiceEngine xmiPrinterEngine = new ServiceEngine(xmiPrinterAeDesc, xmiPrinterDeployParams, "xmiPrinterAE",
-					DescriptorType.PRIMITIVE);
-			engines.add(xmiPrinterEngine);
+			DeploymentParams annotSerializerDeployParams = new DeploymentParams("AnnotSerializer",
+					"Serializes the annotations to file.", annotSerializer_scaleup, annotSerializer_errorThreshold,
+					annotSerializer_endpoint, getPipelineParams().getBrokerUrl());
+			ServiceEngine annotSerializerEngine = new ServiceEngine(annotSerializerDesc, annotSerializerDeployParams,
+					"annotSerializerAE", DescriptorType.PRIMITIVE);
+			engines.add(annotSerializerEngine);
 		}
 		{
 			/* configure catalog AE */
 			AnalysisEngineDescription catalogAeDesc = RunCatalogAE.getDescription(getPipelineTypeSystem(),
-					getPipelineParams().getCatalogDirectory(), CcpDocumentMetadataHandler.class);
+					getPipelineParams().getCatalogDirectory(), CcpDocumentMetadataHandler.class,
+					getPipelineParams().getPipelineKey());
 
 			int catalogAe_scaleup = 1;
 			int catalogAe_errorThreshold = 0;
@@ -151,13 +159,16 @@ public class PmcNxml2TxtPipeline extends PipelineBase {
 		File catalogDirectory = new File(args[0]);
 		File configDirectory = new File(args[1]);
 		String brokerUrl = args[2];
-		int numToProcess = 2; // <0 = process all
+		int numToProcess = -1; // <0 = process all
+		int casPoolSize = Integer.parseInt(args[3]);
 		logger.info("Starting PmcNxml2TxtPipeline...\nCatalog directory=" + catalogDirectory.getAbsolutePath()
 				+ "\nConfig directory=" + configDirectory.getAbsolutePath() + "\nNum-to-process=" + numToProcess
 				+ "\nBroker URL: " + brokerUrl);
+
 		try {
 			PmcNxml2TxtPipeline pipeline = new PmcNxml2TxtPipeline(catalogDirectory, configDirectory, numToProcess,
-					brokerUrl);
+					brokerUrl, casPoolSize);
+			pipeline.configurePipeline();
 
 			/* turn on debugging mode */
 			pipeline.setDebugFlag(true);

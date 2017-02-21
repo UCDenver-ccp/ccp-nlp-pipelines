@@ -15,12 +15,13 @@ public class PipelineParams {
 	 * name of the view that will be populated by the CollectionReader
 	 */
 	private final String viewName;
-	private final PipelineKey pipelineKey;
+	private final String pipelineKey;
 	private final String description;
 	private final File catalogDirectory;
 	private final int numToProcess;
 	private final int numToSkip;
 	private final String brokerUrl;
+	private final int casPoolSize;
 	
 	
 }
