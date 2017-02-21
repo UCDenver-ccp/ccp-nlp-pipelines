@@ -12,17 +12,17 @@ import edu.ucdenver.ccp.nlp.pipelines.runlog.Document.FileVersion;
 import edu.ucdenver.ccp.nlp.pipelines.runlog.ExternalIdentifier.ExternalIdentifierType;
 
 public interface RunCatalog extends AutoCloseable {
-	
+
 	public static DateTimeFormatter DATE_FORMATTER = ISODateTimeFormat.dateTime();
-	
+
 	public enum RunStatus {
-		COMPLETE, OUTSTANDING
+		COMPLETE, OUTSTANDING, ERROR
 	}
 
 	public void addDocumentCollection(DocumentCollection dc);
 
 	public void addDocument(Document d, DocumentCollection dc);
-	
+
 	public void addFileVersionToDocument(Document d, File newFile, FileVersion fileVersion);
 
 	public void addAnnotationPipeline(AnnotationPipeline ap);
@@ -30,7 +30,7 @@ public interface RunCatalog extends AutoCloseable {
 	public void addAnnotationOutput(Document d, AnnotationOutput ao);
 
 	public void close();
-	
+
 	/**
 	 * @param collection
 	 * @param runKey
@@ -50,6 +50,7 @@ public interface RunCatalog extends AutoCloseable {
 	 *         that are awaiting processing by the specified run-key.
 	 */
 	public Map<String, Map<RunStatus, Set<Document>>> getRunsMap(DocumentCollection collection);
+
 	public Map<String, Map<RunStatus, Set<Document>>> getRunsMap(String docCollectionShortName);
 
 	public Set<File> getAnnotationFilesForDocumentId(ExternalIdentifierType idType, String documentId, String runKey);
@@ -71,8 +72,13 @@ public interface RunCatalog extends AutoCloseable {
 
 	public void addRunKeyToDocumentCollection(String docCollectionShortName, String runKey);
 
+	public void removeRunKeyFromDocumentCollection(String docCollectionShortName, String runKey);
+
 	public int getDocumentCount(DocumentCollection dc);
 
 	public void removeEmptyDocumentCollections();
+
+	public void logError(String pipelineKey, ExternalIdentifierType idType, String documentId, String componentAtFault,
+			String errorMessage, String stackTrace);
 
 }

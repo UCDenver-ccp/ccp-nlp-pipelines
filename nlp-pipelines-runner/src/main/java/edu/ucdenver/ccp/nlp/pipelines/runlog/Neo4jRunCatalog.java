@@ -2,7 +2,6 @@ package edu.ucdenver.ccp.nlp.pipelines.runlog;
 
 import java.io.Closeable;
 import java.io.File;
-import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -27,10 +26,6 @@ import org.neo4j.graphdb.schema.IndexDefinition;
 import org.neo4j.graphdb.schema.Schema;
 
 import edu.ucdenver.ccp.common.collections.CollectionsUtil;
-import edu.ucdenver.ccp.common.file.CharacterEncoding;
-import edu.ucdenver.ccp.common.file.FileWriterUtil;
-import edu.ucdenver.ccp.common.file.FileWriterUtil.FileSuffixEnforcement;
-import edu.ucdenver.ccp.common.file.FileWriterUtil.WriteMode;
 import edu.ucdenver.ccp.common.string.StringUtil;
 import edu.ucdenver.ccp.nlp.pipelines.runlog.Document.FileType;
 import edu.ucdenver.ccp.nlp.pipelines.runlog.Document.FileVersion;
@@ -61,7 +56,7 @@ public class Neo4jRunCatalog implements RunCatalog, Closeable {
 	}
 
 	private static enum DocNodeProperty {
-		PMID, PMCID, LOCAL_TEXT_FILE, LOCAL_SOURCE_FILE, REMOTE_SOURCE_FILE, SOURCE_FILE_TYPE, SOURCE_FILE_LICENSE, JOURNAL, CITATION
+		PMID, PMCID, LOCAL_TEXT_FILE, LOCAL_SOURCE_FILE, REMOTE_SOURCE_FILE, SOURCE_FILE_TYPE, SOURCE_FILE_LICENSE, JOURNAL, CITATION, ERROR_MESSAGE, ERROR_STACKTRACE, ERROR_COMPONENT_AT_FAULT, ERROR_PIPELINE_KEY
 	}
 
 	private static enum AnnotPipelineNodeProperty {
@@ -76,18 +71,35 @@ public class Neo4jRunCatalog implements RunCatalog, Closeable {
 		SOURCE, ID
 	}
 
+	boolean catalogIsUp = false;
+
 	public Neo4jRunCatalog(File catalogDirectory) {
+		logger.info("==============================================================================================");
+		logger.info("================================== Initializing Run Catalog ==================================");
+		logger.info("==============================================================================================");
 		this.catalogDirectory = catalogDirectory;
+		graphDb = new GraphDatabaseFactory().newEmbeddedDatabase(catalogDirectory);
+		catalogIsUp = true;
 		resetNeo4jConnection();
-		logger.info("+++++++++++++++++++++++++++++++++++++++++++++DOCUMENT COLLECTIONS: "
-				+ getDocumentCollections().toString());
-		// registerShutdownHook(graphDb);
+		registerShutdownHook(graphDb);
 	}
 
 	private void resetNeo4jConnection() {
-		if (graphDb == null || !graphDb.isAvailable(1000)) {
+		if (!catalogIsUp) {
 			graphDb = new GraphDatabaseFactory().newEmbeddedDatabase(catalogDirectory);
 		}
+		// if (graphDb != null) {
+		// graphDb.shutdown();
+		// graphDb = new
+		// GraphDatabaseFactory().newEmbeddedDatabase(catalogDirectory);
+		// } else {
+		// graphDb = new
+		// GraphDatabaseFactory().newEmbeddedDatabase(catalogDirectory);
+		// }
+		// if (graphDb == null || !graphDb.isAvailable(5000)) {
+		// graphDb = new
+		// GraphDatabaseFactory().newEmbeddedDatabase(catalogDirectory);
+		// }
 	}
 
 	private static void registerShutdownHook(final GraphDatabaseService graphDb) {
@@ -104,8 +116,9 @@ public class Neo4jRunCatalog implements RunCatalog, Closeable {
 
 	@Override
 	public void close() {
-		logger.info("Shutting down catalog...");
+		logger.info("Shutting down Neo4j run catalog...");
 		graphDb.shutdown();
+		catalogIsUp = false;
 	}
 
 	public void initializeIndexes() {
@@ -171,6 +184,23 @@ public class Neo4jRunCatalog implements RunCatalog, Closeable {
 		try (Transaction tx = graphDb.beginTx()) {
 			Node dcNode = getDocumentCollectionNodeByShortName(shortname);
 			updateRunKeysForDocCollectionNode(newKey, dcNode);
+			tx.success();
+		}
+	}
+
+	@Override
+	public void removeRunKeyFromDocumentCollection(String docCollectionShortName, String keyToRemove) {
+		resetNeo4jConnection();
+		try (Transaction tx = graphDb.beginTx()) {
+			Node dcNode = getDocumentCollectionNodeByShortName(docCollectionShortName);
+			DocumentCollection dc = toDocumentCollection(dcNode);
+			Set<String> runKeys = dc.getRunKeys();
+			if (runKeys != null && runKeys.contains(keyToRemove)) {
+				runKeys.remove(keyToRemove);
+				dcNode.removeProperty(DocCollectionNodeProperty.RUN_KEYS.name());
+				dcNode.setProperty(DocCollectionNodeProperty.RUN_KEYS.name(),
+						runKeys.toArray(new String[runKeys.size()]));
+			}
 			tx.success();
 		}
 	}
@@ -420,12 +450,15 @@ public class Neo4jRunCatalog implements RunCatalog, Closeable {
 	}
 
 	/*
-	 * map from runkey to runstatus (completed, outstanding) to documents
+	 * map from runkey to runstatus (completed, outstanding, or error) to
+	 * documents
 	 */
 	@Override
 	public Map<String, Map<RunStatus, Set<Document>>> getRunsMap(String docCollectionShortName) {
 
 		if (getDocumentCollectionNodeByShortName(docCollectionShortName) == null) {
+			logger.warn("Cannot return runs map for collection: " + docCollectionShortName
+					+ " as there is no collection by that name.");
 			return null;
 		}
 
@@ -449,8 +482,14 @@ public class Neo4jRunCatalog implements RunCatalog, Closeable {
 				docRunKeys.forEach(key -> CollectionsUtil.addToOne2ManyUniqueMap(RunStatus.COMPLETE, d, map.get(key)));
 				Set<String> possibleRunKeys = new HashSet<String>(runKeys);
 				possibleRunKeys.removeAll(docRunKeys);
+				if (docNode.hasProperty(DocNodeProperty.ERROR_PIPELINE_KEY.name())) {
+					String key = docNode.getProperty(DocNodeProperty.ERROR_PIPELINE_KEY.name()).toString();
+					CollectionsUtil.addToOne2ManyUniqueMap(RunStatus.ERROR, d, map.get(key));
+					possibleRunKeys.remove(key);
+				}
 				possibleRunKeys
 						.forEach(key -> CollectionsUtil.addToOne2ManyUniqueMap(RunStatus.OUTSTANDING, d, map.get(key)));
+
 			}
 		}
 		return map;
@@ -478,17 +517,9 @@ public class Neo4jRunCatalog implements RunCatalog, Closeable {
 	private Node getDocumentNodeById(ExternalIdentifierType idType, String documentId) {
 		if (documentId.endsWith(".nxml.gz")) {
 			documentId = StringUtil.removeSuffix(documentId, ".nxml.gz");
+		} else if (documentId.endsWith(".nxml.gz.txt.gz")) {
+			documentId = StringUtil.removeSuffix(documentId, ".nxml.gz.txt.gz");
 		}
-		try {
-			FileWriterUtil.printLines(
-					CollectionsUtil.createList(
-							"================================================ GETTING NODE BY ID: " + documentId),
-					new File("/tmp/log.txt"), CharacterEncoding.UTF_8, WriteMode.APPEND, FileSuffixEnforcement.OFF);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		logger.info("================================================ GETTING NODE BY ID: " + documentId);
 		Node docNode = null;
 		switch (idType) {
 		case PMC:
@@ -551,15 +582,6 @@ public class Neo4jRunCatalog implements RunCatalog, Closeable {
 		resetNeo4jConnection();
 		try (Transaction tx = graphDb.beginTx()) {
 			Node docNode = getDocumentNodeById(idType, documentId);
-			try {
-				FileWriterUtil.printLines(
-						CollectionsUtil.createList("********************* docnode is null: " + (docNode == null)
-								+ " -- documentId: " + documentId),
-						new File("/tmp/log.txt"), CharacterEncoding.UTF_8, WriteMode.APPEND, FileSuffixEnforcement.OFF);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 			for (Relationship r : docNode.getRelationships(Relation.HAS_ANNOTATIONS)) {
 				Node aoNode = r.getOtherNode(docNode);
 				AnnotationOutput ao = toAnnotationOutput(aoNode);
@@ -573,14 +595,6 @@ public class Neo4jRunCatalog implements RunCatalog, Closeable {
 	public void addFileVersionToDocument(Document d, File newFile, FileVersion fileVersion) {
 		resetNeo4jConnection();
 		try (Transaction tx = graphDb.beginTx()) {
-			try {
-				FileWriterUtil.printLines(
-						CollectionsUtil.createList("********************* doc is null: " + (d == null)),
-						new File("/tmp/log.txt"), CharacterEncoding.UTF_8, WriteMode.APPEND, FileSuffixEnforcement.OFF);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 			Node docNode = getDocumentNodeById(ExternalIdentifierType.PMC, d.getPmcid());
 			switch (fileVersion) {
 			case SOURCE:
@@ -643,6 +657,23 @@ public class Neo4jRunCatalog implements RunCatalog, Closeable {
 			}
 			tx.success();
 		}
+	}
+
+	@Override
+	public void logError(String pipelineKey, ExternalIdentifierType idType, String documentId, String componentAtFault,
+			String errorMessage, String stackTrace) {
+		resetNeo4jConnection();
+		try (Transaction tx = graphDb.beginTx()) {
+			Node docNode = getDocumentNodeById(idType, documentId);
+			docNode.setProperty(DocNodeProperty.ERROR_MESSAGE.name(), errorMessage);
+			docNode.setProperty(DocNodeProperty.ERROR_COMPONENT_AT_FAULT.name(), componentAtFault);
+			docNode.setProperty(DocNodeProperty.ERROR_PIPELINE_KEY.name(), pipelineKey);
+			if (stackTrace != null) {
+				docNode.setProperty(DocNodeProperty.ERROR_STACKTRACE.name(), stackTrace);
+			}
+			tx.success();
+		}
+
 	}
 
 }

@@ -27,10 +27,10 @@ public class RunCatalogUtil {
 		System.out.println("-----------------  Pipeline Run Summaries  -----------------\n");
 		for (DocumentCollection dc : documentCollections) {
 			System.out.println("  ========== " + dc.getLongname() + " ==========");
-			Map<String, Map<RunStatus, Set<Document>>> missingRunsMap = catalog.getRunsMap(dc);
-			Map<String, Map<RunStatus, Set<Document>>> sortedMap = CollectionsUtil.sortMapByKeys(missingRunsMap,
+			Map<String, Map<RunStatus, Set<Document>>> runsMap = catalog.getRunsMap(dc);
+			Map<String, Map<RunStatus, Set<Document>>> sortedRunsMap = CollectionsUtil.sortMapByKeys(runsMap,
 					SortOrder.ASCENDING);
-			for (Entry<String, Map<RunStatus, Set<Document>>> entry : sortedMap.entrySet()) {
+			for (Entry<String, Map<RunStatus, Set<Document>>> entry : sortedRunsMap.entrySet()) {
 				int completeCount = 0;
 				if (entry.getValue().containsKey(RunStatus.COMPLETE)) {
 					completeCount = entry.getValue().get(RunStatus.COMPLETE).size();
@@ -39,9 +39,13 @@ public class RunCatalogUtil {
 				if (entry.getValue().containsKey(RunStatus.OUTSTANDING)) {
 					outstandingCount = entry.getValue().get(RunStatus.OUTSTANDING).size();
 				}
-				int totalCount = completeCount + outstandingCount;
-				System.out.println(entry.getKey() + " Total: " + totalCount + " Complete: " + completeCount
-						+ " Outstanding: " + outstandingCount);
+				int errorCount = 0;
+				if (entry.getValue().containsKey(RunStatus.ERROR)) {
+					errorCount = entry.getValue().get(RunStatus.ERROR).size();
+				}
+				int totalCount = completeCount + outstandingCount + errorCount;
+				System.out.println(entry.getKey() + "\tTotal: " + totalCount + "\tComplete: " + completeCount
+						+ "\tOutstanding: " + outstandingCount + "\tError: " + errorCount);
 
 			}
 			System.out.println();
