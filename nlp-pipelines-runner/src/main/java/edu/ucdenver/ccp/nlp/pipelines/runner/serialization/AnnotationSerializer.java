@@ -3,17 +3,21 @@ package edu.ucdenver.ccp.nlp.pipelines.runner.serialization;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import edu.ucdenver.ccp.common.string.RegExPatterns;
 import edu.ucdenver.ccp.common.string.StringConstants;
+import edu.ucdenver.ccp.common.string.StringUtil;
 import edu.ucdenver.ccp.nlp.core.annotation.Annotator;
 import edu.ucdenver.ccp.nlp.core.annotation.Span;
 import edu.ucdenver.ccp.nlp.core.annotation.TextAnnotation;
-import edu.ucdenver.ccp.nlp.core.annotation.TextAnnotationFactory;
 import edu.ucdenver.ccp.nlp.core.annotation.impl.DefaultTextAnnotation;
 import edu.ucdenver.ccp.nlp.core.mention.ClassMention;
 import edu.ucdenver.ccp.nlp.core.mention.impl.DefaultClassMention;
 
 public class AnnotationSerializer {
+
+	private static final Logger logger = Logger.getLogger(AnnotationSerializer.class);
 
 	private static final String DELIMITER = StringConstants.TAB;
 	private static final String DELIMITER_REGEX = RegExPatterns.TAB;
@@ -26,18 +30,37 @@ public class AnnotationSerializer {
 		YES, NO
 	}
 
+	public enum IncludeAnnotator {
+		YES, NO
+	}
+
 	/**
 	 * @param annot
 	 * @return simple serialization string for annotation storage using the
 	 *         format:
 	 */
-	public static String toString(TextAnnotation annot, IncludeCoveredText includeCoveredText) {
+	public static String toString(TextAnnotation annot, IncludeCoveredText includeCoveredText,
+			IncludeAnnotator includeAnnotator, String docIdSuffixToRemove) {
+
+		String documentId = annot.getDocumentID();
+		if (docIdSuffixToRemove != null) {
+			try {
+				documentId = StringUtil.removeSuffix(documentId, docIdSuffixToRemove);
+			} catch (IllegalArgumentException e) {
+				logger.warn("Unable to remove document ID suffix. " + e.getMessage());
+			}
+		}
+
+		String annotator = annot.getAnnotator().getFirstName();
+		if (includeAnnotator == IncludeAnnotator.NO) {
+			annotator = null;
+		}
+
 		/* ensure the annotation is a simple concept (no slots) */
 		if (annot.getClassMention().getComplexSlotMentions().isEmpty()
 				&& annot.getClassMention().getPrimitiveSlotMentions().isEmpty()) {
-			return getStorageLine(annot.getDocumentID(), annot.getAnnotator().getFirstName(),
-					annot.getClassMention().getMentionName(), annot.getCoveredText(), annot.getSpans(),
-					includeCoveredText);
+			return getStorageLine(documentId, annotator, annot.getClassMention().getMentionName(),
+					annot.getCoveredText(), annot.getSpans(), includeCoveredText);
 		} else {
 			throw new IllegalStateException("Detected annotations with slots. This serialization "
 					+ "format does not handle slot fillers currently: " + annot.toString());
@@ -47,8 +70,10 @@ public class AnnotationSerializer {
 
 	private static String getStorageLine(String documentId, String annotatorFirstName, String mentionName,
 			String coveredText, List<Span> spans, IncludeCoveredText includeCoveredText) {
-		String outLine = documentId + DELIMITER + annotatorFirstName + DELIMITER + mentionName + DELIMITER
-				+ ((includeCoveredText == IncludeCoveredText.YES) ? coveredText : "");
+
+		String outLine = documentId + ((annotatorFirstName != null) ? (DELIMITER + annotatorFirstName) : "") + DELIMITER
+				+ mentionName.toLowerCase() + ((includeCoveredText == IncludeCoveredText.YES)
+						? (DELIMITER + coveredText.replaceAll("\\n", " ")) : "");
 		for (Span span : spans) {
 			outLine += (DELIMITER + span.toString());
 		}
@@ -69,7 +94,8 @@ public class AnnotationSerializer {
 			spans.add(span);
 		}
 
-//		TextAnnotationFactory factory = TextAnnotationFactory.createFactoryWithDefaults();
+		// TextAnnotationFactory factory =
+		// TextAnnotationFactory.createFactoryWithDefaults();
 		// TODO: eventually use: TextAnnotationFactory.createFromString(s) when
 		// we need more complicated representation
 		TextAnnotation annot = new DefaultTextAnnotation(spans);

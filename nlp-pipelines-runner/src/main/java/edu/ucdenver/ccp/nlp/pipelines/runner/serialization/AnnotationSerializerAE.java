@@ -32,6 +32,7 @@ import edu.ucdenver.ccp.common.reflection.ConstructorUtil;
 import edu.ucdenver.ccp.nlp.core.uima.annotation.CCPTextAnnotation;
 import edu.ucdenver.ccp.nlp.pipelines.log.AnnotationOutputLog;
 import edu.ucdenver.ccp.nlp.pipelines.log.ProcessingErrorLog;
+import edu.ucdenver.ccp.nlp.pipelines.runner.serialization.AnnotationSerializer.IncludeAnnotator;
 import edu.ucdenver.ccp.nlp.pipelines.runner.serialization.AnnotationSerializer.IncludeCoveredText;
 import edu.ucdenver.ccp.nlp.uima.annotation.impl.WrappedCCPTextAnnotation;
 import edu.ucdenver.ccp.nlp.uima.shims.ShimDefaults;
@@ -75,6 +76,14 @@ public class AnnotationSerializerAE extends JCasAnnotator_ImplBase {
 	public static final String PARAM_INCLUDE_COVERED_TEXT = "includeCoveredText";
 	@ConfigurationParameter(mandatory = false, description = "", defaultValue = "true")
 	private boolean includeCoveredText;
+
+	public static final String PARAM_INCLUDE_ANNOTATOR = "includeAnnotator";
+	@ConfigurationParameter(mandatory = false, description = "", defaultValue = "true")
+	private boolean includeAnnotator;
+
+	public static final String PARAM_REMOVE_DOC_ID_SUFFIX = "docIdSuffixToRemove";
+	@ConfigurationParameter(mandatory = false, description = "If set, this suffix is removed from all document id's before serialization")
+	private String docIdSuffixToRemove;
 
 	public static final String PARAM_OUTPUT_FILENAME_INFIX = "outputFilenameInfix";
 	@ConfigurationParameter(mandatory = false, description = "An option string that, if not null, is appended to the output file. "
@@ -154,7 +163,8 @@ public class AnnotationSerializerAE extends JCasAnnotator_ImplBase {
 				CCPTextAnnotation annot = annotIter.next();
 				WrappedCCPTextAnnotation ta = new WrappedCCPTextAnnotation(annot);
 				String storageString = AnnotationSerializer.toString(ta,
-						(includeCoveredText ? IncludeCoveredText.YES : IncludeCoveredText.NO));
+						(includeCoveredText ? IncludeCoveredText.YES : IncludeCoveredText.NO),
+						(includeAnnotator ? IncludeAnnotator.YES : IncludeAnnotator.NO), docIdSuffixToRemove);
 				writer.write(storageString + "\n");
 			}
 
@@ -249,6 +259,19 @@ public class AnnotationSerializerAE extends JCasAnnotator_ImplBase {
 				sourceViewName, PARAM_OUTPUT_VIEW_NAME, outputViewName, PARAM_COMPRESS_OUTPUT_FLAG, compressOutput,
 				PARAM_OUTPUT_FILENAME_INFIX, outputFileInfix, PARAM_INCLUDE_COVERED_TEXT,
 				includeCoveredText == IncludeCoveredText.YES);
+	}
+
+	public static AnalysisEngineDescription getDescription_SaveToSourceFileDirectory(TypeSystemDescription tsd,
+			Class<? extends DocumentMetadataHandler> documentMetadataHandlerClass, String sourceViewName,
+			String outputViewName, boolean compressOutput, String outputFileInfix,
+			IncludeCoveredText includeCoveredText, IncludeAnnotator includeAnnotator, String docIdSuffixToRemove)
+			throws ResourceInitializationException {
+		return AnalysisEngineFactory.createEngineDescription(AnnotationSerializerAE.class, tsd,
+				PARAM_DOCUMENT_METADATA_HANDLER_CLASS, documentMetadataHandlerClass, PARAM_SOURCE_VIEW_NAME,
+				sourceViewName, PARAM_OUTPUT_VIEW_NAME, outputViewName, PARAM_COMPRESS_OUTPUT_FLAG, compressOutput,
+				PARAM_OUTPUT_FILENAME_INFIX, outputFileInfix, PARAM_INCLUDE_COVERED_TEXT,
+				includeCoveredText == IncludeCoveredText.YES, PARAM_INCLUDE_ANNOTATOR,
+				includeAnnotator == IncludeAnnotator.YES, PARAM_REMOVE_DOC_ID_SUFFIX, docIdSuffixToRemove);
 	}
 
 }
