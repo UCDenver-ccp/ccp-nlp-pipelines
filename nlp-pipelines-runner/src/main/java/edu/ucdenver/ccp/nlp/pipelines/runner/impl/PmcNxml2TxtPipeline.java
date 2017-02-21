@@ -73,12 +73,13 @@ public class PmcNxml2TxtPipeline extends PipelineBase {
 	@Override
 	protected List<ServiceEngine> createServiceEngines() throws ResourceInitializationException {
 		List<ServiceEngine> engines = new ArrayList<ServiceEngine>();
+		int casPoolSize = getPipelineParams().getCasPoolSize();
 		{
 			/* configure the XML2TXT AE */
 			AnalysisEngineDescription xml2txtAeDesc = PmcDocumentConverterAE.getDescription(getPipelineTypeSystem(),
 					CharacterEncoding.UTF_8, View.XML.viewName());
 
-			int xml2txt_scaleup = getPipelineParams().getCasPoolSize();
+			int xml2txt_scaleup = casPoolSize;
 			int xml2txt_errorThreshold = 0;
 			String xml2txt_endpoint = "nxml2txtQ";
 
@@ -94,7 +95,7 @@ public class PmcNxml2TxtPipeline extends PipelineBase {
 					.getDescription_SaveToSourceFileDirectory(getPipelineTypeSystem(), CcpDocumentMetadataHandler.class,
 							View.XML.viewName(), View.DEFAULT.viewName(), true, ".txt");
 
-			int txtSerializer_scaleup = getPipelineParams().getCasPoolSize()/2;
+			int txtSerializer_scaleup = (casPoolSize > 1) ? casPoolSize / 2 : 1;
 			int txtSerializer_errorThreshold = 0;
 			String txtSerializer_endpoint = "txtSerializerQ";
 
@@ -115,7 +116,7 @@ public class PmcNxml2TxtPipeline extends PipelineBase {
 					.getDescription_SaveToSourceFileDirectory(getPipelineTypeSystem(), CcpDocumentMetadataHandler.class,
 							sourceViewName, outputViewName, compressOutput, outputFileInfix, IncludeCoveredText.NO);
 
-			int annotSerializer_scaleup = getPipelineParams().getCasPoolSize()/2;
+			int annotSerializer_scaleup = (casPoolSize > 1) ? casPoolSize / 2 : 1;
 			int annotSerializer_errorThreshold = 0;
 			String annotSerializer_endpoint = "annotSerializerQ";
 

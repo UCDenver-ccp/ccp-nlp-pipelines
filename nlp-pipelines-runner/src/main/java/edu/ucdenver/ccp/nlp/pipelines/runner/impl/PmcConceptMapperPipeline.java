@@ -82,13 +82,14 @@ public class PmcConceptMapperPipeline extends PipelineBase {
 	protected List<ServiceEngine> createServiceEngines() throws ResourceInitializationException {
 		List<ServiceEngine> engines = new ArrayList<ServiceEngine>();
 
+		int casPoolSize = getPipelineParams().getCasPoolSize();
 		{
 			/* configure the sentence detector AE */
 			boolean treatLineBreaksAsSentenceBoundaries = true;
 			AnalysisEngineDescription sentenceDetecterDesc = OpenNlpSentenceDetectorAE.createAnalysisEngineDescription(
 					getPipelineTypeSystem(), ExplicitSentenceCasInserter.class, treatLineBreaksAsSentenceBoundaries);
 
-			int sentdetect_scaleup = getPipelineParams().getCasPoolSize();
+			int sentdetect_scaleup = casPoolSize;
 			int sentdetect_errorThreshold = 0;
 			String sentdetect_endpoint = "sentdetectQ";
 
@@ -123,7 +124,7 @@ public class PmcConceptMapperPipeline extends PipelineBase {
 					cmAeDescriptions.toArray(new AnalysisEngineDescription[cmAeDescriptions.size()]));
 
 			conceptMapperAeDesc.setAnnotatorImplementationName("conceptmapper");
-			int conceptMapper_scaleup = getPipelineParams().getCasPoolSize();
+			int conceptMapper_scaleup = casPoolSize;
 			int conceptMapper_errorThreshold = 0;
 			String conceptMapper_endpoint = "conceptMapperQ";
 
@@ -134,7 +135,6 @@ public class PmcConceptMapperPipeline extends PipelineBase {
 					"conceptMapperAAE", DescriptorType.PRIMITIVE);
 			engines.add(conceptMapperEngine);
 		}
-		/* TODO: add sentence removal filter here? */
 		{
 			/* serialize the conceptmapper annotations */
 			String sourceViewName = View.DEFAULT.viewName();
@@ -145,7 +145,7 @@ public class PmcConceptMapperPipeline extends PipelineBase {
 					.getDescription_SaveToSourceFileDirectory(getPipelineTypeSystem(), CcpDocumentMetadataHandler.class,
 							sourceViewName, outputViewName, compressOutput, outputFileInfix, IncludeCoveredText.NO);
 
-			int annotSerializer_scaleup = getPipelineParams().getCasPoolSize() / 2;
+			int annotSerializer_scaleup =  (casPoolSize > 1) ? casPoolSize / 2 : 1;
 			int annotSerializer_errorThreshold = 0;
 			String annotSerializer_endpoint = "annotSerializerQ";
 
@@ -198,11 +198,11 @@ public class PmcConceptMapperPipeline extends PipelineBase {
 		String brokerUrl = args[2];
 		int numToProcess = -1; // <0 = process all
 		int casPoolSize = Integer.parseInt(args[3]);
-		ConceptMapperParams conceptMapperParams = ConceptMapperParams.valueOf(args[3]);
-		File dictionaryDirectory = new File(args[4]);
-		logger.info("Starting PmcNxml2TxtPipeline...\nCatalog directory=" + catalogDirectory.getAbsolutePath()
+		ConceptMapperParams conceptMapperParams = ConceptMapperParams.valueOf(args[4]);
+		File dictionaryDirectory = new File(args[5]);
+		logger.info("Starting PMC ConceptMapper Pipeline...\nCatalog directory=" + catalogDirectory.getAbsolutePath()
 				+ "\nConfig directory=" + configDirectory.getAbsolutePath() + "\nNum-to-process=" + numToProcess
-				+ "\nBroker URL: " + brokerUrl);
+				+ "\nBroker URL: " + brokerUrl + "\nConceptMapperParam: " + conceptMapperParams.name());
 		try {
 			PmcConceptMapperPipeline pipeline = new PmcConceptMapperPipeline(catalogDirectory, configDirectory,
 					numToProcess, brokerUrl, conceptMapperParams,
