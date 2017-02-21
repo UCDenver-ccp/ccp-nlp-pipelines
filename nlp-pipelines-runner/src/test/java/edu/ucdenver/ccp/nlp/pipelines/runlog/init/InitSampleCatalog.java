@@ -72,10 +72,12 @@ public class InitSampleCatalog {
 		File catalogDir = new File(baseDir, "catalog_base");
 		
 		try (Neo4jRunCatalog catalog = new Neo4jRunCatalog(catalogDir);) {
-			catalog.removeRunKeyFromDocumentCollection(new PMC_OA_DocumentCollection().getShortname(), "CONCEPTMAPPER_CHEBI");
+			catalog.removeRunKeyFromDocumentCollection(new PMC_OA_DocumentCollection().getShortname(), "ANNOT_SERIALIZATION");
+//			catalog.removeRunKeyFromDocumentCollection(new PMC_OA_DocumentCollection().getShortname(), "CONCEPTMAPPER_NCBI_TAXON");
 		}
 	}
 	
+	@Ignore
 	@Test
 	public void getCatalogRunSummary() {
 		File baseDir = new File("/tmp");

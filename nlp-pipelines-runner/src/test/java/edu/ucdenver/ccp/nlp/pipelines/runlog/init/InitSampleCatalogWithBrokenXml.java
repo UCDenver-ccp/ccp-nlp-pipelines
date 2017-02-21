@@ -28,6 +28,7 @@ public class InitSampleCatalogWithBrokenXml {
 			+ "oa_package/08/e0/PMC13900.tar.gz\tBreast Cancer Res. 2001 Nov 2; 3(1):55-60\tPMC13900\tPMID:11250746\tNO-CC CODE\n"
 			+ "oa_package/b0/ac/PMC13901.tar.gz\tBreast Cancer Res. 2001 Nov 9; 3(1):61-65\tPMC13901\tPMID:11250747\tNO-CC CODE";
 
+	@Ignore
 	@Test
 	public void testBuildSampleCatalog() throws IOException {
 		File baseDir = new File("/tmp");
@@ -78,6 +79,7 @@ public class InitSampleCatalogWithBrokenXml {
 		}
 	}
 	
+	@Ignore
 	@Test
 	public void getCatalogRunSummary() {
 		File baseDir = new File("/tmp");
