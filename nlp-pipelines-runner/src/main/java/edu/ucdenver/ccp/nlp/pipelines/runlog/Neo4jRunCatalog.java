@@ -201,6 +201,30 @@ public class Neo4jRunCatalog implements RunCatalog, Closeable {
 				dcNode.setProperty(DocCollectionNodeProperty.RUN_KEYS.name(),
 						runKeys.toArray(new String[runKeys.size()]));
 			}
+
+			List<Relationship> relationsToRemove = new ArrayList<Relationship>();
+			List<Node> annotationOutputNodesToRemove = new ArrayList<Node>();
+			for (Relationship r : dcNode.getRelationships(Relation.HAS_MEMBER)) {
+				Node docNode = r.getOtherNode(dcNode);
+				for (Relationship hasAnnot : docNode.getRelationships(Relation.HAS_ANNOTATIONS)) {
+					Node aoNode = hasAnnot.getOtherNode(docNode);
+					String runkey = toAnnotationOutput(aoNode).getRunKey();
+					if (runkey.equals(keyToRemove)) {
+						relationsToRemove.add(hasAnnot);
+						annotationOutputNodesToRemove.add(aoNode);
+					}
+				}
+			}
+
+			relationsToRemove.forEach(r -> r.delete());
+			annotationOutputNodesToRemove.forEach(n -> {
+				String filePath = n.getProperty(AnnotOutputNodeProperty.LOCAL_ANNOTATION_FILE.name()).toString();
+				File annotFile = new File(filePath);
+				if (annotFile.exists()) {
+					annotFile.delete();
+				}
+				n.delete();
+			});
 			tx.success();
 		}
 	}
