@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -16,6 +17,9 @@ import org.apache.uima.UimaContext;
 import org.apache.uima.collection.CollectionException;
 import org.apache.uima.fit.descriptor.ConfigurationParameter;
 import org.apache.uima.resource.ResourceInitializationException;
+import org.apache.uima.util.Level;
+import org.apache.uima.util.Logger;
+import org.semanticweb.owlapi.io.SystemOutDocumentTarget;
 
 import edu.ucdenver.ccp.common.file.FileUtil;
 import edu.ucdenver.ccp.nlp.core.document.GenericDocument;
@@ -43,12 +47,18 @@ public abstract class RunCatalogCollectionReader extends BaseTextCollectionReade
 	private Iterator<File> fileToProcessIter = null;
 
 	private int fileToProcessCount = -1;
+	private Logger logger;
 
 	@Override
 	protected void initializeImplementation(UimaContext context) throws ResourceInitializationException {
+		logger = context.getLogger();
 		try (RunCatalog catalog = initRunCatalog(context)) {
+			Set<String> runkeys = new HashSet<String>(
+					catalog.getDocumentCollectionRunKeys(documentCollectionShortName));
+			if (!runkeys.contains(pipelineRunKey)) {
+				catalog.addRunKeyToDocumentCollection(documentCollectionShortName, pipelineRunKey);
+			}
 			Map<RunStatus, Set<Document>> runMap = catalog.getRunsMap(documentCollectionShortName).get(pipelineRunKey);
-			// TODO: probably need handling for case when pipelinerunkey doesn't yet exist -- so add it and process all docs
 			if (runMap.containsKey(RunStatus.OUTSTANDING)) {
 				Set<Document> docsToProcess = runMap.get(RunStatus.OUTSTANDING);
 				List<File> filesToProcess = new ArrayList<File>();
@@ -90,7 +100,11 @@ public abstract class RunCatalogCollectionReader extends BaseTextCollectionReade
 
 	@Override
 	protected boolean hasNextDocument() throws IOException, CollectionException {
-		return fileToProcessIter.hasNext();
+		if (fileToProcessIter != null) {
+			return fileToProcessIter.hasNext();
+		}
+		logger.log(Level.INFO, "There are no more documents to process for run key: " + pipelineRunKey);
+		return false;
 	}
 
 	@Override
