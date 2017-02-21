@@ -6,14 +6,13 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.apache.uima.aae.client.UimaAsBaseCallbackListener;
 import org.apache.uima.aae.client.UimaAsynchronousEngine;
+import org.apache.uima.aae.jms_adapter.JmsAnalysisEngineServiceAdapter;
 import org.apache.uima.adapter.jms.client.BaseUIMAAsynchronousEngine_impl;
 import org.apache.uima.analysis_engine.AnalysisEngine;
 import org.apache.uima.analysis_engine.AnalysisEngineDescription;
@@ -25,11 +24,16 @@ import org.apache.uima.fit.factory.AnalysisEngineFactory;
 import org.apache.uima.fit.factory.CollectionReaderFactory;
 import org.apache.uima.fit.factory.FlowControllerFactory;
 import org.apache.uima.flow.FlowControllerDescription;
+import org.apache.uima.resource.Parameter;
 import org.apache.uima.resource.ResourceInitializationException;
+import org.apache.uima.resource.impl.CustomResourceSpecifier_impl;
+import org.apache.uima.resource.impl.Parameter_impl;
 import org.apache.uima.resource.metadata.TypeSystemDescription;
 import org.apache.uima.resourceSpecifier.factory.DelegateConfiguration;
 import org.apache.uima.resourceSpecifier.factory.DeploymentDescriptorFactory;
 import org.apache.uima.resourceSpecifier.factory.ErrorHandlingSettings;
+import org.apache.uima.resourceSpecifier.factory.RemoteDelegateConfiguration;
+import org.apache.uima.resourceSpecifier.factory.SerializationStrategy;
 import org.apache.uima.resourceSpecifier.factory.ServiceContext;
 import org.apache.uima.resourceSpecifier.factory.UimaASAggregateDeploymentDescriptor;
 import org.apache.uima.resourceSpecifier.factory.UimaASPrimitiveDeploymentDescriptor;
@@ -83,7 +87,7 @@ public abstract class PipelineBase {
 
 	private UimaAsynchronousEngine uimaAsEngine;
 
-	private Set<String> deployedServiceIds;
+	private ArrayList<String> deployedServiceIds;
 
 	private static long pipelineRunStartTime;
 
@@ -91,7 +95,10 @@ public abstract class PipelineBase {
 	private boolean debugFlag = false;
 
 	@Getter
-	private final List<ServiceEngine> serviceEngines;
+	private List<ServiceEngine> serviceEngines;
+
+	private boolean pipelineConfigured;
+	private boolean pipelineDeployed;
 
 	/**
 	 * Creates an asynchronous analysis engine.
@@ -101,34 +108,36 @@ public abstract class PipelineBase {
 	public PipelineBase(PipelineParams params, File configDir) throws Exception {
 		this.pipelineParams = params;
 		this.configDir = configDir;
-		this.serviceEngines = createServiceEngines();
-
-		configurePipeline();
+		this.pipelineConfigured = false;
+		this.pipelineDeployed = false;
 	}
 
-	private void configurePipeline()
+	public void configurePipeline()
 			throws ResourceInitializationException, FileNotFoundException, IOException, SAXException {
+
+		this.serviceEngines = createServiceEngines();
 		/*
 		 * create deployment descriptor files for all pipeline component
 		 * analysis engines
 		 */
 		pipelineComponentDeployDescriptorFiles = new ArrayList<File>();
 		logger.info("Creating descriptor XML for pipeline component analysis engines...");
-		List<DelegateConfiguration> delegateConfigurations = new ArrayList<DelegateConfiguration>();
+		List<RemoteDelegateConfiguration> delegateConfigurations = new ArrayList<RemoteDelegateConfiguration>();
 		for (ServiceEngine se : serviceEngines) {
 			logger.info("Configuring " + se.getAeDescription().getAnnotatorImplementationName() + " scaleup = "
 					+ se.getDeployParams().getScaleup());
 			ErrorHandlingSettings errorSettings = new ProcessErrorHandlingSettingsImpl();
-			delegateConfigurations.add(DeploymentDescriptorFactory.createPrimitiveDelegateConfiguration(
-					se.getAeDescription().getAnnotatorImplementationName(), errorSettings));
-			File deploymentDescriptorFile = createDeploymentDescriptorFile(se, null);
+			delegateConfigurations.add(DeploymentDescriptorFactory.createRemoteDelegateConfiguration(
+					se.getAeDescription().getAnnotatorImplementationName(), se.getDeployParams().getBrokerUrl(),
+					se.getDeployParams().getEndpoint(), SerializationStrategy.xmi, errorSettings));
+			File deploymentDescriptorFile = createDeploymentDescriptorFiles(se, null);
 			pipelineComponentDeployDescriptorFiles.add(deploymentDescriptorFile);
 		}
 
 		logger.info("Configuring AGGREGATE pipeline description...");
 		pipelineDeploymentDescriptorFile = createDeploymentDescriptorFile(getPipelineDescription(),
 				getPipelineDeploymentParams(), DescriptorType.AGGREGATE, delegateConfigurations);
-
+		pipelineConfigured = true;
 	}
 
 	protected abstract DeploymentParams getPipelineDeploymentParams();
@@ -176,9 +185,8 @@ public abstract class PipelineBase {
 			int index = 1;
 			for (ServiceEngine se : getServiceEngines()) {
 				componentNames.add(se.getAeDescription().getAnnotatorImplementationName());
-				File engineDescriptorFile = getEngineDescriptorFile(se.getDeployParams(), getConfigDir());
 				pipelineDescStr = pipelineDescStr.replace(ENGINE_PLACEHOLDER_PREFIX + index++,
-						engineDescriptorFile.getAbsolutePath());
+						se.getRemoteAeDescriptorFile().getAbsolutePath());
 			}
 			/* create the flow controller descriptor file */
 			FlowControllerDescription flowControllerDescription = getFlowControllerDescription(
@@ -225,7 +233,12 @@ public abstract class PipelineBase {
 	}
 
 	public void deployPipeline() throws Exception {
-		deployedServiceIds = new HashSet<String>();
+		if (!pipelineConfigured) {
+			logger.info("Pipeline has not yet been configured. Configuring now...");
+			configurePipeline();
+		}
+
+		deployedServiceIds = new ArrayList<String>();
 		uimaAsEngine = new BaseUIMAAsynchronousEngine_impl();
 		uimaAsEngine.addStatusCallbackListener(new DefaultCallbackListener(uimaAsEngine));
 
@@ -239,18 +252,12 @@ public abstract class PipelineBase {
 		logger.info("Deploying pipeline component analysis engines...");
 		for (File ddFile : pipelineComponentDeployDescriptorFiles) {
 			String deployedServiceId = uimaAsEngine.deploy(ddFile.getAbsolutePath(), deployCtx);
-			deployedServiceIds.add(deployedServiceId);
+			deployedServiceIds.add(0, deployedServiceId);
 		}
 
 		logger.info("Deploying pipeline analysis engine...");
-		try {
-			String deployedServiceId = uimaAsEngine.deploy(pipelineDeploymentDescriptorFile.getAbsolutePath(),
-					deployCtx);
-			deployedServiceIds.add(deployedServiceId);
-		} catch (Exception e) {
-			logger.error("########################################################################", e);
-			logger.error("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-		}
+		String deployedServiceId = uimaAsEngine.deploy(pipelineDeploymentDescriptorFile.getAbsolutePath(), deployCtx);
+		deployedServiceIds.add(0, deployedServiceId);
 
 		logger.info("Initialize pipeline as UIMA AS service...");
 		deployCtx.put(UimaAsynchronousEngine.ServerUri, getPipelineDeploymentParams().getBrokerUrl());
@@ -258,31 +265,61 @@ public abstract class PipelineBase {
 		deployCtx.put(UimaAsynchronousEngine.CasPoolSize, 10);
 		deployCtx.put(UimaAsynchronousEngine.UimaEeDebug, debugFlag);
 		uimaAsEngine.initialize(deployCtx);
+		pipelineDeployed = true;
+
+		logger.info("Deployed service IDs: " + deployedServiceIds.toString());
+
 	}
 
 	public void runPipeline() {
 		try {
+			if (!pipelineDeployed) {
+				logger.info("Pipeline has not yet been deployed. Deploying now...");
+				deployPipeline();
+			}
+
 			pipelineRunStartTime = System.nanoTime() / 1000000;
 
 			uimaAsEngine.process();
+
+			logger.info("Calling collectionProcessingComplete()...");
+
 			uimaAsEngine.collectionProcessingComplete();
-			if (deployedServiceIds != null) {
-				for (String id : deployedServiceIds) {
-					uimaAsEngine.undeploy(id);
-				}
+			logger.info("There are " + deployedServiceIds.size() + " services to undeploy: "
+					+ deployedServiceIds.toString());
+
+			for (String id : deployedServiceIds) {
+				logger.info("Undeploying service: " + id);
+				uimaAsEngine.undeploy(id);
 			}
+			logger.info("Stopping UIMA AS Engine...");
 			uimaAsEngine.stop();
+			uimaAsEngine = null;
 		} catch (Exception e) {
 			e.printStackTrace();
 			Runtime.getRuntime().halt(-1);
 		}
+		logger.info("System.exit(0)...");
 		System.exit(0);
 	}
 
-	private File createDeploymentDescriptorFile(ServiceEngine se, List<DelegateConfiguration> delegateConfigurations)
+	/**
+	 * @param se
+	 * @param delegateConfigurations
+	 * @return a reference to the deployment descriptor file, however this
+	 *         method also creates the engine.remote xml descriptor file.
+	 * @throws ResourceInitializationException
+	 * @throws FileNotFoundException
+	 * @throws IOException
+	 * @throws SAXException
+	 */
+	private File createDeploymentDescriptorFiles(ServiceEngine se,
+			List<RemoteDelegateConfiguration> delegateConfigurations)
 			throws ResourceInitializationException, FileNotFoundException, IOException, SAXException {
 		File aeDescriptorFile = serializeDescriptionToFile(se.getAeDescription(), se.getDeployParams());
 		se.setAeDescriptorFile(aeDescriptorFile);
+		File remoteAeDescriptorFile = createRemoteEngineDescriptorFile(se.getDeployParams());
+		se.setRemoteAeDescriptorFile(remoteAeDescriptorFile);
 		ServiceContext context = createServiceContext(aeDescriptorFile, se.getDeployParams());
 		if (se.getDescriptorType() == DescriptorType.PRIMITIVE) {
 			logger.info("Returning primitive deployment descriptor");
@@ -290,6 +327,25 @@ public abstract class PipelineBase {
 		}
 		logger.info("Returning aggregate deployment descriptor");
 		return createAggregateDeploymentDescriptor(context, se.getDeployParams(), delegateConfigurations);
+	}
+
+	private File createRemoteEngineDescriptorFile(DeploymentParams params)
+			throws FileNotFoundException, IOException, SAXException {
+
+		CustomResourceSpecifier_impl resourceSpecifier = new CustomResourceSpecifier_impl();
+		resourceSpecifier.setResourceClassName(JmsAnalysisEngineServiceAdapter.class.getName());
+
+		Parameter[] parameters = new Parameter[] { new Parameter_impl("brokerURL", params.getBrokerUrl()),
+				new Parameter_impl("endpoint", params.getEndpoint()), new Parameter_impl("timeout", "5000"),
+				new Parameter_impl("getmetatimeout", "5000"), new Parameter_impl("cpcTimeout", "5000") };
+		resourceSpecifier.setParameters(parameters);
+
+		File outputFile = getEngineRemoteDescriptorFile(params, configDir);
+		FileUtil.mkdir(outputFile.getParentFile());
+		try (BufferedWriter writer = FileWriterUtil.initBufferedWriter(outputFile)) {
+			resourceSpecifier.toXML(writer);
+		}
+		return outputFile;
 	}
 
 	/**
@@ -305,7 +361,7 @@ public abstract class PipelineBase {
 	 * @throws SAXException
 	 */
 	private File createDeploymentDescriptorFile(AnalysisEngineDescription aeDescription, DeploymentParams params,
-			DescriptorType descriptorType, List<DelegateConfiguration> delegateConfigurations)
+			DescriptorType descriptorType, List<RemoteDelegateConfiguration> delegateConfigurations)
 			throws ResourceInitializationException, FileNotFoundException, IOException, SAXException {
 		File aeDescriptorFile = serializeDescriptionToFile(aeDescription, params);
 		ServiceContext context = createServiceContext(aeDescriptorFile, params);
@@ -324,15 +380,17 @@ public abstract class PipelineBase {
 
 		dd.getProcessErrorHandlingSettings().setThresholdCount(params.getErrorThresholdCount());
 		dd.setScaleup(params.getScaleup());
+		dd.setAsync(true);
 		return serializeDescriptionToFile(dd.toXML(), params);
 	}
 
 	private File createAggregateDeploymentDescriptor(ServiceContext context, DeploymentParams params,
-			List<DelegateConfiguration> delegateConfigs)
+			List<RemoteDelegateConfiguration> delegateConfigs)
 			throws ResourceInitializationException, FileNotFoundException, IOException {
 		UimaASAggregateDeploymentDescriptor dd = DeploymentDescriptorFactory.createAggregateDeploymentDescriptor(
 				context, delegateConfigs.toArray(new DelegateConfiguration[delegateConfigs.size()]));
-		// dd.set
+		dd.setAsync(true);
+		dd.setCasPoolSize(context.getCasPoolSize());
 		return serializeDescriptionToFile(dd.toXML(), params);
 	}
 
@@ -343,8 +401,11 @@ public abstract class PipelineBase {
 	 *         {@link AnalysisEngine} descriptor file
 	 */
 	private ServiceContext createServiceContext(File aeDescriptorFile, DeploymentParams params) {
-		return new ServiceContextImpl(params.getServiceName().replaceAll(" ", "_"), params.getServiceDescription(),
-				aeDescriptorFile.getAbsolutePath(), params.getEndpoint(), params.getBrokerUrl());
+		ServiceContextImpl serviceContext = new ServiceContextImpl(params.getServiceName().replaceAll(" ", "_"),
+				params.getServiceDescription(), aeDescriptorFile.getAbsolutePath(), params.getEndpoint(),
+				params.getBrokerUrl());
+		serviceContext.setCasPoolSize(pipelineParams.getCasPoolSize());
+		return serviceContext;
 	}
 
 	/**
@@ -400,10 +461,25 @@ public abstract class PipelineBase {
 		return outputFile;
 	}
 
+	protected static File getEngineRemoteDescriptorFile(DeploymentParams params, File configDir) {
+		String filename = params.getServiceName().replaceAll(" ", "_") + "_engine.remote.xml";
+		File outputDirectory = new File(configDir, params.getServiceName().replaceAll(" ", "_"));
+		File outputFile = new File(outputDirectory, filename);
+		return outputFile;
+	}
+
 	@Data
 	public static class ServiceEngine {
 		private final AnalysisEngineDescription aeDescription;
+		/**
+		 * This is the descriptor that is deployed directly
+		 */
 		private File aeDescriptorFile;
+		/**
+		 * This is the descriptor that is referenced by the aggregate pipeline
+		 * (It's a ResourceSpecifier, not a descriptor)
+		 */
+		private File remoteAeDescriptorFile;
 		private final DeploymentParams deployParams;
 		private final String componentName;
 		private final DescriptorType descriptorType;
