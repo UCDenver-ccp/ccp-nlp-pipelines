@@ -2,7 +2,8 @@ package edu.ucdenver.ccp.nlp.pipelines.runner;
 
 public enum PipelineKey {
 	XML2TXT(0),
-	CONCEPTMAPPER(1);
+	CONCEPTMAPPER(1),
+	ANNOT_SERIALIZATION(2);
 
 	/*
 	 * Priority provides a simple way to order pipeline runs. Integer values
