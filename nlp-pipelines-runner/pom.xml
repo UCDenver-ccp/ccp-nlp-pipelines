@@ -11,6 +11,11 @@
 
 	<dependencies>
 		<dependency>
+			<groupId>edu.ucdenver.ccp</groupId>
+			<artifactId>nlp-pipelines-conceptmapper</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<scope>test</scope>
@@ -27,6 +32,11 @@
 		<dependency>
 			<groupId>edu.ucdenver.ccp</groupId>
 			<artifactId>ccp-nlp-uima-collections</artifactId>
+			<version>${ver.ccp.nlp}</version>
+		</dependency>
+		<dependency>
+			<groupId>edu.ucdenver.ccp</groupId>
+			<artifactId>ccp-nlp-uima-annotators</artifactId>
 			<version>${ver.ccp.nlp}</version>
 		</dependency>
 		<dependency>
@@ -61,5 +71,5 @@
 		</dependency>
 	</dependencies>
 
-	
+
 </project>
