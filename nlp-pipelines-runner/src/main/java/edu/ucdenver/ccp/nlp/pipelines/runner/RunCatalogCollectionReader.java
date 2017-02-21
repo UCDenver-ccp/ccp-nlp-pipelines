@@ -1,6 +1,5 @@
 package edu.ucdenver.ccp.nlp.pipelines.runner;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -19,9 +18,9 @@ import org.apache.uima.fit.descriptor.ConfigurationParameter;
 import org.apache.uima.resource.ResourceInitializationException;
 import org.apache.uima.util.Level;
 import org.apache.uima.util.Logger;
-import org.semanticweb.owlapi.io.SystemOutDocumentTarget;
 
 import edu.ucdenver.ccp.common.file.FileUtil;
+import edu.ucdenver.ccp.common.io.StreamUtil;
 import edu.ucdenver.ccp.nlp.core.document.GenericDocument;
 import edu.ucdenver.ccp.nlp.pipelines.runlog.Document;
 import edu.ucdenver.ccp.nlp.pipelines.runlog.Document.FileVersion;
@@ -113,16 +112,8 @@ public abstract class RunCatalogCollectionReader extends BaseTextCollectionReade
 		String documentId = file.getName();
 		String text = null;
 		if (file.getName().endsWith(".gz")) {
-			try (BufferedReader gzreader = new BufferedReader(
-					new InputStreamReader(new GZIPInputStream(new FileInputStream(file))))) {
-				text = "";
-				for (String line; (line = gzreader.readLine()) != null;) {
-					if (text.equals("")) {
-						text = line;
-					} else {
-						text = text + " " + line;
-					}
-				}
+			try (InputStreamReader isr = new InputStreamReader(new GZIPInputStream(new FileInputStream(file)))) {
+				text = StreamUtil.toString(isr);
 			}
 		} else {
 			text = FileUtil.copyToString(file, this.encoding);
