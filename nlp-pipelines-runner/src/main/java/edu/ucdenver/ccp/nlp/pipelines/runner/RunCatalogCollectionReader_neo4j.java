@@ -27,13 +27,13 @@ public class RunCatalogCollectionReader_neo4j extends RunCatalogCollectionReader
 	}
 
 	public static CollectionReaderDescription createDescription(TypeSystemDescription tsd, File catalogDirectory,
-			CharacterEncoding encoding, PipelineKey pipelineRunKey, String documentCollectionName,
+			CharacterEncoding encoding, String pipelineRunKey, String documentCollectionName,
 			FileVersion docFileVersion, String language, boolean disableProgress, int num2process, int num2skip,
 			Class<? extends DocumentMetadataHandler> documentMetadataHandlerClass, String viewName)
 			throws ResourceInitializationException {
 		return CollectionReaderFactory.createReaderDescription(RunCatalogCollectionReader_neo4j.class, tsd,
 				PARAM_CATALOG_DIRECTORY, catalogDirectory.getAbsolutePath(), PARAM_ENCODING, encoding.name(),
-				PARAM_PIPELINE_RUN_KEY, pipelineRunKey.name(), PARAM_DOCUMENT_COLLECTION_NAME, documentCollectionName,
+				PARAM_PIPELINE_RUN_KEY, pipelineRunKey, PARAM_DOCUMENT_COLLECTION_NAME, documentCollectionName,
 				PARAM_DOCUMENT_FILE_VERSION, docFileVersion.name(), PARAM_DISABLE_PROGRESS, disableProgress,
 				PARAM_LANGUAGE, language, PARAM_NUM2PROCESS, num2process, PARAM_NUM2SKIP, num2skip, PARAM_VIEWNAME,
 				viewName, PARAM_DOCUMENT_METADATA_HANDLER_CLASS, documentMetadataHandlerClass.getName());

@@ -1,0 +1,1722 @@
+<?xml version="1.0" encoding="UTF-8"?><OAI-PMH
+	xmlns="http://www.openarchives.org/OAI/2.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/ http://www.openarchives.org/OAI/2.0/OAI-PMH.xsd"><responseDate>2017-02-14T15:43:59Z</responseDate><request verb="GetRecord" identifier="oai:pubmedcentral.nih.gov:1892574" metadataPrefix="pmc">https://www.ncbi.nlm.nih.gov/oai/oai.cgi</request><GetRecord><record><header><identifier>oai:pubmedcentral.nih.gov:1892574</identifier><datestamp>2007-07-14</datestamp><setSpec>plosbiol</setSpec><setSpec>pmc-open</setSpec></header><metadata><article xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="https://dtd.nlm.nih.gov/ns/archiving/2.3/" xsi:schemaLocation="https://dtd.nlm.nih.gov/ns/archiving/2.3/ https://dtd.nlm.nih.gov/archiving/2.3/xsd/archivearticle.xsd" article-type="research-article">
+  <front>
+    <journal-meta>
+      <journal-id journal-id-type="nlm-ta">PLoS Biol</journal-id>
+      <journal-id journal-id-type="publisher-id">pbio</journal-id>
+      <journal-title>PLoS Biology</journal-title>
+      <issn pub-type="ppub">1544-9173</issn>
+      <issn pub-type="epub">1545-7885</issn>
+      <publisher><publisher-name>Public Library of Science</publisher-name> <publisher-loc>San Francisco, USA</publisher-loc></publisher>
+    </journal-meta>
+    <article-meta>
+      <article-id pub-id-type="accession">PMC1892574</article-id>
+      <article-id pub-id-type="pmcid">PMC1892574</article-id>
+      <article-id pub-id-type="pmc-uid">1892574</article-id>
+      <article-id pub-id-type="doi">10.1371/journal.pbio.0050172</article-id>
+      <article-id pub-id-type="publisher-id">06-PLBI-RA-1708R3</article-id>
+      <article-id pub-id-type="sici">plbi-05-07-04</article-id>
+      <article-id pub-id-type="pmid">17579517</article-id>
+      <article-categories>
+        <subj-group subj-group-type="heading">
+          <subject>Research Article</subject>
+        </subj-group>
+        <subj-group subj-group-type="Discipline">
+          <subject>Neuroscience</subject>
+        </subj-group>
+        <subj-group subj-group-type="System Taxonomy">
+          <subject>Vertebrates</subject>
+          <subject>Mammals</subject>
+        </subj-group>
+      </article-categories>
+      <title-group>
+        <article-title>PINK1 Protects against Oxidative Stress by Phosphorylating Mitochondrial Chaperone TRAP1</article-title>
+        <alt-title alt-title-type="running-head">PINK1 Phosphorylates TRAP1</alt-title>
+      </title-group>
+      <contrib-group>
+        <contrib contrib-type="author" equal-contrib="yes">
+          <name>
+            <surname>Pridgeon</surname>
+            <given-names>Julia W</given-names>
+          </name>
+          <xref rid="aff1" ref-type="aff"/>
+        </contrib>
+        <contrib contrib-type="author" equal-contrib="yes">
+          <name>
+            <surname>Olzmann</surname>
+            <given-names>James A</given-names>
+          </name>
+          <xref rid="aff1" ref-type="aff"/>
+        </contrib>
+        <contrib contrib-type="author">
+          <name>
+            <surname>Chin</surname>
+            <given-names>Lih-Shen</given-names>
+          </name>
+          <xref ref-type="corresp" rid="cor1">*</xref>
+          <xref rid="aff1" ref-type="aff"/>
+        </contrib>
+        <contrib contrib-type="author">
+          <name>
+            <surname>Li</surname>
+            <given-names>Lian</given-names>
+          </name>
+          <xref ref-type="corresp" rid="cor1">*</xref>
+          <xref rid="aff1" ref-type="aff"/>
+        </contrib>
+      </contrib-group>
+      <aff id="aff1">Department of Pharmacology, Emory University School of Medicine, Atlanta, Georgia, United States of America</aff>
+      <contrib-group>
+        <contrib contrib-type="editor">
+          <name>
+            <surname>Zoghbi</surname>
+            <given-names>Huda Y</given-names>
+          </name>
+          <role>Academic Editor</role>
+          <xref rid="edit1" ref-type="aff"/>
+        </contrib>
+      </contrib-group>
+      <aff id="edit1">Baylor College of Medicine, United States of America</aff>
+      <author-notes>
+        <corresp id="cor1">* To whom correspondence should be addressed. E-mail: <email>chinl@pharm.emory.edu</email> (LSC); <email>lianli@pharm.emory.edu</email> (LL)</corresp>
+      </author-notes>
+      <pub-date pub-type="ppub">
+        <month>7</month>
+        <year>2007</year>
+      </pub-date>
+      <pub-date pub-type="epub">
+        <day>19</day>
+        <month>6</month>
+        <year>2007</year>
+      </pub-date>
+      <volume>5</volume>
+      <issue>7</issue>
+      <elocation-id>e172</elocation-id>
+      <history>
+        <date date-type="received">
+          <day>13</day>
+          <month>9</month>
+          <year>2006</year>
+        </date>
+        <date date-type="accepted">
+          <day>24</day>
+          <month>4</month>
+          <year>2007</year>
+        </date>
+      </history>
+      <copyright-statement><bold>Copyright:</bold> © 2007 Pridgeon et al. This is an open-access article distributed under the terms of the Creative Commons Attribution License, which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.</copyright-statement>
+      <copyright-year>2007</copyright-year>
+      <abstract>
+        <p>Mutations in the <italic>PTEN induced putative kinase 1 (PINK1)</italic> gene cause an autosomal recessive form of Parkinson disease (PD). So far, no substrates of PINK1 have been reported, and the mechanism by which PINK1 mutations lead to neurodegeneration is unknown. Here we report the identification of TNF receptor-associated protein 1 (TRAP1), a mitochondrial molecular chaperone also known as heat shock protein 75 (Hsp75), as a cellular substrate for PINK1 kinase. PINK1 binds and colocalizes with TRAP1 in the mitochondria and phosphorylates TRAP1 both in vitro and in vivo. We show that PINK1 protects against oxidative-stress-induced cell death by suppressing cytochrome c release from mitochondria, and this protective action of PINK1 depends on its kinase activity to phosphorylate TRAP1. Moreover, we find that the ability of PINK1 to promote TRAP1 phosphorylation and cell survival is impaired by PD-linked PINK1 G309D, L347P, and W437X mutations. Our findings suggest a novel pathway by which PINK1 phosphorylates downstream effector TRAP1 to prevent oxidative-stress-induced apoptosis and implicate the dysregulation of this mitochondrial pathway in PD pathogenesis.</p>
+      </abstract>
+      <abstract abstract-type="summary">
+        <title>Author Summary</title>
+        <sec id="st1">
+          <title/>
+          <p>Parkinson disease (PD) is characterized by the selective loss of midbrain dopaminergic neurons. Although the cause of PD is unknown, pathological analyses have suggested the involvement of oxidative stress and mitochondrial dysfunction. Recently, an inherited form of early-onset PD has been linked to mutations in both copies of the gene encoding the mitochondrial protein PINK1. Furthermore, increasing evidence indicates that single-copy mutations in PINK1 are a significant risk factor in the development of later-onset PD. Here we show that PINK1 is a protein kinase that phosphorylates the mitochondrial molecular chaperone TRAP1 to promote cell survival. We find that PINK1 normally protects against oxidative-stress-induced cell death by suppressing cytochrome c release from mitochondria. The PINK1 mutations linked to PD impair the ability of PINK1 to phosphorylate TRAP1 and promote cell survival. Our findings reveal a novel anti-apoptotic signaling pathway that is disrupted by mutations in PINK1. We suggest that this pathway has a role in PD pathogenesis and may be a target for therapeutic intervention.</p>
+        </sec>
+      </abstract>
+      <abstract abstract-type="toc">
+        <p>Mutations in the gene that codes for PINK1 cause a common form of Parkinson disease. Here the authors show that PINK1 phosphorylates TRAP1, which suppresses apoptotic release of cytochrome c from mitochondria.</p>
+      </abstract>
+      <counts>
+        <page-count count="10"/>
+      </counts>
+      <custom-meta-wrap>
+        <custom-meta>
+          <meta-name>citation</meta-name>
+          <meta-value>Pridgeon JW, Olzmann JA, Chin LS, Li L (2007) PINK1 protects against oxidative stress by phosphorylating mitochondrial chaperone TRAP1. PLoS Biol 5(7): e172. doi:<ext-link ext-link-type="doi" xlink:href="10.1371/journal.pbio.0050172">10.1371/journal.pbio.0050172</ext-link></meta-value>
+        </custom-meta>
+      </custom-meta-wrap>
+    </article-meta>
+  </front>
+  <body>
+    <sec id="s1">
+      <title>Introduction</title>
+      <p>Parkinson disease (PD) is the second most common neurodegenerative disease, characterized by the selective loss of dopaminergic neurons in the substantia nigra [<xref ref-type="bibr" rid="pbio-0050172-b001">1</xref>]. The cause of PD, particularly the sporadic disease, is unclear, but it likely involves both genetic and environmental factors. Genetic studies have identified a number of genes associated with familial PD [<xref ref-type="bibr" rid="pbio-0050172-b002">2</xref>]. Postmortem analyses reveal a deficiency in the mitochondrial complex I function in patients with sporadic PD [<xref ref-type="bibr" rid="pbio-0050172-b003">3</xref>]. Furthermore, exposure to environmental toxins that inhibit the mitochondrial complex I can lead to PD-like phenotypes in animal models [<xref ref-type="bibr" rid="pbio-0050172-b004">4</xref>], suggesting the involvement of mitochondrial dysfunction in PD pathogenesis.</p>
+      <p>Mutations in the <italic>PTEN induced putative kinase 1 (PINK1)</italic> gene were originally discovered in three pedigrees with recessively inherited PD. Two homozygous <italic>PINK1</italic> mutations were initially identified: a truncating nonsense mutation (W437X) and a G309D missense mutation [<xref ref-type="bibr" rid="pbio-0050172-b005">5</xref>]. Subsequently, multiple additional types of PD-linked mutations or truncations in <italic>PINK1</italic> have been reported, making <italic>PINK1</italic> the second most common causative gene of recessive PD [<xref ref-type="bibr" rid="pbio-0050172-b006">6</xref>,<xref ref-type="bibr" rid="pbio-0050172-b007">7</xref>]. Interestingly, despite autosomal recessive transmission of <italic>PINK1</italic>-linked early-onset PD, a number of heterozygous mutations affecting only one <italic>PINK1</italic> allele have been associated with late-onset PD [<xref ref-type="bibr" rid="pbio-0050172-b006">6</xref>–<xref ref-type="bibr" rid="pbio-0050172-b010">10</xref>]. The pathogenic mechanisms by which <italic>PINK1</italic> mutations lead to neurodegeneration are unknown.</p>
+      <p><italic>PINK1</italic> encodes a 581-amino-acid protein with a predicted N-terminal mitochondrial targeting sequence and a conserved serine/threonine kinase domain [<xref ref-type="bibr" rid="pbio-0050172-b005">5</xref>]. PINK1 protein has been shown to localize in the mitochondria [<xref ref-type="bibr" rid="pbio-0050172-b005">5</xref>,<xref ref-type="bibr" rid="pbio-0050172-b011">11</xref>–<xref ref-type="bibr" rid="pbio-0050172-b013">13</xref>] and exhibit autophosphorylation activity in vitro [<xref ref-type="bibr" rid="pbio-0050172-b011">11</xref>,<xref ref-type="bibr" rid="pbio-0050172-b012">12</xref>,<xref ref-type="bibr" rid="pbio-0050172-b014">14</xref>]. The in vivo substrate(s) and biochemical function of PINK1 remain unknown. In cultured mammalian cells, overexpression of wild-type PINK1 protects cells against apoptotic stimuli [<xref ref-type="bibr" rid="pbio-0050172-b005">5</xref>,<xref ref-type="bibr" rid="pbio-0050172-b015">15</xref>], whereas small interfering RNA (siRNA)–mediated depletion of PINK1 increases the susceptibility to apoptotic cell death [<xref ref-type="bibr" rid="pbio-0050172-b016">16</xref>]. In <italic>Drosophila,</italic> loss of PINK1 leads to mitochondrial defects and degeneration of muscle and dopaminergic neurons [<xref ref-type="bibr" rid="pbio-0050172-b017">17</xref>–<xref ref-type="bibr" rid="pbio-0050172-b020">20</xref>]. Despite ample evidence indicating an essential role of PINK1 in cytoprotection, the mechanism by which PINK1 protects against apoptosis is not understood.</p>
+      <p>Here, we describe the characterization of mitochondrial serine/threonine kinase PINK1 and report the identification of TNF receptor-associated protein 1 (TRAP1), a mitochondrial molecular chaperone also known as heat shock protein 75 (Hsp75), as a PINK1 substrate. Our results suggest that PINK1 protects against oxidative-stress-induced apoptosis by phosphorylating downstream effector TRAP1, and provide novel insights into the pathogenic mechanisms of PINK1 mutations in causing PD.</p>
+    </sec>
+    <sec id="s2">
+      <title>Results</title>
+      <sec id="s2a">
+        <title>PINK1 Interacts with TRAP1</title>
+        <p>To identify PINK1-interacting proteins, we performed affinity purification experiments using anti-FLAG M2 affinity gel to isolate proteins associated with C-terminally FLAG-tagged human wild-type PINK1 from transfected HeLa cell extracts. Consistent with previous reports [<xref ref-type="bibr" rid="pbio-0050172-b011">11</xref>,<xref ref-type="bibr" rid="pbio-0050172-b012">12</xref>], Western blot analysis detected a 63-kDa full-length form (PINK1f) and a 52-kDa processed form (PINK1p) of PINK1 protein in the cell extracts (<xref ref-type="fig" rid="pbio-0050172-g001">Figure 1</xref>A<italic>,</italic> “Input”). Both forms of PINK1 were eluted from the affinity column in fractions 3 and 4 (<xref ref-type="fig" rid="pbio-0050172-g001">Figure 1</xref>A). Ponceau S staining of the affinity-purified PINK1 immune complexes revealed the presence of several proteins that were specifically associated with PINK1 (<xref ref-type="fig" rid="pbio-0050172-g001">Figure 1</xref>B). Mass spectrometry analysis unambiguously identified the 75-kDa PINK1-associated protein as TRAP1, a ubiquitously expressed protein with significant sequence homology to the HSP90AA1 family of molecular chaperones [<xref ref-type="bibr" rid="pbio-0050172-b021">21</xref>–<xref ref-type="bibr" rid="pbio-0050172-b023">23</xref>].</p>
+        <fig id="pbio-0050172-g001" position="float">
+          <label>Figure 1</label>
+          <caption>
+            <title>Interaction of TRAP1 with Wild-Type and Mutant PINK1</title>
+            <p>(A) Lysates of HeLa cells expressing C-terminally FLAG-tagged wild-type PINK1 (Input) were affinity purified with anti-FLAG M2 affinity gel, and the eluate fractions were analyzed by immunoblotting with anti-FLAG antibody.</p>
+            <p>(B) Affinity-purified proteins from PINK1-transfected cells and vector control were resolved on SDS-PAGE and detected by Ponceau S staining. Arrows indicate three bands identified by mass spectrometry as TRAP1, PINK1f, and PINK1p.</p>
+            <p>(C) Specificity of the polyclonal anti-PINK1 antibody. Homogenates (50 μg of protein per lane) from rat brain, liver, untransfected PC12 cells, and transfected PC12 cells expressing wild-type (WT) or mutant PINK1 were analyzed by immunoblotting with anti-PINK1 and anti-actin antibodies.</p>
+            <p>(D) Endogenous PINK1 interacts with TRAP1. PC12 cell lysates (Input) were immunoprecipitated with anti-TRAP1 antibody, followed by immunoblotting with anti-PINK1 and anti-TRAP1 antibodies. IgG HC, IgG heavy chain.</p>
+            <p>(E) Lysates from PC12 cells transfected with FLAG-tagged wild-type or mutant PINK1 were immunoprecipitated with anti-FLAG antibody, followed by immunoblotting using anti-TRAP1 and anti-FLAG antibodies.</p>
+          </caption>
+          <graphic xlink:href="pbio.0050172.g001"/>
+        </fig>
+        <p>In order to characterize endogenous PINK1 protein and its interaction with TRAP1, we generated a rabbit polyclonal anti-PINK1 antibody against amino acid residues 135–155 of human PINK1. Western blot analysis demonstrated that the anti-PINK1 antibody, but not the preimmune serum, specifically recognized endogenous PINK1 as well as recombinant wild-type and mutant PINK1 proteins (<xref ref-type="fig" rid="pbio-0050172-g001">Figure 1</xref>C; additional data not shown). Using this anti-PINK1 antibody, we found that both the full-length and the processed forms of endogenous PINK1 co-immunoprecipitated with TRAP1 in PC12 cells (<xref ref-type="fig" rid="pbio-0050172-g001">Figure 1</xref>D), confirming that the identified PINK1–TRAP1 interaction occurs in vivo. We then assessed the interaction of TRAP1 with PD-linked PINK1 mutants (G309D, W437X, and L347P) and with putative catalytically inactive PINK1 mutants (K219A, D362A, D384A, and the triple mutant K219A/D362A/D384A [KDD]). None of the PINK1 mutations examined had any significant effect on the ability of PINK1 to bind TRAP1 (<xref ref-type="fig" rid="pbio-0050172-g001">Figure 1</xref>E).</p>
+      </sec>
+      <sec id="s2b">
+        <title>PINK1 Colocalizes with TRAP1 in the Mitochondria</title>
+        <p>Next, we analyzed the intracellular distribution and colocalization of PINK1 and TRAP1 by using immunofluorescence confocal microscopy. PINK1 and TRAP1 both contain a predicted mitochondria targeting signal at their N-terminus, and a mitochondrial localization has previously been reported for PINK1 [<xref ref-type="bibr" rid="pbio-0050172-b012">12</xref>] as well as for TRAP1 [<xref ref-type="bibr" rid="pbio-0050172-b023">23</xref>]. In agreement with the earlier studies, we found that both PINK1 and TRAP1 proteins are localized to the mitochondria labeled by MitoTracker (<xref ref-type="supplementary-material" rid="pbio-0050172-sg001">Figure S1</xref>). Moreover, double labeling immunocytochemistry analysis revealed a substantial overlap between PINK1 and TRAP1 staining (<xref ref-type="supplementary-material" rid="pbio-0050172-sg001">Figure S1</xref>), suggesting that these two proteins colocalize in the mitochondria.</p>
+        <p>To complement our immunocytochemistry data, we used subcellular fractionation to characterize the intracellular distribution of PINK1 and TRAP1. Western blot analysis showed a clear co-fractionation of endogenous PINK1 and TRAP1 on a 5%–15% linear Optiprep gradient with mitochondria marker TIMM23, but not with endoplasmic reticulum marker CANX (<xref ref-type="fig" rid="pbio-0050172-g002">Figure 2</xref>A). Further fractionation studies of the isolated mitochondria revealed that endogenous PINK1 and TRAP1 were both primarily found in the mitochondrial inner membrane and intermembrane space fractions (<xref ref-type="fig" rid="pbio-0050172-g002">Figure 2</xref>B). Together, these results provide strong support for an in vivo association of PINK1 with TRAP1 in the mitochondria. Similar analyses of PC12 cells expressing wild-type PINK1 or PD-linked G309D, W437X, and L347P mutant PINK1 showed that the mitochondrial colocalization of PINK1 with TRAP1 was not affected by the pathogenic PINK1 mutations (<xref ref-type="supplementary-material" rid="pbio-0050172-sg002">Figure S2</xref>).</p>
+        <fig id="pbio-0050172-g002" position="float">
+          <label>Figure 2</label>
+          <caption>
+            <title>PINK1 and TRAP1 Colocalize in the Mitochondrial Inner Membrane and the Intermembrane Space</title>
+            <p>(A) Post-nuclear supernatants of PC12 cells were fractionated on a 5%–15% linear Optiprep gradient, and the fractions were analyzed by immunoblotting for PINK1, TRAP1, TIMM23, and CANX.</p>
+            <p>(B) Mitochondria (Mito) isolated from PC12 cells were fractionated into matrix, inner mitochondrial membrane (IM), intermembrane space (IMS), and outer mitochondrial membrane (OM) fractions, and analyzed by immunoblotting for PINK1, TRAP1, and markers of mitochondrial subcompartments: HSPD1 (matrix), TIMM23 (IM), cytochrome c (IMS), and VDAC (OM).</p>
+          </caption>
+          <graphic xlink:href="pbio.0050172.g002"/>
+        </fig>
+      </sec>
+      <sec id="s2c">
+        <title>PINK1 Phosphorylates TRAP1, and the Kinase Activity Is Abrogated by PD-linked Mutations</title>
+        <p>Our finding of a specific interaction and colocalization between TRAP1 and PINK1 raises the possibility that TRAP1 may be a substrate of PINK1 kinase. To examine this possibility, we performed in vitro kinase assays to investigate the ability of wild-type and mutant PINK1 to phosphorylate TRAP1. We observed a robust phosphorylation of TRAP1 by wild-type PINK1, as shown by the PINK1-mediated transfer of <sup>32</sup>P from [γ-<sup>32</sup>P] ATP to the TRAP1 protein (<xref ref-type="fig" rid="pbio-0050172-g003">Figure 3</xref>A). Computer modeling analysis of the PINK1 kinase domain suggests that the amino acid residues K219, D362, and D384 might be key determinants of PINK1 catalytic activity [<xref ref-type="bibr" rid="pbio-0050172-b011">11</xref>]. To test this prediction, we assessed the effects of single or triple mutations of these residues to alanines (K219A, D362A, D384A, or KDD) on the kinase activity of PINK1 in phosphorylating TRAP1. Although K219A mutation had no significant effect on the PINK1 kinase activity, the D362A, D384A, and KDD triple mutations dramatically reduced PINK1 activity in phosphorylating TRAP1 (<xref ref-type="fig" rid="pbio-0050172-g003">Figure 3</xref>A and <xref ref-type="fig" rid="pbio-0050172-g003">3</xref>B). Analysis of the effects of PD-linked PINK1 mutations on the in vitro phosphorylation of TRAP1 revealed that the pathogenic mutation G309D or L347P virtually abolished the kinase activity of PINK1. In contrast, the kinase activity of PINK1 was not significantly affected by the W437X mutation (<xref ref-type="fig" rid="pbio-0050172-g003">Figure 3</xref>A and <xref ref-type="fig" rid="pbio-0050172-g003">3</xref>B).</p>
+        <fig id="pbio-0050172-g003" position="float">
+          <label>Figure 3</label>
+          <caption>
+            <title>Phosphorylation of TRAP1 by Wild-Type and Mutant PINK1</title>
+            <p>(A) In vitro kinase assays were performed by incubation of purified TRAP1 with [γ<sup>32</sup>-P] ATP in the absence (control) or presence of FLAG-tagged wild-type (WT) or mutant PINK1 proteins as indicated. Phosphorylated TRAP1 was visualized by autoradiography (top panel). PINK1 and TRAP1 proteins used in the kinase assays were shown by immunoblotting with anti-TRAP1 (middle panel) and anti-FLAG antibodies (bottom panel).</p>
+            <p>(B) Normalized levels of in vitro TRAP1 phosphorylation by wild-type or mutant PINK1. Data represent mean ± standard error of the mean (SEM) from three independent experiments. <sup>*</sup>Significantly different from the wild-type PINK1 (<italic>p</italic> &lt; 0.01).</p>
+            <p>(C) PC12 cells expressing wild-type or mutant PINK1 or vector-transfected controls were treated with 400 μM H<sub>2</sub>O<sub>2</sub> as indicated. In vivo phosphorylation of endogenous TRAP1 was determined by immunoprecipitation with anti-TRAP1 antibody followed by immunoblotting using anti-phosphoserine (upper panel) and anti-TRAP1 (lower panel) antibodies.</p>
+            <p>(D) Normalized levels of in vivo TRAP1 phosphorylation by wild-type or mutant PINK1. Data represent mean ± SEM from three independent experiments. <sup>a</sup>Significantly different from the corresponding H<sub>2</sub>O<sub>2</sub>-treated vector-transfected controls (<italic>p</italic> &lt; 0.01). <sup>b</sup>Significantly different from the wild-type PINK1-transfected cells (<italic>p</italic> &lt; 0.01).</p>
+            <p>AU, arbitrary units.</p>
+          </caption>
+          <graphic xlink:href="pbio.0050172.g003"/>
+        </fig>
+        <p>We next examined the effects of overexpressing wild-type or mutant PINK1 on the in vivo phosphorylation of endogenous TRAP1 in PC12 cells. As shown in <xref ref-type="fig" rid="pbio-0050172-g003">Figure 3</xref>C, we observed a low basal level of TRAP1 phosphorylation in untransfected PC12 cells. TRAP1 phosphorylation was significantly increased in response to oxidative stress induced by H<sub>2</sub>O<sub>2</sub>. Overexpression of wild-type PINK1 resulted in a 3.3-fold increase in the basal level of TRAP1 phosphorylation and a 2.2-fold increase in oxidative-stress-induced TRAP1 phosphorylation (<xref ref-type="fig" rid="pbio-0050172-g003">Figure 3</xref>C and <xref ref-type="fig" rid="pbio-0050172-g003">3</xref>D). The ability of PINK1 to promote in vivo TRAP1 phosphorylation was abolished by the PD-linked PINK1 mutations G309D and L347P. In fact, cells overexpressing G309D or L347P mutant PINK1 had approximately 50% lower levels of both basal and oxidative-stress-induced TRAP1 phosphorylation than the untransfected cells (<xref ref-type="fig" rid="pbio-0050172-g003">Figure 3</xref>C and <xref ref-type="fig" rid="pbio-0050172-g003">3</xref>D). Since G309D and L347P mutations did not alter the interaction or colocalization of PINK1 with TRAP1 (<xref ref-type="fig" rid="pbio-0050172-g001">Figures 1</xref> and S2), our results suggest that these pathogenic PINK1 mutants have a dominant negative effect on TRAP1 phosphorylation in vivo by competing with endogenous PINK1 for binding of its substrate TRAP1. Interestingly, although the W437X mutation had no significant effect on PINK1-mediated TRAP1 phosphorylation in vitro (<xref ref-type="fig" rid="pbio-0050172-g003">Figure 3</xref>A and <xref ref-type="fig" rid="pbio-0050172-g003">3</xref>B), the mutation caused a 30% to 45% reduction in both basal and oxidative-stress-induced levels of TRAP1 phosphorylation in vivo compared with wild-type PINK1 (<xref ref-type="fig" rid="pbio-0050172-g003">Figure 3</xref>C and <xref ref-type="fig" rid="pbio-0050172-g003">3</xref>D). These results suggest that the W437X mutation has an inhibitory effect on the kinase activity of PINK1 in phosphorylating TRAP1 in vivo.</p>
+      </sec>
+      <sec id="s2d">
+        <title>PINK1 Protects against Oxidative-Stress-Induced Cell Death, and the Protective Action Depends on Its Kinase Activity</title>
+        <p>Given the observed effects of PINK1 on oxidative-stress-induced phosphorylation of TRAP1 (<xref ref-type="fig" rid="pbio-0050172-g003">Figure 3</xref>), we investigated the roles of wild-type and mutant PINK1 proteins in cell vulnerability to oxidative stress. PC12 cells were transfected with C-terminally FLAG-tagged wild-type or mutant PINK1 to achieve similar levels of exogenous PINK1 protein expression, as confirmed by Western blot analysis (data not shown). Cell viability assays revealed that treatment of untransfected or vector-transfected PC12 cells with H<sub>2</sub>O<sub>2</sub> resulted in cell death (<xref ref-type="fig" rid="pbio-0050172-g004">Figure 4</xref>A; and additional data not shown). Cells expressing exogenous wild-type PINK1 were much more resistant to H<sub>2</sub>O<sub>2</sub>-induced cell death (<xref ref-type="fig" rid="pbio-0050172-g004">Figure 4</xref>A), supporting a protective role of PINK1 against oxidative stress. The protective effect of PINK1 was significantly decreased by the putative kinase-dead K219A mutation and was completely abolished by the catalytically inactive D362A, D384A, and KDD triple mutations (<xref ref-type="fig" rid="pbio-0050172-g004">Figure 4</xref>A), indicating that the cytoprotective function of PINK1 depends on its kinase activity.</p>
+        <fig id="pbio-0050172-g004" position="float">
+          <label>Figure 4</label>
+          <caption>
+            <title>Wild-Type PINK1, but Not Kinase-Dead or PD-Linked Mutant PINK1, Protects against Oxidative-Stress-Induced Apoptosis</title>
+            <p>(A) PC12 cells expressing wild-type (WT) or mutant PINK1 or vector-transfected controls were treated with 400 μM H<sub>2</sub>O<sub>2</sub> for 16 h. The extent of cell survival was assessed by using the MTT assay. Data represent mean ± SEM from three independent experiments. <sup>a</sup>Significantly different from the vector-transfected controls (<italic>p</italic> &lt; 0.01). <sup>b</sup>Significantly different from the wild-type PINK1-transfected cells (<italic>p</italic> &lt; 0.01).</p>
+            <p>(B) Immunoblot analysis of cytochrome c (Cyt. c) in the cytosol and mitochondria fractions isolated from PC12 cells expressing wild-type or mutant PINK1 after treatment with 400 μM H<sub>2</sub>O<sub>2</sub> for the indicated times.</p>
+            <p>(C) The level of cytochrome c released to the cytosol is normalized to the total level of cytochrome c in each cell sample. Data represent mean ± SEM from three independent experiments. <sup>a</sup>Significantly different from the corresponding H<sub>2</sub>O<sub>2</sub>-treated vector-transfected controls (<italic>p</italic> &lt; 0.01). <sup>b</sup>Significantly different from the wild-type PINK1-transfected cells (<italic>p</italic> &lt; 0.01).</p>
+          </caption>
+          <graphic xlink:href="pbio.0050172.g004"/>
+        </fig>
+        <p>Analysis of the effects of PD-linked PINK1 mutations on cell vulnerability revealed that the pathogenic W437X mutation significantly reduced the ability of PINK1 to protect against oxidative-stress-induced cell death (<xref ref-type="fig" rid="pbio-0050172-g004">Figure 4</xref>A). We found that the pathogenic G309D and L347P mutations not only abolished the cytoprotective effect of PINK1, but also exacerbated oxidative-stress-induced cell death (<xref ref-type="fig" rid="pbio-0050172-g004">Figure 4</xref>A), suggesting a dominant negative effect of these mutations on cell survival.</p>
+      </sec>
+      <sec id="s2e">
+        <title>PINK1 Prevents Oxidative-Stress-Induced Cell Death by Suppressing Cytochrome c Release from Mitochondria</title>
+        <p>The observed mitochondrial localization (<xref ref-type="fig" rid="pbio-0050172-g002">Figure 2</xref>) and cytoprotective action (<xref ref-type="fig" rid="pbio-0050172-g004">Figure 4</xref>A) of PINK1 raise the possibility that PINK1 may regulate the mitochondrial cell death pathway. To test this possibility, we examined the effects of overexpressing wild-type and mutant PINK1 proteins on the release of cytochrome c from mitochondria, a crucial step in the mitochondrial apoptotic cascade. As shown in <xref ref-type="fig" rid="pbio-0050172-g004">Figure 4</xref>B, treatment of vector-transfected PC12 cells with H<sub>2</sub>O<sub>2</sub> induced cytochrome c release from mitochondria to the cytosol in a time-dependent manner. Overexpression of wild-type PINK1 caused a significant reduction in the release of cytochrome c under the same oxidative stress conditions (<xref ref-type="fig" rid="pbio-0050172-g004">Figure 4</xref>B and <xref ref-type="fig" rid="pbio-0050172-g004">4</xref>C). The inhibitory effect of PINK1 on cytochrome c release was completely abrogated by the catalytically inactive D362A mutation and the KDD triple mutations (<xref ref-type="fig" rid="pbio-0050172-g004">Figure 4</xref>B and <xref ref-type="fig" rid="pbio-0050172-g004">4</xref>C), suggesting the critical involvement of PINK1 kinase activity in regulation of mitochondrial apoptotic pathway.</p>
+        <p>Analysis of the effects of PD-linked PINK1 mutations on cytochrome c release showed that the W437X mutation caused a significant increase in H<sub>2</sub>O<sub>2</sub>-induced cytochrome c release compared to cells expressing similar level of exogenous wild-type PINK1 (<xref ref-type="fig" rid="pbio-0050172-g004">Figure 4</xref>B and <xref ref-type="fig" rid="pbio-0050172-g004">4</xref>C), in agreement with the observed effect of the W437X mutation on the cytoprotective function of PINK1 (<xref ref-type="fig" rid="pbio-0050172-g004">Figure 4</xref>A). The pathogenic G309D and L347P mutations not only abolished the ability of PINK1 to suppress cytochrome c release, but also accelerated H<sub>2</sub>O<sub>2</sub>-induced cytochrome c release (<xref ref-type="fig" rid="pbio-0050172-g004">Figure 4</xref>B and <xref ref-type="fig" rid="pbio-0050172-g004">4</xref>C), consistent with the dominant negative effects of these mutations on cell survival (<xref ref-type="fig" rid="pbio-0050172-g004">Figure 4</xref>A). Western blot analysis confirmed that the relative distribution of PINK1 in the mitochondria and cytosol fractions was not altered by the H<sub>2</sub>O<sub>2</sub> treatment or by the PINK1 mutations examined (data not shown), suggesting that the observed effects of wild-type and mutant PINK1 proteins on cell survival are mediated through their action in mitochondria on the release of cytochrome c rather than by altering the subcellular localization of PINK1.</p>
+      </sec>
+      <sec id="s2f">
+        <title>PINK1 Is Essential for Phosphorylation of TRAP1 and Protection against Oxidative-Stress-Induced Apoptosis</title>
+        <p>To provide further evidence supporting the role of PINK1 in regulation of TRAP1 phosphorylation and mitochondrial apoptotic signaling, we examined the effect of siRNA-mediated PINK1 knockdown on TRAP1 phosphorylation and oxidative-stress-induced apoptosis. As shown in <xref ref-type="fig" rid="pbio-0050172-g005">Figure 5</xref>A, PINK1 siRNA-1 and PINK1 siRNA-2, two distinct siRNA duplexes targeting different regions of PINK1 mRNA, both specifically inhibited the expression of endogenous PINK1 in PC12 cells. We found that, in cells transfected with either PINK1 siRNA-1 or PINK1 siRNA-2, H<sub>2</sub>O<sub>2</sub>-induced phosphorylation of endogenous TRAP1 was significantly decreased compared with the cells transfected with non-targeting (NT) control siRNA or with vehicle alone (<xref ref-type="fig" rid="pbio-0050172-g005">Figure 5</xref>B and <xref ref-type="fig" rid="pbio-0050172-g005">5</xref>C). These results further confirm that TRAP1 is indeed a substrate of PINK1 kinase.</p>
+        <fig id="pbio-0050172-g005" position="float">
+          <label>Figure 5</label>
+          <caption>
+            <title>PINK1 Knockdown Reduces TRAP1 Phosphorylation and Protection against Oxidative Stress</title>
+            <p>(A) PC12 cells were transfected with vehicle (control), NT siRNA, or PINK1-specific siRNAs (PINK1 siRNA-1 and PINK1 siRNA-2). The levels of PINK1 and actin in the cell lysates were analyzed by immunoblotting with anti-PINK1 and anti-actin antibodies.</p>
+            <p>(B) PC12 cells transfected with the indicated siRNA or vehicle (control) were treated with 400 μM H<sub>2</sub>O<sub>2</sub> for the indicated times. In vivo phosphorylation of endogenous TRAP1 was determined by immunoprecipitation with anti-TRAP1 antibody followed by immunoblotting using anti-phosphoserine and anti-TRAP1 antibodies.</p>
+            <p>(C) Normalized levels of in vivo TRAP1 phosphorylation in the control and siRNA-transfected cells. Data represent mean ± SEM from three independent experiments. <sup>*</sup>Significantly different from the corresponding H<sub>2</sub>O<sub>2</sub>-treated control cells (<italic>p</italic> &lt; 0.01). AU, arbitrary units.</p>
+            <p>(D) PC12 cells transfected with vehicle (control) or the indicated siRNAs were treated with 400 μM H<sub>2</sub>O<sub>2</sub> for 16 h. Cell viability was assessed by using the MTT assay. Data represent mean ± SEM from three independent experiments. <sup>*</sup>Significantly different from the H<sub>2</sub>O<sub>2</sub>-treated control cells (<italic>p</italic> &lt; 0.01).</p>
+            <p>(E) PC12 cells co-transfected with an expression vector encoding enhanced green fluorescent protein (pEGFP) and vehicle (control) or indicated siRNAs were treated with 400 μM H<sub>2</sub>O<sub>2</sub> for 16 h. Transfected cells were shown by the green fluorescence emitted by green fluorescent protein (GFP), and nuclear morphology was visualized by DAPI staining (blue). Arrowheads indicate transfected cells with apoptotic nuclei. Scale bar, 10 μm.</p>
+            <p>(F) Apoptosis is expressed as the percentage of transfected cells with apoptotic nuclear morphology. Data represent mean ± SEM from three independent experiments. <sup>*</sup>Significantly different from the H<sub>2</sub>O<sub>2</sub>-treated control cells (<italic>p</italic> &lt; 0.01).</p>
+          </caption>
+          <graphic xlink:href="pbio.0050172.g005"/>
+        </fig>
+        <p>Cell viability and nuclear morphology analyses revealed that depletion of endogenous PINK1 by PINK1 siRNA-1 or PINK1 siRNA-2 enhanced the susceptibility of PC12 cells to oxidative-stress-induced apoptosis (<xref ref-type="fig" rid="pbio-0050172-g005">Figure 5</xref>D–<xref ref-type="fig" rid="pbio-0050172-g005">5</xref>F). Moreover, PINK1 depletion significantly increased oxidative-stress-induced release of cytochrome c from mitochondria to the cytosol (<xref ref-type="fig" rid="pbio-0050172-g006">Figure 6</xref>). Together, these data provide strong support for a critical role of PINK1 in regulation of the mitochondrial apoptotic pathway.</p>
+        <fig id="pbio-0050172-g006" position="float">
+          <label>Figure 6</label>
+          <caption>
+            <title>PINK1 Depletion Increases Cytochrome c Release from Mitochondria</title>
+            <p>(A) PC12 cells transfected with the indicated siRNA or vehicle (control) were treated with 400 μM H<sub>2</sub>O<sub>2</sub> for the indicated times. The levels of cytochrome c (Cyt. c) and actin in the cytosol were determined by immunoblotting with anti-cytochrome c and anti-actin antibodies.</p>
+            <p>(B) The level of cytochrome c released to the cytosol is normalized to the level of actin in each cell sample. Data represent mean ± SEM from three independent experiments. <sup>*</sup>Significantly different from the corresponding H<sub>2</sub>O<sub>2</sub>-treated control cells (<italic>p</italic> &lt; 0.01). AU, arbitrary units.</p>
+            <p>(C) PC12 cells co-transfected with pEGFP and vehicle (control) or indicated siRNAs were treated with 400 μM H<sub>2</sub>O<sub>2</sub> for 16 h. Cell morphology was imaged by using phase-contrast microscopy (grey), transfected cells were visualized by the green fluorescence emitted by green fluorescent protein (GFP), and the cellular distribution of cytochrome c was detected by immunostaining with anti-cytochrome c antibody (red). Transfected cells with mitochondrial cytochrome c staining are indicated by arrows, and those with diffuse, cytosolic cytochrome c staining are indicated by arrowheads. Scale bar, 10 μm.</p>
+            <p>(D) Quantification of the percentage of transfected cells showing cytochrome c release. Data represent mean ± SEM from three independent experiments. <sup>*</sup>Significantly different from the H<sub>2</sub>O<sub>2</sub>-treated control cells (<italic>p</italic> &lt; 0.05).</p>
+          </caption>
+          <graphic xlink:href="pbio.0050172.g006"/>
+        </fig>
+      </sec>
+      <sec id="s2g">
+        <title>TRAP1 Is Required for PINK1-Mediated Protection against Oxidative-Stress-Induced Apoptosis</title>
+        <p>Our finding that TRAP1 phosphorylation by PINK1 correlates with the anti-apoptotic activity of PINK1 raises the possibility that TRAP1 may be the intermediate between PINK1 and apoptosis inhibition. To test this possibility, we investigated the effect of siRNA-mediated TRAP1 knockdown on the cytoprotective function of PINK1. Two different TRAP1-targeting siRNAs (TRAP1 siRNA-1 and TRAP1 siRNA-2) were used to reduce the expression of endogenous TRAP1 in PC12 cells. Western blot analysis showed that TRAP1 siRNA-2 caused a greater decrease in TRAP1 protein level than TRAP1 siRNA-1, whereas the NT control siRNA had no effect on TRAP1 expression (<xref ref-type="fig" rid="pbio-0050172-g007">Figure 7</xref>A). Analyses of cell viability, nuclear morphology, and cytochrome c release revealed that TRAP1 depletion resulted in a significant increase in oxidative-stress-induced cytochrome c release and cell death (<xref ref-type="fig" rid="pbio-0050172-g007">Figure 7</xref>B–<xref ref-type="fig" rid="pbio-0050172-g007">7</xref>F). We found that, in contrast to the protective effect of overexpressing wild-type PINK1 seen in the control (<xref ref-type="fig" rid="pbio-0050172-g004">Figure 4</xref>) or in the NT siRNA-treated PC12 cells (<xref ref-type="fig" rid="pbio-0050172-g007">Figure 7</xref>), overexpression of wild-type PINK1 in TRAP1-depleted PC12 cells was no longer able to inhibit oxidative-stress-induced cytochrome c release and cell death (<xref ref-type="fig" rid="pbio-0050172-g007">Figure 7</xref>B–<xref ref-type="fig" rid="pbio-0050172-g007">7</xref>F). Moreover, the dominant negative effects on cell survival observed with PD-linked G309D and L347P mutant PINK1 (<xref ref-type="fig" rid="pbio-0050172-g004">Figure 4</xref>) were also abolished by TRAP1 depletion (<xref ref-type="fig" rid="pbio-0050172-g007">Figure 7</xref>B–<xref ref-type="fig" rid="pbio-0050172-g007">7</xref>F). Taken together, these results provide evidence supporting a role of TRAP1 as the downstream effector of PINK1 in protection against oxidative-stress-induced apoptosis.</p>
+        <fig id="pbio-0050172-g007" position="float">
+          <label>Figure 7</label>
+          <caption>
+            <title>TRAP1 Depletion Abolishes the Effects of Wild-Type and Mutant PINK1 on Cell Vulnerability to Oxidative Stress</title>
+            <p>(A) PC12 cells were transfected with vehicle (control), NT siRNA, or TRAP1-specific siRNAs (TRAP1 siRNA-1 and TRAP1 siRNA-2). The levels of TRAP1 and actin in the cell lysates were analyzed by immunoblotting with anti-TRAP1 and anti-actin antibodies.</p>
+            <p>(B) PC12 cells treated with TRAP1 siRNA-2 or NT siRNA were either untransfected (UT) or transfected with wild-type (WT) or mutant PINK1 as indicated. Vehicle-treated, non-transfected PC12 cells were used as the control. Cells were exposed to 400 μM H<sub>2</sub>O<sub>2</sub> for 16 h, and the extent of cell survival was assessed by using the MTT assay. Data represent mean ± SEM from three independent experiments. *, <italic>p</italic> &lt; 0.05; ns, not significant.</p>
+            <p>(C) PC12 cells co-transfected with pEGFP and vehicle (control) or indicated siRNAs and PINK1 plasmids were treated with 400 μM H<sub>2</sub>O<sub>2</sub> for 16 h, and the extent of apoptosis was determined by morphological analysis of DAPI-stained nuclei. The percentage of transfected cells with apoptotic nuclear morphology was quantified. Data represent mean ± SEM from three independent experiments. <sup>*</sup>, <italic>p</italic> &lt; 0.05; ns, not significant.</p>
+            <p>(D) The levels of cytochrome c (Cyt. c) and actin in the cytosol fractions from cells described in (B) were determined by immunoblotting with anti-cytochrome c and anti-actin antibodies.</p>
+            <p>(E) The level of cytochrome c released to the cytosol is normalized to the level of actin in each cell sample. Data represent mean ± SEM from three independent experiments. <sup>*</sup>, <italic>p</italic> &lt; 0.01; ns, not significant. AU, arbitrary units.</p>
+            <p>(F) PC12 cells co-transfected with pEGFP and vehicle (control) or indicated siRNAs and PINK1 plasmids were treated with 400 μM H<sub>2</sub>O<sub>2</sub> for 16 h, and the cellular distribution of cytochrome c was detected by immunostaining with anti-cytochrome c antibody. The percentage of transfected cells showing cytochrome c release was quantified. Data represent mean ± SEM from three independent experiments. <sup>*</sup>, <italic>p</italic> &lt; 0.05; ns, not significant.</p>
+          </caption>
+          <graphic xlink:href="pbio.0050172.g007"/>
+        </fig>
+        <p>Given our result that TRAP1 is localized in the mitochondrial inner membrane and the intermembrane space where cytochrome c is located (<xref ref-type="fig" rid="pbio-0050172-g002">Figure 2</xref>B), we next investigated whether TRAP1 may exert its anti-apoptotic function by binding directly to cytochrome c, thereby preventing it from being released from mitochondria. Co-immunoprecipitation experiments failed to find TRAP1 in physical association with cytochrome c either in the absence or presence of wild-type or mutant PINK1 or under conditions of oxidative stress (<xref ref-type="supplementary-material" rid="pbio-0050172-sg003">Figure S3</xref>), arguing against the possibility that TRAP1-mediated inhibition of cytochrome c release occurs through a direct interaction/retention mechanism.</p>
+      </sec>
+    </sec>
+    <sec id="s3">
+      <title>Discussion</title>
+      <p>Although mutations in the putative kinase PINK1 are a common cause of autosomal recessive PD, very little is known about the biological function of PINK1 and how loss of PINK1 function leads to neurodegeneration. The present study demonstrates that PINK1 is a mitochondrial serine/threonine kinase with a critical role in promoting cell survival. We have identified what is to our knowledge the first substrate for the PINK1 kinase: the mitochondrial molecular chaperone TRAP1. Our findings reveal a hitherto unexplored pathway by which PINK1 phosphorylates downstream effector TRAP1 to protect cells against apoptosis, and suggest a link between the impairment of this novel mitochondrial pathway and neurodegeneration in PD.</p>
+      <p>It has become increasingly clear that molecular chaperones not only facilitate protein folding, but also regulate a number of cellular processes, including cell survival and apoptosis [<xref ref-type="bibr" rid="pbio-0050172-b024">24</xref>,<xref ref-type="bibr" rid="pbio-0050172-b025">25</xref>]. Despite the critical importance of mitochondria in cell function and survival, the current knowledge about mitochondrial molecular chaperones is limited. TRAP1 is a poorly characterized mitochondrial protein with significant sequence homology to the HSP90AA1 family of molecular chaperones [<xref ref-type="bibr" rid="pbio-0050172-b023">23</xref>]. Our finding that siRNA-mediated depletion of TRAP1 sensitizes cells to oxidative-stress-induced cytochrome c release and cell death suggests a role for TRAP1 in the modulation of the mitochondrial apoptotic cascade. Consistent with this role, TRAP1 knockdown has been shown to enhance cytochrome c release and apoptosis induced by other stressors, such as protein-tyrosine kinase inhibitor β-hydroxyisovalerylshikonin and topoisomerase II inhibitor VP16 [<xref ref-type="bibr" rid="pbio-0050172-b026">26</xref>]. The molecular basis of the anti-apoptotic function of TRAP1 remains unknown. Although we find that TRAP1 and cytochrome c colocalize in the mitochondrial intermembrane space, our results indicate that TRAP1 does not physically associate with cytochrome c in cells either in the absence or presence of oxidative stress. Thus, TRAP1 may inhibit the release of cytochrome c from mitochondria through a mechanism other than direct interaction/retention. Future studies are required to elucidate the mechanism by which TRAP1 regulates cytochrome c release and apoptosis.</p>
+      <p>Our data reveal that endogenous TRAP1 is constitutively phosphorylated at low levels, and the TRAP1 phosphorylation is significantly increased in response to oxidative stress induced by H<sub>2</sub>O<sub>2</sub>. Both constitutive and oxidative-stress-induced TRAP1 phosphorylation are dramatically enhanced by PINK1 overexpression and are reduced by siRNA-mediated depletion of PINK1, indicating that PINK1 is a major kinase responsible for phosphorylating TRAP1 in cells. These results, together with the in vitro phosphorylation data, provide compelling evidence that TRAP1 is a bona fide substrate for PINK1 kinase. We find that overexpression of PINK1 protects cells against oxidative-stress-induced apoptosis by suppressing cytochrome c release from mitochondria, and this protective action of PINK1 depends on its kinase activity to phosphorylate TRAP1. Conversely, PINK1 depletion causes increased cytochrome c release from mitochondria and sensitizes cells to oxidative-stress-induced cell death, and the pro-apoptotic effect of PINK1 depletion correlates with reduced TRAP1 phosphorylation. Moreover, our studies using TRAP1 siRNAs have provided direct evidence that TRAP1 is required for PINK1-mediated protection against oxidative-stress-induced cytochrome c release and cell death. Collectively, these findings point to a specific pathway in which PINK1 exerts its cytoprotective function by phosphorylating downstream effector TRAP1 to inhibit the release of cytochrome c from mitochondria.</p>
+      <p>Our work indicates that the mitochondrial PINK1–TRAP1 anti-apoptotic pathway is disrupted by PD-linked PINK1 G309D, L347P, and W437X mutations. Previous studies of PINK1 mutations using in vitro autophosphorylation assays and artificial kinase substrates have led to conflicting results. For example, analyses with recombinant GST-fused PINK1 proteins purified from <named-content content-type="genus-species">Escherichia coli</named-content> showed that PINK1 autophosphorylation activity was slightly decreased by the G309D mutation [<xref ref-type="bibr" rid="pbio-0050172-b011">11</xref>,<xref ref-type="bibr" rid="pbio-0050172-b012">12</xref>] and was significantly increased by the W437X mutation [<xref ref-type="bibr" rid="pbio-0050172-b012">12</xref>] and that neither of these mutations affected the activity of PINK1 to phosphorylate artificial substrate α-casein [<xref ref-type="bibr" rid="pbio-0050172-b012">12</xref>]. In contrast, a recent study using recombinant PINK1 proteins isolated from baculovirus-infected <italic>sf9</italic> insect cells failed to detect PINK1 autophosphorylation activity, but showed that PINK1 C-terminal truncation reduced the activity of PINK1 to phosphorylate artificial substrate histone H1 [<xref ref-type="bibr" rid="pbio-0050172-b027">27</xref>]. These discrepancies underscore the importance of knowing physiological substrate(s) for characterizing the kinase function of wild-type and mutant PINK1. Our analyses reveal that single G309D and L347P mutations abolish the kinase activity of PINK1 to phosphorylate its physiological substrate TRAP1 both in vitro and in vivo. By comparison, the W437X mutation has a weaker effect on PINK1-mediated TRAP1 phosphorylation. Our findings that PD-linked mutations impair the ability of PINK1 to promote TRAP1 phosphorylation and cell survival provide strong support for a loss-of-function pathogenic mechanism in familial PD patients carrying homozygous PINK1 mutations.</p>
+      <p>Recently, an increasing number of PD cases with heterozygous mutations affecting only one <italic>PINK1</italic> allele have been reported, including single heterozygous G309D and W437X mutations [<xref ref-type="bibr" rid="pbio-0050172-b006">6</xref>–<xref ref-type="bibr" rid="pbio-0050172-b010">10</xref>]. Our results that PD-linked PINK1 mutations specifically inhibit PINK1 kinase function without affecting the substrate binding or subcellular localization of PINK1 raise an interesting possibility that these mutants may act in a dominant negative manner to inhibit the function of the normal <italic>PINK1</italic> allele by competing with endogenous wild-type PINK1 for binding its substrate TRAP1. In support of this possibility, we find that PD-linked PINK1 G309D and L347P mutations have a dominant negative effect on in vivo TRAP1 phosphorylation and cell survival. These results suggest a dominant negative pathogenic mechanism by which heterozygous PINK1 mutations lead to Parkinsonian symptoms [<xref ref-type="bibr" rid="pbio-0050172-b006">6</xref>,<xref ref-type="bibr" rid="pbio-0050172-b007">7</xref>,<xref ref-type="bibr" rid="pbio-0050172-b009">9</xref>]. By comparison, overexpression studies show that the W437X mutation has a smaller but significant inhibitory effect on in vivo TRAP1 phosphorylation and cell survival, providing evidence supporting a pathogenic role of the heterozygous W437X mutation. Our finding of a mitochondrial PINK1–TRAP1 anti-apoptotic pathway and its impairment by PD-linked mutations provides new insights into the pathogenic mechanisms of PD and suggests novel targets for therapeutic intervention.</p>
+    </sec>
+    <sec sec-type="materials|methods" id="s4">
+      <title>Materials and Methods</title>
+      <sec id="s4a">
+        <title>Plasmids and anti-PINK1 antibody.</title>
+        <p>Conventional molecular biological techniques [<xref ref-type="bibr" rid="pbio-0050172-b028">28</xref>] were used to generate the C-terminally FLAG-tagged human PINK1 (PINK1-FLAG), the PD-linked G309D, W437X, and L347P mutant PINK1, and the putative catalytically inactive PINK1 mutants, K219A, D362A, D384A, and the KDD triple mutant. A polyclonal anti-PINK1 antibody was raised in rabbit against amino acids 135–155 of human PINK1, and affinity purified as described previously [<xref ref-type="bibr" rid="pbio-0050172-b029">29</xref>].</p>
+      </sec>
+      <sec id="s4b">
+        <title>Affinity purification and mass spectrometry.</title>
+        <p>HeLa cells transfected with pPINK1-FLAG or the vector control were lysed in a buffer containing 50 mM Tris-HCl (pH 7.4), 150 mM NaCl, 1 mM EDTA, 1% Triton X-100, and protease inhibitor cocktail (Sigma, <ext-link ext-link-type="uri" xlink:href="http://www.sigmaaldrich.com">http://www.sigmaaldrich.com</ext-link>). The lysates were affinity purified with anti-FLAG M2 affinity gel (Sigma). FLAG-tagged PINK1-protein complexes were eluted into 1-ml fractions and analyzed by immunoblotting with anti-FLAG antibody (Roche Applied Science, <ext-link ext-link-type="uri" xlink:href="http://www.roche-applied-science.com">http://www.roche-applied-science.com</ext-link>). The fractions containing FLAG-tagged PINK1 protein were pooled and resolved on SDS-PAGE. The proteins were then transferred to PVDF membrane followed by Ponceau S staining. Protein bands were excised from the membrane, digested by trypsin, and analyzed by nanoelectrospray tandem mass spectrometry as described previously [<xref ref-type="bibr" rid="pbio-0050172-b030">30</xref>,<xref ref-type="bibr" rid="pbio-0050172-b031">31</xref>].</p>
+      </sec>
+      <sec id="s4c">
+        <title>Cell transfections and immunoprecipitations.</title>
+        <p>HeLa and PC12 cells were transfected with the indicated plasmids by using Lipofectamine 2000 (Invitrogen, <ext-link ext-link-type="uri" xlink:href="http://www.invitrogen.com">http://www.invitrogen.com</ext-link>) and TransIT neuronal transfection reagent (Mirus, <ext-link ext-link-type="uri" xlink:href="http://www.mirusbio.com">http://www.mirusbio.com</ext-link>), respectively, according to the manufacturer's instructions. Immunoprecipitations were performed at 24 h post-transfection as described [<xref ref-type="bibr" rid="pbio-0050172-b032">32</xref>] using the indicated antibodies. The immunocomplexes were resolved by SDS-PAGE and analyzed by immunoblotting [<xref ref-type="bibr" rid="pbio-0050172-b032">32</xref>].</p>
+      </sec>
+      <sec id="s4d">
+        <title>In vitro and in vivo phosphorylation assays.</title>
+        <p>In vitro kinase assays were performed as described [<xref ref-type="bibr" rid="pbio-0050172-b033">33</xref>] by incubation of affinity-purified FLAG-tagged wild-type or mutant PINK1 with TRAP1 for 20 min at 30 °C in 100 μl of reaction buffer containing 50 mM Tris-HCl (pH 7.5), 8 mM MgCl<sub>2</sub>, 2 mM MnCl<sub>2</sub>, 0.1 mM ATP, and 5 μCi of [γ-<sup>32</sup>P] ATP. The reaction mixtures were resolved by SDS-PAGE, and phosphorylated TRAP1 was visualized by autoradiography. The relative level of in vitro TRAP1 phosphorylation was measured by quantifying the amount of <sup>32</sup>P incorporated into TRAP1 and was normalized against the level of total TRAP1. For detection of in vivo phosphorylation of TRAP1, endogenous TRAP1 protein was immunoprecipitated by using anti-TRAP1 antibody (BD Biosciences, <ext-link ext-link-type="uri" xlink:href="http://www.bdbiosciences.com">http://www.bdbiosciences.com</ext-link>), followed by immunoblotting with anti-phosphoserine antibody (Invitrogen). The relative level of in vivo TRAP1 phosphorylation was determined by measuring the intensity of the phosphoserine-immunoreactive band and was normalized against the level of total TRAP1.</p>
+      </sec>
+      <sec id="s4e">
+        <title>Immunofluorescence confocal microscopy.</title>
+        <p>Double labeling indirect immunofluorescence microscopy was performed as described previously [<xref ref-type="bibr" rid="pbio-0050172-b029">29</xref>,<xref ref-type="bibr" rid="pbio-0050172-b034">34</xref>,<xref ref-type="bibr" rid="pbio-0050172-b035">35</xref>]. Mitochondria were labeled with MitoTracker (Molecular Probes, <ext-link ext-link-type="uri" xlink:href="http://probes.invitrogen.com">http://probes.invitrogen.com</ext-link>) prior to fixation. Cells were then immunostained with the indicated antibodies, and examined by using a Zeiss (<ext-link ext-link-type="uri" xlink:href="http://www.zeiss.com">http://www.zeiss.com</ext-link>) LSM 510 confocal microscope.</p>
+      </sec>
+      <sec id="s4f">
+        <title>Subcellular fractionations.</title>
+        <p>For separation of mitochondria and other organelles, PC12 cells were homogenized and fractionated on a 5%–15% linear Optiprep (Nycomed, <ext-link ext-link-type="uri" xlink:href="http://www.nycomed.com">http://www.nycomed.com</ext-link>) gradient as described previously [<xref ref-type="bibr" rid="pbio-0050172-b032">32</xref>]. For sub-mitochondria fractionation, mitochondria isolated from PC12 cells were further separated by differential centrifugation into the matrix, the inner mitochondrial membrane, the intermembrane space, and the outer mitochondrial membrane fractions as described [<xref ref-type="bibr" rid="pbio-0050172-b036">36</xref>].</p>
+      </sec>
+      <sec id="s4g">
+        <title>siRNA transfection.</title>
+        <p>For depletion of PINK1 or TRAP1 in PC12 cells, siRNAs (Dharmacon, <ext-link ext-link-type="uri" xlink:href="http://www.dharmacon.com">http://www.dharmacon.com</ext-link>) were generated against the following rat PINK1 or TRAP1 mRNA sequences: PINK1 siRNA-1, 5′-CAAGUCCGACAACAUACUU-3′; PINK1 siRNA-2, 5′-GCGUGUUGGCCUGCAGUUA-3′; TRAP1 siRNA-1, 5′-GCAAAGAUUUCGCCAACGA-3′; and TRAP1 siRNA-2, 5′-GAACAUUCACCCUAUUAUG-3′. A control siRNA with no known mammalian homology (siCONTROL Non-Targeting siRNA #1, Dharmacon) was used as negative control. PC12 cells were transfected with the indicated siRNAs using the TransIT siQUEST (Mirus) reagent as described previously [<xref ref-type="bibr" rid="pbio-0050172-b037">37</xref>].</p>
+      </sec>
+      <sec id="s4h">
+        <title>Cell viability and apoptosis assays.</title>
+        <p>PC12 cells were treated with H<sub>2</sub>O<sub>2</sub> as indicated, and cell viability was assessed using the 3-(4,5-dimethylthiazol-2-yl)-2,5-diphenyltetrazolium bromide (MTT) assay as described [<xref ref-type="bibr" rid="pbio-0050172-b038">38</xref>]. Apoptotic cell death was measured by morphological assessment of nuclei stained with 4′,6-diamidino-2-phenylindole (DAPI, Molecular Probes) as previously described [<xref ref-type="bibr" rid="pbio-0050172-b039">39</xref>]. The percentage of transfected cells with nuclear shrinkage and chromatin condensation was scored for apoptosis in a blinded manner.</p>
+      </sec>
+      <sec id="s4i">
+        <title>Cytochrome c release assays.</title>
+        <p>Biochemical assays of cytochrome c release were performed as described [<xref ref-type="bibr" rid="pbio-0050172-b040">40</xref>]. Briefly, PC12 cells were homogenized and then fractionated into the mitochondria and cytosol fractions. The release of cytochrome c from mitochondria to the cytosol was determined by immunoblotting with anti-cytochrome c antibody (clone 7H8.2C12, BD Biosciences). For cell-based assays of cytochrome c release, the cellular distribution of cytochrome c was determined by immunofluorescence confocal microscopy using anti-cytochrome c antibody (clone 6H2.B4, BD Biosciences) as described [<xref ref-type="bibr" rid="pbio-0050172-b041">41</xref>]. The release of cytochrome c from mitochondria to the cytosol was indicated by a transition from a punctate to a diffuse cytochrome c immunostaining pattern. The percentage of transfected cells showing cytochrome c release was scored in a blinded manner.</p>
+      </sec>
+      <sec id="s4j">
+        <title>Statistical analysis.</title>
+        <p>Statistical analysis of the data was performed by using ANOVA with Tukey's post hoc analysis.</p>
+      </sec>
+    </sec>
+    <sec sec-type="supplementary-material" id="s5">
+      <title>Supporting Information</title>
+      <supplementary-material content-type="local-data" id="pbio-0050172-sg001">
+        <label>Figure S1</label>
+        <caption>
+          <title>Colocalization of PINK1 with TRAP1 in the Mitochondria</title>
+          <p>Untransfected HeLa cells (D–F) or transfected HeLa cells expressing PINK1-FLAG (A–C) or PINK1-HA (G–I) were analyzed by double labeling confocal microscopy with MitoTracker (B and E), anti-FLAG (A), anti-TRAP1 (D and H), and anti-HA (G) antibodies. Scale bar, 10 μm.</p>
+          <p>(12 MB TIF)</p>
+        </caption>
+        <media xlink:href="pbio.0050172.sg001.tif" mimetype="image" mime-subtype="tiff">
+          <caption>
+            <p>Click here for additional data file.</p>
+          </caption>
+        </media>
+      </supplementary-material>
+      <supplementary-material content-type="local-data" id="pbio-0050172-sg002">
+        <label>Figure S2</label>
+        <caption>
+          <title>PD-Associated PINK1 Mutations Have No Effect on the Mitochondrial Colocalization of PINK1 with TRAP1</title>
+          <p>Mitochondria (Mito) isolated from transfected PC12 cells expressing wild-type PINK1 or PD-linked G309D, W437X, or L347P mutant PINK1 were fractionated into matrix, inner mitochondrial membrane (IM), intermembrane space (IMS), and outer mitochondrial membrane (OM) fractions, and analyzed by immunoblotting for PINK1 and TRAP1.</p>
+          <p>(1.6 MB TIF)</p>
+        </caption>
+        <media xlink:href="pbio.0050172.sg002.tif" mimetype="image" mime-subtype="tiff">
+          <caption>
+            <p>Click here for additional data file.</p>
+          </caption>
+        </media>
+      </supplementary-material>
+      <supplementary-material content-type="local-data" id="pbio-0050172-sg003">
+        <label>Figure S3</label>
+        <caption>
+          <title>TRAP1 Does Not Associate with Cytochrome c in the Absence or Presence of PINK1 and Oxidative Stress</title>
+          <p>(A) Lysates from untransfected (UT) or transfected PC12 cells expressing wild-type (WT) PINK1 or the indicated mutant PINK1 were immunoprecipitated with anti-TRAP1 antibody, followed by immunoblotting using antibodies against TRAP1 and cytochrome c (Cyt. c). “Input” lane shows the levels of endogenous TRAP1 and cytochrome c in the lysate of untransfected PC12 cells.</p>
+          <p>(B) PC12 cells expressing wild-type PINK1 or vector-transfected controls were incubated in the presence or absence of 400 μM H<sub>2</sub>O<sub>2</sub> for 16 h. Cell lysates (Input) were subjected to immunoprecipitation with anti-TRAP1, followed by immunoblotting using antibodies against TRAP1 and cytochrome c (Cyt. c).</p>
+          <p>(1.2 MB TIF)</p>
+        </caption>
+        <media xlink:href="pbio.0050172.sg003.tif" mimetype="image" mime-subtype="tiff">
+          <caption>
+            <p>Click here for additional data file.</p>
+          </caption>
+        </media>
+      </supplementary-material>
+      <sec id="s5a">
+        <title>Accession Numbers</title>
+        <p>The GenBank (<ext-link ext-link-type="uri" xlink:href="http://www.ncbi.nlm.nih.gov/Genbank">http://www.ncbi.nlm.nih.gov/Genbank</ext-link>) accession number for TRAP1 is NP_057376.</p>
+      </sec>
+    </sec>
+  </body>
+  <back>
+    <glossary>
+      <title>Abbreviations</title>
+      <def-list>
+        <def-item>
+          <term>DAPI</term>
+          <def>
+            <p>4′,6-diamidino-2-phenylindole</p>
+          </def>
+        </def-item>
+        <def-item>
+          <term>KDD</term>
+          <def>
+            <p>K219A/D362A/D384A</p>
+          </def>
+        </def-item>
+        <def-item>
+          <term>MTT</term>
+          <def>
+            <p>3-(4,5-dimethylthiazol-2-yl)-2,5-diphenyltetrazolium bromide</p>
+          </def>
+        </def-item>
+        <def-item>
+          <term>NT</term>
+          <def>
+            <p>non-targeting</p>
+          </def>
+        </def-item>
+        <def-item>
+          <term>PD</term>
+          <def>
+            <p>Parkinson disease</p>
+          </def>
+        </def-item>
+        <def-item>
+          <term>PINK1</term>
+          <def>
+            <p>PTEN induced putative kinase 1</p>
+          </def>
+        </def-item>
+        <def-item>
+          <term>SEM</term>
+          <def>
+            <p>standard error of the mean</p>
+          </def>
+        </def-item>
+        <def-item>
+          <term>siRNA</term>
+          <def>
+            <p>small interfering RNA</p>
+          </def>
+        </def-item>
+        <def-item>
+          <term>TRAP1</term>
+          <def>
+            <p>TNF receptor-associated protein 1</p>
+          </def>
+        </def-item>
+      </def-list>
+    </glossary>
+    <ref-list>
+      <title>References</title>
+      <ref id="pbio-0050172-b001">
+        <citation citation-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Lang</surname>
+              <given-names>AE</given-names>
+            </name>
+            <name>
+              <surname>Lozano</surname>
+              <given-names>AM</given-names>
+            </name>
+          </person-group>
+          <year>1998</year>
+          <article-title>Parkinson's disease. First of two parts</article-title>
+          <source>N Engl J Med</source>
+          <volume>339</volume>
+          <fpage>1044</fpage>
+          <lpage>1053</lpage>
+          <pub-id pub-id-type="pmid">9761807</pub-id>
+        </citation>
+      </ref>
+      <ref id="pbio-0050172-b002">
+        <citation citation-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Farrer</surname>
+              <given-names>MJ</given-names>
+            </name>
+          </person-group>
+          <year>2006</year>
+          <article-title>Genetics of Parkinson disease: Paradigm shifts and future prospects</article-title>
+          <source>Nat Rev Genet</source>
+          <volume>7</volume>
+          <fpage>306</fpage>
+          <lpage>318</lpage>
+          <pub-id pub-id-type="pmid">16543934</pub-id>
+        </citation>
+      </ref>
+      <ref id="pbio-0050172-b003">
+        <citation citation-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Schapira</surname>
+              <given-names>AH</given-names>
+            </name>
+            <name>
+              <surname>Cooper</surname>
+              <given-names>JM</given-names>
+            </name>
+            <name>
+              <surname>Dexter</surname>
+              <given-names>D</given-names>
+            </name>
+            <name>
+              <surname>Jenner</surname>
+              <given-names>P</given-names>
+            </name>
+            <name>
+              <surname>Clark</surname>
+              <given-names>JB</given-names>
+            </name>
+            <etal/>
+          </person-group>
+          <year>1989</year>
+          <article-title>Mitochondrial complex I deficiency in Parkinson's disease</article-title>
+          <source>Lancet</source>
+          <volume>1</volume>
+          <fpage>1269</fpage>
+          <pub-id pub-id-type="pmid">2566813</pub-id>
+        </citation>
+      </ref>
+      <ref id="pbio-0050172-b004">
+        <citation citation-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Betarbet</surname>
+              <given-names>R</given-names>
+            </name>
+            <name>
+              <surname>Sherer</surname>
+              <given-names>TB</given-names>
+            </name>
+            <name>
+              <surname>Greenamyre</surname>
+              <given-names>JT</given-names>
+            </name>
+          </person-group>
+          <year>2002</year>
+          <article-title>Animal models of Parkinson's disease</article-title>
+          <source>Bioessays</source>
+          <volume>24</volume>
+          <fpage>308</fpage>
+          <lpage>318</lpage>
+          <pub-id pub-id-type="pmid">11948617</pub-id>
+        </citation>
+      </ref>
+      <ref id="pbio-0050172-b005">
+        <citation citation-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Valente</surname>
+              <given-names>EM</given-names>
+            </name>
+            <name>
+              <surname>Abou-Sleiman</surname>
+              <given-names>PM</given-names>
+            </name>
+            <name>
+              <surname>Caputo</surname>
+              <given-names>V</given-names>
+            </name>
+            <name>
+              <surname>Muqit</surname>
+              <given-names>MM</given-names>
+            </name>
+            <name>
+              <surname>Harvey</surname>
+              <given-names>K</given-names>
+            </name>
+            <etal/>
+          </person-group>
+          <year>2004</year>
+          <article-title>Hereditary early-onset Parkinson's disease caused by mutations in PINK1</article-title>
+          <source>Science</source>
+          <volume>304</volume>
+          <fpage>1158</fpage>
+          <lpage>1160</lpage>
+          <pub-id pub-id-type="pmid">15087508</pub-id>
+        </citation>
+      </ref>
+      <ref id="pbio-0050172-b006">
+        <citation citation-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Hatano</surname>
+              <given-names>Y</given-names>
+            </name>
+            <name>
+              <surname>Li</surname>
+              <given-names>Y</given-names>
+            </name>
+            <name>
+              <surname>Sato</surname>
+              <given-names>K</given-names>
+            </name>
+            <name>
+              <surname>Asakawa</surname>
+              <given-names>S</given-names>
+            </name>
+            <name>
+              <surname>Yamamura</surname>
+              <given-names>Y</given-names>
+            </name>
+            <etal/>
+          </person-group>
+          <year>2004</year>
+          <article-title>Novel PINK1 mutations in early-onset parkinsonism</article-title>
+          <source>Ann Neurol</source>
+          <volume>56</volume>
+          <fpage>424</fpage>
+          <lpage>427</lpage>
+          <pub-id pub-id-type="pmid">15349870</pub-id>
+        </citation>
+      </ref>
+      <ref id="pbio-0050172-b007">
+        <citation citation-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Bonifati</surname>
+              <given-names>V</given-names>
+            </name>
+            <name>
+              <surname>Rohe</surname>
+              <given-names>CF</given-names>
+            </name>
+            <name>
+              <surname>Breedveld</surname>
+              <given-names>GJ</given-names>
+            </name>
+            <name>
+              <surname>Fabrizio</surname>
+              <given-names>E</given-names>
+            </name>
+            <name>
+              <surname>De Mari</surname>
+              <given-names>M</given-names>
+            </name>
+            <etal/>
+          </person-group>
+          <year>2005</year>
+          <article-title>Early-onset parkinsonism associated with PINK1 mutations: Frequency, genotypes, and phenotypes</article-title>
+          <source>Neurology</source>
+          <volume>65</volume>
+          <fpage>87</fpage>
+          <lpage>95</lpage>
+          <pub-id pub-id-type="pmid">16009891</pub-id>
+        </citation>
+      </ref>
+      <ref id="pbio-0050172-b008">
+        <citation citation-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Zadikoff</surname>
+              <given-names>C</given-names>
+            </name>
+            <name>
+              <surname>Rogaeva</surname>
+              <given-names>E</given-names>
+            </name>
+            <name>
+              <surname>Djarmati</surname>
+              <given-names>A</given-names>
+            </name>
+            <name>
+              <surname>Sato</surname>
+              <given-names>C</given-names>
+            </name>
+            <name>
+              <surname>Salehi-Rad</surname>
+              <given-names>S</given-names>
+            </name>
+            <etal/>
+          </person-group>
+          <year>2006</year>
+          <article-title>Homozygous and heterozygous PINK1 mutations: Considerations for diagnosis and care of Parkinson's disease patients</article-title>
+          <source>Mov Disord</source>
+          <volume>21</volume>
+          <fpage>875</fpage>
+          <lpage>879</lpage>
+          <pub-id pub-id-type="pmid">16547921</pub-id>
+        </citation>
+      </ref>
+      <ref id="pbio-0050172-b009">
+        <citation citation-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Hedrich</surname>
+              <given-names>K</given-names>
+            </name>
+            <name>
+              <surname>Hagenah</surname>
+              <given-names>J</given-names>
+            </name>
+            <name>
+              <surname>Djarmati</surname>
+              <given-names>A</given-names>
+            </name>
+            <name>
+              <surname>Hiller</surname>
+              <given-names>A</given-names>
+            </name>
+            <name>
+              <surname>Lohnau</surname>
+              <given-names>T</given-names>
+            </name>
+            <etal/>
+          </person-group>
+          <year>2006</year>
+          <article-title>Clinical spectrum of homozygous and heterozygous PINK1 mutations in a large German family with Parkinson disease: Role of a single hit?</article-title>
+          <source>Arch Neurol</source>
+          <volume>63</volume>
+          <fpage>833</fpage>
+          <lpage>838</lpage>
+          <pub-id pub-id-type="pmid">16769864</pub-id>
+        </citation>
+      </ref>
+      <ref id="pbio-0050172-b010">
+        <citation citation-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Criscuolo</surname>
+              <given-names>C</given-names>
+            </name>
+            <name>
+              <surname>Volpe</surname>
+              <given-names>G</given-names>
+            </name>
+            <name>
+              <surname>De Rosa</surname>
+              <given-names>A</given-names>
+            </name>
+            <name>
+              <surname>Varrone</surname>
+              <given-names>A</given-names>
+            </name>
+            <name>
+              <surname>Marongiu</surname>
+              <given-names>R</given-names>
+            </name>
+            <etal/>
+          </person-group>
+          <year>2006</year>
+          <article-title>PINK1 homozygous W437X mutation in a patient with apparent dominant transmission of parkinsonism</article-title>
+          <source>Mov Disord</source>
+          <volume>21</volume>
+          <fpage>1265</fpage>
+          <lpage>1267</lpage>
+          <pub-id pub-id-type="pmid">16700027</pub-id>
+        </citation>
+      </ref>
+      <ref id="pbio-0050172-b011">
+        <citation citation-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Beilina</surname>
+              <given-names>A</given-names>
+            </name>
+            <name>
+              <surname>Van Der Brug</surname>
+              <given-names>M</given-names>
+            </name>
+            <name>
+              <surname>Ahmad</surname>
+              <given-names>R</given-names>
+            </name>
+            <name>
+              <surname>Kesavapany</surname>
+              <given-names>S</given-names>
+            </name>
+            <name>
+              <surname>Miller</surname>
+              <given-names>DW</given-names>
+            </name>
+            <etal/>
+          </person-group>
+          <year>2005</year>
+          <article-title>Mutations in PTEN-induced putative kinase 1 associated with recessive parkinsonism have differential effects on protein stability</article-title>
+          <source>Proc Natl Acad Sci U S A</source>
+          <volume>102</volume>
+          <fpage>5703</fpage>
+          <lpage>5708</lpage>
+          <pub-id pub-id-type="pmid">15824318</pub-id>
+        </citation>
+      </ref>
+      <ref id="pbio-0050172-b012">
+        <citation citation-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Silvestri</surname>
+              <given-names>L</given-names>
+            </name>
+            <name>
+              <surname>Caputo</surname>
+              <given-names>V</given-names>
+            </name>
+            <name>
+              <surname>Bellacchio</surname>
+              <given-names>E</given-names>
+            </name>
+            <name>
+              <surname>Atorino</surname>
+              <given-names>L</given-names>
+            </name>
+            <name>
+              <surname>Dallapiccola</surname>
+              <given-names>B</given-names>
+            </name>
+            <etal/>
+          </person-group>
+          <year>2005</year>
+          <article-title>Mitochondrial import and enzymatic activity of PINK1 mutants associated to recessive parkinsonism</article-title>
+          <source>Hum Mol Genet</source>
+          <volume>14</volume>
+          <fpage>3477</fpage>
+          <lpage>3492</lpage>
+          <pub-id pub-id-type="pmid">16207731</pub-id>
+        </citation>
+      </ref>
+      <ref id="pbio-0050172-b013">
+        <citation citation-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Gandhi</surname>
+              <given-names>S</given-names>
+            </name>
+            <name>
+              <surname>Muqit</surname>
+              <given-names>MM</given-names>
+            </name>
+            <name>
+              <surname>Stanyer</surname>
+              <given-names>L</given-names>
+            </name>
+            <name>
+              <surname>Healy</surname>
+              <given-names>DG</given-names>
+            </name>
+            <name>
+              <surname>Abou-Sleiman</surname>
+              <given-names>PM</given-names>
+            </name>
+            <etal/>
+          </person-group>
+          <year>2006</year>
+          <article-title>PINK1 protein in normal human brain and Parkinson's disease</article-title>
+          <source>Brain</source>
+          <volume>129</volume>
+          <fpage>1720</fpage>
+          <lpage>1731</lpage>
+          <pub-id pub-id-type="pmid">16702191</pub-id>
+        </citation>
+      </ref>
+      <ref id="pbio-0050172-b014">
+        <citation citation-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Nakajima</surname>
+              <given-names>A</given-names>
+            </name>
+            <name>
+              <surname>Kataoka</surname>
+              <given-names>K</given-names>
+            </name>
+            <name>
+              <surname>Hong</surname>
+              <given-names>M</given-names>
+            </name>
+            <name>
+              <surname>Sakaguchi</surname>
+              <given-names>M</given-names>
+            </name>
+            <name>
+              <surname>Huh</surname>
+              <given-names>NH</given-names>
+            </name>
+          </person-group>
+          <year>2003</year>
+          <article-title>BRPK, a novel protein kinase showing increased expression in mouse cancer cell lines with higher metastatic potential</article-title>
+          <source>Cancer Lett</source>
+          <volume>201</volume>
+          <fpage>195</fpage>
+          <lpage>201</lpage>
+          <pub-id pub-id-type="pmid">14607334</pub-id>
+        </citation>
+      </ref>
+      <ref id="pbio-0050172-b015">
+        <citation citation-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Petit</surname>
+              <given-names>A</given-names>
+            </name>
+            <name>
+              <surname>Kawarai</surname>
+              <given-names>T</given-names>
+            </name>
+            <name>
+              <surname>Paitel</surname>
+              <given-names>E</given-names>
+            </name>
+            <name>
+              <surname>Sanjo</surname>
+              <given-names>N</given-names>
+            </name>
+            <name>
+              <surname>Maj</surname>
+              <given-names>M</given-names>
+            </name>
+            <etal/>
+          </person-group>
+          <year>2005</year>
+          <article-title>Wild-type PINK1 prevents basal and induced neuronal apoptosis, a protective effect abrogated by Parkinson disease-related mutations</article-title>
+          <source>J Biol Chem</source>
+          <volume>280</volume>
+          <fpage>34025</fpage>
+          <lpage>34032</lpage>
+          <pub-id pub-id-type="pmid">16079129</pub-id>
+        </citation>
+      </ref>
+      <ref id="pbio-0050172-b016">
+        <citation citation-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Deng</surname>
+              <given-names>H</given-names>
+            </name>
+            <name>
+              <surname>Jankovic</surname>
+              <given-names>J</given-names>
+            </name>
+            <name>
+              <surname>Guo</surname>
+              <given-names>Y</given-names>
+            </name>
+            <name>
+              <surname>Xie</surname>
+              <given-names>W</given-names>
+            </name>
+            <name>
+              <surname>Le</surname>
+              <given-names>W</given-names>
+            </name>
+          </person-group>
+          <year>2005</year>
+          <article-title>Small interfering RNA targeting the PINK1 induces apoptosis in dopaminergic cells SH-SY5Y</article-title>
+          <source>Biochem Biophys Res Commun</source>
+          <volume>337</volume>
+          <fpage>1133</fpage>
+          <lpage>1138</lpage>
+          <pub-id pub-id-type="pmid">16226715</pub-id>
+        </citation>
+      </ref>
+      <ref id="pbio-0050172-b017">
+        <citation citation-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Clark</surname>
+              <given-names>IE</given-names>
+            </name>
+            <name>
+              <surname>Dodson</surname>
+              <given-names>MW</given-names>
+            </name>
+            <name>
+              <surname>Jiang</surname>
+              <given-names>C</given-names>
+            </name>
+            <name>
+              <surname>Cao</surname>
+              <given-names>JH</given-names>
+            </name>
+            <name>
+              <surname>Huh</surname>
+              <given-names>JR</given-names>
+            </name>
+            <etal/>
+          </person-group>
+          <year>2006</year>
+          <article-title><italic>Drosophila</italic> pink1 is required for mitochondrial function and interacts genetically with parkin</article-title>
+          <source>Nature</source>
+          <volume>441</volume>
+          <fpage>1162</fpage>
+          <lpage>1166</lpage>
+          <pub-id pub-id-type="pmid">16672981</pub-id>
+        </citation>
+      </ref>
+      <ref id="pbio-0050172-b018">
+        <citation citation-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Park</surname>
+              <given-names>J</given-names>
+            </name>
+            <name>
+              <surname>Lee</surname>
+              <given-names>SB</given-names>
+            </name>
+            <name>
+              <surname>Lee</surname>
+              <given-names>S</given-names>
+            </name>
+            <name>
+              <surname>Kim</surname>
+              <given-names>Y</given-names>
+            </name>
+            <name>
+              <surname>Song</surname>
+              <given-names>S</given-names>
+            </name>
+            <etal/>
+          </person-group>
+          <year>2006</year>
+          <article-title>Mitochondrial dysfunction in <italic>Drosophila</italic> PINK1 mutants is complemented by parkin</article-title>
+          <source>Nature</source>
+          <volume>441</volume>
+          <fpage>1157</fpage>
+          <lpage>1161</lpage>
+          <pub-id pub-id-type="pmid">16672980</pub-id>
+        </citation>
+      </ref>
+      <ref id="pbio-0050172-b019">
+        <citation citation-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Wang</surname>
+              <given-names>D</given-names>
+            </name>
+            <name>
+              <surname>Qian</surname>
+              <given-names>L</given-names>
+            </name>
+            <name>
+              <surname>Xiong</surname>
+              <given-names>H</given-names>
+            </name>
+            <name>
+              <surname>Liu</surname>
+              <given-names>J</given-names>
+            </name>
+            <name>
+              <surname>Neckameyer</surname>
+              <given-names>WS</given-names>
+            </name>
+            <etal/>
+          </person-group>
+          <year>2006</year>
+          <article-title>Antioxidants protect PINK1-dependent dopaminergic neurons in <italic>Drosophila</italic></article-title>
+          <source>Proc Natl Acad Sci U S A</source>
+          <volume>103</volume>
+          <fpage>13520</fpage>
+          <lpage>13525</lpage>
+          <pub-id pub-id-type="pmid">16938835</pub-id>
+        </citation>
+      </ref>
+      <ref id="pbio-0050172-b020">
+        <citation citation-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Yang</surname>
+              <given-names>Y</given-names>
+            </name>
+            <name>
+              <surname>Gehrke</surname>
+              <given-names>S</given-names>
+            </name>
+            <name>
+              <surname>Imai</surname>
+              <given-names>Y</given-names>
+            </name>
+            <name>
+              <surname>Huang</surname>
+              <given-names>Z</given-names>
+            </name>
+            <name>
+              <surname>Ouyang</surname>
+              <given-names>Y</given-names>
+            </name>
+            <etal/>
+          </person-group>
+          <year>2006</year>
+          <article-title>Mitochondrial pathology and muscle and dopaminergic neuron degeneration caused by inactivation of <italic>Drosophila</italic> Pink1 is rescued by Parkin</article-title>
+          <source>Proc Natl Acad Sci U S A</source>
+          <volume>103</volume>
+          <fpage>10793</fpage>
+          <lpage>10798</lpage>
+          <pub-id pub-id-type="pmid">16818890</pub-id>
+        </citation>
+      </ref>
+      <ref id="pbio-0050172-b021">
+        <citation citation-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Song</surname>
+              <given-names>HY</given-names>
+            </name>
+            <name>
+              <surname>Dunbar</surname>
+              <given-names>JD</given-names>
+            </name>
+            <name>
+              <surname>Zhang</surname>
+              <given-names>YX</given-names>
+            </name>
+            <name>
+              <surname>Guo</surname>
+              <given-names>D</given-names>
+            </name>
+            <name>
+              <surname>Donner</surname>
+              <given-names>DB</given-names>
+            </name>
+          </person-group>
+          <year>1995</year>
+          <article-title>Identification of a protein with homology to hsp90 that binds the type 1 tumor necrosis factor receptor</article-title>
+          <source>J Biol Chem</source>
+          <volume>270</volume>
+          <fpage>3574</fpage>
+          <lpage>3581</lpage>
+          <pub-id pub-id-type="pmid">7876093</pub-id>
+        </citation>
+      </ref>
+      <ref id="pbio-0050172-b022">
+        <citation citation-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Chen</surname>
+              <given-names>CF</given-names>
+            </name>
+            <name>
+              <surname>Chen</surname>
+              <given-names>Y</given-names>
+            </name>
+            <name>
+              <surname>Dai</surname>
+              <given-names>K</given-names>
+            </name>
+            <name>
+              <surname>Chen</surname>
+              <given-names>PL</given-names>
+            </name>
+            <name>
+              <surname>Riley</surname>
+              <given-names>DJ</given-names>
+            </name>
+            <etal/>
+          </person-group>
+          <year>1996</year>
+          <article-title>A new member of the hsp90 family of molecular chaperones interacts with the retinoblastoma protein during mitosis and after heat shock</article-title>
+          <source>Mol Cell Biol</source>
+          <volume>16</volume>
+          <fpage>4691</fpage>
+          <lpage>4699</lpage>
+          <pub-id pub-id-type="pmid">8756626</pub-id>
+        </citation>
+      </ref>
+      <ref id="pbio-0050172-b023">
+        <citation citation-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Felts</surname>
+              <given-names>SJ</given-names>
+            </name>
+            <name>
+              <surname>Owen</surname>
+              <given-names>BA</given-names>
+            </name>
+            <name>
+              <surname>Nguyen</surname>
+              <given-names>P</given-names>
+            </name>
+            <name>
+              <surname>Trepel</surname>
+              <given-names>J</given-names>
+            </name>
+            <name>
+              <surname>Donner</surname>
+              <given-names>DB</given-names>
+            </name>
+            <etal/>
+          </person-group>
+          <year>2000</year>
+          <article-title>The hsp90-related protein TRAP1 is a mitochondrial protein with distinct functional properties</article-title>
+          <source>J Biol Chem</source>
+          <volume>275</volume>
+          <fpage>3305</fpage>
+          <lpage>3312</lpage>
+          <pub-id pub-id-type="pmid">10652318</pub-id>
+        </citation>
+      </ref>
+      <ref id="pbio-0050172-b024">
+        <citation citation-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Beere</surname>
+              <given-names>HM</given-names>
+            </name>
+          </person-group>
+          <year>2005</year>
+          <article-title>Death versus survival: Functional interaction between the apoptotic and stress-inducible heat shock protein pathways</article-title>
+          <source>J Clin Invest</source>
+          <volume>115</volume>
+          <fpage>2633</fpage>
+          <lpage>2639</lpage>
+          <pub-id pub-id-type="pmid">16200196</pub-id>
+        </citation>
+      </ref>
+      <ref id="pbio-0050172-b025">
+        <citation citation-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Muchowski</surname>
+              <given-names>PJ</given-names>
+            </name>
+            <name>
+              <surname>Wacker</surname>
+              <given-names>JL</given-names>
+            </name>
+          </person-group>
+          <year>2005</year>
+          <article-title>Modulation of neurodegeneration by molecular chaperones</article-title>
+          <source>Nat Rev Neurosci</source>
+          <volume>6</volume>
+          <fpage>11</fpage>
+          <lpage>22</lpage>
+          <pub-id pub-id-type="pmid">15611723</pub-id>
+        </citation>
+      </ref>
+      <ref id="pbio-0050172-b026">
+        <citation citation-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Masuda</surname>
+              <given-names>Y</given-names>
+            </name>
+            <name>
+              <surname>Shima</surname>
+              <given-names>G</given-names>
+            </name>
+            <name>
+              <surname>Aiuchi</surname>
+              <given-names>T</given-names>
+            </name>
+            <name>
+              <surname>Horie</surname>
+              <given-names>M</given-names>
+            </name>
+            <name>
+              <surname>Hori</surname>
+              <given-names>K</given-names>
+            </name>
+            <etal/>
+          </person-group>
+          <year>2004</year>
+          <article-title>Involvement of tumor necrosis factor receptor-associated protein 1 (TRAP1) in apoptosis induced by beta-hydroxyisovalerylshikonin</article-title>
+          <source>J Biol Chem</source>
+          <volume>279</volume>
+          <fpage>42503</fpage>
+          <lpage>42515</lpage>
+          <pub-id pub-id-type="pmid">15292218</pub-id>
+        </citation>
+      </ref>
+      <ref id="pbio-0050172-b027">
+        <citation citation-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Sim</surname>
+              <given-names>CH</given-names>
+            </name>
+            <name>
+              <surname>Lio</surname>
+              <given-names>DS</given-names>
+            </name>
+            <name>
+              <surname>Mok</surname>
+              <given-names>SS</given-names>
+            </name>
+            <name>
+              <surname>Masters</surname>
+              <given-names>CL</given-names>
+            </name>
+            <name>
+              <surname>Hill</surname>
+              <given-names>AF</given-names>
+            </name>
+            <etal/>
+          </person-group>
+          <year>2006</year>
+          <article-title>C-terminal truncation and Parkinson's disease-associated mutations down-regulate the protein serine/threonine kinase activity of PTEN-induced kinase-1</article-title>
+          <source>Hum Mol Genet</source>
+          <volume>15</volume>
+          <fpage>3251</fpage>
+          <lpage>3262</lpage>
+          <pub-id pub-id-type="pmid">17000703</pub-id>
+        </citation>
+      </ref>
+      <ref id="pbio-0050172-b028">
+        <citation citation-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Olzmann</surname>
+              <given-names>JA</given-names>
+            </name>
+            <name>
+              <surname>Brown</surname>
+              <given-names>K</given-names>
+            </name>
+            <name>
+              <surname>Wilkinson</surname>
+              <given-names>KD</given-names>
+            </name>
+            <name>
+              <surname>Rees</surname>
+              <given-names>HD</given-names>
+            </name>
+            <name>
+              <surname>Huai</surname>
+              <given-names>Q</given-names>
+            </name>
+            <etal/>
+          </person-group>
+          <year>2004</year>
+          <article-title>Familial Parkinson's disease-associated L166P mutation disrupts DJ-1 protein folding and function</article-title>
+          <source>J Biol Chem</source>
+          <volume>279</volume>
+          <fpage>8506</fpage>
+          <lpage>8515</lpage>
+          <pub-id pub-id-type="pmid">14665635</pub-id>
+        </citation>
+      </ref>
+      <ref id="pbio-0050172-b029">
+        <citation citation-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Chin</surname>
+              <given-names>LS</given-names>
+            </name>
+            <name>
+              <surname>Nugent</surname>
+              <given-names>RD</given-names>
+            </name>
+            <name>
+              <surname>Raynor</surname>
+              <given-names>MC</given-names>
+            </name>
+            <name>
+              <surname>Vavalle</surname>
+              <given-names>JP</given-names>
+            </name>
+            <name>
+              <surname>Li</surname>
+              <given-names>L</given-names>
+            </name>
+          </person-group>
+          <year>2000</year>
+          <article-title>SNIP, a novel SNAP-25-interacting protein implicated in regulated exocytosis</article-title>
+          <source>J Biol Chem</source>
+          <volume>275</volume>
+          <fpage>1191</fpage>
+          <lpage>1200</lpage>
+          <pub-id pub-id-type="pmid">10625663</pub-id>
+        </citation>
+      </ref>
+      <ref id="pbio-0050172-b030">
+        <citation citation-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Choi</surname>
+              <given-names>J</given-names>
+            </name>
+            <name>
+              <surname>Levey</surname>
+              <given-names>AI</given-names>
+            </name>
+            <name>
+              <surname>Weintraub</surname>
+              <given-names>ST</given-names>
+            </name>
+            <name>
+              <surname>Rees</surname>
+              <given-names>HD</given-names>
+            </name>
+            <name>
+              <surname>Gearing</surname>
+              <given-names>M</given-names>
+            </name>
+            <etal/>
+          </person-group>
+          <year>2004</year>
+          <article-title>Oxidative modifications and down-regulation of ubiquitin carboxyl-terminal hydrolase L1 associated with idiopathic Parkinson's and Alzheimer's diseases</article-title>
+          <source>J Biol Chem</source>
+          <volume>279</volume>
+          <fpage>13256</fpage>
+          <lpage>13264</lpage>
+          <pub-id pub-id-type="pmid">14722078</pub-id>
+        </citation>
+      </ref>
+      <ref id="pbio-0050172-b031">
+        <citation citation-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Choi</surname>
+              <given-names>J</given-names>
+            </name>
+            <name>
+              <surname>Sullards</surname>
+              <given-names>MC</given-names>
+            </name>
+            <name>
+              <surname>Olzmann</surname>
+              <given-names>JA</given-names>
+            </name>
+            <name>
+              <surname>Rees</surname>
+              <given-names>HD</given-names>
+            </name>
+            <name>
+              <surname>Weintraub</surname>
+              <given-names>ST</given-names>
+            </name>
+            <etal/>
+          </person-group>
+          <year>2006</year>
+          <article-title>Oxidative damage of DJ-1 is linked to sporadic Parkinson and Alzheimer diseases</article-title>
+          <source>J Biol Chem</source>
+          <volume>281</volume>
+          <fpage>10816</fpage>
+          <lpage>10824</lpage>
+          <pub-id pub-id-type="pmid">16517609</pub-id>
+        </citation>
+      </ref>
+      <ref id="pbio-0050172-b032">
+        <citation citation-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Chin</surname>
+              <given-names>LS</given-names>
+            </name>
+            <name>
+              <surname>Raynor</surname>
+              <given-names>MC</given-names>
+            </name>
+            <name>
+              <surname>Wei</surname>
+              <given-names>X</given-names>
+            </name>
+            <name>
+              <surname>Chen</surname>
+              <given-names>H</given-names>
+            </name>
+            <name>
+              <surname>Li</surname>
+              <given-names>L</given-names>
+            </name>
+          </person-group>
+          <year>2001</year>
+          <article-title>Hrs interacts with sorting nexin 1 and regulates degradation of epidermal growth factor receptor</article-title>
+          <source>J Biol Chem</source>
+          <volume>276</volume>
+          <fpage>7069</fpage>
+          <lpage>7078</lpage>
+          <pub-id pub-id-type="pmid">11110793</pub-id>
+        </citation>
+      </ref>
+      <ref id="pbio-0050172-b033">
+        <citation citation-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Ninomiya-Tsuji</surname>
+              <given-names>J</given-names>
+            </name>
+            <name>
+              <surname>Kishimoto</surname>
+              <given-names>K</given-names>
+            </name>
+            <name>
+              <surname>Hiyama</surname>
+              <given-names>A</given-names>
+            </name>
+            <name>
+              <surname>Inoue</surname>
+              <given-names>J</given-names>
+            </name>
+            <name>
+              <surname>Cao</surname>
+              <given-names>Z</given-names>
+            </name>
+            <etal/>
+          </person-group>
+          <year>1999</year>
+          <article-title>The kinase TAK1 can activate the NIK-I kappaB as well as the MAP kinase cascade in the IL-1 signalling pathway</article-title>
+          <source>Nature</source>
+          <volume>398</volume>
+          <fpage>252</fpage>
+          <lpage>256</lpage>
+          <pub-id pub-id-type="pmid">10094049</pub-id>
+        </citation>
+      </ref>
+      <ref id="pbio-0050172-b034">
+        <citation citation-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Lewis Carl</surname>
+              <given-names>SA</given-names>
+            </name>
+            <name>
+              <surname>Gillete-Ferguson</surname>
+              <given-names>I</given-names>
+            </name>
+            <name>
+              <surname>Ferguson</surname>
+              <given-names>DG</given-names>
+            </name>
+          </person-group>
+          <year>1993</year>
+          <article-title>An indirect immunofluorescence procedure for staining the same cryosection with two mouse monoclonal primary antibodies</article-title>
+          <source>J Histochem Cytochem</source>
+          <volume>41</volume>
+          <fpage>1273</fpage>
+          <lpage>1278</lpage>
+          <pub-id pub-id-type="pmid">7687266</pub-id>
+        </citation>
+      </ref>
+      <ref id="pbio-0050172-b035">
+        <citation citation-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Li</surname>
+              <given-names>Y</given-names>
+            </name>
+            <name>
+              <surname>Chin</surname>
+              <given-names>LS</given-names>
+            </name>
+            <name>
+              <surname>Levey</surname>
+              <given-names>AI</given-names>
+            </name>
+            <name>
+              <surname>Li</surname>
+              <given-names>L</given-names>
+            </name>
+          </person-group>
+          <year>2002</year>
+          <article-title>Huntingtin-associated protein 1 interacts with hepatocyte growth factor-regulated tyrosine kinase substrate and functions in endosomal trafficking</article-title>
+          <source>J Biol Chem</source>
+          <volume>277</volume>
+          <fpage>28212</fpage>
+          <lpage>28221</lpage>
+          <pub-id pub-id-type="pmid">12021262</pub-id>
+        </citation>
+      </ref>
+      <ref id="pbio-0050172-b036">
+        <citation citation-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Hovius</surname>
+              <given-names>R</given-names>
+            </name>
+            <name>
+              <surname>Lambrechts</surname>
+              <given-names>H</given-names>
+            </name>
+            <name>
+              <surname>Nicolay</surname>
+              <given-names>K</given-names>
+            </name>
+            <name>
+              <surname>de Kruijff</surname>
+              <given-names>B</given-names>
+            </name>
+          </person-group>
+          <year>1990</year>
+          <article-title>Improved methods to isolate and subfractionate rat liver mitochondria. Lipid composition of the inner and outer membrane</article-title>
+          <source>Biochim Biophys Acta</source>
+          <volume>1021</volume>
+          <fpage>217</fpage>
+          <lpage>226</lpage>
+          <pub-id pub-id-type="pmid">2154259</pub-id>
+        </citation>
+      </ref>
+      <ref id="pbio-0050172-b037">
+        <citation citation-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Kirk</surname>
+              <given-names>E</given-names>
+            </name>
+            <name>
+              <surname>Chin</surname>
+              <given-names>LS</given-names>
+            </name>
+            <name>
+              <surname>Li</surname>
+              <given-names>L</given-names>
+            </name>
+          </person-group>
+          <year>2006</year>
+          <article-title>GRIF1 binds Hrs and is a new regulator of endosomal trafficking</article-title>
+          <source>J Cell Sci</source>
+          <volume>119</volume>
+          <fpage>4689</fpage>
+          <lpage>4701</lpage>
+          <pub-id pub-id-type="pmid">17062640</pub-id>
+        </citation>
+      </ref>
+      <ref id="pbio-0050172-b038">
+        <citation citation-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Canet-Aviles</surname>
+              <given-names>RM</given-names>
+            </name>
+            <name>
+              <surname>Wilson</surname>
+              <given-names>MA</given-names>
+            </name>
+            <name>
+              <surname>Miller</surname>
+              <given-names>DW</given-names>
+            </name>
+            <name>
+              <surname>Ahmad</surname>
+              <given-names>R</given-names>
+            </name>
+            <name>
+              <surname>McLendon</surname>
+              <given-names>C</given-names>
+            </name>
+            <etal/>
+          </person-group>
+          <year>2004</year>
+          <article-title>The Parkinson's disease protein DJ-1 is neuroprotective due to cysteine-sulfinic acid-driven mitochondrial localization</article-title>
+          <source>Proc Natl Acad Sci U S A</source>
+          <volume>101</volume>
+          <fpage>9103</fpage>
+          <lpage>9108</lpage>
+          <pub-id pub-id-type="pmid">15181200</pub-id>
+        </citation>
+      </ref>
+      <ref id="pbio-0050172-b039">
+        <citation citation-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Chen</surname>
+              <given-names>J</given-names>
+            </name>
+            <name>
+              <surname>Fujii</surname>
+              <given-names>K</given-names>
+            </name>
+            <name>
+              <surname>Zhang</surname>
+              <given-names>L</given-names>
+            </name>
+            <name>
+              <surname>Roberts</surname>
+              <given-names>T</given-names>
+            </name>
+            <name>
+              <surname>Fu</surname>
+              <given-names>H</given-names>
+            </name>
+          </person-group>
+          <year>2001</year>
+          <article-title>Raf-1 promotes cell survival by antagonizing apoptosis signal-regulating kinase 1 through a MEK-ERK independent mechanism</article-title>
+          <source>Proc Natl Acad Sci U S A</source>
+          <volume>98</volume>
+          <fpage>7783</fpage>
+          <lpage>7788</lpage>
+          <pub-id pub-id-type="pmid">11427728</pub-id>
+        </citation>
+      </ref>
+      <ref id="pbio-0050172-b040">
+        <citation citation-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Yang</surname>
+              <given-names>J</given-names>
+            </name>
+            <name>
+              <surname>Liu</surname>
+              <given-names>X</given-names>
+            </name>
+            <name>
+              <surname>Bhalla</surname>
+              <given-names>K</given-names>
+            </name>
+            <name>
+              <surname>Kim</surname>
+              <given-names>CN</given-names>
+            </name>
+            <name>
+              <surname>Ibrado</surname>
+              <given-names>AM</given-names>
+            </name>
+            <etal/>
+          </person-group>
+          <year>1997</year>
+          <article-title>Prevention of apoptosis by Bcl-2: Release of cytochrome c from mitochondria blocked</article-title>
+          <source>Science</source>
+          <volume>275</volume>
+          <fpage>1129</fpage>
+          <lpage>1132</lpage>
+          <pub-id pub-id-type="pmid">9027314</pub-id>
+        </citation>
+      </ref>
+      <ref id="pbio-0050172-b041">
+        <citation citation-type="journal">
+          <person-group person-group-type="author">
+            <name>
+              <surname>Sherer</surname>
+              <given-names>TB</given-names>
+            </name>
+            <name>
+              <surname>Betarbet</surname>
+              <given-names>R</given-names>
+            </name>
+            <name>
+              <surname>Stout</surname>
+              <given-names>AK</given-names>
+            </name>
+            <name>
+              <surname>Lund</surname>
+              <given-names>S</given-names>
+            </name>
+            <name>
+              <surname>Baptista</surname>
+              <given-names>M</given-names>
+            </name>
+            <etal/>
+          </person-group>
+          <year>2002</year>
+          <article-title>An in vitro model of Parkinson's disease: Linking mitochondrial impairment to altered alpha-synuclein metabolism and oxidative damage</article-title>
+          <source>J Neurosci</source>
+          <volume>22</volume>
+          <fpage>7006</fpage>
+          <lpage>7015</lpage>
+          <pub-id pub-id-type="pmid">12177198</pub-id>
+        </citation>
+      </ref>
+    </ref-list>
+    <fn-group>
+      <fn id="ack1" fn-type="con">
+        <p><bold>Author contributions.</bold> All authors conceived and designed the experiments. JWP, JAO, and LSC performed the experiments and analyzed the data. LSC contributed reagents/materials/analysis tools. JWP, JAO, and LL wrote the paper.</p>
+      </fn>
+      <fn id="ack2" fn-type="financial-disclosure">
+        <p><bold>Funding.</bold> This work was supported by National Institutes of Health grants NS050650 (LSC) and NS047199 and AG021489 (LL).</p>
+      </fn>
+      <fn id="ack3" fn-type="conflict">
+        <p><bold>Competing interests.</bold> The authors have declared that no competing interests exist.</p>
+      </fn>
+
+</metadata></record></GetRecord></OAI-PMH>

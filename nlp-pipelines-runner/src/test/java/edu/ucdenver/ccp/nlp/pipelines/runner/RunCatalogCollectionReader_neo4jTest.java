@@ -77,7 +77,7 @@ public class RunCatalogCollectionReader_neo4jTest extends DefaultTestCase {
 		Class<? extends DocumentMetadataHandler> documentMetadataHandlerClass = CcpDocumentMetadataHandler.class;
 		String viewName = View.XML.viewName();
 		CollectionReaderDescription desc = RunCatalogCollectionReader_neo4j.createDescription(
-				TypeSystemUtil.getCcpTypeSystem(), catalogDir, CharacterEncoding.UTF_8, pipelineRunKey,
+				TypeSystemUtil.getCcpTypeSystem(), catalogDir, CharacterEncoding.UTF_8, pipelineRunKey.name(),
 				documentCollectionName, docFileVersion, language, disableProgress, num2process, num2skip,
 				documentMetadataHandlerClass, viewName);
 
@@ -86,7 +86,6 @@ public class RunCatalogCollectionReader_neo4jTest extends DefaultTestCase {
 			// check views' names for XML
 			for (Iterator<JCas> viewIter = jcas.getViewIterator(); viewIter.hasNext();) {
 				JCas view = viewIter.next();
-				System.out.println("VIEW NAME: " + view.getViewName());
 				if (view.getViewName().equals(View.XML.viewName())) {
 					casCount++;
 				}
