@@ -2,13 +2,12 @@ package edu.ucdenver.ccp.nlp.pipelines.runner.serialization;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.zip.GZIPInputStream;
 
+import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.uima.UimaContext;
 import org.apache.uima.analysis_engine.AnalysisEngineDescription;
 import org.apache.uima.analysis_engine.AnalysisEngineProcessException;
@@ -21,16 +20,13 @@ import org.apache.uima.resource.ResourceInitializationException;
 import org.apache.uima.resource.metadata.TypeSystemDescription;
 import org.apache.uima.util.Level;
 import org.apache.uima.util.Logger;
-import org.uimafit.util.JCasUtil;
 
 import edu.ucdenver.ccp.common.file.CharacterEncoding;
 import edu.ucdenver.ccp.common.file.reader.Line;
 import edu.ucdenver.ccp.common.file.reader.StreamLineIterator;
 import edu.ucdenver.ccp.common.reflection.ConstructorUtil;
 import edu.ucdenver.ccp.nlp.core.annotation.TextAnnotation;
-import edu.ucdenver.ccp.nlp.core.uima.annotation.CCPTextAnnotation;
-import edu.ucdenver.ccp.nlp.pipelines.runner.serialization.AnnotationSerializer.IncludeCoveredText;
-import edu.ucdenver.ccp.nlp.uima.annotation.impl.WrappedCCPTextAnnotation;
+import edu.ucdenver.ccp.nlp.pipelines.log.ProcessingErrorLog;
 import edu.ucdenver.ccp.nlp.uima.shims.ShimDefaults;
 import edu.ucdenver.ccp.nlp.uima.util.UIMA_Util;
 import edu.ucdenver.ccp.nlp.uima.util.View_Util;
@@ -58,10 +54,9 @@ public class AnnotationDeserializerAE extends JCasAnnotator_ImplBase {
 	@ConfigurationParameter(mandatory = false, description = "")
 	private String loadViewName;
 
-	public static final String PARAM_INPUT_FILENAME_INFIX = "inputFilenameInfix";
-	@ConfigurationParameter(mandatory = false, description = "An option string that, if not null, is appended to the output file. "
-			+ "This can be useful for identifying the type of annotations containined in an XMI file, for example.")
-	private String inputFilenameInfix;
+	public static final String PARAM_INPUT_FILENAME_INFIXES = "inputFilenameInfixes";
+	@ConfigurationParameter(mandatory = true, description = "An array of infixes to use to identify annotations files to load.")
+	private String[] inputFilenameInfixes;
 
 	public static final String PARAM_DOCUMENT_METADATA_HANDLER_CLASS = "documentMetadataHandlerClassName";
 	private static final String ANNOT_FILE_SUFFIX = ".annot";
@@ -82,9 +77,20 @@ public class AnnotationDeserializerAE extends JCasAnnotator_ImplBase {
 	@Override
 	public void process(JCas jCas) throws AnalysisEngineProcessException {
 		String documentId = documentMetaDataHandler.extractDocumentId(jCas);
-		File inputFile = getInputFile(jCas, documentId);
-
-		loadAnnotations(jCas, inputFile);
+		try {
+			for (String infix : inputFilenameInfixes) {
+				File inputFile = getInputFile(jCas, documentId, infix);
+				loadAnnotations(jCas, inputFile);
+			}
+		} catch (Exception e) {
+			ProcessingErrorLog errorLog = new ProcessingErrorLog(jCas);
+			errorLog.setErrorMessage(e.getMessage());
+			errorLog.setStackTrace(ExceptionUtils.getStackTrace(e));
+			errorLog.setComponentAtFault(this.getClass().getName());
+			errorLog.addToIndexes();
+			logger.log(Level.WARNING, "Error during annotation loading for document: " + UIMA_Util.getDocumentID(jCas)
+					+ " -- " + e.getMessage());
+		}
 	}
 
 	/**
@@ -123,18 +129,6 @@ public class AnnotationDeserializerAE extends JCasAnnotator_ImplBase {
 	}
 
 	/**
-	 * Given a document Id, this method returns the name of the corresponding
-	 * XMI file that will be created
-	 * 
-	 * @param documentId
-	 * 
-	 * @return
-	 */
-	public String getInputFileName(String documentId) {
-		return getInputFileName(documentId, inputFilenameInfix);
-	}
-
-	/**
 	 * @param documentId
 	 * @param infix
 	 *            optional text string to insert as part of the filename
@@ -155,8 +149,8 @@ public class AnnotationDeserializerAE extends JCasAnnotator_ImplBase {
 	 *         saved
 	 * @throws AnalysisEngineProcessException
 	 */
-	private File getInputFile(JCas jCas, String documentId) throws AnalysisEngineProcessException {
-		String inputFilename = getInputFileName(documentId);
+	private File getInputFile(JCas jCas, String documentId, String infix) throws AnalysisEngineProcessException {
+		String inputFilename = getInputFileName(documentId, infix);
 		File inputFile = null;
 		if (loadDirectory != null) {
 			inputFile = new File(loadDirectory, inputFilename);
@@ -198,19 +192,19 @@ public class AnnotationDeserializerAE extends JCasAnnotator_ImplBase {
 
 	public static AnalysisEngineDescription getDescription(TypeSystemDescription tsd,
 			Class<? extends DocumentMetadataHandler> documentMetadataHandlerClass, File loadDirectory,
-			String loadViewName, String inputFileInfix) throws ResourceInitializationException {
+			String loadViewName, String... inputFileInfixes) throws ResourceInitializationException {
 		return AnalysisEngineFactory.createEngineDescription(AnnotationDeserializerAE.class, tsd,
 				PARAM_DOCUMENT_METADATA_HANDLER_CLASS, documentMetadataHandlerClass, PARAM_LOAD_DIRECTORY,
-				loadDirectory.getAbsolutePath(), PARAM_LOAD_VIEW_NAME, loadViewName, PARAM_INPUT_FILENAME_INFIX,
-				inputFileInfix);
+				loadDirectory.getAbsolutePath(), PARAM_LOAD_VIEW_NAME, loadViewName, PARAM_INPUT_FILENAME_INFIXES,
+				inputFileInfixes);
 	}
 
-	public static AnalysisEngineDescription getDescription_SaveToSourceFileDirectory(TypeSystemDescription tsd,
+	public static AnalysisEngineDescription getDescription_LoadFromSourceFileDirectory(TypeSystemDescription tsd,
 			Class<? extends DocumentMetadataHandler> documentMetadataHandlerClass, String sourceViewName,
-			String loadViewName, String inputFileInfix) throws ResourceInitializationException {
+			String loadViewName, String... inputFileInfixes) throws ResourceInitializationException {
 		return AnalysisEngineFactory.createEngineDescription(AnnotationDeserializerAE.class, tsd,
 				PARAM_DOCUMENT_METADATA_HANDLER_CLASS, documentMetadataHandlerClass, PARAM_SOURCE_VIEW_NAME,
-				sourceViewName, PARAM_LOAD_VIEW_NAME, loadViewName, PARAM_INPUT_FILENAME_INFIX, inputFileInfix);
+				sourceViewName, PARAM_LOAD_VIEW_NAME, loadViewName, PARAM_INPUT_FILENAME_INFIXES, inputFileInfixes);
 	}
 
 }
