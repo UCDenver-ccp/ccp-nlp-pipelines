@@ -95,7 +95,7 @@ public class PmcNxml2TxtPipeline extends PipelineBase {
 					.getDescription_SaveToSourceFileDirectory(getPipelineTypeSystem(), CcpDocumentMetadataHandler.class,
 							View.XML.viewName(), View.DEFAULT.viewName(), true, ".txt");
 
-			int txtSerializer_scaleup = (casPoolSize > 1) ? casPoolSize / 2 : 1;
+			int txtSerializer_scaleup = casPoolSize;
 			int txtSerializer_errorThreshold = 0;
 			String txtSerializer_endpoint = "txtSerializerQ";
 
@@ -116,7 +116,7 @@ public class PmcNxml2TxtPipeline extends PipelineBase {
 					.getDescription_SaveToSourceFileDirectory(getPipelineTypeSystem(), CcpDocumentMetadataHandler.class,
 							sourceViewName, outputViewName, compressOutput, outputFileInfix, IncludeCoveredText.NO);
 
-			int annotSerializer_scaleup = (casPoolSize > 1) ? casPoolSize / 2 : 1;
+			int annotSerializer_scaleup = casPoolSize;
 			int annotSerializer_errorThreshold = 0;
 			String annotSerializer_endpoint = "annotSerializerQ";
 

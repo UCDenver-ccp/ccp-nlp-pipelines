@@ -262,7 +262,7 @@ public abstract class PipelineBase {
 		logger.info("Initialize pipeline as UIMA AS service...");
 		deployCtx.put(UimaAsynchronousEngine.ServerUri, getPipelineDeploymentParams().getBrokerUrl());
 		deployCtx.put(UimaAsynchronousEngine.ENDPOINT, getPipelineDeploymentParams().getEndpoint());
-		deployCtx.put(UimaAsynchronousEngine.CasPoolSize, 10);
+		deployCtx.put(UimaAsynchronousEngine.CasPoolSize, getPipelineParams().getCasPoolSize()*4);
 		deployCtx.put(UimaAsynchronousEngine.UimaEeDebug, debugFlag);
 		uimaAsEngine.initialize(deployCtx);
 		pipelineDeployed = true;
