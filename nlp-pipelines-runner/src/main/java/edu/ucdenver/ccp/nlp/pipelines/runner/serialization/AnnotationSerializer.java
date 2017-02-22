@@ -72,8 +72,9 @@ public class AnnotationSerializer {
 			String coveredText, List<Span> spans, IncludeCoveredText includeCoveredText) {
 
 		String outLine = documentId + ((annotatorFirstName != null) ? (DELIMITER + annotatorFirstName) : "") + DELIMITER
-				+ mentionName.toLowerCase() + ((includeCoveredText == IncludeCoveredText.YES)
-						? (DELIMITER + coveredText.replaceAll("\\n", " ")) : "");
+				+ ((mentionName.startsWith("http:")) ? mentionName : mentionName.toLowerCase())
+				+ ((includeCoveredText == IncludeCoveredText.YES) ? (DELIMITER + coveredText.replaceAll("\\n", " "))
+						: "");
 		for (Span span : spans) {
 			outLine += (DELIMITER + span.toString());
 		}
