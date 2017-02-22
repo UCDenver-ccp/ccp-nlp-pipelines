@@ -69,7 +69,20 @@ public abstract class RunCatalogCollectionReader extends BaseTextCollectionReade
 						filesToProcess.add(d.getLocalSourceFile());
 						break;
 					case LOCAL_TEXT:
-						filesToProcess.add(d.getLocalTextFile());
+						/*
+						 * TODO: revert this change when the RunCatalog is
+						 * complete. The following line is commented out until
+						 * the RunCatalog is revised to be more efficient.
+						 * Currently the run catalog stores only the source
+						 * file, so we manually generate a reference to the
+						 * plain text file, check that it exists, then add it to
+						 * the filesToProcess list.
+						 */
+						// filesToProcess.add(d.getLocalTextFile());
+						File localTextFile = new File(d.getLocalSourceFile().getAbsolutePath() + ".txt.gz");
+						if (localTextFile.exists()) {
+							filesToProcess.add(localTextFile);
+						}
 						break;
 					default:
 						throw new IllegalArgumentException(
