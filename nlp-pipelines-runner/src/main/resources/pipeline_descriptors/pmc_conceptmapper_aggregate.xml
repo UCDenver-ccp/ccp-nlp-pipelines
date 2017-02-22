@@ -15,10 +15,10 @@
 			key="edu.ucdenver.ccp.nlp.pipelines.runner.serialization.AnnotationSerializerAE">
 			<import location="ENGINE_DESCRIPTOR_PATH_3" />
 		</delegateAnalysisEngine>
-		<delegateAnalysisEngine
+		<!-- <delegateAnalysisEngine
 			key="edu.ucdenver.ccp.nlp.pipelines.runner.RunCatalogAE">
 			<import location="ENGINE_DESCRIPTOR_PATH_4" />
-		</delegateAnalysisEngine>
+		</delegateAnalysisEngine> -->
 	</delegateAnalysisEngineSpecifiers>
 	<flowController key="AdvancedFixedFlowController">
 		<import location="FLOW_CONTROLLER_PATH" />

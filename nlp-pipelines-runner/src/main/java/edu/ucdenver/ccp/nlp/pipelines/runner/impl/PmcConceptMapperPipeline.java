@@ -145,7 +145,7 @@ public class PmcConceptMapperPipeline extends PipelineBase {
 					.getDescription_SaveToSourceFileDirectory(getPipelineTypeSystem(), CcpDocumentMetadataHandler.class,
 							sourceViewName, outputViewName, compressOutput, outputFileInfix, IncludeCoveredText.NO);
 
-			int annotSerializer_scaleup =  (casPoolSize > 1) ? casPoolSize / 2 : 1;
+			int annotSerializer_scaleup = casPoolSize;
 			int annotSerializer_errorThreshold = 0;
 			String annotSerializer_endpoint = "annotSerializerQ";
 
@@ -156,23 +156,28 @@ public class PmcConceptMapperPipeline extends PipelineBase {
 					"annotSerializerAE", DescriptorType.PRIMITIVE);
 			engines.add(annotSerializerEngine);
 		}
-		{
-			/* configure catalog AE */
-			AnalysisEngineDescription catalogAeDesc = RunCatalogAE.getDescription(getPipelineTypeSystem(),
-					getPipelineParams().getCatalogDirectory(), CcpDocumentMetadataHandler.class,
-					getPipelineParams().getPipelineKey());
-
-			int catalogAe_scaleup = 1;
-			int catalogAe_errorThreshold = 0;
-			String catalogAe_endpoint = "catalogAeQ";
-
-			DeploymentParams catalogAeDeployParams = new DeploymentParams("RunCatalog",
-					"Catalogs new annotation-output and document files.", catalogAe_scaleup, catalogAe_errorThreshold,
-					catalogAe_endpoint, getPipelineParams().getBrokerUrl());
-			ServiceEngine catalogAeEngine = new ServiceEngine(catalogAeDesc, catalogAeDeployParams, "runCatalogAE",
-					DescriptorType.PRIMITIVE);
-			engines.add(catalogAeEngine);
-		}
+		// {
+		// /* configure catalog AE */
+		// AnalysisEngineDescription catalogAeDesc =
+		// RunCatalogAE.getDescription(getPipelineTypeSystem(),
+		// getPipelineParams().getCatalogDirectory(),
+		// CcpDocumentMetadataHandler.class,
+		// getPipelineParams().getPipelineKey());
+		//
+		// int catalogAe_scaleup = 1;
+		// int catalogAe_errorThreshold = 0;
+		// String catalogAe_endpoint = "catalogAeQ";
+		//
+		// DeploymentParams catalogAeDeployParams = new
+		// DeploymentParams("RunCatalog",
+		// "Catalogs new annotation-output and document files.",
+		// catalogAe_scaleup, catalogAe_errorThreshold,
+		// catalogAe_endpoint, getPipelineParams().getBrokerUrl());
+		// ServiceEngine catalogAeEngine = new ServiceEngine(catalogAeDesc,
+		// catalogAeDeployParams, "runCatalogAE",
+		// DescriptorType.PRIMITIVE);
+		// engines.add(catalogAeEngine);
+		// }
 		return engines;
 
 	}
@@ -188,7 +193,11 @@ public class PmcConceptMapperPipeline extends PipelineBase {
 	 * @param args
 	 *            args[0] = catalog directory <br>
 	 *            args[1] = config directory (a work directory where UIMA
-	 *            descriptor files will be written)
+	 *            descriptor files will be written) args[2] = broker URL<br>
+	 *            args[3] = num to process<br>
+	 *            args[4] = cas pool size<br>
+	 *            args[5] = concept mapper param <br>
+	 *            args[6] = dictionary directory
 	 */
 	public static void main(String[] args) {
 		BasicConfigurator.configure();
@@ -196,10 +205,10 @@ public class PmcConceptMapperPipeline extends PipelineBase {
 		File catalogDirectory = new File(args[0]);
 		File configDirectory = new File(args[1]);
 		String brokerUrl = args[2];
-		int numToProcess = -1; // <0 = process all
-		int casPoolSize = Integer.parseInt(args[3]);
-		ConceptMapperParams conceptMapperParams = ConceptMapperParams.valueOf(args[4]);
-		File dictionaryDirectory = new File(args[5]);
+		int numToProcess = Integer.parseInt(args[3]); // <0 = process all
+		int casPoolSize = Integer.parseInt(args[4]);
+		ConceptMapperParams conceptMapperParams = ConceptMapperParams.valueOf(args[5]);
+		File dictionaryDirectory = new File(args[6]);
 		logger.info("Starting PMC ConceptMapper Pipeline...\nCatalog directory=" + catalogDirectory.getAbsolutePath()
 				+ "\nConfig directory=" + configDirectory.getAbsolutePath() + "\nNum-to-process=" + numToProcess
 				+ "\nBroker URL: " + brokerUrl + "\nConceptMapperParam: " + conceptMapperParams.name());
