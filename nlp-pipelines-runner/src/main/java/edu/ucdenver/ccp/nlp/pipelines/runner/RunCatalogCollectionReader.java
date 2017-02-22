@@ -46,6 +46,8 @@ public abstract class RunCatalogCollectionReader extends BaseTextCollectionReade
 	private Iterator<File> fileToProcessIter = null;
 
 	private int fileToProcessCount = -1;
+	private int filesProcessed = 0;
+	private long startTime = -1;
 	private Logger logger;
 
 	@Override
@@ -108,6 +110,15 @@ public abstract class RunCatalogCollectionReader extends BaseTextCollectionReade
 
 	@Override
 	protected GenericDocument getNextDocument() throws CollectionException, IOException {
+		if (startTime < 0) {
+			startTime = System.currentTimeMillis();
+		}
+		if (filesProcessed++ % 1000 == 0) {
+			logger.log(Level.INFO,
+					"Processing progress: " + (filesProcessed - 1) + " out of " + fileToProcessCount + " ("
+							+ (100 * ((float) (filesProcessed - 1)) / ((float) fileToProcessCount)) + "% in "
+							+ (System.currentTimeMillis() - startTime) / 1000 + "s)");
+		}
 		File file = fileToProcessIter.next();
 		String documentId = file.getName();
 		String text = null;
