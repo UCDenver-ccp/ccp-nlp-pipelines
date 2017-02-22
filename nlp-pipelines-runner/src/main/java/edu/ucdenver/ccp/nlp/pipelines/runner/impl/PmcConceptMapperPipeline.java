@@ -193,7 +193,8 @@ public class PmcConceptMapperPipeline extends PipelineBase {
 	 * @param args
 	 *            args[0] = catalog directory <br>
 	 *            args[1] = config directory (a work directory where UIMA
-	 *            descriptor files will be written) args[2] = broker URL<br>
+	 *            descriptor files will be written) <br>
+	 *            args[2] = broker URL<br>
 	 *            args[3] = num to process<br>
 	 *            args[4] = cas pool size<br>
 	 *            args[5] = concept mapper param <br>
