@@ -44,9 +44,9 @@ import edu.ucdenver.ccp.nlp.pipelines.conceptmapper.ConceptMapperDictionaryFileF
 public enum ConceptMapperParams {
 	/* @formatter:off */
 //	DEFAULT(31, DictionaryNamespace.OBO, null), 
-	GO_CC(31, DictionaryNamespace.GO_CC, "go.owl"), 
-	GO_MF(111,	DictionaryNamespace.GO_MF, "go.owl"), 
-	GO_BP(28, DictionaryNamespace.GO_BP, "go.owl"), 
+	GO_CC(31, DictionaryNamespace.FUNK_GO_CC, "go.owl"), 
+	GO_MF(111,	DictionaryNamespace.FUNK_GO_MF, "go.owl"), 
+	GO_BP(28, DictionaryNamespace.FUNK_GO_BP, "go.owl"), 
 //	GO(30,	DictionaryNamespace.GO, "go.owl"), 
 	SO(31, DictionaryNamespace.SO, "so.owl"), 
 	PR(478, DictionaryNamespace.PR, "pr.owl"), 
