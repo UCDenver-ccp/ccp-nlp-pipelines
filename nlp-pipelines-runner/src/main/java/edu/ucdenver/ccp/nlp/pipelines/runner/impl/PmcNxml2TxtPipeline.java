@@ -127,23 +127,23 @@ public class PmcNxml2TxtPipeline extends PipelineBase {
 					"annotSerializerAE", DescriptorType.PRIMITIVE);
 			engines.add(annotSerializerEngine);
 		}
-		{
-			/* configure catalog AE */
-			AnalysisEngineDescription catalogAeDesc = RunCatalogAE.getDescription(getPipelineTypeSystem(),
-					getPipelineParams().getCatalogDirectory(), CcpDocumentMetadataHandler.class,
-					getPipelineParams().getPipelineKey());
-
-			int catalogAe_scaleup = 1;
-			int catalogAe_errorThreshold = 0;
-			String catalogAe_endpoint = "catalogAeQ";
-
-			DeploymentParams catalogAeDeployParams = new DeploymentParams("RunCatalog",
-					"Catalogs new annotation-output and document files.", catalogAe_scaleup, catalogAe_errorThreshold,
-					catalogAe_endpoint, getPipelineParams().getBrokerUrl());
-			ServiceEngine catalogAeEngine = new ServiceEngine(catalogAeDesc, catalogAeDeployParams, "runCatalogAE",
-					DescriptorType.PRIMITIVE);
-			engines.add(catalogAeEngine);
-		}
+//		{
+//			/* configure catalog AE */
+//			AnalysisEngineDescription catalogAeDesc = RunCatalogAE.getDescription(getPipelineTypeSystem(),
+//					getPipelineParams().getCatalogDirectory(), CcpDocumentMetadataHandler.class,
+//					getPipelineParams().getPipelineKey());
+//
+//			int catalogAe_scaleup = 1;
+//			int catalogAe_errorThreshold = 0;
+//			String catalogAe_endpoint = "catalogAeQ";
+//
+//			DeploymentParams catalogAeDeployParams = new DeploymentParams("RunCatalog",
+//					"Catalogs new annotation-output and document files.", catalogAe_scaleup, catalogAe_errorThreshold,
+//					catalogAe_endpoint, getPipelineParams().getBrokerUrl());
+//			ServiceEngine catalogAeEngine = new ServiceEngine(catalogAeDesc, catalogAeDeployParams, "runCatalogAE",
+//					DescriptorType.PRIMITIVE);
+//			engines.add(catalogAeEngine);
+//		}
 		return engines;
 
 	}
