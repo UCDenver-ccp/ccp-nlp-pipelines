@@ -152,7 +152,10 @@ public class PmcNxml2TxtPipeline extends PipelineBase {
 	 * @param args
 	 *            args[0] = catalog directory <br>
 	 *            args[1] = config directory (a work directory where UIMA
-	 *            descriptor files will be written)
+	 *            descriptor files will be written)<br>
+	 *            args[2] = broker url<br>
+	 *            args[3] = num to process <br>
+	 *            args[4] = cas pool size
 	 */
 	public static void main(String[] args) {
 		BasicConfigurator.configure();
@@ -160,8 +163,8 @@ public class PmcNxml2TxtPipeline extends PipelineBase {
 		File catalogDirectory = new File(args[0]);
 		File configDirectory = new File(args[1]);
 		String brokerUrl = args[2];
-		int numToProcess = -1; // <0 = process all
-		int casPoolSize = Integer.parseInt(args[3]);
+		int numToProcess = Integer.parseInt(args[3]); // <0 = process all
+		int casPoolSize = Integer.parseInt(args[4]);
 		logger.info("Starting PmcNxml2TxtPipeline...\nCatalog directory=" + catalogDirectory.getAbsolutePath()
 				+ "\nConfig directory=" + configDirectory.getAbsolutePath() + "\nNum-to-process=" + numToProcess
 				+ "\nBroker URL: " + brokerUrl);
