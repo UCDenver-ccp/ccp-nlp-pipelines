@@ -64,7 +64,7 @@ public class UpdateConceptMapperDictionaryFiles {
 	/**
 	 * @param args
 	 *            args[0] = dictionary directory <br>
-	 *            args[2] = clean dictionary files (YES/NO) <br>
+	 *            args[1] = clean dictionary files (YES/NO) <br>
 	 */
 	public static void main(String[] args) {
 		BasicConfigurator.configure();
