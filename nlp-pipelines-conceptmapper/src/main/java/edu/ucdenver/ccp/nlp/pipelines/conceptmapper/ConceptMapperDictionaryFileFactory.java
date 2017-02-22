@@ -53,6 +53,7 @@ import edu.ucdenver.ccp.datasource.fileparsers.pro.ProOntologyClassIterator;
 import edu.ucdenver.ccp.nlp.wrapper.conceptmapper.dictionary.eg.EntrezGeneDictionaryFactory;
 import edu.ucdenver.ccp.nlp.wrapper.conceptmapper.dictionary.obo.GoDictionaryFactory;
 import edu.ucdenver.ccp.nlp.wrapper.conceptmapper.dictionary.obo.GoDictionaryFactory.GoNamespace;
+import edu.ucdenver.ccp.nlp.wrapper.conceptmapper.dictionary.obo.GoDictionaryFactory.IncludeFunkSynonyms;
 import edu.ucdenver.ccp.nlp.wrapper.conceptmapper.dictionary.obo.OboToDictionary;
 
 /**
@@ -67,7 +68,7 @@ public class ConceptMapperDictionaryFileFactory {
 	private static final Logger logger = Logger.getLogger(ConceptMapperPipelineFactory.class);
 
 	public enum DictionaryNamespace {
-		GO, GO_CC, GO_MF, GO_BP, CL, CHEBI, NCBI_TAXON, PR, SO, EG, OBO, DOID, UBERON
+		GO, GO_CC, GO_MF, GO_BP, FUNK_GO, FUNK_GO_CC, FUNK_GO_MF, FUNK_GO_BP, CL, CHEBI, NCBI_TAXON, PR, SO, EG, OBO, DOID, UBERON
 	}
 
 	/**
@@ -87,16 +88,29 @@ public class ConceptMapperDictionaryFileFactory {
 			case GO:
 				return GoDictionaryFactory.buildConceptMapperDictionary(
 						EnumSet.of(GoNamespace.CC, GoNamespace.BP, GoNamespace.MF), outputDirectory, outputDirectoryOp,
-						synonymType);
+						synonymType, IncludeFunkSynonyms.NO);
 			case GO_CC:
 				return GoDictionaryFactory.buildConceptMapperDictionary(EnumSet.of(GoNamespace.CC), outputDirectory,
-						outputDirectoryOp, synonymType);
+						outputDirectoryOp, synonymType, IncludeFunkSynonyms.NO);
 			case GO_BP:
 				return GoDictionaryFactory.buildConceptMapperDictionary(EnumSet.of(GoNamespace.BP), outputDirectory,
-						outputDirectoryOp, synonymType);
+						outputDirectoryOp, synonymType, IncludeFunkSynonyms.NO);
 			case GO_MF:
 				return GoDictionaryFactory.buildConceptMapperDictionary(EnumSet.of(GoNamespace.MF), outputDirectory,
-						outputDirectoryOp, synonymType);
+						outputDirectoryOp, synonymType, IncludeFunkSynonyms.NO);
+			case FUNK_GO:
+				return GoDictionaryFactory.buildConceptMapperDictionary(
+						EnumSet.of(GoNamespace.CC, GoNamespace.BP, GoNamespace.MF), outputDirectory, outputDirectoryOp,
+						synonymType, IncludeFunkSynonyms.YES);
+			case FUNK_GO_CC:
+				return GoDictionaryFactory.buildConceptMapperDictionary(EnumSet.of(GoNamespace.CC), outputDirectory,
+						outputDirectoryOp, synonymType, IncludeFunkSynonyms.YES);
+			case FUNK_GO_BP:
+				return GoDictionaryFactory.buildConceptMapperDictionary(EnumSet.of(GoNamespace.BP), outputDirectory,
+						outputDirectoryOp, synonymType, IncludeFunkSynonyms.YES);
+			case FUNK_GO_MF:
+				return GoDictionaryFactory.buildConceptMapperDictionary(EnumSet.of(GoNamespace.MF), outputDirectory,
+						outputDirectoryOp, synonymType, IncludeFunkSynonyms.YES);
 			case CHEBI:
 				return buildChebiDictionary(outputDirectory, cleanDictFile, synonymType);
 			case CL:
@@ -138,17 +152,30 @@ public class ConceptMapperDictionaryFileFactory {
 			switch (dictNamespace) {
 			case GO:
 				return GoDictionaryFactory.buildConceptMapperDictionary(
-						EnumSet.of(GoNamespace.CC, GoNamespace.BP, GoNamespace.MF), dictionaryFile, inputFile,
-						cleanDictFile, synonymType);
+						EnumSet.of(GoNamespace.CC, GoNamespace.BP, GoNamespace.MF), outputDirectory, inputFile,
+						cleanDictFile, synonymType, IncludeFunkSynonyms.NO);
 			case GO_CC:
-				return GoDictionaryFactory.buildConceptMapperDictionary(EnumSet.of(GoNamespace.CC), dictionaryFile,
-						inputFile, cleanDictFile, synonymType);
+				return GoDictionaryFactory.buildConceptMapperDictionary(EnumSet.of(GoNamespace.CC), outputDirectory,
+						inputFile, cleanDictFile, synonymType, IncludeFunkSynonyms.NO);
 			case GO_BP:
-				return GoDictionaryFactory.buildConceptMapperDictionary(EnumSet.of(GoNamespace.BP), dictionaryFile,
-						inputFile, cleanDictFile, synonymType);
+				return GoDictionaryFactory.buildConceptMapperDictionary(EnumSet.of(GoNamespace.BP), outputDirectory,
+						inputFile, cleanDictFile, synonymType, IncludeFunkSynonyms.NO);
 			case GO_MF:
-				return GoDictionaryFactory.buildConceptMapperDictionary(EnumSet.of(GoNamespace.MF), dictionaryFile,
-						inputFile, cleanDictFile, synonymType);
+				return GoDictionaryFactory.buildConceptMapperDictionary(EnumSet.of(GoNamespace.MF), outputDirectory,
+						inputFile, cleanDictFile, synonymType, IncludeFunkSynonyms.NO);
+			case FUNK_GO:
+				return GoDictionaryFactory.buildConceptMapperDictionary(
+						EnumSet.of(GoNamespace.CC, GoNamespace.BP, GoNamespace.MF), outputDirectory, inputFile,
+						cleanDictFile, synonymType, IncludeFunkSynonyms.YES);
+			case FUNK_GO_CC:
+				return GoDictionaryFactory.buildConceptMapperDictionary(EnumSet.of(GoNamespace.CC), outputDirectory,
+						inputFile, cleanDictFile, synonymType, IncludeFunkSynonyms.YES);
+			case FUNK_GO_BP:
+				return GoDictionaryFactory.buildConceptMapperDictionary(EnumSet.of(GoNamespace.BP), outputDirectory,
+						inputFile, cleanDictFile, synonymType, IncludeFunkSynonyms.YES);
+			case FUNK_GO_MF:
+				return GoDictionaryFactory.buildConceptMapperDictionary(EnumSet.of(GoNamespace.MF), outputDirectory,
+						inputFile, cleanDictFile, synonymType, IncludeFunkSynonyms.YES);
 			case CHEBI:
 				return buildDictionary(inputFile, dictionaryFile, cleanDictFile, synonymType);
 			case CL:
