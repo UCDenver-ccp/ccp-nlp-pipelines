@@ -24,7 +24,6 @@ import edu.ucdenver.ccp.nlp.pipelines.runner.DeploymentParams;
 import edu.ucdenver.ccp.nlp.pipelines.runner.PipelineBase;
 import edu.ucdenver.ccp.nlp.pipelines.runner.PipelineKey;
 import edu.ucdenver.ccp.nlp.pipelines.runner.PipelineParams;
-import edu.ucdenver.ccp.nlp.pipelines.runner.RunCatalogAE;
 import edu.ucdenver.ccp.nlp.pipelines.runner.serialization.AnnotationSerializer.IncludeCoveredText;
 import edu.ucdenver.ccp.nlp.pipelines.runner.serialization.AnnotationSerializerAE;
 import edu.ucdenver.ccp.nlp.uima.annotators.sentence_detection.ExplicitSentenceCasInserter;
@@ -60,7 +59,7 @@ public class PmcConceptMapperPipeline extends PipelineBase {
 	}
 
 	@Override
-	protected TypeSystemDescription getPipelineTypeSystem() {
+	public TypeSystemDescription getPipelineTypeSystem() {
 		return TypeSystemDescriptionFactory.createTypeSystemDescription("edu.ucdenver.ccp.nlp.core.uima.TypeSystem",
 				"edu.ucdenver.ccp.nlp.wrapper.conceptmapper.TypeSystem",
 				"edu.ucdenver.ccp.nlp.uima.annotators.TypeSystem", "analysis_engine.primitive.DictTerm",
@@ -79,7 +78,7 @@ public class PmcConceptMapperPipeline extends PipelineBase {
 	}
 
 	@Override
-	protected List<ServiceEngine> createServiceEngines() throws ResourceInitializationException {
+	public List<ServiceEngine> createServiceEngines() throws ResourceInitializationException {
 		List<ServiceEngine> engines = new ArrayList<ServiceEngine>();
 
 		int casPoolSize = getPipelineParams().getCasPoolSize();
