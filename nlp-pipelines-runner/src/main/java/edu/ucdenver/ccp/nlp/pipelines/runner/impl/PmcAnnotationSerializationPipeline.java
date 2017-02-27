@@ -99,7 +99,7 @@ public class PmcAnnotationSerializationPipeline extends PipelineBase {
 			AnalysisEngineDescription annotLoaderEngineDesc = AnnotationDeserializerAE
 					.getDescription_LoadFromSourceFileDirectory(getPipelineTypeSystem(),
 							CcpDocumentMetadataHandler.class, View.DEFAULT.viewName(), View.DEFAULT.viewName(),
-							annotFileInfixes);
+							IncludeCoveredText.NO, IncludeAnnotator.YES, annotFileInfixes);
 
 			int annotLoader_scaleup = casPoolSize;
 			int annotLoader_errorThreshold = 0;

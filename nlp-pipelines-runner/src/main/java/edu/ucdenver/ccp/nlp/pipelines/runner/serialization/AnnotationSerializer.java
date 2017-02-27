@@ -19,8 +19,8 @@ public class AnnotationSerializer {
 
 	private static final Logger logger = Logger.getLogger(AnnotationSerializer.class);
 
-	private static final String DELIMITER = StringConstants.TAB;
-	private static final String DELIMITER_REGEX = RegExPatterns.TAB;
+	protected static final String DELIMITER = StringConstants.TAB;
+	protected static final String DELIMITER_REGEX = RegExPatterns.TAB;
 
 	/**
 	 * It can sometimes be helpful to not include the covered text when
@@ -39,7 +39,7 @@ public class AnnotationSerializer {
 	 * @return simple serialization string for annotation storage using the
 	 *         format:
 	 */
-	public static String toString(TextAnnotation annot, IncludeCoveredText includeCoveredText,
+	public String toString(TextAnnotation annot, IncludeCoveredText includeCoveredText,
 			IncludeAnnotator includeAnnotator, String docIdSuffixToRemove) {
 
 		String documentId = annot.getDocumentID();
@@ -68,7 +68,7 @@ public class AnnotationSerializer {
 
 	}
 
-	private static String getStorageLine(String documentId, String annotatorFirstName, String mentionName,
+	protected String getStorageLine(String documentId, String annotatorFirstName, String mentionName,
 			String coveredText, List<Span> spans, IncludeCoveredText includeCoveredText) {
 
 		String outLine = documentId + ((annotatorFirstName != null) ? (DELIMITER + annotatorFirstName) : "") + DELIMITER
@@ -81,14 +81,15 @@ public class AnnotationSerializer {
 		return outLine;
 	}
 
-	public static TextAnnotation fromString(String line) {
+	public static TextAnnotation fromString(String line, IncludeCoveredText includeCoveredText,
+			IncludeAnnotator includeAnnotator) {
 		String[] toks = line.split(DELIMITER_REGEX);
 		int index = 0;
 
 		String documentId = toks[index++];
-		String annotatorName = toks[index++];
+		String annotatorName = (includeAnnotator == IncludeAnnotator.YES) ? toks[index++] : null;
 		String mentionName = toks[index++];
-		String coveredText = toks[index++];
+		String coveredText = (includeCoveredText == IncludeCoveredText.YES) ? toks[index++] : null;
 		List<Span> spans = new ArrayList<Span>();
 		for (int i = index; i < toks.length; i++) {
 			Span span = Span.fromString(toks[i]);
@@ -100,9 +101,14 @@ public class AnnotationSerializer {
 		// TODO: eventually use: TextAnnotationFactory.createFromString(s) when
 		// we need more complicated representation
 		TextAnnotation annot = new DefaultTextAnnotation(spans);
+
 		annot.setDocumentID(documentId);
-		annot.setCoveredText(coveredText);
-		annot.setAnnotator(new Annotator(-1, annotatorName, "", ""));
+		if (coveredText != null) {
+			annot.setCoveredText(coveredText);
+		}
+		if (annotatorName != null) {
+			annot.setAnnotator(new Annotator(-1, annotatorName, "", ""));
+		}
 		ClassMention cm = new DefaultClassMention(mentionName);
 		annot.setClassMention(cm);
 

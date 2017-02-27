@@ -28,6 +28,7 @@ import edu.ucdenver.ccp.nlp.core.annotation.impl.DefaultTextAnnotation;
 import edu.ucdenver.ccp.nlp.core.mention.ClassMention;
 import edu.ucdenver.ccp.nlp.core.mention.impl.DefaultClassMention;
 import edu.ucdenver.ccp.nlp.core.uima.annotation.CCPTextAnnotation;
+import edu.ucdenver.ccp.nlp.pipelines.runner.serialization.AnnotationSerializer.IncludeAnnotator;
 import edu.ucdenver.ccp.nlp.pipelines.runner.serialization.AnnotationSerializer.IncludeCoveredText;
 import edu.ucdenver.ccp.nlp.uima.annotation.impl.WrappedCCPTextAnnotation;
 import edu.ucdenver.ccp.nlp.uima.shims.document.impl.CcpDocumentMetadataHandler;
@@ -88,7 +89,8 @@ public class AnnotationSerializerAeTest extends DefaultUIMATestCase {
 		assertTrue(annotationFile.exists());
 
 		AnalysisEngineDescription aeDesc = AnnotationDeserializerAE.getDescription(tsd,
-				CcpDocumentMetadataHandler.class, directory, View.DEFAULT.viewName(), "tokens");
+				CcpDocumentMetadataHandler.class, directory, View.DEFAULT.viewName(), IncludeCoveredText.YES,
+				IncludeAnnotator.YES, "tokens");
 		AnalysisEngine engine = AnalysisEngineFactory.createEngine(aeDesc);
 		engine.process(jcas);
 

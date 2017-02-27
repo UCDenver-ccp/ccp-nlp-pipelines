@@ -18,12 +18,14 @@ public class AnnotationSerializerTest {
 		TextAnnotation ta = new DefaultTextAnnotation(3, 5, "an", new Annotator(-1, "annotatorName", "", ""), null, -1,
 				-1, "12345", -1, new DefaultClassMention("token"));
 
-		String serializedAnnot = AnnotationSerializer.toString(ta, IncludeCoveredText.YES, IncludeAnnotator.YES, null);
+		String serializedAnnot = new AnnotationSerializer().toString(ta, IncludeCoveredText.YES, IncludeAnnotator.YES,
+				null);
 
 		String expectedSerializedAnnot = "12345\tannotatorName\ttoken\tan\t[3..5]";
 		assertEquals(expectedSerializedAnnot, serializedAnnot);
 
-		TextAnnotation deserializedTa = AnnotationSerializer.fromString(expectedSerializedAnnot);
+		TextAnnotation deserializedTa = AnnotationSerializer.fromString(expectedSerializedAnnot, IncludeCoveredText.YES,
+				IncludeAnnotator.YES);
 
 		assertEquals(ta, deserializedTa);
 	}

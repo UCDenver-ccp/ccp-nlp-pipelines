@@ -154,6 +154,8 @@ public class AnnotationSerializerAE extends JCasAnnotator_ImplBase {
 
 		logger.log(Level.INFO, "Annot count: " + JCasUtil.select(jCas, CCPTextAnnotation.class).size());
 
+		AnnotationSerializer annotSerializer = getAnnotationSerializer();
+
 		try (BufferedWriter writer = (compressOutput)
 				? new BufferedWriter(new OutputStreamWriter(new GZIPOutputStream(new FileOutputStream(outputFile))))
 				: FileWriterUtil.initBufferedWriter(outputFile)) {
@@ -162,7 +164,7 @@ public class AnnotationSerializerAE extends JCasAnnotator_ImplBase {
 					.hasNext();) {
 				CCPTextAnnotation annot = annotIter.next();
 				WrappedCCPTextAnnotation ta = new WrappedCCPTextAnnotation(annot);
-				String storageString = AnnotationSerializer.toString(ta,
+				String storageString = annotSerializer.toString(ta,
 						(includeCoveredText ? IncludeCoveredText.YES : IncludeCoveredText.NO),
 						(includeAnnotator ? IncludeAnnotator.YES : IncludeAnnotator.NO), docIdSuffixToRemove);
 				writer.write(storageString + "\n");
@@ -171,6 +173,10 @@ public class AnnotationSerializerAE extends JCasAnnotator_ImplBase {
 		} catch (IOException e) {
 			throw new AnalysisEngineProcessException(e);
 		}
+	}
+
+	protected AnnotationSerializer getAnnotationSerializer() {
+		return new AnnotationSerializer();
 	}
 
 	/**
