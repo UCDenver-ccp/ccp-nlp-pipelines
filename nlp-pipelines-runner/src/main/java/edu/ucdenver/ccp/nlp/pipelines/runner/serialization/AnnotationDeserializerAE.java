@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.zip.GZIPInputStream;
 
@@ -86,6 +87,9 @@ public class AnnotationDeserializerAE extends JCasAnnotator_ImplBase {
 		documentMetaDataHandler = (DocumentMetadataHandler) ConstructorUtil
 				.invokeConstructor(documentMetadataHandlerClassName);
 		logger = aContext.getLogger();
+
+		logger.log(Level.INFO, "AnnotationDeserializer initialized with the following file infixes: "
+				+ Arrays.toString(inputFilenameInfixes));
 	}
 
 	@Override
