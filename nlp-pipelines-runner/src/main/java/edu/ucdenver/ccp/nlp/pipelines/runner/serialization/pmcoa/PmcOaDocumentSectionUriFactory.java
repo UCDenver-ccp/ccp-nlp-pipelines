@@ -20,7 +20,7 @@ public class PmcOaDocumentSectionUriFactory implements UriFactory {
 
 	@Override
 	public URI getResourceUri(AnnotationDataExtractor annotationDataExtractor, Annotation annotation) {
-		String annotationType = annotationDataExtractor.getAnnotationType(annotation).toUpperCase();
+		String annotationType = annotationDataExtractor.getAnnotationType(annotation);
 		
 		if (annotationType.startsWith("http://")) {
 			return new URIImpl(annotationType);
@@ -32,7 +32,7 @@ public class PmcOaDocumentSectionUriFactory implements UriFactory {
 
 		DocumentElement documentElement = null;
 		try {
-			documentElement = DocumentElement.valueOf(annotationType);
+			documentElement = DocumentElement.valueOf(annotationType.toUpperCase());
 		} catch (IllegalArgumentException e) {
 			logger.warn("Unknown/unhandled PMC OA document section: " + annotationType);
 			return null;
