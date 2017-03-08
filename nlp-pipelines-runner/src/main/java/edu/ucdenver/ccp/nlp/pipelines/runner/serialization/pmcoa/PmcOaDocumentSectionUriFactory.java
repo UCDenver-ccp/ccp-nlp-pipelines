@@ -21,11 +21,11 @@ public class PmcOaDocumentSectionUriFactory implements UriFactory {
 	@Override
 	public URI getResourceUri(AnnotationDataExtractor annotationDataExtractor, Annotation annotation) {
 		String annotationType = annotationDataExtractor.getAnnotationType(annotation);
-		
+
 		if (annotationType.startsWith("http://")) {
 			return new URIImpl(annotationType);
 		}
-		
+
 		if (annotationType.equalsIgnoreCase("sentence")) {
 			return new URIImpl("http://purl.org/linguistics/gold/OrthographicSentence");
 		}
@@ -43,7 +43,10 @@ public class PmcOaDocumentSectionUriFactory implements UriFactory {
 		case ARTICLE_TITLE:
 			return new URIImpl(RdfUtil.createUri(DataSource.KIAO, "article_title").toString());
 		case BOLD:
-			return new URIImpl(RdfUtil.createUri(DataSource.KIAO, "typeface_bold").toString());
+			// to save space we are not serializing the typography annotations
+			return null;
+		// return new URIImpl(RdfUtil.createUri(DataSource.KIAO,
+		// "typeface_bold").toString());
 		case CAPTION:
 			return new URIImpl(RdfUtil.createUri(DataSource.KIAO, "caption").toString());
 		case COPYRIGHT:
@@ -53,7 +56,10 @@ public class PmcOaDocumentSectionUriFactory implements UriFactory {
 			// necessary.
 			return null;
 		case ITALIC:
-			return new URIImpl(RdfUtil.createUri(DataSource.KIAO, "typeface_italic").toString());
+			// to save space we are not serializing the typography annotations
+			return null;
+		// return new URIImpl(RdfUtil.createUri(DataSource.KIAO,
+		// "typeface_italic").toString());
 		case KEYWORD:
 			return new URIImpl(RdfUtil.createUri(DataSource.KIAO, "keyword").toString());
 		case PARAGRAPH:
@@ -63,9 +69,15 @@ public class PmcOaDocumentSectionUriFactory implements UriFactory {
 		case SOURCE:
 			return new URIImpl(RdfUtil.createUri(DataSource.KIAO, "document_source").toString());
 		case SUB:
-			return new URIImpl(RdfUtil.createUri(DataSource.KIAO, "typeface_subscript").toString());
+			// to save space we are not serializing the typography annotations
+			return null;
+		// return new URIImpl(RdfUtil.createUri(DataSource.KIAO,
+		// "typeface_subscript").toString());
 		case SUP:
-			return new URIImpl(RdfUtil.createUri(DataSource.KIAO, "typeface_superscript").toString());
+			// to save space we are not serializing the typography annotations
+			return null;
+		// return new URIImpl(RdfUtil.createUri(DataSource.KIAO,
+		// "typeface_superscript").toString());
 		case TITLE:
 			return new URIImpl(RdfUtil.createUri(DataSource.KIAO, "title").toString());
 		default:
