@@ -49,7 +49,7 @@ public enum ConceptMapperParams {
 	FUNK_GO_BP(28, 47, DictionaryNamespace.FUNK_GO_BP, "go.owl"), 
 //	GO(30,	DictionaryNamespace.GO, "go.owl"), 
 	SO(31, 191, DictionaryNamespace.SO, "so.owl"), 
-	PR(478, 286, DictionaryNamespace.PR, "pr.owl"), 
+	PR(478, 94, DictionaryNamespace.PR, "pr.owl"), // highest p is 286, but it uses skip
 	CL(31, 143,	DictionaryNamespace.CL, "cl.owl"), 
 	NCBI_TAXON(535,279, DictionaryNamespace.NCBI_TAXON, "ncbitaxon.owl"), 
 	CHEBI(13,189, DictionaryNamespace.CHEBI, "chebi.owl"),
