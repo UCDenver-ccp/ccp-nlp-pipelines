@@ -16,6 +16,7 @@ import org.apache.uima.resource.metadata.TypeSystemDescription;
 
 import edu.ucdenver.ccp.common.file.CharacterEncoding;
 import edu.ucdenver.ccp.nlp.pipelines.conceptmapper.ConceptMapperParams;
+import edu.ucdenver.ccp.nlp.pipelines.conceptmapper.ConceptMapperParams.ConceptMapperOptimization;
 import edu.ucdenver.ccp.nlp.pipelines.conceptmapper.ConceptMapperPipelineCmdOpts;
 import edu.ucdenver.ccp.nlp.pipelines.conceptmapper.ConceptMapperPipelineFactory;
 import edu.ucdenver.ccp.nlp.pipelines.runlog.Document.FileVersion;
@@ -39,14 +40,17 @@ public class PmcConceptMapperPipeline extends PipelineBase {
 	private static final String PIPELINE_DESCRIPTION = "Annotates the PMC corpus using the UIMA sandbox ConceptMapper tool.";
 	private final ConceptMapperParams conceptMapperParams;
 	private final File dictionaryFile;
+	private final ConceptMapperOptimization cmOpt;
 
 	public PmcConceptMapperPipeline(File catalogDirectory, File configDir, int numToProcess, String brokerUrl,
-			ConceptMapperParams conceptMapperParams, File dictionaryFile, int casPoolSize) throws Exception {
+			ConceptMapperParams conceptMapperParams, ConceptMapperOptimization cmOpt, File dictionaryFile,
+			int casPoolSize) throws Exception {
 		super(new PipelineParams(new PMC_OA_DocumentCollection().getShortname(), FileVersion.LOCAL_TEXT,
 				CharacterEncoding.UTF_8, View.DEFAULT.viewName(),
 				PipelineKey.CONCEPTMAPPER.name() + "_" + conceptMapperParams.name(), PIPELINE_DESCRIPTION,
 				catalogDirectory, numToProcess, 0, brokerUrl, casPoolSize), configDir);
 		this.conceptMapperParams = conceptMapperParams;
+		this.cmOpt = cmOpt;
 		this.dictionaryFile = dictionaryFile;
 	}
 
@@ -114,7 +118,7 @@ public class PmcConceptMapperPipeline extends PipelineBase {
 			List<AnalysisEngineDescription> cmAeDescriptions;
 			try {
 				cmAeDescriptions = ConceptMapperPipelineFactory.getPipelineAeDescriptions(getPipelineTypeSystem(),
-						cmdOptions, conceptMapperParams.paramIndex());
+						cmdOptions, conceptMapperParams.optimizedParamIndex(cmOpt));
 			} catch (UIMAException | IOException e) {
 				throw new ResourceInitializationException(e);
 			}
@@ -139,7 +143,7 @@ public class PmcConceptMapperPipeline extends PipelineBase {
 			String sourceViewName = View.DEFAULT.viewName();
 			String outputViewName = View.DEFAULT.viewName();
 			boolean compressOutput = true;
-			String outputFileInfix = PipelineKey.CONCEPTMAPPER.name() + "_" + conceptMapperParams.name();
+			String outputFileInfix = PipelineKey.CONCEPTMAPPER.name() + "_" + conceptMapperParams.name() + "_" + cmOpt.name();
 			AnalysisEngineDescription annotSerializerDesc = AnnotationSerializerAE
 					.getDescription_SaveToSourceFileDirectory(getPipelineTypeSystem(), CcpDocumentMetadataHandler.class,
 							sourceViewName, outputViewName, compressOutput, outputFileInfix, IncludeCoveredText.NO);
@@ -208,13 +212,15 @@ public class PmcConceptMapperPipeline extends PipelineBase {
 		int numToProcess = Integer.parseInt(args[3]); // <0 = process all
 		int casPoolSize = Integer.parseInt(args[4]);
 		ConceptMapperParams conceptMapperParams = ConceptMapperParams.valueOf(args[5]);
-		File dictionaryDirectory = new File(args[6]);
+		ConceptMapperOptimization cmOpt = ConceptMapperOptimization.valueOf(args[6]);
+		File dictionaryDirectory = new File(args[7]);
 		logger.info("Starting PMC ConceptMapper Pipeline...\nCatalog directory=" + catalogDirectory.getAbsolutePath()
 				+ "\nConfig directory=" + configDirectory.getAbsolutePath() + "\nNum-to-process=" + numToProcess
-				+ "\nBroker URL: " + brokerUrl + "\nConceptMapperParam: " + conceptMapperParams.name());
+				+ "\nBroker URL: " + brokerUrl + "\nConceptMapperParam: " + conceptMapperParams.name()
+				+ "\nConceptMapperOptimization: " + cmOpt.name());
 		try {
 			PmcConceptMapperPipeline pipeline = new PmcConceptMapperPipeline(catalogDirectory, configDirectory,
-					numToProcess, brokerUrl, conceptMapperParams,
+					numToProcess, brokerUrl, conceptMapperParams, cmOpt,
 					UpdateConceptMapperDictionaryFiles.getDictionaryFile(dictionaryDirectory, conceptMapperParams),
 					casPoolSize);
 

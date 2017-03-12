@@ -12,6 +12,7 @@ import edu.ucdenver.ccp.common.file.FileUtil;
 import edu.ucdenver.ccp.datasource.fileparsers.obo.OntologyUtil.SynonymType;
 import edu.ucdenver.ccp.nlp.pipelines.conceptmapper.ConceptMapperDictionaryFileFactory;
 import edu.ucdenver.ccp.nlp.pipelines.conceptmapper.ConceptMapperParams;
+import edu.ucdenver.ccp.nlp.pipelines.conceptmapper.ConceptMapperParams.ConceptMapperOptimization;
 import edu.ucdenver.ccp.nlp.wrapper.conceptmapper.ConceptMapperPermutationFactory;
 
 public class UpdateConceptMapperDictionaryFiles {
@@ -33,7 +34,7 @@ public class UpdateConceptMapperDictionaryFiles {
 		FileUtils.mkdir(dictionaryDirectory);
 	}
 
-	public void createDictionaryFiles(CleanDictionaryFile cleanDictionaryFile)
+	public void createDictionaryFiles(CleanDictionaryFile cleanDictionaryFile, ConceptMapperOptimization cmOpt)
 			throws MalformedURLException, IOException {
 		/*
 		 * ontologies are downloaded by a separate script:
@@ -44,13 +45,13 @@ public class UpdateConceptMapperDictionaryFiles {
 		for (ConceptMapperParams cmParams : ConceptMapperParams.values()) {
 			logger.info("Creating/updating ConceptMapper dictionary file for: " + cmParams.name());
 			File ontologyFile = cmParams.getOntologyFile(ontologyDirectory);
-			createDictionaryFile(ontologyFile, cmParams, cleanDictionaryFile);
+			createDictionaryFile(ontologyFile, cmParams, cmOpt, cleanDictionaryFile);
 		}
 	}
 
-	private File createDictionaryFile(File ontologyFile, ConceptMapperParams cmParams,
+	private File createDictionaryFile(File ontologyFile, ConceptMapperParams cmParams, ConceptMapperOptimization cmOpt,
 			CleanDictionaryFile cleanDictionaryFile) {
-		SynonymType synonymType = ConceptMapperPermutationFactory.getSynonymType(cmParams.paramIndex());
+		SynonymType synonymType = ConceptMapperPermutationFactory.getSynonymType(cmParams.optimizedParamIndex(cmOpt));
 		File cmDictFile = ConceptMapperDictionaryFileFactory.createDictionaryFileFromOBO(cmParams.dictionaryNamespace(),
 				ontologyFile, dictionaryDirectory, cleanDictionaryFile == CleanDictionaryFile.YES, synonymType);
 		return cmDictFile;
@@ -70,9 +71,10 @@ public class UpdateConceptMapperDictionaryFiles {
 		BasicConfigurator.configure();
 		File dictionaryDirectory = new File(args[0]);
 		CleanDictionaryFile cleanDictionaryFile = CleanDictionaryFile.valueOf(args[1]);
+		ConceptMapperOptimization cmOpt = ConceptMapperOptimization.valueOf(args[2]);
 		UpdateConceptMapperDictionaryFiles updater = new UpdateConceptMapperDictionaryFiles(dictionaryDirectory);
 		try {
-			updater.createDictionaryFiles(cleanDictionaryFile);
+			updater.createDictionaryFiles(cleanDictionaryFile, cmOpt);
 		} catch (IOException e) {
 			e.printStackTrace();
 			System.exit(-1);

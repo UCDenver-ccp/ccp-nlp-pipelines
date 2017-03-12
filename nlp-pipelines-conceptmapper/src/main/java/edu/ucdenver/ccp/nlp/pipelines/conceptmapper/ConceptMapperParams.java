@@ -44,32 +44,41 @@ import edu.ucdenver.ccp.nlp.pipelines.conceptmapper.ConceptMapperDictionaryFileF
 public enum ConceptMapperParams {
 	/* @formatter:off */
 //	DEFAULT(31, DictionaryNamespace.OBO, null), 
-	FUNK_GO_CC(31, DictionaryNamespace.FUNK_GO_CC, "go.owl"), 
-	FUNK_GO_MF(111,	DictionaryNamespace.FUNK_GO_MF, "go.owl"), 
-	FUNK_GO_BP(28, DictionaryNamespace.FUNK_GO_BP, "go.owl"), 
+	FUNK_GO_CC(31, 31, DictionaryNamespace.FUNK_GO_CC, "go.owl"), 
+	FUNK_GO_MF(111,	111, DictionaryNamespace.FUNK_GO_MF, "go.owl"), 
+	FUNK_GO_BP(28, 47, DictionaryNamespace.FUNK_GO_BP, "go.owl"), 
 //	GO(30,	DictionaryNamespace.GO, "go.owl"), 
-	SO(31, DictionaryNamespace.SO, "so.owl"), 
-	PR(478, DictionaryNamespace.PR, "pr.owl"), 
-	CL(31,	DictionaryNamespace.CL, "cl.owl"), 
-	NCBI_TAXON(535, DictionaryNamespace.NCBI_TAXON, "ncbitaxon.owl"), 
-	CHEBI(13, DictionaryNamespace.CHEBI, "chebi.owl"),
-	DOID(31, DictionaryNamespace.DOID, "doid.owl"),
-	UBERON(31, DictionaryNamespace.UBERON, "ext.owl");
-	
+	SO(31, 191, DictionaryNamespace.SO, "so.owl"), 
+	PR(478, 286, DictionaryNamespace.PR, "pr.owl"), 
+	CL(31, 143,	DictionaryNamespace.CL, "cl.owl"), 
+	NCBI_TAXON(535,279, DictionaryNamespace.NCBI_TAXON, "ncbitaxon.owl"), 
+	CHEBI(13,189, DictionaryNamespace.CHEBI, "chebi.owl"),
+	DOID(31, 47, DictionaryNamespace.DOID, "doid.owl"),
+	UBERON(31, 47, DictionaryNamespace.UBERON, "ext.owl");
 /* @formatter:on */
 
-	private final int paramIndex;
+	public enum ConceptMapperOptimization {
+		F_SCORE, PRECISION
+	}
+
+	private final int fscoreOptimizedParamIndex;
+	private final int precisionOptimizedParamIndex;
 	private final DictionaryNamespace dictNamespace;
 	private final String ontologyFileName;
 
-	private ConceptMapperParams(int paramIndex, DictionaryNamespace dictNamespace, String ontologyFileName) {
-		this.paramIndex = paramIndex;
+	private ConceptMapperParams(int fscoreOptimizedParamIndex, int precisionOptimizedParamIndex,
+			DictionaryNamespace dictNamespace, String ontologyFileName) {
+		this.fscoreOptimizedParamIndex = fscoreOptimizedParamIndex;
+		this.precisionOptimizedParamIndex = precisionOptimizedParamIndex;
 		this.dictNamespace = dictNamespace;
 		this.ontologyFileName = ontologyFileName;
 	}
 
-	public int paramIndex() {
-		return paramIndex;
+	public int optimizedParamIndex(ConceptMapperOptimization opt) {
+		if (opt == ConceptMapperOptimization.F_SCORE) {
+			return fscoreOptimizedParamIndex;
+		}
+		return precisionOptimizedParamIndex;
 	}
 
 	public DictionaryNamespace dictionaryNamespace() {
