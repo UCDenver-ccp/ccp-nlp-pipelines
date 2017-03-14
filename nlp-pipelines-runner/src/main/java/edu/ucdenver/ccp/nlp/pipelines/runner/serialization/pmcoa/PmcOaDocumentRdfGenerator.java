@@ -25,7 +25,7 @@ public class PmcOaDocumentRdfGenerator implements DocumentRdfGenerator {
 		String documentId = documentMetadataHandler.extractDocumentId(jCas);
 		// remove .xml.gz.txt.gz
 		documentId = StringUtil.removeSuffix(documentId, ".nxml.gz.txt.gz");
-		return new URIImpl("http://kabob.ucdenver.edu/iao/document_" + documentId);
+		return new URIImpl("http://kabob.ucdenver.edu/iao/document_" + documentId + "_TXT");
 	}
 
 	@Override
