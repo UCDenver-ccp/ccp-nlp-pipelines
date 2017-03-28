@@ -68,7 +68,7 @@ public class ConceptMapperDictionaryFileFactory {
 	private static final Logger logger = Logger.getLogger(ConceptMapperPipelineFactory.class);
 
 	public enum DictionaryNamespace {
-		GO, GO_CC, GO_MF, GO_BP, FUNK_GO, FUNK_GO_CC, FUNK_GO_MF, FUNK_GO_BP, CL, CHEBI, NCBI_TAXON, PR, SO, EG, OBO, DOID, UBERON
+		GO, GO_CC, GO_MF, GO_BP, FUNK_GO, FUNK_GO_CC, FUNK_GO_MF, FUNK_GO_BP, CL, CHEBI, MOP, MOP_EXT, NCBI_TAXON, PR, SO, EG, OBO, DOID, UBERON, UBERON_EXT, UBERON_NESTED, UBERON_EXT_NESTED
 	}
 
 	/**
@@ -124,6 +124,18 @@ public class ConceptMapperDictionaryFileFactory {
 			case EG:
 				return EntrezGeneDictionaryFactory.buildModelOrganismConceptMapperDictionary(outputDirectory,
 						outputDirectoryOp);
+			case MOP:
+				return buildMopDictionary(outputDirectory, cleanDictFile, synonymType);
+			case MOP_EXT:
+				return buildMopExtDictionary(outputDirectory, cleanDictFile, synonymType);
+			case UBERON:
+				return buildUberonDictionary(outputDirectory, cleanDictFile, synonymType);
+			case UBERON_EXT:
+				return buildUberonExtDictionary(outputDirectory, cleanDictFile, synonymType);
+			case UBERON_NESTED:
+				return buildUberonNestedDictionary(outputDirectory, cleanDictFile, synonymType);
+			case UBERON_EXT_NESTED:
+				return buildUberonExtNestedDictionary(outputDirectory, cleanDictFile, synonymType);
 
 			default:
 				throw new IllegalArgumentException(
