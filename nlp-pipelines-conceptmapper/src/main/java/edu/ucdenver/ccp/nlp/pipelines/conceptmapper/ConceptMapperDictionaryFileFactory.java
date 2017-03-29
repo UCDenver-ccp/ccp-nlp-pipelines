@@ -124,19 +124,6 @@ public class ConceptMapperDictionaryFileFactory {
 			case EG:
 				return EntrezGeneDictionaryFactory.buildModelOrganismConceptMapperDictionary(outputDirectory,
 						outputDirectoryOp);
-			case MOP:
-				return buildMopDictionary(outputDirectory, cleanDictFile, synonymType);
-			case MOP_EXT:
-				return buildMopExtDictionary(outputDirectory, cleanDictFile, synonymType);
-			case UBERON:
-				return buildUberonDictionary(outputDirectory, cleanDictFile, synonymType);
-			case UBERON_EXT:
-				return buildUberonExtDictionary(outputDirectory, cleanDictFile, synonymType);
-			case UBERON_NESTED:
-				return buildUberonNestedDictionary(outputDirectory, cleanDictFile, synonymType);
-			case UBERON_EXT_NESTED:
-				return buildUberonExtNestedDictionary(outputDirectory, cleanDictFile, synonymType);
-
 			default:
 				throw new IllegalArgumentException(
 						"Concept mapper dictionary namespace not handled: " + dictNamespace.name());
@@ -201,6 +188,16 @@ public class ConceptMapperDictionaryFileFactory {
 			case DOID:
 				return buildDictionary(inputFile, dictionaryFile, cleanDictFile, synonymType);
 			case UBERON:
+				return buildDictionary(inputFile, dictionaryFile, cleanDictFile, synonymType);
+			case UBERON_EXT:
+				return buildDictionary(inputFile, dictionaryFile, cleanDictFile, synonymType);
+			case UBERON_NESTED:
+				return buildDictionary(inputFile, dictionaryFile, cleanDictFile, synonymType);
+			case UBERON_EXT_NESTED:
+				return buildDictionary(inputFile, dictionaryFile, cleanDictFile, synonymType);
+			case MOP:
+				return buildDictionary(inputFile, dictionaryFile, cleanDictFile, synonymType);
+			case MOP_EXT:
 				return buildDictionary(inputFile, dictionaryFile, cleanDictFile, synonymType);
 			case EG:
 				return EntrezGeneDictionaryFactory.buildModelOrganismConceptMapperDictionary(inputFile, dictionaryFile,
