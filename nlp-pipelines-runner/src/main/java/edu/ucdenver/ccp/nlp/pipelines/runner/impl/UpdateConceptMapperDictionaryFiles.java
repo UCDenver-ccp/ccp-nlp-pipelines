@@ -49,7 +49,7 @@ public class UpdateConceptMapperDictionaryFiles {
 		}
 	}
 
-	private File createDictionaryFile(File ontologyFile, ConceptMapperParams cmParams, ConceptMapperOptimization cmOpt,
+	public File createDictionaryFile(File ontologyFile, ConceptMapperParams cmParams, ConceptMapperOptimization cmOpt,
 			CleanDictionaryFile cleanDictionaryFile) {
 		SynonymType synonymType = ConceptMapperPermutationFactory.getSynonymType(cmParams.optimizedParamIndex(cmOpt));
 		File cmDictFile = ConceptMapperDictionaryFileFactory.createDictionaryFileFromOBO(cmParams.dictionaryNamespace(),
