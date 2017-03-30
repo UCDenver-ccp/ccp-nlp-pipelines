@@ -145,9 +145,9 @@ public class ConceptMapperDictionaryFileFactory {
 	 * @return a reference to a newly created Concept Mapper dictionary file
 	 */
 	public static File createDictionaryFileFromOBO(DictionaryNamespace dictNamespace, File inputFile,
-			File outputDirectory, boolean cleanDictFile, SynonymType synonymType) {
+			File outputDirectory, boolean cleanDictFile, SynonymType synonymType, String dictId) {
 		try {
-			File dictionaryFile = getDictionaryFile(outputDirectory, dictNamespace);
+			File dictionaryFile = getDictionaryFile(outputDirectory, dictNamespace, dictId);
 			switch (dictNamespace) {
 			case GO:
 				return GoDictionaryFactory.buildConceptMapperDictionary(
@@ -216,8 +216,17 @@ public class ConceptMapperDictionaryFileFactory {
 		}
 	}
 
-	public static File getDictionaryFile(File outputDirectory, DictionaryNamespace dictNamespace) {
-		return new File(outputDirectory, "cmDict-" + dictNamespace.name() + ".xml");
+	/**
+	 * @param outputDirectory
+	 * @param dictNamespace
+	 * @param id
+	 *            if non-null this can be used to make the dictionary file
+	 *            unique. useful in cases when processing in parallel using
+	 *            multiple dictionaries
+	 * @return
+	 */
+	public static File getDictionaryFile(File outputDirectory, DictionaryNamespace dictNamespace, String id) {
+		return new File(outputDirectory, "cmDict-" + dictNamespace.name() + ((id != null) ? "." + id : "") + ".xml");
 	}
 
 	/**

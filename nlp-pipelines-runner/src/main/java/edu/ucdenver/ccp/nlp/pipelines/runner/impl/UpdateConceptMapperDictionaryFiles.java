@@ -53,13 +53,13 @@ public class UpdateConceptMapperDictionaryFiles {
 			CleanDictionaryFile cleanDictionaryFile) {
 		SynonymType synonymType = ConceptMapperPermutationFactory.getSynonymType(cmParams.optimizedParamIndex(cmOpt));
 		File cmDictFile = ConceptMapperDictionaryFileFactory.createDictionaryFileFromOBO(cmParams.dictionaryNamespace(),
-				ontologyFile, dictionaryDirectory, cleanDictionaryFile == CleanDictionaryFile.YES, synonymType);
+				ontologyFile, dictionaryDirectory, cleanDictionaryFile == CleanDictionaryFile.YES, synonymType, null);
 		return cmDictFile;
 	}
 
 	public static File getDictionaryFile(File dictionaryDirectory, ConceptMapperParams cmParams) {
 		return ConceptMapperDictionaryFileFactory.getDictionaryFile(dictionaryDirectory,
-				cmParams.dictionaryNamespace());
+				cmParams.dictionaryNamespace(), null);
 	}
 
 	/**
