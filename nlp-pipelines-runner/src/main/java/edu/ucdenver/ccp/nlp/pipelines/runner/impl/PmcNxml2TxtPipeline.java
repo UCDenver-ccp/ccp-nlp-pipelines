@@ -16,17 +16,26 @@ import edu.ucdenver.ccp.nlp.pipelines.runlog.Document.FileVersion;
 import edu.ucdenver.ccp.nlp.pipelines.runlog.DocumentCollection.PMC_OA_DocumentCollection;
 import edu.ucdenver.ccp.nlp.pipelines.runner.DeploymentParams;
 import edu.ucdenver.ccp.nlp.pipelines.runner.PipelineBase;
-import edu.ucdenver.ccp.nlp.pipelines.runner.PipelineKey;
 import edu.ucdenver.ccp.nlp.pipelines.runner.PipelineParams;
-import edu.ucdenver.ccp.nlp.pipelines.runner.RunCatalogAE;
 import edu.ucdenver.ccp.nlp.pipelines.runner.serialization.AnnotationSerializer.IncludeCoveredText;
 import edu.ucdenver.ccp.nlp.pipelines.runner.serialization.AnnotationSerializerAE;
 import edu.ucdenver.ccp.nlp.uima.serialization.txt.DocumentTextSerializerAE;
 import edu.ucdenver.ccp.nlp.uima.shims.document.impl.CcpDocumentMetadataHandler;
 import edu.ucdenver.ccp.nlp.uima.util.TypeSystemUtil;
 import edu.ucdenver.ccp.nlp.uima.util.View;
+import edu.ucdenver.ccp.uima.shims.document.DocumentMetadataHandler;
 
 public class PmcNxml2TxtPipeline extends PipelineBase {
+
+	public static final Class<? extends DocumentMetadataHandler> DOCTXTSERIALIZER_DOCUMENT_METADATAHANDLER_CLASS = CcpDocumentMetadataHandler.class;
+	public static final String DOCTXTSERIALIZER_SOURCE_VIEW_NAME = View.XML.viewName();
+	public static final boolean DOCTXTSERIALIZER_COMPRESS_OUTPUT_FLAG = true;
+	public static final String DOCTXTSERIALIZER_OUTPUT_FILE_SUFFIX = ".txt";
+
+	public static final Class<? extends DocumentMetadataHandler> ANNOTSERIALIZER_DOCUMENT_METADATAHANDLER_CLASS = CcpDocumentMetadataHandler.class;
+	public static final String ANNOTSERIALIZER_SOURCE_VIEW_NAME = View.DEFAULT.viewName();
+	public static final boolean ANNOTSERIALIZER_COMPRESS_OUTPUT_FLAG = true;
+	public static final String ANNOTSERIALIZER_OUTPUT_FILE_INFIX = "sections";
 
 	private static final Logger logger = Logger.getLogger(PmcNxml2TxtPipeline.class);
 	private static final String AGGREGATE_DESCRIPTOR_PATH_ON_CLASSPATH = "/pipeline_descriptors/pmc_nxml2txt_aggregate.xml";
@@ -53,7 +62,7 @@ public class PmcNxml2TxtPipeline extends PipelineBase {
 	}
 
 	@Override
-	protected TypeSystemDescription getPipelineTypeSystem() {
+	public TypeSystemDescription getPipelineTypeSystem() {
 		return TypeSystemUtil.getCcpTypeSystem();
 	}
 
@@ -71,7 +80,7 @@ public class PmcNxml2TxtPipeline extends PipelineBase {
 	}
 
 	@Override
-	protected List<ServiceEngine> createServiceEngines() throws ResourceInitializationException {
+	public List<ServiceEngine> createServiceEngines() throws ResourceInitializationException {
 		List<ServiceEngine> engines = new ArrayList<ServiceEngine>();
 		int casPoolSize = getPipelineParams().getCasPoolSize();
 		{
@@ -91,9 +100,12 @@ public class PmcNxml2TxtPipeline extends PipelineBase {
 		}
 		{
 			/* configure the plain text file output AE */
+
 			AnalysisEngineDescription txtSerializerAeDesc = DocumentTextSerializerAE
-					.getDescription_SaveToSourceFileDirectory(getPipelineTypeSystem(), CcpDocumentMetadataHandler.class,
-							View.XML.viewName(), View.DEFAULT.viewName(), true, ".txt");
+					.getDescription_SaveToSourceFileDirectory(getPipelineTypeSystem(),
+							DOCTXTSERIALIZER_DOCUMENT_METADATAHANDLER_CLASS, DOCTXTSERIALIZER_SOURCE_VIEW_NAME,
+							View.DEFAULT.viewName(), DOCTXTSERIALIZER_COMPRESS_OUTPUT_FLAG,
+							DOCTXTSERIALIZER_OUTPUT_FILE_SUFFIX);
 
 			int txtSerializer_scaleup = casPoolSize;
 			int txtSerializer_errorThreshold = 0;
@@ -108,13 +120,14 @@ public class PmcNxml2TxtPipeline extends PipelineBase {
 		}
 		{
 			/* serialize the section annotations */
-			String sourceViewName = View.DEFAULT.viewName();
+			String sourceViewName = ANNOTSERIALIZER_SOURCE_VIEW_NAME;
 			String outputViewName = View.DEFAULT.viewName();
-			boolean compressOutput = true;
-			String outputFileInfix = "sections";
+			boolean compressOutput = ANNOTSERIALIZER_COMPRESS_OUTPUT_FLAG;
+			String outputFileInfix = ANNOTSERIALIZER_OUTPUT_FILE_INFIX;
 			AnalysisEngineDescription annotSerializerDesc = AnnotationSerializerAE
-					.getDescription_SaveToSourceFileDirectory(getPipelineTypeSystem(), CcpDocumentMetadataHandler.class,
-							sourceViewName, outputViewName, compressOutput, outputFileInfix, IncludeCoveredText.NO);
+					.getDescription_SaveToSourceFileDirectory(getPipelineTypeSystem(),
+							ANNOTSERIALIZER_DOCUMENT_METADATAHANDLER_CLASS, sourceViewName, outputViewName,
+							compressOutput, outputFileInfix, IncludeCoveredText.NO);
 
 			int annotSerializer_scaleup = casPoolSize;
 			int annotSerializer_errorThreshold = 0;
@@ -127,23 +140,28 @@ public class PmcNxml2TxtPipeline extends PipelineBase {
 					"annotSerializerAE", DescriptorType.PRIMITIVE);
 			engines.add(annotSerializerEngine);
 		}
-//		{
-//			/* configure catalog AE */
-//			AnalysisEngineDescription catalogAeDesc = RunCatalogAE.getDescription(getPipelineTypeSystem(),
-//					getPipelineParams().getCatalogDirectory(), CcpDocumentMetadataHandler.class,
-//					getPipelineParams().getPipelineKey());
-//
-//			int catalogAe_scaleup = 1;
-//			int catalogAe_errorThreshold = 0;
-//			String catalogAe_endpoint = "catalogAeQ";
-//
-//			DeploymentParams catalogAeDeployParams = new DeploymentParams("RunCatalog",
-//					"Catalogs new annotation-output and document files.", catalogAe_scaleup, catalogAe_errorThreshold,
-//					catalogAe_endpoint, getPipelineParams().getBrokerUrl());
-//			ServiceEngine catalogAeEngine = new ServiceEngine(catalogAeDesc, catalogAeDeployParams, "runCatalogAE",
-//					DescriptorType.PRIMITIVE);
-//			engines.add(catalogAeEngine);
-//		}
+		// {
+		// /* configure catalog AE */
+		// AnalysisEngineDescription catalogAeDesc =
+		// RunCatalogAE.getDescription(getPipelineTypeSystem(),
+		// getPipelineParams().getCatalogDirectory(),
+		// CcpDocumentMetadataHandler.class,
+		// getPipelineParams().getPipelineKey());
+		//
+		// int catalogAe_scaleup = 1;
+		// int catalogAe_errorThreshold = 0;
+		// String catalogAe_endpoint = "catalogAeQ";
+		//
+		// DeploymentParams catalogAeDeployParams = new
+		// DeploymentParams("RunCatalog",
+		// "Catalogs new annotation-output and document files.",
+		// catalogAe_scaleup, catalogAe_errorThreshold,
+		// catalogAe_endpoint, getPipelineParams().getBrokerUrl());
+		// ServiceEngine catalogAeEngine = new ServiceEngine(catalogAeDesc,
+		// catalogAeDeployParams, "runCatalogAE",
+		// DescriptorType.PRIMITIVE);
+		// engines.add(catalogAeEngine);
+		// }
 		return engines;
 
 	}

@@ -32,8 +32,13 @@ import edu.ucdenver.ccp.nlp.uima.annotators.sentence_detection.OpenNlpSentenceDe
 import edu.ucdenver.ccp.nlp.uima.annotators.sentence_detection.Sentence;
 import edu.ucdenver.ccp.nlp.uima.shims.document.impl.CcpDocumentMetadataHandler;
 import edu.ucdenver.ccp.nlp.uima.util.View;
+import edu.ucdenver.ccp.uima.shims.document.DocumentMetadataHandler;
 
 public class PmcConceptMapperPipeline extends PipelineBase {
+
+	public static final Class<? extends DocumentMetadataHandler> ANNOTSERIALIZER_DOCUMENT_METADATAHANDLER_CLASS = CcpDocumentMetadataHandler.class;
+	public static final String ANNOTSERIALIZER_SOURCE_VIEW_NAME = View.DEFAULT.viewName();
+	public static final boolean ANNOTSERIALIZER_COMPRESS_OUTPUT_FLAG = true;
 
 	private static final Logger logger = Logger.getLogger(PmcConceptMapperPipeline.class);
 	private static final String AGGREGATE_DESCRIPTOR_PATH_ON_CLASSPATH = "/pipeline_descriptors/pmc_conceptmapper_aggregate.xml";
@@ -140,13 +145,14 @@ public class PmcConceptMapperPipeline extends PipelineBase {
 		}
 		{
 			/* serialize the conceptmapper annotations */
-			String sourceViewName = View.DEFAULT.viewName();
+			String sourceViewName = ANNOTSERIALIZER_SOURCE_VIEW_NAME;
 			String outputViewName = View.DEFAULT.viewName();
-			boolean compressOutput = true;
-			String outputFileInfix = PipelineKey.CONCEPTMAPPER.name() + "_" + conceptMapperParams.name() + "_" + cmOpt.name();
+			boolean compressOutput = ANNOTSERIALIZER_COMPRESS_OUTPUT_FLAG;
+			String outputFileInfix = createOutputFileInfix(conceptMapperParams, cmOpt);
 			AnalysisEngineDescription annotSerializerDesc = AnnotationSerializerAE
-					.getDescription_SaveToSourceFileDirectory(getPipelineTypeSystem(), CcpDocumentMetadataHandler.class,
-							sourceViewName, outputViewName, compressOutput, outputFileInfix, IncludeCoveredText.NO);
+					.getDescription_SaveToSourceFileDirectory(getPipelineTypeSystem(),
+							ANNOTSERIALIZER_DOCUMENT_METADATAHANDLER_CLASS, sourceViewName, outputViewName,
+							compressOutput, outputFileInfix, IncludeCoveredText.NO);
 
 			int annotSerializer_scaleup = casPoolSize;
 			int annotSerializer_errorThreshold = 0;
@@ -183,6 +189,11 @@ public class PmcConceptMapperPipeline extends PipelineBase {
 		// }
 		return engines;
 
+	}
+
+	public static String createOutputFileInfix(ConceptMapperParams conceptMapperParams,
+			ConceptMapperOptimization cmOpt) {
+		return PipelineKey.CONCEPTMAPPER.name() + "_" + conceptMapperParams.name() + "_" + cmOpt.name();
 	}
 
 	private static ConceptMapperPipelineCmdOpts getConceptMapperCmdOpts(File dictionaryFile) throws IOException {

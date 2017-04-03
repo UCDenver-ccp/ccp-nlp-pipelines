@@ -109,8 +109,8 @@ public class AnnotationSerializerAE extends JCasAnnotator_ImplBase {
 		/* If an error has been reported, then do not process this CAS. */
 		if (JCasUtil.select(jCas, ProcessingErrorLog.class).isEmpty()) {
 			try {
-				String documentId = documentMetaDataHandler.extractDocumentId(jCas);
-				File outputFile = getOutputFile(jCas, documentId);
+				File outputFile = getOutputFile(jCas, documentMetaDataHandler, compressOutput, outputFilenameInfix,
+						outputDirectory, sourceViewName);
 				JCas view = null;
 				view = View_Util.getView(jCas, sourceViewName);
 				serializeAnnotations(view, outputFile);
@@ -212,8 +212,11 @@ public class AnnotationSerializerAE extends JCasAnnotator_ImplBase {
 	 *         saved
 	 * @throws AnalysisEngineProcessException
 	 */
-	private File getOutputFile(JCas jCas, String documentId) throws AnalysisEngineProcessException {
-		String outputFilename = getOutputFileName(documentId);
+	public static File getOutputFile(JCas jCas, DocumentMetadataHandler documentMetaDataHandler, boolean compressOutput,
+			String outputFilenameInfix, File outputDirectory, String sourceViewName)
+			throws AnalysisEngineProcessException {
+		String documentId = documentMetaDataHandler.extractDocumentId(jCas);
+		String outputFilename = getOutputFileName(documentId, outputFilenameInfix, compressOutput);
 		File outputFile = null;
 		if (outputDirectory != null) {
 			outputFile = new File(outputDirectory, outputFilename);
