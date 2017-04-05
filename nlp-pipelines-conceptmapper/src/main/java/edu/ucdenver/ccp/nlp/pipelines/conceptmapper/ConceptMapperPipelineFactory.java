@@ -53,10 +53,12 @@ import edu.ucdenver.ccp.nlp.pipelines.conceptmapper.ConceptMapperDictionaryFileF
 import edu.ucdenver.ccp.nlp.pipelines.conceptmapper.ConceptMapperPipelineCmdOpts.DictionaryParameterOperation;
 import edu.ucdenver.ccp.nlp.uima.annotators.filter.ClassMentionRemovalFilter_AE;
 import edu.ucdenver.ccp.nlp.wrapper.conceptmapper.ConceptMapperPermutationFactory;
+import edu.ucdenver.ccp.nlp.wrapper.conceptmapper.dictionary.obo.DictionaryEntryModifier;
 import edu.ucdenver.ccp.nlp.wrapper.conceptmapper.typesystem.ConceptMapper2CCPTypeSystemConverter_AE;
 
 /**
- * @author Center for Computational Pharmacology, UC Denver; ccpsupport@ucdenver.edu
+ * @author Center for Computational Pharmacology, UC Denver;
+ *         ccpsupport@ucdenver.edu
  * 
  */
 public class ConceptMapperPipelineFactory {
@@ -64,13 +66,12 @@ public class ConceptMapperPipelineFactory {
 	private static final Logger logger = Logger.getLogger(ConceptMapperPipelineFactory.class);
 
 	/**
-	 * a collection of relevant type systems represented as strings that are relevant to running the
-	 * ConceptMapper
+	 * a collection of relevant type systems represented as strings that are
+	 * relevant to running the ConceptMapper
 	 */
 	public static Collection<String> CONCEPTMAPPER_TYPE_SYSTEM_STRS = CollectionsUtil.createList(
 			"edu.ucdenver.ccp.nlp.wrapper.conceptmapper.TypeSystem", "analysis_engine.primitive.DictTerm",
 			"org.apache.uima.conceptMapper.support.tokenizer.TokenAnnotation");
-
 
 	/**
 	 * Returns an aggregate: sentence detector, offset tokenizer, conceptmapper
@@ -91,11 +92,17 @@ public class ConceptMapperPipelineFactory {
 				.buildConceptMapperAggregatePermutation(parameterValuesIndex, tsd, cmDictionaryFile,
 						cmdOptions.getSpanClass());
 
-		/* Converts from the CM OntologyTerm annotation class to CCPTextAnnotation classes */
+		/*
+		 * Converts from the CM OntologyTerm annotation class to
+		 * CCPTextAnnotation classes
+		 */
 		AnalysisEngineDescription cmToCcpTypeSystemConverterDesc = ConceptMapper2CCPTypeSystemConverter_AE
 				.createAnalysisEngineDescription(tsd);
 
-		/* Removes all token annotations as we don't want them to be output as RDF */
+		/*
+		 * Removes all token annotations as we don't want them to be output as
+		 * RDF
+		 */
 		AnalysisEngineDescription tokenRemovalDesc = ClassMentionRemovalFilter_AE.createAnalysisEngineDescription(tsd,
 				new String[] { ClassMentionType.TOKEN.typeName() });
 
@@ -107,11 +114,10 @@ public class ConceptMapperPipelineFactory {
 		/* @formatter:on */
 	}
 
-
 	public static List<AnalysisEngineDescription> getPipelineAeDescriptions(TypeSystemDescription tsd,
 			ConceptMapperPipelineCmdOpts cmdOptions, DictionaryParameterOperation dictParamOp,
-			DictionaryNamespace dictNamespace, CleanDirectory workDirectoryOp, int parameterCombinationIndex)
-			throws UIMAException, IOException {
+			DictionaryNamespace dictNamespace, CleanDirectory workDirectoryOp, int parameterCombinationIndex,
+			DictionaryEntryModifier dictEntryModifier) throws UIMAException, IOException {
 
 		File workDirectory = null;
 		if (dictParamOp.equals(DictionaryParameterOperation.IGNORE)) {
@@ -122,14 +128,15 @@ public class ConceptMapperPipelineFactory {
 		}
 
 		/*
-		 * If the workDirectory is null at this point, then cmdOptions.getDictionaryFile() is a
-		 * reference to the dictionary file to use, so no need to create a new dictionary file
+		 * If the workDirectory is null at this point, then
+		 * cmdOptions.getDictionaryFile() is a reference to the dictionary file
+		 * to use, so no need to create a new dictionary file
 		 */
 		if (workDirectory != null) {
 			logger.info("Creating ConceptMapper dictionary file in " + workDirectory.getAbsolutePath());
 			SynonymType synonymType = ConceptMapperPermutationFactory.getSynonymType(parameterCombinationIndex);
 			File cmDictFile = ConceptMapperDictionaryFileFactory.createDictionaryFile(dictNamespace, workDirectory,
-					workDirectoryOp, synonymType);
+					workDirectoryOp, synonymType, dictEntryModifier);
 			logger.info("Concept Mapper dictionary file: " + cmDictFile);
 			cmdOptions.setDictionaryFile(cmDictFile);
 		}

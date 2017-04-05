@@ -246,7 +246,7 @@ public class EntityFinder {
 		ConceptMapperPipelineCmdOpts cmdOptions = new ConceptMapperPipelineCmdOpts();
 		logger.info("Retrieving ConceptMapper dictionary...");
 		File cmDictFile = ConceptMapperDictionaryFileFactory.createDictionaryFileFromOBO(dictNamespace, oboFile,
-				oboDir, cleanDictFile, synonymType, null);
+				oboDir, cleanDictFile, synonymType, null, null);
 		logger.info("Dictionary retrieved.");
 		cmdOptions.setDictionaryFile(cmDictFile);
 		cmdOptions.setSpanClass(Sentence.class);

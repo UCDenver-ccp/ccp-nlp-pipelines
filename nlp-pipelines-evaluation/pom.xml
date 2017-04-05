@@ -15,6 +15,11 @@
 	<dependencies>
 		<dependency>
 			<groupId>edu.ucdenver.ccp</groupId>
+			<artifactId>nlp-pipelines-conceptmapper</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>edu.ucdenver.ccp</groupId>
 			<artifactId>ccp-nlp-uima-collections</artifactId>
 			<version>${ver.ccp.nlp}</version>
 			<type>jar</type>
