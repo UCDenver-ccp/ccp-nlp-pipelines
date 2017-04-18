@@ -49,10 +49,13 @@ public class SampleDictionaryEntryModifier implements DictionaryEntryModifier {
 
 		System.out.println("id: " + inputConcept.getIdentifier());
 		System.out.println("name: " + inputConcept.getName());
-		System.out.println("synonyms: " + inputConcept.getOfficialSynonyms().toString());
-		System.out.println(
-				"dynamically-generated synonyms: " + inputConcept.getDynamicallyGeneratedSynonyms().toString());
-
+		if (inputConcept.getOfficialSynonyms() != null) {
+			System.out.println("synonyms: " + inputConcept.getOfficialSynonyms().toString());
+		}
+		if (inputConcept.getDynamicallyGeneratedSynonyms() != null) {
+			System.out.println(
+					"dynamically-generated synonyms: " + inputConcept.getDynamicallyGeneratedSynonyms().toString());
+		}
 		return inputConcept;
 	}
 
