@@ -150,7 +150,7 @@ public class CraftOntologiesDictionaryFactory {
 			throws IOException {
 		String resourceName = oboPath.substring(oboPath.lastIndexOf(StringConstants.FORWARD_SLASH) + 1);
 		File resourceFile = FileArchiveUtil.getUnzippedFileReference(new File(outputDirectory, resourceName), null);
-		if (cleanDictFile || !resourceFile.exists()) {
+		if (!resourceFile.exists()) {
 			logger.info("Clean dictionary flag set to true OR the OBO file does not exist locally. "
 					+ "Downloading the OBO file from the classpath to: " + resourceFile.getAbsolutePath());
 			File zippedOboFile = ClassPathUtil.copyClasspathResourceToDirectory(oboPath, outputDirectory);
