@@ -100,15 +100,16 @@ public class CraftOntologiesDictionaryFactory {
 	 *            if true then any pre-existing dictionary files are deleted, if
 	 *            false then pre-existing dictionaries are used
 	 * @param dictId
-	 * @param dictEntryModifier 
+	 * @param dictEntryModifier
 	 * @return a reference to a newly created Concept Mapper dictionary file
 	 * @throws IllegalArgumentException
 	 *             if {@link DictionaryNamespace#EG} is used as input - this
 	 *             dictionary is not supported
 	 */
 	public static File createDictionaryFile(DictionaryNamespace dictionaryNamespace, File outputDirectory,
-			boolean cleanDictionaryFile, SynonymType synonymType, String dictId, DictionaryEntryModifier dictEntryModifier) {
-
+			boolean cleanDictionaryFile, SynonymType synonymType, String dictId,
+			DictionaryEntryModifier dictEntryModifier) {
+		long startTime = System.currentTimeMillis();
 		try {
 			if (dictionaryNamespace == DictionaryNamespace.EG) {
 				throw new UnsupportedOperationException(
@@ -123,8 +124,11 @@ public class CraftOntologiesDictionaryFactory {
 						"Unknown concept mapper dictionary namespace: " + dictionaryNamespace.name());
 			}
 			File oboFile = copyOboFileFromClasspath(path, outputDirectory, cleanDictionaryFile);
-			return ConceptMapperDictionaryFileFactory.createDictionaryFileFromOBO(dictionaryNamespace, oboFile,
-					outputDirectory, cleanDictionaryFile, synonymType, dictId, dictEntryModifier);
+			File dictionaryFile = ConceptMapperDictionaryFileFactory.createDictionaryFileFromOBO(dictionaryNamespace,
+					oboFile, outputDirectory, cleanDictionaryFile, synonymType, dictId, dictEntryModifier);
+			logger.info("Dictionary creation complete. Elapsed time: "
+					+ ((System.currentTimeMillis() - startTime) / 1000) + "s");
+			return dictionaryFile;
 		} catch (IOException e) {
 			throw new RuntimeException("Error while constructing ConceptMapper dictionary.", e);
 		}
