@@ -50,7 +50,7 @@ import edu.ucdenver.ccp.datasource.fileparsers.obo.impl.ChebiOntologyClassIterat
 import edu.ucdenver.ccp.datasource.fileparsers.obo.impl.NcbiTaxonomyClassIterator;
 import edu.ucdenver.ccp.datasource.fileparsers.obo.impl.SequenceOntologyClassIterator;
 import edu.ucdenver.ccp.datasource.fileparsers.pro.ProOntologyClassIterator;
-import edu.ucdenver.ccp.nlp.wrapper.conceptmapper.dictionary.eg.EntrezGeneDictionaryFactory;
+import edu.ucdenver.ccp.nlp.wrapper.conceptmapper.dictionary.ncbi.NcbiGeneDictionaryFactory;
 import edu.ucdenver.ccp.nlp.wrapper.conceptmapper.dictionary.obo.DictionaryEntryModifier;
 import edu.ucdenver.ccp.nlp.wrapper.conceptmapper.dictionary.obo.GoDictionaryFactory;
 import edu.ucdenver.ccp.nlp.wrapper.conceptmapper.dictionary.obo.GoDictionaryFactory.GoNamespace;
@@ -124,7 +124,7 @@ public class ConceptMapperDictionaryFileFactory {
 			case SO:
 				return buildSequenceOntologyDictionary(outputDirectory, cleanDictFile, synonymType, dictEntryModifier);
 			case EG:
-				return EntrezGeneDictionaryFactory.buildModelOrganismConceptMapperDictionary(outputDirectory,
+				return NcbiGeneDictionaryFactory.buildModelOrganismConceptMapperDictionary(outputDirectory,
 						outputDirectoryOp);
 			default:
 				throw new IllegalArgumentException(
@@ -200,7 +200,7 @@ public class ConceptMapperDictionaryFileFactory {
 			case MOP_EXT:
 				return buildDictionary(inputFile, dictionaryFile, cleanDictFile, synonymType, dictEntryModifier);
 			case EG:
-				return EntrezGeneDictionaryFactory.buildModelOrganismConceptMapperDictionary(inputFile, dictionaryFile,
+				return NcbiGeneDictionaryFactory.buildModelOrganismConceptMapperDictionary(inputFile, dictionaryFile,
 						cleanDictFile);
 			case OBO:
 				return buildDictionary(inputFile, dictionaryFile, cleanDictFile, synonymType, dictEntryModifier);
