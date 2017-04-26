@@ -251,7 +251,9 @@ public class ConceptMapperDictionaryFileFactory {
 			}
 		}
 		logger.info("Building dictionary file: " + dictionaryFile);
+		long time = System.currentTimeMillis();
 		OntologyUtil ontUtil = new OntologyUtil(inputOboFile);
+		logger.info("Elapsed time to load ontology: " + ((System.currentTimeMillis()-time)/1000) + "s");
 		OboToDictionary.buildDictionary(dictionaryFile, ontUtil, null, synonymType, dictEntryModifier);
 		return dictionaryFile;
 	}
