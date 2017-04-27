@@ -39,18 +39,18 @@ public class PmcOaDocumentSectionUriFactory implements UriFactory {
 		}
 		switch (documentElement) {
 		case ABSTRACT:
-			return new URIImpl(RdfUtil.createUri(DataSource.KIAO, "abstract").toString());
+			return new URIImpl(RdfUtil.createUriImpl(DataSource.CCP, "abstract").toString());
 		case ARTICLE_TITLE:
-			return new URIImpl(RdfUtil.createUri(DataSource.KIAO, "article_title").toString());
+			return new URIImpl(RdfUtil.createUriImpl(DataSource.CCP, "article_title").toString());
 		case BOLD:
 			// to save space we are not serializing the typography annotations
 			return null;
-		// return new URIImpl(RdfUtil.createUri(DataSource.KIAO,
+		// return new URIImpl(RdfUtil.createUriImpl(DataSource.CCP,
 		// "typeface_bold").toString());
 		case CAPTION:
-			return new URIImpl(RdfUtil.createUri(DataSource.KIAO, "caption").toString());
+			return new URIImpl(RdfUtil.createUriImpl(DataSource.CCP, "caption").toString());
 		case COPYRIGHT:
-			return new URIImpl(RdfUtil.createUri(DataSource.KIAO, "copyright_statement").toString());
+			return new URIImpl(RdfUtil.createUriImpl(DataSource.CCP, "copyright_statement").toString());
 		case DOCUMENT:
 			// excluding the document annotation for now. not sure it is
 			// necessary.
@@ -58,28 +58,28 @@ public class PmcOaDocumentSectionUriFactory implements UriFactory {
 		case ITALIC:
 			// to save space we are not serializing the typography annotations
 			return null;
-		// return new URIImpl(RdfUtil.createUri(DataSource.KIAO,
+		// return new URIImpl(RdfUtil.createUriImpl(DataSource.CCP,
 		// "typeface_italic").toString());
 		case KEYWORD:
-			return new URIImpl(RdfUtil.createUri(DataSource.KIAO, "keyword").toString());
+			return new URIImpl(RdfUtil.createUriImpl(DataSource.CCP, "keyword").toString());
 		case PARAGRAPH:
 			return new URIImpl("http://purl.org/linguistics/gold/Paragraph");
 		case SECTION:
-			return new URIImpl(RdfUtil.createUri(DataSource.KIAO, "document_section").toString());
+			return new URIImpl(RdfUtil.createUriImpl(DataSource.CCP, "document_section").toString());
 		case SOURCE:
-			return new URIImpl(RdfUtil.createUri(DataSource.KIAO, "document_source").toString());
+			return new URIImpl(RdfUtil.createUriImpl(DataSource.CCP, "document_source").toString());
 		case SUB:
 			// to save space we are not serializing the typography annotations
 			return null;
-		// return new URIImpl(RdfUtil.createUri(DataSource.KIAO,
+		// return new URIImpl(RdfUtil.createUriImpl(DataSource.CCP,
 		// "typeface_subscript").toString());
 		case SUP:
 			// to save space we are not serializing the typography annotations
 			return null;
-		// return new URIImpl(RdfUtil.createUri(DataSource.KIAO,
+		// return new URIImpl(RdfUtil.createUriImpl(DataSource.CCP,
 		// "typeface_superscript").toString());
 		case TITLE:
-			return new URIImpl(RdfUtil.createUri(DataSource.KIAO, "title").toString());
+			return new URIImpl(RdfUtil.createUriImpl(DataSource.CCP, "title").toString());
 		default:
 			throw new IllegalArgumentException(
 					"Unhandled document section case (" + documentElement.name() + "). Code changes required.");
