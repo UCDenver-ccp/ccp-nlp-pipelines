@@ -78,7 +78,7 @@ public class CraftConceptMapperEvaluatorMain {
 	private String cleanDictFilesFlag;
 
 	public void startProcessing(String[] args) {
-
+		long time = System.currentTimeMillis();
 		CmdLineParser parser = new CmdLineParser(this);
 
 		/* parse the arguments. */
@@ -137,6 +137,8 @@ public class CraftConceptMapperEvaluatorMain {
 					EnumSet.of(craftConceptType), dictionaryDirectory, evalResultsFile, conceptMapperParameterIndex,
 					cleanDictFiles, postProcessingComponentDescriptions, dictEntryModifier);
 			// } catch (IOException | ResourceInitializationException e) {
+			
+			logger.info("Evaluation elapsed time: " + ((System.currentTimeMillis()-time)/1000) + "s");
 		} catch (IOException e) {
 			logger.error("Error during ConceptMapper evaluation over CRAFT!!", e);
 			System.exit(-1);
