@@ -70,7 +70,7 @@ public class SamplePostProcessingComponent extends JCasAnnotator_ImplBase {
 		 * any parameter will be automatically initialized and will be available
 		 * in this method
 		 */
-		System.out.println("The ontology name parameter is set to: " + ontologyName);
+//		System.out.println("The ontology name parameter is set to: " + ontologyName);
 
 		/*
 		 * UIMA stores annotations in a data structure called a CAS (Common
@@ -86,7 +86,7 @@ public class SamplePostProcessingComponent extends JCasAnnotator_ImplBase {
 			CCPTextAnnotation annot = annotIter.next();
 
 			String type = annot.getClassMention().getMentionName();
-			System.out.println("Observed annotation of type: " + type);
+//			System.out.println("Observed annotation of type: " + type);
 		}
 	}
 
