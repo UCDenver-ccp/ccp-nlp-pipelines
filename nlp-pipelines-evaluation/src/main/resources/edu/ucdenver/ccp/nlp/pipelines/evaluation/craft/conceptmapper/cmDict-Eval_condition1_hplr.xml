@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<synonym>
+<token id="http://purl.obolibrary.org/obo/GO_1" canonical="stem cell factor receptor binding">
+	<variant base="stem cell factor receptor binding"/>
+	<variant base="SCFR binding"/>
+	<variant base="binding stem cell factor receptor"/>
+	<variant base="KIT binding"/>
+	<variant base="KIT"/>
+	<variant base="stem cell factor"/>
+	<variant base="stem cell factor receptor ligand"/>
+	<variant base="stem cell factor-binding receptor"/>
+	<variant base="SCF"/>
+	<variant base="stem cell factor binding receptor"/>
+	<variant base="binding of stem cell factor receptor"/>
+</token>
+<token id="http://purl.obolibrary.org/obo/PR_1" canonical="trophic response factor 10">
+	<variant base="trophic response factor 10"/>
+	<variant base="TRP-10"/>
+</token>
+<token id="http://purl.obolibrary.org/obo/PR_1" canonical="staphylococcal enterotoxin E">
+	<variant base="staphylococcal enterotoxin E"/>
+	<variant base="see"/>
+</token>
+</synonym>

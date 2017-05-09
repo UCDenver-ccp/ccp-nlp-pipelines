@@ -37,6 +37,7 @@ package edu.ucdenver.ccp.nlp.pipelines.evaluation.craft.conceptmapper;
 
 import static org.junit.Assert.assertEquals;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Iterator;
 
@@ -52,7 +53,7 @@ import org.uimafit.util.JCasUtil;
 import edu.ucdenver.ccp.nlp.core.uima.annotation.CCPTextAnnotation;
 import edu.ucdenver.ccp.nlp.uima.test.DefaultUIMATestCase;
 
-public class SamplePostProcessingComponentTest extends DefaultUIMATestCase {
+public class MaylaPostProcessingComponentTest_ConceptFrequency extends DefaultUIMATestCase {
 
 	/**
 	 * Initialize a JCas to use in the text by assigning the document text and
@@ -63,10 +64,27 @@ public class SamplePostProcessingComponentTest extends DefaultUIMATestCase {
 	protected void initJCas() throws UIMAException, IOException {
 		// ____________________________ 1 _______ 2 _______ 3 _______ 4 _
 		// __________________ 0123456789012345678901234567890123456789012
-		jcas.setDocumentText("This is some sample text about a chemical.");
+		jcas.setDocumentText("As we look at the structure of TRF-10, we see how large it is "
+				+ "and want to make sure that Kit (stem cell factor receptor activity) is not on. Next we look at Kit "
+				+ "to determine how many times Kit and TRF-10 colocalize. We found that TRF-10 and Kit colocalize 50% of the time.");
 
 		// the chemical annotation covers character offset 33 to 41
-		addTextAnnotationToJCas(33, 41, "http://purl.obolibrary.org/obo/CHEBI_1234");
+		addTextAnnotationToJCas(31, 37, "PR_1"); //TRF-10 - 3 times
+		addTextAnnotationToJCas(42, 45, "PR_2"); //see - freq = 1 -> removed annotation
+		addTextAnnotationToJCas(89, 92, "GO_1"); //kit - 4 times
+		addTextAnnotationToJCas(94, 128, "GO_1"); //stem cell factor receptor activity - textword is the label
+		addTextAnnotationToJCas(157, 160, "GO_1"); //kit
+		addTextAnnotationToJCas(189, 192, "GO_1"); //kit
+		addTextAnnotationToJCas(197, 203, "PR_1"); //TRF-10
+		addTextAnnotationToJCas(230, 236, "PR_1"); //TRF-10
+		addTextAnnotationToJCas(241, 244, "GO_1"); //kit
+
+
+
+		
+		
+
+
 	}
 
 	/**
@@ -77,24 +95,29 @@ public class SamplePostProcessingComponentTest extends DefaultUIMATestCase {
 	 * @throws AnalysisEngineProcessException
 	 */
 	@Test
-	public void testSamplePostProcessingComponent()
+	public void testMaylaPostProcessingComponent()
 			throws ResourceInitializationException, AnalysisEngineProcessException {
 		/*
 		 * instantiate your post-processing component and create an
 		 * AnalysisEngine
 		 */
-		AnalysisEngineDescription aeDesc = SamplePostProcessingComponent.getDescription("ontology name");
-		AnalysisEngine engine = AnalysisEngineFactory.createPrimitive(aeDesc);
+		File inputFile = new File("/tmp/cm-evals/cm-dicts/cmDict-Eval_condition1_hplr.xml");
+		Integer conceptFreq = null;
+		conceptFreq = new Integer("3");
+		//		AnalysisEngineDescription aeDesc = MaylaPostProcessingComponent.getDescription(inputFile);
+		AnalysisEngineDescription aeDesc = MaylaPostProcessingComponent.getDescription(inputFile,conceptFreq);
 
+		AnalysisEngine engine = AnalysisEngineFactory.createPrimitive(aeDesc);
+		
 		/* process the JCas that was initialized above */
 		engine.process(jcas);
-
 		/*
 		 * verify the JCas contents; for example you might want to check that
 		 * the expected number of annotations exist
 		 */
 		int annotCount = JCasUtil.select(jcas, CCPTextAnnotation.class).size();
-		int expectedAnnotCount = 1;
+		int expectedAnnotCount = 8;
+		System.out.println("annotation count "+ annotCount);
 		assertEquals(expectedAnnotCount, annotCount);
 
 		/*
@@ -105,6 +128,10 @@ public class SamplePostProcessingComponentTest extends DefaultUIMATestCase {
 				.hasNext();) {
 			CCPTextAnnotation annot = annotIter.next();
 			// do something here to test each individual annotation
+//			assert(annot.getClassMention().getMentionName();
+			System.out.println("annotation: " + annot.getClassMention().getMentionName());
+			System.out.println("annotation: " + annot);
+			
 		}
 	}
 

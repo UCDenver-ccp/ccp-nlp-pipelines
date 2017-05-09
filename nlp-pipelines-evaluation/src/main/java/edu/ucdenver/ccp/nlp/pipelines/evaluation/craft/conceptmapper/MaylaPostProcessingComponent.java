@@ -90,33 +90,15 @@ public class MaylaPostProcessingComponent extends JCasAnnotator_ImplBase {
 	 * If you need a collection, use an array.
 	 */
 	public static final String PARAM_DICTIONARYFILE = "dictionaryFile";
+	public static final String PARAM_CONCEPTFREQ = "conceptFreq";
 	@ConfigurationParameter()
 	private File dictionaryFile = null;
+	@ConfigurationParameter()
+	private Integer conceptFreq = null;
 	private static final Logger logger = Logger.getLogger(MaylaCraftConceptMapperEvaluatorMain.class);
 	
 	
 	Map<String, String> conceptIdToLabelMap = null;
-	
-	class WordChecker {
-	    public boolean check_for_word(String word) {
-	        // System.out.println(word);
-	        try {
-	            BufferedReader in = new BufferedReader(new FileReader(
-	                    "~/Library/Spelling/LocalDictionary"));
-	            String str;
-	            while ((str = in.readLine()) != null) {
-	                if (str.indexOf(word) != -1) {
-	                    return true;
-	                }
-	            }
-	            in.close();
-	        } catch (IOException e) {
-	        }
-
-	        return false;
-	    }
-	}
-	
 	
 	@Override
 	public void initialize(UimaContext context)
@@ -139,6 +121,7 @@ public class MaylaPostProcessingComponent extends JCasAnnotator_ImplBase {
 		
 		String documentText = jCas.getDocumentText();
 		int documentTextLength = documentText.length();
+		
 		
 		/*
 		 * any parameter will be automatically initialized and will be available
@@ -177,7 +160,7 @@ public class MaylaPostProcessingComponent extends JCasAnnotator_ImplBase {
 				}
 //				System.out.println("document text: "+ documentBeforeTextWord);
 				int textwordFrequency = StringUtils.countMatches(documentText,textword);
-//				System.out.println(textword + " count in text: " + textwordFrequency);
+				System.out.println(textword + " count in text: " + textwordFrequency);
 				
 				//really high precision but super low recall (treatment 1) 
 //				(!CharMatcher.JAVA_UPPER_CASE.matchesAllOf(textword) && !Character.isUpperCase(textword.charAt(0)))
@@ -189,8 +172,7 @@ public class MaylaPostProcessingComponent extends JCasAnnotator_ImplBase {
 //				|| (documentBeforeTextWord.contains((label + " ( " + textword + " ) ").toLowerCase())
 //						&& !documentBeforeTextWord.contains((textword + " ( " + label + " ) ").toLowerCase()))
 				
-				
-				if (  (!CharMatcher.JAVA_UPPER_CASE.matchesAllOf(textword) && !Character.isUpperCase(textword.charAt(0))) ) {
+				if (  (textwordFrequency < conceptFreq) && !textword.equals(label) ) {
 //					if ((end+30) < documentTextLength && (start-30) > 0) {
 //						String documentSentence = documentText.substring(start-30, end+30);
 //						System.out.println("Problematic term: " + label + ", " + textword);
@@ -300,9 +282,9 @@ public class MaylaPostProcessingComponent extends JCasAnnotator_ImplBase {
 	 * @return a {@link AnalysisEngineDescription} for this component
 	 * @throws ResourceInitializationException
 	 */
-	public static AnalysisEngineDescription getDescription(File dictionaryFile) throws ResourceInitializationException {
+	public static AnalysisEngineDescription getDescription(File dictionaryFile,Integer conceptFreq) throws ResourceInitializationException {
 		return AnalysisEngineFactory.createEngineDescription(MaylaPostProcessingComponent.class,
-				TypeSystemUtil.getCcpTypeSystem(), PARAM_DICTIONARYFILE, dictionaryFile.getAbsolutePath());
+				TypeSystemUtil.getCcpTypeSystem(), PARAM_DICTIONARYFILE, dictionaryFile.getAbsolutePath(), PARAM_CONCEPTFREQ, conceptFreq);
 	}
 
 }
