@@ -1,4 +1,4 @@
-package edu.ucdenver.ccp.nlp.pipelines.evaluation.craft.conceptmapper;
+package edu.ucdenver.ccp.nlp.pipelines.conceptmapper.dictmod;
 
 /*
  * #%L
@@ -34,42 +34,36 @@ package edu.ucdenver.ccp.nlp.pipelines.evaluation.craft.conceptmapper;
  * #L%
  */
 
-import java.util.HashSet;
-import java.util.Set;
-
 import edu.ucdenver.ccp.nlp.wrapper.conceptmapper.dictionary.obo.DictionaryEntryModifier;
 import edu.ucdenver.ccp.nlp.wrapper.conceptmapper.dictionary.obo.OboToDictionary.Concept;
 
-public class PRDictionaryEntryModifier implements DictionaryEntryModifier {
+public class CHEBIDictionaryEntryModifier implements DictionaryEntryModifier {
 
 	@Override
 	public Concept modifyConcept(Concept inputConcept) {
 
-		// Modify dictionary - a specific concept - currently gets rid of all
-		// things with 2-1
-		// PR_000015574 - small proline-rich protein 2A
-		Set<String> modSyns = new HashSet<String>();
-		if (inputConcept.getIdentifier().equals("http://purl.obolibrary.org/obo/PR_000015574")) {
-			for (String syn : inputConcept.getOfficialSynonyms()) {
-				if (!syn.equals("2-1")) {
-					modSyns.add(syn);
-				}
-			}
-			return new Concept(inputConcept.getIdentifier(), inputConcept.getName(), modSyns,
-					inputConcept.getDynamicallyGeneratedSynonyms());
-
-			// PR_000015198 - cationic amino acid transporter 2
-		} else if (inputConcept.getIdentifier().equals("http://purl.obolibrary.org/obo/PR_000015198")) {
-			for (String syn : inputConcept.getOfficialSynonyms()) {
-				if (!syn.equals("20.5")) {
-					modSyns.add(syn);
-				}
-			}
-			return new Concept(inputConcept.getIdentifier(), inputConcept.getName(), modSyns,
-					inputConcept.getDynamicallyGeneratedSynonyms());
-		} else {
-			return inputConcept;
+		// DELETE ALL TERMS BELOW
+		// Delete (1+) - this is an error in the ontology according to Mike
+		if (inputConcept.getIdentifier().equals("http://purl.obolibrary.org/obo/CHEBI_90880")) {
+			return null;
 		}
+
+		// Delete group
+		if (inputConcept.getIdentifier().equals("http://purl.obolibrary.org/obo/CHEBI_24433")) {
+			return null;
+		}
+
+		// Delete role - not in dict
+		if (inputConcept.getIdentifier().equals("http://purl.obolibrary.org/obo/CHEBI_50906")) {
+			return null;
+		}
+
+		// Delete application
+		if (inputConcept.getIdentifier().equals("http://purl.obolibrary.org/obo/CHEBI_33232")) {
+			return null;
+		}
+
+		return inputConcept;
 	}
 
 }

@@ -41,6 +41,7 @@ import static org.junit.Assert.assertNull;
 import org.junit.Test;
 
 import edu.ucdenver.ccp.common.collections.CollectionsUtil;
+import edu.ucdenver.ccp.nlp.pipelines.conceptmapper.dictmod.CHEBIDictionaryEntryModifier;
 import edu.ucdenver.ccp.nlp.wrapper.conceptmapper.dictionary.obo.OboToDictionary.Concept;
 import java.util.ArrayList;
 import java.util.List;

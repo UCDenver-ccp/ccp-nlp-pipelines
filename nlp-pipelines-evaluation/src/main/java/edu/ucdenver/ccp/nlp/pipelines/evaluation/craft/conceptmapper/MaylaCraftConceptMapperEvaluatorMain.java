@@ -51,6 +51,9 @@ import org.kohsuke.args4j.Option;
 import edu.ucdenver.ccp.common.file.FileUtil;
 import edu.ucdenver.ccp.craft.CraftConceptType;
 import edu.ucdenver.ccp.nlp.pipelines.conceptmapper.ConceptMapperDictionaryFileFactory.DictionaryNamespace;
+import edu.ucdenver.ccp.nlp.pipelines.conceptmapper.dictmod.CHEBIDictionaryEntryModifier;
+import edu.ucdenver.ccp.nlp.pipelines.conceptmapper.dictmod.FunkGoMFDictionaryEntryModifier;
+import edu.ucdenver.ccp.nlp.pipelines.conceptmapper.dictmod.PRDictionaryEntryModifier;
 import edu.ucdenver.ccp.nlp.wrapper.conceptmapper.dictionary.obo.DictionaryEntryModifier;
 
 public class MaylaCraftConceptMapperEvaluatorMain {
