@@ -1,4 +1,4 @@
-package edu.ucdenver.ccp.nlp.pipelines.evaluation.craft.conceptmapper;
+package edu.ucdenver.ccp.nlp.pipelines.conceptmapper.postprocess;
 
 /*
  * #%L
@@ -50,6 +50,7 @@ import org.uimafit.factory.AnalysisEngineFactory;
 import org.uimafit.util.JCasUtil;
 
 import edu.ucdenver.ccp.nlp.core.uima.annotation.CCPTextAnnotation;
+import edu.ucdenver.ccp.nlp.pipelines.conceptmapper.postprocess.MaylaPostProcessingComponent;
 import edu.ucdenver.ccp.nlp.uima.test.DefaultUIMATestCase;
 
 public class MaylaPostProcessingComponentTest_ConceptFrequency extends DefaultUIMATestCase {

@@ -1,4 +1,4 @@
-package edu.ucdenver.ccp.nlp.pipelines.evaluation.craft.conceptmapper;
+package edu.ucdenver.ccp.nlp.pipelines.conceptmapper.postprocess;
 
 /*
  * #%L
@@ -77,7 +77,7 @@ public class MaylaPostProcessingComponent extends JCasAnnotator_ImplBase {
 	@ConfigurationParameter(mandatory = false)
 	private Integer conceptFreq = null;
 
-	private static final Logger logger = Logger.getLogger(MaylaCraftConceptMapperEvaluatorMain.class);
+	private static final Logger logger = Logger.getLogger(MaylaPostProcessingComponent.class);
 
 	private Map<String, String> conceptIdToLabelMap = null;
 

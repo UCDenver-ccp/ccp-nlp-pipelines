@@ -1,4 +1,4 @@
-package edu.ucdenver.ccp.nlp.pipelines.evaluation.craft.conceptmapper;
+package edu.ucdenver.ccp.nlp.pipelines.conceptmapper.postprocess;
 
 /*
  * #%L

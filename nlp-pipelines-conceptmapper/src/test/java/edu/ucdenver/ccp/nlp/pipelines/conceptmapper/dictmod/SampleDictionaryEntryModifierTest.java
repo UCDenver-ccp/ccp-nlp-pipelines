@@ -1,4 +1,4 @@
-package edu.ucdenver.ccp.nlp.pipelines.evaluation.craft.conceptmapper;
+package edu.ucdenver.ccp.nlp.pipelines.conceptmapper.dictmod;
 
 /*
  * #%L
@@ -34,29 +34,45 @@ package edu.ucdenver.ccp.nlp.pipelines.evaluation.craft.conceptmapper;
  * #L%
  */
 
-import edu.ucdenver.ccp.nlp.wrapper.conceptmapper.dictionary.obo.DictionaryEntryModifier;
+
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Test;
+
+import edu.ucdenver.ccp.common.collections.CollectionsUtil;
+import edu.ucdenver.ccp.nlp.pipelines.conceptmapper.dictmod.SampleDictionaryEntryModifier;
 import edu.ucdenver.ccp.nlp.wrapper.conceptmapper.dictionary.obo.OboToDictionary.Concept;
 
-public class SampleDictionaryEntryModifier implements DictionaryEntryModifier {
+public class SampleDictionaryEntryModifierTest {
 
-	@Override
-	public Concept modifyConcept(Concept inputConcept) {
+	/**
+	 * The following test demonstrates how you might test a
+	 * DictionaryEntryModifier
+	 */
+	@Test
+	public void testSampleDictEntryModifier() {
+		SampleDictionaryEntryModifier dictModifier = new SampleDictionaryEntryModifier();
+
+		/* create your input concept */
+		Concept inputConcept = new Concept("GO:0001234", "label", CollectionsUtil.createSet("synonym1", "synonym2"),
+				null);
+		/* modify the input concept using the dictionary entry modifier */
+		Concept modifiedConcept = dictModifier.modifyConcept(inputConcept);
 
 		/*
-		 * This sample dictionary entry modifier makes no changes but shows how
-		 * you might print the contents of a Concept
+		 * Create the concept you expect to be returned by the dictionary entry
+		 * modifier. In this case there are no changes as the
+		 * SampleDictionaryEntryModifier makes no changes.
 		 */
+		Concept expectedModifiedConcept = new Concept("GO:0001234", "label",
+				CollectionsUtil.createSet("synonym1", "synonym2"), null);
 
-		System.out.println("id: " + inputConcept.getIdentifier());
-		System.out.println("name: " + inputConcept.getName());
-		if (inputConcept.getOfficialSynonyms() != null) {
-			System.out.println("synonyms: " + inputConcept.getOfficialSynonyms().toString());
-		}
-		if (inputConcept.getDynamicallyGeneratedSynonyms() != null) {
-			System.out.println(
-					"dynamically-generated synonyms: " + inputConcept.getDynamicallyGeneratedSynonyms().toString());
-		}
-		return inputConcept;
+		/*
+		 * The assert statement tests that the expected modified concept is
+		 * equal to what was actually returned by the dictionary entry modifier
+		 */
+		assertEquals(expectedModifiedConcept, modifiedConcept);
+
 	}
 
 }

@@ -54,6 +54,7 @@ import edu.ucdenver.ccp.nlp.pipelines.conceptmapper.ConceptMapperDictionaryFileF
 import edu.ucdenver.ccp.nlp.pipelines.conceptmapper.dictmod.CHEBIDictionaryEntryModifier;
 import edu.ucdenver.ccp.nlp.pipelines.conceptmapper.dictmod.FunkGoMFDictionaryEntryModifier;
 import edu.ucdenver.ccp.nlp.pipelines.conceptmapper.dictmod.PRDictionaryEntryModifier;
+import edu.ucdenver.ccp.nlp.pipelines.conceptmapper.postprocess.MaylaPostProcessingComponent;
 import edu.ucdenver.ccp.nlp.wrapper.conceptmapper.dictionary.obo.DictionaryEntryModifier;
 
 public class MaylaCraftConceptMapperEvaluatorMain {
