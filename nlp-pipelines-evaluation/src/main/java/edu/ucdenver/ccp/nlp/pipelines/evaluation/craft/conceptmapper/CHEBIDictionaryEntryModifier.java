@@ -34,9 +34,6 @@ package edu.ucdenver.ccp.nlp.pipelines.evaluation.craft.conceptmapper;
  * #L%
  */
 
-import java.util.HashSet;
-import java.util.Set;
-
 import edu.ucdenver.ccp.nlp.wrapper.conceptmapper.dictionary.obo.DictionaryEntryModifier;
 import edu.ucdenver.ccp.nlp.wrapper.conceptmapper.dictionary.obo.OboToDictionary.Concept;
 
@@ -45,53 +42,27 @@ public class CHEBIDictionaryEntryModifier implements DictionaryEntryModifier {
 	@Override
 	public Concept modifyConcept(Concept inputConcept) {
 
-		/*
-		 * This sample dictionary entry modifier makes no changes but shows how
-		 * you might print the contents of a Concept
-		 */
-
-//		System.out.println("id: " + inputConcept.getIdentifier());
-//		System.out.println("name: " + inputConcept.getName());
-//		if (inputConcept.getOfficialSynonyms() != null) {
-//		System.out.println("synonyms: " + inputConcept.getOfficialSynonyms().toString());
-//		}
-//		if (inputConcept.getDynamicallyGeneratedSynonyms() != null) {
-//		System.out.println(
-//				"dynamically-generated synonyms: " + inputConcept.getDynamicallyGeneratedSynonyms().toString());
-//		}
-		
-		//DELETE ALL TERMS BELOW
-		//Delete (1+) - not in CRAFT
+		// DELETE ALL TERMS BELOW
+		// Delete (1+) - this is an error in the ontology according to Mike
 		if (inputConcept.getIdentifier().equals("http://purl.obolibrary.org/obo/CHEBI_90880")) {
 			return null;
 		}
-		
+
 		// Delete group
 		if (inputConcept.getIdentifier().equals("http://purl.obolibrary.org/obo/CHEBI_24433")) {
 			return null;
 		}
-		
+
 		// Delete role - not in dict
 		if (inputConcept.getIdentifier().equals("http://purl.obolibrary.org/obo/CHEBI_50906")) {
 			return null;
-		}		
-		
+		}
+
 		// Delete application
 		if (inputConcept.getIdentifier().equals("http://purl.obolibrary.org/obo/CHEBI_33232")) {
 			return null;
 		}
-		
-		
-		
-		//Modify dictionary
-//		Set<String> modSyns = new HashSet<String>();
-//		for (String syn : inputConcept.getOfficialSynonyms()) {
-//			if (!syn.contains(" RNA ")) {
-//				modSyns.add(syn);
-//			}
-//		}
-//		return new Concept(inputConcept.getIdentifier(), inputConcept.getName(), modSyns,
-//				inputConcept.getDynamicallyGeneratedSynonyms());
+
 		return inputConcept;
 	}
 

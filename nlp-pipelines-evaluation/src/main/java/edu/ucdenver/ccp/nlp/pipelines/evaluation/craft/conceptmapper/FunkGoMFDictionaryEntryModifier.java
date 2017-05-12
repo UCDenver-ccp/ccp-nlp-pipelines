@@ -45,24 +45,9 @@ public class FunkGoMFDictionaryEntryModifier implements DictionaryEntryModifier 
 	@Override
 	public Concept modifyConcept(Concept inputConcept) {
 
-		/*
-		 * This sample dictionary entry modifier makes no changes but shows how
-		 * you might print the contents of a Concept
-		 */
-
-//		System.out.println("id: " + inputConcept.getIdentifier());
-//		System.out.println("name: " + inputConcept.getName());
-//		if (inputConcept.getOfficialSynonyms() != null) {
-//		System.out.println("synonyms: " + inputConcept.getOfficialSynonyms().toString());
-//		}
-//		if (inputConcept.getDynamicallyGeneratedSynonyms() != null) {
-//		System.out.println(
-//				"dynamically-generated synonyms: " + inputConcept.getDynamicallyGeneratedSynonyms().toString());
-//		}
-
-
-		// Modify dictionary - a specific concept - currently gets rid of all things with 2-1
-		//GO_0003677 - DNA binding
+		// Modify dictionary - a specific concept - currently gets rid of all
+		// things with 2-1
+		// GO_0003677 - DNA binding
 		Set<String> modSyns = new HashSet<String>();
 		System.out.println(inputConcept.getIdentifier());
 		if (inputConcept.getIdentifier().equals("http://purl.obolibrary.org/obo/GO_00003677")) {
@@ -70,29 +55,27 @@ public class FunkGoMFDictionaryEntryModifier implements DictionaryEntryModifier 
 			System.out.println(inputConcept.getDynamicallyGeneratedSynonyms());
 			for (String syn : inputConcept.getDynamicallyGeneratedSynonyms()) {
 				System.out.println("Synonyms: " + syn);
-				if (!syn.equals("binds") ||  !syn.equals("bound") || !syn.equals("binding") 
-						|| !syn.equals("bind") || !syn.equals("rebind") || !syn.equals("unbind") 
-						|| !syn.equals("re-bind")) {
+				if (!syn.equals("binds") || !syn.equals("bound") || !syn.equals("binding") || !syn.equals("bind")
+						|| !syn.equals("rebind") || !syn.equals("unbind") || !syn.equals("re-bind")) {
 					modSyns.add(syn);
 					System.out.println("modSyns" + modSyns);
 				}
 			}
 			return new Concept(inputConcept.getIdentifier(), inputConcept.getName(), inputConcept.getOfficialSynonyms(),
 					modSyns);
-		//GO_0043498 - cell surface binding
-		}else if (inputConcept.getIdentifier().equals("http://purl.obolibrary.org/obo/GO_0043498")) {
+			// GO_0043498 - cell surface binding
+		} else if (inputConcept.getIdentifier().equals("http://purl.obolibrary.org/obo/GO_0043498")) {
 			for (String syn : inputConcept.getOfficialSynonyms()) {
-				if (!syn.equals("binds") ||  !syn.equals("bound") || !syn.equals("binding") 
-						|| !syn.equals("bind") || !syn.equals("rebind") || !syn.equals("unbind") 
-						|| !syn.equals("re-bind")) {
+				if (!syn.equals("binds") || !syn.equals("bound") || !syn.equals("binding") || !syn.equals("bind")
+						|| !syn.equals("rebind") || !syn.equals("unbind") || !syn.equals("re-bind")) {
 					modSyns.add(syn);
 				}
 			}
 			return new Concept(inputConcept.getIdentifier(), inputConcept.getName(), modSyns,
-					inputConcept.getDynamicallyGeneratedSynonyms());	
-		
-		//	GO_0005141 - interleukin-10 receptor binding
-		}else if (inputConcept.getIdentifier().equals("http://purl.obolibrary.org/obo/GO_0005141")){
+					inputConcept.getDynamicallyGeneratedSynonyms());
+
+			// GO_0005141 - interleukin-10 receptor binding
+		} else if (inputConcept.getIdentifier().equals("http://purl.obolibrary.org/obo/GO_0005141")) {
 			for (String syn : inputConcept.getOfficialSynonyms()) {
 				if (!syn.equals("IL-10")) {
 					modSyns.add(syn);
@@ -100,8 +83,8 @@ public class FunkGoMFDictionaryEntryModifier implements DictionaryEntryModifier 
 			}
 			return new Concept(inputConcept.getIdentifier(), inputConcept.getName(), modSyns,
 					inputConcept.getDynamicallyGeneratedSynonyms());
-		}else {
-		return inputConcept;
+		} else {
+			return inputConcept;
 		}
 	}
 

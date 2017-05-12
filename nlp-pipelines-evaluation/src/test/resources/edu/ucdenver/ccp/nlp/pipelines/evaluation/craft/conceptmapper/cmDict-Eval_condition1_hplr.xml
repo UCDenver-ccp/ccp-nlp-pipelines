@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <synonym>
-<token id="http://purl.obolibrary.org/obo/GO_1" canonical="stem cell factor receptor binding">
-	<variant base="stem cell factor receptor binding"/>
+<token id="http://purl.obolibrary.org/obo/GO_1" canonical="stem cell factor receptor activity">
+	<variant base="stem cell factor receptor activity"/>
 	<variant base="SCFR binding"/>
 	<variant base="binding stem cell factor receptor"/>
 	<variant base="KIT binding"/>
@@ -17,7 +17,7 @@
 	<variant base="trophic response factor 10"/>
 	<variant base="TRP-10"/>
 </token>
-<token id="http://purl.obolibrary.org/obo/PR_1" canonical="staphylococcal enterotoxin E">
+<token id="http://purl.obolibrary.org/obo/PR_2" canonical="staphylococcal enterotoxin E">
 	<variant base="staphylococcal enterotoxin E"/>
 	<variant base="see"/>
 </token>

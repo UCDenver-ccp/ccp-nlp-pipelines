@@ -34,7 +34,6 @@ package edu.ucdenver.ccp.nlp.pipelines.evaluation.craft.conceptmapper;
  * #L%
  */
 
-
 import static org.junit.Assert.assertEquals;
 
 import java.io.File;
@@ -69,21 +68,18 @@ public class MaylaPostProcessingComponentTest_ConceptFrequency extends DefaultUI
 				+ "to determine how many times Kit and TRF-10 colocalize. We found that TRF-10 and Kit colocalize 50% of the time.");
 
 		// the chemical annotation covers character offset 33 to 41
-		addTextAnnotationToJCas(31, 37, "PR_1"); //TRF-10 - 3 times
-		addTextAnnotationToJCas(42, 45, "PR_2"); //see - freq = 1 -> removed annotation
-		addTextAnnotationToJCas(89, 92, "GO_1"); //kit - 4 times
-		addTextAnnotationToJCas(94, 128, "GO_1"); //stem cell factor receptor activity - textword is the label
-		addTextAnnotationToJCas(157, 160, "GO_1"); //kit
-		addTextAnnotationToJCas(189, 192, "GO_1"); //kit
-		addTextAnnotationToJCas(197, 203, "PR_1"); //TRF-10
-		addTextAnnotationToJCas(230, 236, "PR_1"); //TRF-10
-		addTextAnnotationToJCas(241, 244, "GO_1"); //kit
-
-
-
-		
-		
-
+		addTextAnnotationToJCas(31, 37, "PR_1"); // TRF-10 - 3 times
+		addTextAnnotationToJCas(42, 45, "PR_2"); // see - freq = 1 -> removed
+													// annotation
+		addTextAnnotationToJCas(89, 92, "GO_1"); // kit - 4 times
+		addTextAnnotationToJCas(94, 128, "GO_1"); // stem cell factor receptor
+													// activity - textword is
+													// the label
+		addTextAnnotationToJCas(157, 160, "GO_1"); // kit
+		addTextAnnotationToJCas(189, 192, "GO_1"); // kit
+		addTextAnnotationToJCas(197, 203, "PR_1"); // TRF-10
+		addTextAnnotationToJCas(230, 236, "PR_1"); // TRF-10
+		addTextAnnotationToJCas(241, 244, "GO_1"); // kit
 
 	}
 
@@ -93,22 +89,26 @@ public class MaylaPostProcessingComponentTest_ConceptFrequency extends DefaultUI
 	 * 
 	 * @throws ResourceInitializationException
 	 * @throws AnalysisEngineProcessException
+	 * @throws IOException
 	 */
 	@Test
 	public void testMaylaPostProcessingComponent()
-			throws ResourceInitializationException, AnalysisEngineProcessException {
+			throws ResourceInitializationException, AnalysisEngineProcessException, IOException {
 		/*
 		 * instantiate your post-processing component and create an
 		 * AnalysisEngine
 		 */
-		File inputFile = new File("/tmp/cm-evals/cm-dicts/cmDict-Eval_condition1_hplr.xml");
-		Integer conceptFreq = null;
-		conceptFreq = new Integer("3");
-		//		AnalysisEngineDescription aeDesc = MaylaPostProcessingComponent.getDescription(inputFile);
-		AnalysisEngineDescription aeDesc = MaylaPostProcessingComponent.getDescription(inputFile,conceptFreq);
+		File inputFile = copyClasspathResourceToTemporaryFile(getClass(), "cmDict-Eval_condition1_hplr.xml");
+		System.out.println("INPUT FILE: " + inputFile.getAbsolutePath());
+		// File inputFile = new
+		// File("/tmp/cm-evals/cm-dicts/cmDict-Eval_condition1_hplr.xml");
+		Integer conceptFreq = 3;
+		// AnalysisEngineDescription aeDesc =
+		// MaylaPostProcessingComponent.getDescription(inputFile);
+		AnalysisEngineDescription aeDesc = MaylaPostProcessingComponent.getDescription(inputFile, conceptFreq);
 
 		AnalysisEngine engine = AnalysisEngineFactory.createPrimitive(aeDesc);
-		
+
 		/* process the JCas that was initialized above */
 		engine.process(jcas);
 		/*
@@ -117,7 +117,7 @@ public class MaylaPostProcessingComponentTest_ConceptFrequency extends DefaultUI
 		 */
 		int annotCount = JCasUtil.select(jcas, CCPTextAnnotation.class).size();
 		int expectedAnnotCount = 8;
-		System.out.println("annotation count "+ annotCount);
+		System.out.println("annotation count " + annotCount);
 		assertEquals(expectedAnnotCount, annotCount);
 
 		/*
@@ -128,10 +128,11 @@ public class MaylaPostProcessingComponentTest_ConceptFrequency extends DefaultUI
 				.hasNext();) {
 			CCPTextAnnotation annot = annotIter.next();
 			// do something here to test each individual annotation
-//			assert(annot.getClassMention().getMentionName();
-			System.out.println("annotation: " + annot.getClassMention().getMentionName());
-			System.out.println("annotation: " + annot);
-			
+			// assert(annot.getClassMention().getMentionName();
+			annot.getClassMention().getMentionName();
+			System.out.println("annotation: " + annot.getClassMention().getMentionName() + " -- " + annot.getBegin() + ".." + annot.getEnd());
+//			System.out.println("annotation: " + annot);
+
 		}
 	}
 

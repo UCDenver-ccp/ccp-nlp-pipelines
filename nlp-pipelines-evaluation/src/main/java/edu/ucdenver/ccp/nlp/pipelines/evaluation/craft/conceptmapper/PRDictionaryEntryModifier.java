@@ -45,24 +45,9 @@ public class PRDictionaryEntryModifier implements DictionaryEntryModifier {
 	@Override
 	public Concept modifyConcept(Concept inputConcept) {
 
-		/*
-		 * This sample dictionary entry modifier makes no changes but shows how
-		 * you might print the contents of a Concept
-		 */
-
-//		System.out.println("id: " + inputConcept.getIdentifier());
-//		System.out.println("name: " + inputConcept.getName());
-//		if (inputConcept.getOfficialSynonyms() != null) {
-//		System.out.println("synonyms: " + inputConcept.getOfficialSynonyms().toString());
-//		}
-//		if (inputConcept.getDynamicallyGeneratedSynonyms() != null) {
-//		System.out.println(
-//				"dynamically-generated synonyms: " + inputConcept.getDynamicallyGeneratedSynonyms().toString());
-//		}
-
-
-		// Modify dictionary - a specific concept - currently gets rid of all things with 2-1
-		//PR_000015574 - small proline-rich protein 2A 
+		// Modify dictionary - a specific concept - currently gets rid of all
+		// things with 2-1
+		// PR_000015574 - small proline-rich protein 2A
 		Set<String> modSyns = new HashSet<String>();
 		if (inputConcept.getIdentifier().equals("http://purl.obolibrary.org/obo/PR_000015574")) {
 			for (String syn : inputConcept.getOfficialSynonyms()) {
@@ -72,9 +57,9 @@ public class PRDictionaryEntryModifier implements DictionaryEntryModifier {
 			}
 			return new Concept(inputConcept.getIdentifier(), inputConcept.getName(), modSyns,
 					inputConcept.getDynamicallyGeneratedSynonyms());
-			
-		//PR_000015198 - cationic amino acid transporter 2 
-		}else if (inputConcept.getIdentifier().equals("http://purl.obolibrary.org/obo/PR_000015198")) {
+
+			// PR_000015198 - cationic amino acid transporter 2
+		} else if (inputConcept.getIdentifier().equals("http://purl.obolibrary.org/obo/PR_000015198")) {
 			for (String syn : inputConcept.getOfficialSynonyms()) {
 				if (!syn.equals("20.5")) {
 					modSyns.add(syn);
@@ -82,8 +67,8 @@ public class PRDictionaryEntryModifier implements DictionaryEntryModifier {
 			}
 			return new Concept(inputConcept.getIdentifier(), inputConcept.getName(), modSyns,
 					inputConcept.getDynamicallyGeneratedSynonyms());
-		}else {
-		return inputConcept;
+		} else {
+			return inputConcept;
 		}
 	}
 
