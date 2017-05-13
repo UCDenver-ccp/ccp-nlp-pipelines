@@ -84,15 +84,16 @@ public class MaylaPostProcessingComponentTest extends DefaultUIMATestCase {
 	 * 
 	 * @throws ResourceInitializationException
 	 * @throws AnalysisEngineProcessException
+	 * @throws IOException 
 	 */
 	@Test
 	public void testMaylaPostProcessingComponent()
-			throws ResourceInitializationException, AnalysisEngineProcessException {
+			throws ResourceInitializationException, AnalysisEngineProcessException, IOException {
 		/*
 		 * instantiate your post-processing component and create an
 		 * AnalysisEngine
 		 */
-		File inputFile = new File("/tmp/cm-evals/cm-dicts/cmDict-Eval_condition1_hplr.xml");
+		File inputFile = copyClasspathResourceToTemporaryFile(getClass(), "cmDict-Eval_condition1_hplr.xml");
 		AnalysisEngineDescription aeDesc = MaylaPostProcessingComponent.getDescription(inputFile, null);
 		AnalysisEngine engine = AnalysisEngineFactory.createPrimitive(aeDesc);
 		
