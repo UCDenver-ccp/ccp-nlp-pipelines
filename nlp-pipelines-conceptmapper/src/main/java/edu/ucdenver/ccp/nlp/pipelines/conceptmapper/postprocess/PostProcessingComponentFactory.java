@@ -44,17 +44,17 @@ import edu.ucdenver.ccp.nlp.pipelines.conceptmapper.ConceptMapperDictionaryFileF
 public class PostProcessingComponentFactory {
 
 	public enum PostProcessingComponentType {
-		MAYLA, MAYLA_WITH_CONCEPT_FREQ, NONE
+		PP_MAYLA, PP_MAYLA_WITH_CONCEPT_FREQ, PP_NONE
 	}
 
 	public static AnalysisEngineDescription getPostProcessingComponentDescriptor(PostProcessingComponentType type,
 			File dictionaryFile, DictionaryNamespace ns) throws ResourceInitializationException {
 		switch (type) {
-		case MAYLA:
+		case PP_MAYLA:
 			return MaylaPostProcessingComponent.getDescription(dictionaryFile, null);
-		case MAYLA_WITH_CONCEPT_FREQ:
+		case PP_MAYLA_WITH_CONCEPT_FREQ:
 			return MaylaPostProcessingComponent.getDescription(dictionaryFile, ns);
-		case NONE:
+		case PP_NONE:
 			return null;
 		default:
 			throw new IllegalArgumentException("Unhandled post-processing type: " + type.name());

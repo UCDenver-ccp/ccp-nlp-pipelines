@@ -154,7 +154,7 @@ public class PmcConceptMapperPipeline extends PipelineBase {
 			String sourceViewName = ANNOTSERIALIZER_SOURCE_VIEW_NAME;
 			String outputViewName = View.DEFAULT.viewName();
 			boolean compressOutput = ANNOTSERIALIZER_COMPRESS_OUTPUT_FLAG;
-			String outputFileInfix = createOutputFileInfix(conceptMapperParams, cmOpt);
+			String outputFileInfix = createOutputFileInfix(conceptMapperParams, cmOpt, postProcessingComponentType);
 			AnalysisEngineDescription annotSerializerDesc = AnnotationSerializerAE
 					.getDescription_SaveToSourceFileDirectory(getPipelineTypeSystem(),
 							ANNOTSERIALIZER_DOCUMENT_METADATAHANDLER_CLASS, sourceViewName, outputViewName,
@@ -198,8 +198,8 @@ public class PmcConceptMapperPipeline extends PipelineBase {
 	}
 
 	public static String createOutputFileInfix(ConceptMapperParams conceptMapperParams,
-			ConceptMapperOptimization cmOpt) {
-		return PipelineKey.CONCEPTMAPPER.name() + "_" + conceptMapperParams.name() + "_" + cmOpt.name();
+			ConceptMapperOptimization cmOpt, PostProcessingComponentType ppType) {
+		return PipelineKey.CONCEPTMAPPER.name() + "_" + conceptMapperParams.name() + "_" + cmOpt.name() + "_" + ppType.name();
 	}
 
 	private static ConceptMapperPipelineCmdOpts getConceptMapperCmdOpts(File dictionaryFile) throws IOException {
