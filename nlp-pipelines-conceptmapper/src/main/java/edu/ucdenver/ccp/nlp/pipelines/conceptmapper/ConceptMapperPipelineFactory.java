@@ -78,12 +78,14 @@ public class ConceptMapperPipelineFactory {
 	 * 
 	 * @param tsd
 	 * @param cmdOptions
+	 * @param postProcessingComponents
 	 * @return
 	 * @throws IOException
 	 * @throws UIMAException
 	 */
 	public static List<AnalysisEngineDescription> getPipelineAeDescriptions(TypeSystemDescription tsd,
-			ConceptMapperPipelineCmdOpts cmdOptions, int parameterValuesIndex) throws UIMAException, IOException {
+			ConceptMapperPipelineCmdOpts cmdOptions, int parameterValuesIndex,
+			List<? extends AnalysisEngineDescription> postProcessingComponents) throws UIMAException, IOException {
 
 		File cmDictionaryFile = cmdOptions.getDictionaryFile();
 		FileUtil.validateFile(cmDictionaryFile);
@@ -106,18 +108,20 @@ public class ConceptMapperPipelineFactory {
 		AnalysisEngineDescription tokenRemovalDesc = ClassMentionRemovalFilter_AE.createAnalysisEngineDescription(tsd,
 				new String[] { ClassMentionType.TOKEN.typeName() });
 
-		/* @formatter:off */
-		return CollectionsUtil.createList(
-				conceptMapperAggregateDesc,
-				cmToCcpTypeSystemConverterDesc,
-				tokenRemovalDesc); 
-		/* @formatter:on */
+		List<AnalysisEngineDescription> descList = CollectionsUtil.createList(conceptMapperAggregateDesc,
+				cmToCcpTypeSystemConverterDesc, tokenRemovalDesc);
+
+		if (postProcessingComponents != null && !postProcessingComponents.isEmpty()) {
+			descList.addAll(postProcessingComponents);
+		}
+		return descList;
 	}
 
 	public static List<AnalysisEngineDescription> getPipelineAeDescriptions(TypeSystemDescription tsd,
 			ConceptMapperPipelineCmdOpts cmdOptions, DictionaryParameterOperation dictParamOp,
 			DictionaryNamespace dictNamespace, CleanDirectory workDirectoryOp, int parameterCombinationIndex,
-			DictionaryEntryModifier dictEntryModifier) throws UIMAException, IOException {
+			DictionaryEntryModifier dictEntryModifier,
+			List<? extends AnalysisEngineDescription> postProcessingComponents) throws UIMAException, IOException {
 
 		File workDirectory = null;
 		if (dictParamOp.equals(DictionaryParameterOperation.IGNORE)) {
@@ -141,7 +145,7 @@ public class ConceptMapperPipelineFactory {
 			cmdOptions.setDictionaryFile(cmDictFile);
 		}
 
-		return getPipelineAeDescriptions(tsd, cmdOptions, parameterCombinationIndex);
+		return getPipelineAeDescriptions(tsd, cmdOptions, parameterCombinationIndex, postProcessingComponents);
 	}
 
 }

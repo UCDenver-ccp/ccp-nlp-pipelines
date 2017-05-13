@@ -125,66 +125,54 @@ public class MaylaCraftConceptMapperEvaluatorMain {
 			 */
 			DictionaryEntryModifier dictEntryModifier = null;
 			File dictionaryFile = null;
-			Integer conceptFreq = null;
 
 			switch (dictionaryNamespace) {
 			case CHEBI:
 				dictEntryModifier = new CHEBIDictionaryEntryModifier();
 				dictionaryFile = new File(dictionaryDirectory, "cmDict-CHEBI." + conceptMapperParameterIndex + ".xml");
-				conceptFreq = 4;
 				break;
 			case PR:
 				dictEntryModifier = new PRDictionaryEntryModifier();
 				dictionaryFile = new File(dictionaryDirectory, "cmDict-PR." + conceptMapperParameterIndex + ".xml");
-				conceptFreq = 40;
 				break;
 			case FUNK_GO_MF:
 				dictEntryModifier = new FunkGoMFDictionaryEntryModifier();
 				dictionaryFile = new File(dictionaryDirectory,
 						"cmDict-FUNK_GO_MF." + conceptMapperParameterIndex + ".xml");
-				conceptFreq = 1;
 				break;
 			case FUNK_GO_BP:
 				logger.info("==== No DictionaryEntryModifier in use ====");
 				dictionaryFile = new File(dictionaryDirectory,
 						"cmDict-FUNK_GO_BP." + conceptMapperParameterIndex + ".xml");
-				conceptFreq = 20;
 				break;
 			case FUNK_GO_CC:
 				logger.info("==== No DictionaryEntryModifier in use ====");
 				dictionaryFile = new File(dictionaryDirectory,
 						"cmDict-FUNK_GO_CC." + conceptMapperParameterIndex + ".xml");
-				conceptFreq = 15;
 				break;
 			case CL:
 				logger.info("==== No DictionaryEntryModifier in use ====");
 				dictionaryFile = new File(dictionaryDirectory, "cmDict-CL." + conceptMapperParameterIndex + ".xml");
-				conceptFreq = 2;
 				break;
 			case SO:
 				logger.info("==== No DictionaryEntryModifier in use ====");
 				dictionaryFile = new File(dictionaryDirectory, "cmDict-SO." + conceptMapperParameterIndex + ".xml");
-				conceptFreq = 1;
 				break;
 			case NCBI_TAXON:
 				logger.info("==== No DictionaryEntryModifier in use ====");
 				dictionaryFile = new File(dictionaryDirectory,
 						"cmDict-NCBI_TAXON." + conceptMapperParameterIndex + ".xml");
-				conceptFreq = 26;
 				break;
 			case GO_MF:
 				dictionaryFile = new File(dictionaryDirectory, "cmDict-GO_MF." + conceptMapperParameterIndex + ".xml");
-				conceptFreq = 4;
 				break;
 			case GO_BP:
 				logger.info("==== No DictionaryEntryModifier in use ====");
 				dictionaryFile = new File(dictionaryDirectory, "cmDict-GO_BP." + conceptMapperParameterIndex + ".xml");
-				conceptFreq = 7;
 				break;
 			case GO_CC:
 				logger.info("==== No DictionaryEntryModifier in use ====");
 				dictionaryFile = new File(dictionaryDirectory, "cmDict-GO_CC." + conceptMapperParameterIndex + ".xml");
-				conceptFreq = 10;
 				break;
 			default:
 				logger.info("==== No DictionaryEntryModifier in use ====");
@@ -194,7 +182,7 @@ public class MaylaCraftConceptMapperEvaluatorMain {
 
 			if (dictionaryFile != null) {
 				postProcessingComponentDescriptions
-						.add(MaylaPostProcessingComponent.getDescription(dictionaryFile, conceptFreq));
+						.add(MaylaPostProcessingComponent.getDescription(dictionaryFile, dictionaryNamespace));
 			}
 			CraftConceptMapperEvaluator.evaluateCmPipelineAgainstCraft(dictionaryNamespace,
 					EnumSet.of(craftConceptType), dictionaryDirectory, evalResultsFile, conceptMapperParameterIndex,

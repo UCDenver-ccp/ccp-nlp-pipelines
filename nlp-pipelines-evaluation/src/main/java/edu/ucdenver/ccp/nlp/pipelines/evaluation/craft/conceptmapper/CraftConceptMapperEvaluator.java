@@ -116,9 +116,8 @@ public class CraftConceptMapperEvaluator {
 			// CleanDirectory.NO, paramValuesIndex);
 			List<AnalysisEngineDescription> cmPipelineDescs = ConceptMapperPipelineFactory.getPipelineAeDescriptions(
 					tsd, cmdOptions, DictionaryParameterOperation.USE, dictNamespace, CleanDirectory.NO,
-					paramValuesIndex, dictEntryModifier);
-			runConceptMapperEvaluationAgainstCraft(craftConceptTypes, cmPipelineDescs, tsd, evalResultsFile,
-					postProcessingComponentDescriptions);
+					paramValuesIndex, dictEntryModifier, postProcessingComponentDescriptions);
+			runConceptMapperEvaluationAgainstCraft(craftConceptTypes, cmPipelineDescs, tsd, evalResultsFile);
 			appendParameterValuesToEvalResultsFile(paramValuesIndex, evalResultsFile);
 		} catch (IOException e) {
 			throw new RuntimeException(e);
@@ -174,8 +173,8 @@ public class CraftConceptMapperEvaluator {
 	 * @throws IOException
 	 */
 	private static void runConceptMapperEvaluationAgainstCraft(Set<CraftConceptType> craftConceptTypes,
-			List<AnalysisEngineDescription> conceptMapperDescriptions, TypeSystemDescription tsd, File evalResultsFile,
-			List<AnalysisEngineDescription> postProcessingComponents) throws UIMAException, IOException {
+			List<AnalysisEngineDescription> conceptMapperDescriptions, TypeSystemDescription tsd, File evalResultsFile)
+			throws UIMAException, IOException {
 		Collection<String> annotationTypeRegexes = new ArrayList<String>();
 		/*
 		 * Include all CRAFT types so that all concepts from ontologies with
@@ -202,7 +201,6 @@ public class CraftConceptMapperEvaluator {
 		evalPipeline.addPipelineComponent(sentenceDetectorDesc);
 		evalPipeline.addPipelineComponents(conceptMapperDescriptions);
 		evalPipeline.addPipelineComponent(namespaceRemoverDesc);
-		evalPipeline.addPipelineComponents(postProcessingComponents);
 		evalPipeline.run(SlotRemovalOption.REMOVE_ALL);
 	}
 

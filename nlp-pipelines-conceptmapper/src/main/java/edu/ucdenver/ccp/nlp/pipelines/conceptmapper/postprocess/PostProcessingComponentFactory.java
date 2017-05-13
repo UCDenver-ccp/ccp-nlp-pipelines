@@ -1,4 +1,4 @@
-package edu.ucdenver.ccp.nlp.pipelines.conceptmapper.dictmod;
+package edu.ucdenver.ccp.nlp.pipelines.conceptmapper.postprocess;
 
 /*
  * #%L
@@ -34,21 +34,43 @@ package edu.ucdenver.ccp.nlp.pipelines.conceptmapper.dictmod;
  * #L%
  */
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.uima.analysis_engine.AnalysisEngineDescription;
+import org.apache.uima.resource.ResourceInitializationException;
+
 import edu.ucdenver.ccp.nlp.pipelines.conceptmapper.ConceptMapperDictionaryFileFactory.DictionaryNamespace;
-import edu.ucdenver.ccp.nlp.wrapper.conceptmapper.dictionary.obo.DictionaryEntryModifier;
 
-public class DictionaryEntryModifierFactory {
+public class PostProcessingComponentFactory {
 
-	public static DictionaryEntryModifier getDictionaryEntryModifier(DictionaryNamespace ns) {
-		switch (ns) {
-		case CHEBI:
-			return new CHEBIDictionaryEntryModifier();
-		case FUNK_GO_MF:
-			return new FunkGoMFDictionaryEntryModifier();
-		case PR:
-			return new PRDictionaryEntryModifier();
-		default:
+	public enum PostProcessingComponentType {
+		MAYLA, MAYLA_WITH_CONCEPT_FREQ
+	}
+
+	public static List<AnalysisEngineDescription> getPostProcessingComponentDescriptors(
+			List<PostProcessingComponentType> types, File dictionaryFile, DictionaryNamespace dictionaryNamespace)
+			throws ResourceInitializationException {
+		if (types == null || types.isEmpty()) {
 			return null;
+		}
+		List<AnalysisEngineDescription> ppDescs = new ArrayList<AnalysisEngineDescription>();
+		for (PostProcessingComponentType type : types) {
+			ppDescs.add(getPostProcessingComponentDescriptor(type, dictionaryFile, dictionaryNamespace));
+		}
+		return ppDescs;
+	}
+
+	public static AnalysisEngineDescription getPostProcessingComponentDescriptor(PostProcessingComponentType type,
+			File dictionaryFile, DictionaryNamespace ns) throws ResourceInitializationException {
+		switch (type) {
+		case MAYLA:
+			return MaylaPostProcessingComponent.getDescription(dictionaryFile, null);
+		case MAYLA_WITH_CONCEPT_FREQ:
+			return MaylaPostProcessingComponent.getDescription(dictionaryFile, ns);
+		default:
+			throw new IllegalArgumentException("Unhandled post-processing type: " + type.name());
 		}
 	}
 

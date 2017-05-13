@@ -50,7 +50,6 @@ import org.uimafit.factory.AnalysisEngineFactory;
 import org.uimafit.util.JCasUtil;
 
 import edu.ucdenver.ccp.nlp.core.uima.annotation.CCPTextAnnotation;
-import edu.ucdenver.ccp.nlp.pipelines.conceptmapper.postprocess.MaylaPostProcessingComponent;
 import edu.ucdenver.ccp.nlp.uima.test.DefaultUIMATestCase;
 
 public class MaylaPostProcessingComponentTest_ConceptFrequency extends DefaultUIMATestCase {
@@ -101,11 +100,8 @@ public class MaylaPostProcessingComponentTest_ConceptFrequency extends DefaultUI
 		 */
 		File inputFile = copyClasspathResourceToTemporaryFile(getClass(), "cmDict-Eval_condition1_hplr.xml");
 		System.out.println("INPUT FILE: " + inputFile.getAbsolutePath());
-		// File inputFile = new
-		// File("/tmp/cm-evals/cm-dicts/cmDict-Eval_condition1_hplr.xml");
+
 		Integer conceptFreq = 3;
-		// AnalysisEngineDescription aeDesc =
-		// MaylaPostProcessingComponent.getDescription(inputFile);
 		AnalysisEngineDescription aeDesc = MaylaPostProcessingComponent.getDescription(inputFile, conceptFreq);
 
 		AnalysisEngine engine = AnalysisEngineFactory.createPrimitive(aeDesc);
@@ -131,8 +127,9 @@ public class MaylaPostProcessingComponentTest_ConceptFrequency extends DefaultUI
 			// do something here to test each individual annotation
 			// assert(annot.getClassMention().getMentionName();
 			annot.getClassMention().getMentionName();
-			System.out.println("annotation: " + annot.getClassMention().getMentionName() + " -- " + annot.getBegin() + ".." + annot.getEnd());
-//			System.out.println("annotation: " + annot);
+			System.out.println("annotation: " + annot.getClassMention().getMentionName() + " -- " + annot.getBegin()
+					+ ".." + annot.getEnd());
+			// System.out.println("annotation: " + annot);
 
 		}
 	}

@@ -19,6 +19,8 @@ import edu.ucdenver.ccp.nlp.pipelines.conceptmapper.ConceptMapperParams;
 import edu.ucdenver.ccp.nlp.pipelines.conceptmapper.ConceptMapperParams.ConceptMapperOptimization;
 import edu.ucdenver.ccp.nlp.pipelines.conceptmapper.ConceptMapperPipelineCmdOpts;
 import edu.ucdenver.ccp.nlp.pipelines.conceptmapper.ConceptMapperPipelineFactory;
+import edu.ucdenver.ccp.nlp.pipelines.conceptmapper.postprocess.PostProcessingComponentFactory;
+import edu.ucdenver.ccp.nlp.pipelines.conceptmapper.postprocess.PostProcessingComponentFactory.PostProcessingComponentType;
 import edu.ucdenver.ccp.nlp.pipelines.runlog.Document.FileVersion;
 import edu.ucdenver.ccp.nlp.pipelines.runlog.DocumentCollection.PMC_OA_DocumentCollection;
 import edu.ucdenver.ccp.nlp.pipelines.runner.DeploymentParams;
@@ -46,10 +48,11 @@ public class PmcConceptMapperPipeline extends PipelineBase {
 	private final ConceptMapperParams conceptMapperParams;
 	private final File dictionaryFile;
 	private final ConceptMapperOptimization cmOpt;
+	private List<PostProcessingComponentType> postProcessingComponentTypes;
 
 	public PmcConceptMapperPipeline(File catalogDirectory, File configDir, int numToProcess, String brokerUrl,
 			ConceptMapperParams conceptMapperParams, ConceptMapperOptimization cmOpt, File dictionaryFile,
-			int casPoolSize) throws Exception {
+			int casPoolSize, List<PostProcessingComponentType> postProcessingComponentTypes) throws Exception {
 		super(new PipelineParams(new PMC_OA_DocumentCollection().getShortname(), FileVersion.LOCAL_TEXT,
 				CharacterEncoding.UTF_8, View.DEFAULT.viewName(),
 				PipelineKey.CONCEPTMAPPER.name() + "_" + conceptMapperParams.name(), PIPELINE_DESCRIPTION,
@@ -57,6 +60,7 @@ public class PmcConceptMapperPipeline extends PipelineBase {
 		this.conceptMapperParams = conceptMapperParams;
 		this.cmOpt = cmOpt;
 		this.dictionaryFile = dictionaryFile;
+		this.postProcessingComponentTypes = postProcessingComponentTypes;
 	}
 
 	/**
@@ -122,8 +126,12 @@ public class PmcConceptMapperPipeline extends PipelineBase {
 			 */
 			List<AnalysisEngineDescription> cmAeDescriptions;
 			try {
+				List<? extends AnalysisEngineDescription> postProcessingComponentDescriptions = PostProcessingComponentFactory
+						.getPostProcessingComponentDescriptors(postProcessingComponentTypes, dictionaryFile,
+								conceptMapperParams.dictionaryNamespace());
 				cmAeDescriptions = ConceptMapperPipelineFactory.getPipelineAeDescriptions(getPipelineTypeSystem(),
-						cmdOptions, conceptMapperParams.optimizedParamIndex(cmOpt));
+						cmdOptions, conceptMapperParams.optimizedParamIndex(cmOpt),
+						postProcessingComponentDescriptions);
 			} catch (UIMAException | IOException e) {
 				throw new ResourceInitializationException(e);
 			}
@@ -229,11 +237,13 @@ public class PmcConceptMapperPipeline extends PipelineBase {
 				+ "\nConfig directory=" + configDirectory.getAbsolutePath() + "\nNum-to-process=" + numToProcess
 				+ "\nBroker URL: " + brokerUrl + "\nConceptMapperParam: " + conceptMapperParams.name()
 				+ "\nConceptMapperOptimization: " + cmOpt.name());
+		// add types if you want post-processing of conceptmapper annotations
+		List<PostProcessingComponentType> postProcessingComponentTypes = null;
 		try {
 			PmcConceptMapperPipeline pipeline = new PmcConceptMapperPipeline(catalogDirectory, configDirectory,
 					numToProcess, brokerUrl, conceptMapperParams, cmOpt,
 					UpdateConceptMapperDictionaryFiles.getDictionaryFile(dictionaryDirectory, conceptMapperParams),
-					casPoolSize);
+					casPoolSize, postProcessingComponentTypes);
 
 			pipeline.configurePipeline();
 

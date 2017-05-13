@@ -64,6 +64,7 @@ import org.xml.sax.SAXException;
 import com.google.common.base.CharMatcher;
 
 import edu.ucdenver.ccp.nlp.core.uima.annotation.CCPTextAnnotation;
+import edu.ucdenver.ccp.nlp.pipelines.conceptmapper.ConceptMapperDictionaryFileFactory.DictionaryNamespace;
 import edu.ucdenver.ccp.nlp.uima.annotation.impl.WrappedCCPTextAnnotation;
 import edu.ucdenver.ccp.nlp.uima.util.TypeSystemUtil;
 
@@ -109,11 +110,8 @@ public class MaylaPostProcessingComponent extends JCasAnnotator_ImplBase {
 						+ annot.getClassMention().getMentionName().replaceAll(":", "_");
 				// label from the ontology_dict file - only element in list
 				String label = conceptIdToLabelMap.get(type);
-				System.out.println("label: " + label);
-				System.out.println("doc text: " + documentText);
 				// from annotation of text, could be acronym -> smaller
 				String textword = documentText.substring(start, end);
-				System.out.println(end + " - " + label + " - " + documentText);
 				int textwordFrequency = StringUtils.countMatches(documentText, textword);
 
 				if ((conceptFreq == null && (!CharMatcher.JAVA_UPPER_CASE.matchesAllOf(textword)
@@ -150,6 +148,38 @@ public class MaylaPostProcessingComponent extends JCasAnnotator_ImplBase {
 		return conceptIdToLabelMap;
 	}
 
+	public static Integer getConceptFrequency(DictionaryNamespace dictionaryNamespace) {
+		if (dictionaryNamespace == null) {
+			return null;
+		}
+		switch (dictionaryNamespace) {
+		case CHEBI:
+			return 4;
+		case PR:
+			return 40;
+		case FUNK_GO_MF:
+			return 1;
+		case FUNK_GO_BP:
+			return 20;
+		case FUNK_GO_CC:
+			return 15;
+		case CL:
+			return 2;
+		case SO:
+			return 1;
+		case NCBI_TAXON:
+			return 26;
+		case GO_MF:
+			return 4;
+		case GO_BP:
+			return 7;
+		case GO_CC:
+			return 10;
+		default:
+			throw new IllegalArgumentException("Unhandled dictionary namespace: " + dictionaryNamespace.name());
+		}
+	}
+
 	/**
 	 * Create a AE description that does not use the concept-frequency check for
 	 * annotation removal
@@ -166,9 +196,18 @@ public class MaylaPostProcessingComponent extends JCasAnnotator_ImplBase {
 	 * @return a {@link AnalysisEngineDescription} for this component
 	 * @throws ResourceInitializationException
 	 */
-	public static AnalysisEngineDescription getDescription(File dictionaryFile,Integer conceptFreq) throws ResourceInitializationException {
+	public static AnalysisEngineDescription getDescription(File dictionaryFile, DictionaryNamespace dictionaryNamespace)
+			throws ResourceInitializationException {
 		return AnalysisEngineFactory.createEngineDescription(MaylaPostProcessingComponent.class,
-				TypeSystemUtil.getCcpTypeSystem(), PARAM_DICTIONARYFILE, dictionaryFile.getAbsolutePath(),PARAM_CONCEPTFREQ, conceptFreq);
+				TypeSystemUtil.getCcpTypeSystem(), PARAM_DICTIONARYFILE, dictionaryFile.getAbsolutePath(),
+				PARAM_CONCEPTFREQ, getConceptFrequency(dictionaryNamespace));
+	}
+
+	public static AnalysisEngineDescription getDescription(File dictionaryFile, int conceptFreq)
+			throws ResourceInitializationException {
+		return AnalysisEngineFactory.createEngineDescription(MaylaPostProcessingComponent.class,
+				TypeSystemUtil.getCcpTypeSystem(), PARAM_DICTIONARYFILE, dictionaryFile.getAbsolutePath(),
+				PARAM_CONCEPTFREQ, conceptFreq);
 	}
 
 }
