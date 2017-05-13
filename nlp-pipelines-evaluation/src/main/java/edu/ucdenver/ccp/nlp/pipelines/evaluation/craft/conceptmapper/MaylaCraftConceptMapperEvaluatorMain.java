@@ -115,7 +115,7 @@ public class MaylaCraftConceptMapperEvaluatorMain {
 		File evalResultsFile = new File(outputDirectory, resultsFilePrefix + "." + conceptMapperParameterIndex);
 
 		try {
-			List<AnalysisEngineDescription> postProcessingComponentDescriptions = new ArrayList<AnalysisEngineDescription>();
+			AnalysisEngineDescription postProcessingComponentDescription = null;
 
 			/*
 			 * By implementing the DictionaryEntryModifier interface you can
@@ -181,12 +181,12 @@ public class MaylaCraftConceptMapperEvaluatorMain {
 			}
 
 			if (dictionaryFile != null) {
-				postProcessingComponentDescriptions
-						.add(MaylaPostProcessingComponent.getDescription(dictionaryFile, dictionaryNamespace));
+				postProcessingComponentDescription = MaylaPostProcessingComponent.getDescription(dictionaryFile,
+						dictionaryNamespace);
 			}
 			CraftConceptMapperEvaluator.evaluateCmPipelineAgainstCraft(dictionaryNamespace,
 					EnumSet.of(craftConceptType), dictionaryDirectory, evalResultsFile, conceptMapperParameterIndex,
-					cleanDictFiles, postProcessingComponentDescriptions, dictEntryModifier);
+					cleanDictFiles, postProcessingComponentDescription, dictEntryModifier);
 		} catch (IOException | ResourceInitializationException e) {
 			logger.error("Error during ConceptMapper evaluation over CRAFT!!", e);
 			System.exit(-1);

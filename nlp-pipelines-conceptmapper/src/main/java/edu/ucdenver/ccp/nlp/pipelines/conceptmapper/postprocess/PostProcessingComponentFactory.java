@@ -35,8 +35,6 @@ package edu.ucdenver.ccp.nlp.pipelines.conceptmapper.postprocess;
  */
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.apache.uima.analysis_engine.AnalysisEngineDescription;
 import org.apache.uima.resource.ResourceInitializationException;
@@ -46,20 +44,7 @@ import edu.ucdenver.ccp.nlp.pipelines.conceptmapper.ConceptMapperDictionaryFileF
 public class PostProcessingComponentFactory {
 
 	public enum PostProcessingComponentType {
-		MAYLA, MAYLA_WITH_CONCEPT_FREQ
-	}
-
-	public static List<AnalysisEngineDescription> getPostProcessingComponentDescriptors(
-			List<PostProcessingComponentType> types, File dictionaryFile, DictionaryNamespace dictionaryNamespace)
-			throws ResourceInitializationException {
-		if (types == null || types.isEmpty()) {
-			return null;
-		}
-		List<AnalysisEngineDescription> ppDescs = new ArrayList<AnalysisEngineDescription>();
-		for (PostProcessingComponentType type : types) {
-			ppDescs.add(getPostProcessingComponentDescriptor(type, dictionaryFile, dictionaryNamespace));
-		}
-		return ppDescs;
+		MAYLA, MAYLA_WITH_CONCEPT_FREQ, NONE
 	}
 
 	public static AnalysisEngineDescription getPostProcessingComponentDescriptor(PostProcessingComponentType type,
@@ -69,6 +54,8 @@ public class PostProcessingComponentFactory {
 			return MaylaPostProcessingComponent.getDescription(dictionaryFile, null);
 		case MAYLA_WITH_CONCEPT_FREQ:
 			return MaylaPostProcessingComponent.getDescription(dictionaryFile, ns);
+		case NONE:
+			return null;
 		default:
 			throw new IllegalArgumentException("Unhandled post-processing type: " + type.name());
 		}

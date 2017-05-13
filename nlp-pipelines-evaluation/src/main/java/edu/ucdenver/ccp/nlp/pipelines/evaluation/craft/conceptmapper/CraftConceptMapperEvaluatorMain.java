@@ -111,7 +111,7 @@ public class CraftConceptMapperEvaluatorMain {
 		File evalResultsFile = new File(outputDirectory, resultsFilePrefix + "." + conceptMapperParameterIndex);
 
 		try {
-			List<AnalysisEngineDescription> postProcessingComponentDescriptions = new ArrayList<AnalysisEngineDescription>();
+			AnalysisEngineDescription postProcessingComponentDescription = null;
 
 			/*
 			 * By implementing the DictionaryEntryModifier interface you can
@@ -135,7 +135,7 @@ public class CraftConceptMapperEvaluatorMain {
 			// postProcessingComponentDescriptions.add(SamplePostProcessingComponent.getDescription("my_ontology_name"));
 			CraftConceptMapperEvaluator.evaluateCmPipelineAgainstCraft(dictionaryNamespace,
 					EnumSet.of(craftConceptType), dictionaryDirectory, evalResultsFile, conceptMapperParameterIndex,
-					cleanDictFiles, postProcessingComponentDescriptions, dictEntryModifier);
+					cleanDictFiles, postProcessingComponentDescription, dictEntryModifier);
 			// } catch (IOException | ResourceInitializationException e) {
 			
 			logger.info("Evaluation elapsed time: " + ((System.currentTimeMillis()-time)/1000) + "s");

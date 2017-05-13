@@ -101,8 +101,7 @@ public class CraftConceptMapperEvaluator {
 
 	public static void evaluateCmPipelineAgainstCraft(DictionaryNamespace dictNamespace,
 			Set<CraftConceptType> craftConceptTypes, File dictionaryDirectory, File evalResultsFile,
-			int paramValuesIndex, boolean cleanDictFile,
-			List<AnalysisEngineDescription> postProcessingComponentDescriptions,
+			int paramValuesIndex, boolean cleanDictFile, AnalysisEngineDescription postProcessingComponentDescription,
 			DictionaryEntryModifier dictEntryModifier) throws IOException {
 		SynonymType synonymType = ConceptMapperPermutationFactory.getSynonymType(paramValuesIndex);
 		ConceptMapperPipelineCmdOpts cmdOptions = getCmdOpts(dictNamespace, dictionaryDirectory, cleanDictFile,
@@ -116,7 +115,7 @@ public class CraftConceptMapperEvaluator {
 			// CleanDirectory.NO, paramValuesIndex);
 			List<AnalysisEngineDescription> cmPipelineDescs = ConceptMapperPipelineFactory.getPipelineAeDescriptions(
 					tsd, cmdOptions, DictionaryParameterOperation.USE, dictNamespace, CleanDirectory.NO,
-					paramValuesIndex, dictEntryModifier, postProcessingComponentDescriptions);
+					paramValuesIndex, dictEntryModifier, postProcessingComponentDescription);
 			runConceptMapperEvaluationAgainstCraft(craftConceptTypes, cmPipelineDescs, tsd, evalResultsFile);
 			appendParameterValuesToEvalResultsFile(paramValuesIndex, evalResultsFile);
 		} catch (IOException e) {

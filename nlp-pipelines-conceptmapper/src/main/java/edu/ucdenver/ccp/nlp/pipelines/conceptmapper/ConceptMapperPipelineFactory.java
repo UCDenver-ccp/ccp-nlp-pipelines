@@ -85,7 +85,7 @@ public class ConceptMapperPipelineFactory {
 	 */
 	public static List<AnalysisEngineDescription> getPipelineAeDescriptions(TypeSystemDescription tsd,
 			ConceptMapperPipelineCmdOpts cmdOptions, int parameterValuesIndex,
-			List<? extends AnalysisEngineDescription> postProcessingComponents) throws UIMAException, IOException {
+			AnalysisEngineDescription postProcessingComponent) throws UIMAException, IOException {
 
 		File cmDictionaryFile = cmdOptions.getDictionaryFile();
 		FileUtil.validateFile(cmDictionaryFile);
@@ -111,8 +111,8 @@ public class ConceptMapperPipelineFactory {
 		List<AnalysisEngineDescription> descList = CollectionsUtil.createList(conceptMapperAggregateDesc,
 				cmToCcpTypeSystemConverterDesc, tokenRemovalDesc);
 
-		if (postProcessingComponents != null && !postProcessingComponents.isEmpty()) {
-			descList.addAll(postProcessingComponents);
+		if (postProcessingComponent != null) {
+			descList.add(postProcessingComponent);
 		}
 		return descList;
 	}
@@ -120,8 +120,8 @@ public class ConceptMapperPipelineFactory {
 	public static List<AnalysisEngineDescription> getPipelineAeDescriptions(TypeSystemDescription tsd,
 			ConceptMapperPipelineCmdOpts cmdOptions, DictionaryParameterOperation dictParamOp,
 			DictionaryNamespace dictNamespace, CleanDirectory workDirectoryOp, int parameterCombinationIndex,
-			DictionaryEntryModifier dictEntryModifier,
-			List<? extends AnalysisEngineDescription> postProcessingComponents) throws UIMAException, IOException {
+			DictionaryEntryModifier dictEntryModifier, AnalysisEngineDescription postProcessingComponent)
+			throws UIMAException, IOException {
 
 		File workDirectory = null;
 		if (dictParamOp.equals(DictionaryParameterOperation.IGNORE)) {
@@ -145,7 +145,7 @@ public class ConceptMapperPipelineFactory {
 			cmdOptions.setDictionaryFile(cmDictFile);
 		}
 
-		return getPipelineAeDescriptions(tsd, cmdOptions, parameterCombinationIndex, postProcessingComponents);
+		return getPipelineAeDescriptions(tsd, cmdOptions, parameterCombinationIndex, postProcessingComponent);
 	}
 
 }
