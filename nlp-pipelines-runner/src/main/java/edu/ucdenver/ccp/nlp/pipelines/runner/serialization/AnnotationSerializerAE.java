@@ -152,7 +152,7 @@ public class AnnotationSerializerAE extends JCasAnnotator_ImplBase {
 	private void serializeAnnotations(JCas jCas, File outputFile) throws AnalysisEngineProcessException {
 		logger.log(Level.FINE, "Serializing annotations to file: " + outputFile.getAbsolutePath());
 
-		logger.log(Level.INFO, "Annot count: " + JCasUtil.select(jCas, CCPTextAnnotation.class).size());
+		logger.log(Level.FINE, "Annot count: " + JCasUtil.select(jCas, CCPTextAnnotation.class).size());
 
 		AnnotationSerializer annotSerializer = getAnnotationSerializer();
 
