@@ -44,13 +44,12 @@ import org.apache.log4j.Logger;
 import org.apache.uima.analysis_engine.AnalysisEngine;
 import org.apache.uima.analysis_engine.AnalysisEngineDescription;
 import org.apache.uima.analysis_engine.AnalysisEngineProcessException;
+import org.apache.uima.fit.component.JCasAnnotator_ImplBase;
+import org.apache.uima.fit.descriptor.ConfigurationParameter;
+import org.apache.uima.fit.factory.AnalysisEngineFactory;
 import org.apache.uima.jcas.JCas;
 import org.apache.uima.resource.ResourceInitializationException;
 import org.apache.uima.resource.metadata.TypeSystemDescription;
-import org.uimafit.component.JCasAnnotator_ImplBase;
-import org.uimafit.descriptor.ConfigurationParameter;
-import org.uimafit.factory.AnalysisEngineFactory;
-import org.uimafit.factory.ConfigurationParameterFactory;
 
 import edu.ucdenver.ccp.nlp.uima.util.UIMA_Annotation_Util;
 import edu.ucdenver.ccp.nlp.uima.util.UIMA_Util;
@@ -59,15 +58,13 @@ public class GenericAnnotationLoader extends JCasAnnotator_ImplBase {
 
 	private static final Logger logger = Logger.getLogger(GenericAnnotationLoader.class);
 	
-	public static final String ANNOTATION_DIRECTORY = ConfigurationParameterFactory.createConfigurationParameterName(
-			GenericAnnotationLoader.class, "directory");
+	public static final String ANNOTATION_DIRECTORY = "directory";
 	@ConfigurationParameter(description="directory where annotation files live, e.g. Sequence Ontology " +
 			"might reside in ../path/to/annotations/SO", 
 			mandatory=true, defaultValue= "null")
 	private String directory;
 	
-	public static final String FILTER = ConfigurationParameterFactory.createConfigurationParameterName(
-			GenericAnnotationLoader.class, "filter");
+	public static final String FILTER = "filter";
 	@ConfigurationParameter(description="only imports annotations with scores >= filter", 
 			mandatory=false, defaultValue= "0")
 	private int filter;
@@ -129,7 +126,7 @@ public class GenericAnnotationLoader extends JCasAnnotator_ImplBase {
 	 */
 	public static AnalysisEngineDescription createAnalysisEngineDescription(TypeSystemDescription tsd,
 			String directory, int filter) throws ResourceInitializationException {
-		return AnalysisEngineFactory.createPrimitiveDescription(GenericAnnotationLoader.class, tsd,
+		return AnalysisEngineFactory.createEngineDescription(GenericAnnotationLoader.class, tsd,
 				GenericAnnotationLoader.ANNOTATION_DIRECTORY, directory, GenericAnnotationLoader.FILTER, filter);
 	}
 	
@@ -144,7 +141,7 @@ public class GenericAnnotationLoader extends JCasAnnotator_ImplBase {
 	 */
 	public static AnalysisEngineDescription createAnalysisEngineDescription(TypeSystemDescription tsd,
 			String directory) throws ResourceInitializationException {
-		return AnalysisEngineFactory.createPrimitiveDescription(GenericAnnotationLoader.class, tsd,
+		return AnalysisEngineFactory.createEngineDescription(GenericAnnotationLoader.class, tsd,
 				GenericAnnotationLoader.ANNOTATION_DIRECTORY, directory);
 	}
 

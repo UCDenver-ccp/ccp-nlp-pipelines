@@ -39,9 +39,9 @@ import java.util.Set;
 
 import org.apache.uima.collection.CollectionReader;
 import org.apache.uima.collection.CollectionReaderDescription;
+import org.apache.uima.fit.factory.CollectionReaderFactory;
 import org.apache.uima.resource.ResourceInitializationException;
 import org.apache.uima.resource.metadata.TypeSystemDescription;
-import org.uimafit.factory.CollectionReaderFactory;
 
 import edu.ucdenver.ccp.craft.CraftConceptType;
 import edu.ucdenver.ccp.craft.CraftRelease;
@@ -83,7 +83,7 @@ public class CraftEvaluationPipeline extends EvaluationPipeline {
 	public static CollectionReader getCraftCollectionReader(CraftRelease craftRelease,
 			Set<CraftConceptType> conceptTypesToLoad) throws ResourceInitializationException {
 		CollectionReaderDescription crDesc = CcpCraftCollectionReader.getDescription(craftRelease, conceptTypesToLoad);
-		return CollectionReaderFactory.createCollectionReader(crDesc);
+		return CollectionReaderFactory.createReader(crDesc);
 	}
 
 }

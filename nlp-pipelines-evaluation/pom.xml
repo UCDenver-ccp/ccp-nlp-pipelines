@@ -15,11 +15,6 @@
 	<dependencies>
 		<dependency>
 			<groupId>edu.ucdenver.ccp</groupId>
-			<artifactId>nlp-pipelines-conceptmapper</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>edu.ucdenver.ccp</groupId>
 			<artifactId>ccp-nlp-uima-collections</artifactId>
 			<version>${ver.ccp.nlp}</version>
 			<type>jar</type>
@@ -31,6 +26,11 @@
 			<version>${ver.ccp.nlp}</version>
 			<type>jar</type>
 			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>edu.ucdenver.ccp</groupId>
+			<artifactId>nlp-pipelines-conceptmapper</artifactId>
+			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>edu.ucdenver.ccp</groupId>
@@ -64,6 +64,12 @@
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.cleartk</groupId>
+			<artifactId>cleartk-clearnlp</artifactId>
+			<version>2.0.0</version>
+		</dependency>
+		
 	</dependencies>
 
 
