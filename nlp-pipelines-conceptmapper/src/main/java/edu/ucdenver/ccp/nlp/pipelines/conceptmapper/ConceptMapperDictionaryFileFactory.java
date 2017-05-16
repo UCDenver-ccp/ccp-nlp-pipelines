@@ -69,7 +69,7 @@ public class ConceptMapperDictionaryFileFactory {
 	private static final Logger logger = Logger.getLogger(ConceptMapperPipelineFactory.class);
 
 	public enum DictionaryNamespace {
-		GO, GO_CC, GO_MF, GO_BP, FUNK_GO, FUNK_GO_CC, FUNK_GO_MF, FUNK_GO_BP, CL, CHEBI, MOP, MOP_EXT, NCBI_TAXON, PR, SO, EG, OBO, DOID, UBERON, UBERON_EXT
+		GO, GO_CC, GO_MF, GO_BP, FUNK_GO, FUNK_GO_CC, FUNK_GO_MF, FUNK_GO_BP, CL, CHEBI, MOP, MOP_EXT, NCBI_TAXON, PR, SO, EG, OBO, DOID, UBERON, UBERON_EXT, MI
 	}
 
 	/**
@@ -126,6 +126,7 @@ public class ConceptMapperDictionaryFileFactory {
 			case EG:
 				return NcbiGeneDictionaryFactory.buildModelOrganismConceptMapperDictionary(outputDirectory,
 						outputDirectoryOp);
+
 			default:
 				throw new IllegalArgumentException(
 						"Concept mapper dictionary namespace not handled: " + dictNamespace.name());
@@ -198,6 +199,8 @@ public class ConceptMapperDictionaryFileFactory {
 			case MOP:
 				return buildDictionary(inputFile, dictionaryFile, cleanDictFile, synonymType, dictEntryModifier);
 			case MOP_EXT:
+				return buildDictionary(inputFile, dictionaryFile, cleanDictFile, synonymType, dictEntryModifier);
+			case MI:
 				return buildDictionary(inputFile, dictionaryFile, cleanDictFile, synonymType, dictEntryModifier);
 			case EG:
 				return NcbiGeneDictionaryFactory.buildModelOrganismConceptMapperDictionary(inputFile, dictionaryFile,

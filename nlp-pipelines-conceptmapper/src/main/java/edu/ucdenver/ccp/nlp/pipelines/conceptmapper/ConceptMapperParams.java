@@ -57,7 +57,8 @@ public enum ConceptMapperParams {
 	NCBI_TAXON(535,279, DictionaryNamespace.NCBI_TAXON, "ncbitaxon.owl"), 
 	CHEBI(13,189, DictionaryNamespace.CHEBI, "chebi.owl"),
 	DOID(31, 47, DictionaryNamespace.DOID, "doid.owl"),
-	UBERON(31, 47, DictionaryNamespace.UBERON, "ext.owl");
+	UBERON(31, 47, DictionaryNamespace.UBERON, "ext.owl"),
+	MI(31,31, DictionaryNamespace.MI, "mi.owl");
 /* @formatter:on */
 
 	public enum ConceptMapperOptimization {
