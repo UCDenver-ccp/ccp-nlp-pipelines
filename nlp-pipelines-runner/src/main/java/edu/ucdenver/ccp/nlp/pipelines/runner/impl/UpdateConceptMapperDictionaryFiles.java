@@ -1,6 +1,7 @@
 package edu.ucdenver.ccp.nlp.pipelines.runner.impl;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;
 
@@ -40,28 +41,30 @@ public class UpdateConceptMapperDictionaryFiles {
 		FileUtils.mkdir(dictionaryDirectory);
 	}
 
-	public void createDictionaryFiles(CleanDictionaryFile cleanDictionaryFile, ConceptMapperOptimization cmOpt,
+	public void createDictionaryFiles(ConceptMapperOptimization cmOpt, CleanDictionaryFile cleanDictionaryFile,
 			UseDictEntryModifierIfAvailable useDictEntryMod) throws MalformedURLException, IOException {
 		/*
 		 * ontologies are downloaded by a separate script:
 		 * nlp-pipelines/scripts/pipelines/concept-mapper/download-ontologies.sh
 		 */
-		File ontologyDirectory = new File(dictionaryDirectory, "ontologies");
-		FileUtil.validateDirectory(ontologyDirectory);
+
 		for (ConceptMapperParams cmParams : ConceptMapperParams.values()) {
-			logger.info("Creating/updating ConceptMapper dictionary file for: " + cmParams.name());
-			File ontologyFile = cmParams.getOntologyFile(ontologyDirectory);
 			DictionaryEntryModifier dictEntryModifier = null;
 			if (useDictEntryMod == UseDictEntryModifierIfAvailable.YES) {
 				dictEntryModifier = DictionaryEntryModifierFactory
 						.getDictionaryEntryModifier(cmParams.dictionaryNamespace());
 			}
-			createDictionaryFile(ontologyFile, cmParams, cmOpt, cleanDictionaryFile, dictEntryModifier);
+			createDictionaryFile(cmParams, cmOpt, cleanDictionaryFile, dictEntryModifier);
 		}
 	}
 
-	public File createDictionaryFile(File ontologyFile, ConceptMapperParams cmParams, ConceptMapperOptimization cmOpt,
-			CleanDictionaryFile cleanDictionaryFile, DictionaryEntryModifier dictEntryModifier) {
+	public File createDictionaryFile(ConceptMapperParams cmParams, ConceptMapperOptimization cmOpt,
+			CleanDictionaryFile cleanDictionaryFile, DictionaryEntryModifier dictEntryModifier)
+			throws FileNotFoundException {
+		logger.info("Creating/updating ConceptMapper dictionary file for: " + cmParams.name());
+		File ontologyDirectory = new File(dictionaryDirectory, "ontologies");
+		File ontologyFile = cmParams.getOntologyFile(ontologyDirectory);
+		FileUtil.validateDirectory(ontologyDirectory);
 		SynonymType synonymType = ConceptMapperPermutationFactory.getSynonymType(cmParams.optimizedParamIndex(cmOpt));
 		File cmDictFile = ConceptMapperDictionaryFileFactory.createDictionaryFileFromOBO(cmParams.dictionaryNamespace(),
 				ontologyFile, dictionaryDirectory, cleanDictionaryFile == CleanDictionaryFile.YES, synonymType, null,
@@ -89,7 +92,9 @@ public class UpdateConceptMapperDictionaryFiles {
 		UpdateConceptMapperDictionaryFiles updater = new UpdateConceptMapperDictionaryFiles(dictionaryDirectory);
 		UseDictEntryModifierIfAvailable useDictMod = UseDictEntryModifierIfAvailable.valueOf(args[3]);
 		try {
-			updater.createDictionaryFiles(cleanDictionaryFile, cmOpt, useDictMod);
+			updater.createDictionaryFiles(cmOpt, cleanDictionaryFile, useDictMod);
+			// updater.createDictionaryFile(ConceptMapperParams.MI, cmOpt,
+			// cleanDictionaryFile, null);
 		} catch (IOException e) {
 			e.printStackTrace();
 			System.exit(-1);
