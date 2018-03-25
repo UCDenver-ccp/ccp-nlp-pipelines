@@ -12,6 +12,7 @@ import org.apache.uima.resource.metadata.TypeSystemDescription;
 
 import edu.ucdenver.ccp.common.file.CharacterEncoding;
 import edu.ucdenver.ccp.nlp.doc2txt.pmc.PmcDocumentConverterAE;
+import edu.ucdenver.ccp.nlp.doc2txt.pmc.PmcMetadataImportAE;
 import edu.ucdenver.ccp.nlp.pipelines.runlog.Document.FileVersion;
 import edu.ucdenver.ccp.nlp.pipelines.runlog.DocumentCollection.PMC_OA_DocumentCollection;
 import edu.ucdenver.ccp.nlp.pipelines.runner.DeploymentParams;
@@ -19,6 +20,7 @@ import edu.ucdenver.ccp.nlp.pipelines.runner.PipelineBase;
 import edu.ucdenver.ccp.nlp.pipelines.runner.PipelineParams;
 import edu.ucdenver.ccp.nlp.pipelines.runner.serialization.AnnotationSerializer.IncludeCoveredText;
 import edu.ucdenver.ccp.nlp.pipelines.runner.serialization.AnnotationSerializerAE;
+import edu.ucdenver.ccp.nlp.uima.serialization.txt.DocumentMetaDataSerializerAE;
 import edu.ucdenver.ccp.nlp.uima.serialization.txt.DocumentTextSerializerAE;
 import edu.ucdenver.ccp.nlp.uima.shims.document.impl.CcpDocumentMetadataHandler;
 import edu.ucdenver.ccp.nlp.uima.util.TypeSystemUtil;
@@ -99,6 +101,21 @@ public class PmcNxml2TxtPipeline extends PipelineBase {
 			engines.add(xml2txtEngine);
 		}
 		{
+			/* configure the metadata import AE */
+			AnalysisEngineDescription pmcMetadataImportAeDesc = PmcMetadataImportAE.getDescription(getPipelineTypeSystem(),
+					CharacterEncoding.UTF_8, View.XML.viewName());
+
+			int metaImport_scaleup = casPoolSize;
+			int metaImport_errorThreshold = 0;
+			String metaImport_endpoint = "pmcMetadataImportQ";
+
+			DeploymentParams metaImportDeployParams = new DeploymentParams("PMCMETAIMPORT", "Imports PMC metadata from XML to CAS.",
+					metaImport_scaleup, metaImport_errorThreshold, metaImport_endpoint, getPipelineParams().getBrokerUrl());
+			ServiceEngine pmcMetaImportEngine = new ServiceEngine(pmcMetadataImportAeDesc, metaImportDeployParams, "pmcMetaImportAE",
+					DescriptorType.PRIMITIVE);
+			engines.add(pmcMetaImportEngine);
+		}
+		{
 			/* configure the plain text file output AE */
 
 			AnalysisEngineDescription txtSerializerAeDesc = DocumentTextSerializerAE
@@ -116,6 +133,25 @@ public class PmcNxml2TxtPipeline extends PipelineBase {
 					txtSerializer_endpoint, getPipelineParams().getBrokerUrl());
 			ServiceEngine txtSerializerEngine = new ServiceEngine(txtSerializerAeDesc, txtSerializerDeployParams,
 					"docTxtSerializerAE", DescriptorType.PRIMITIVE);
+			engines.add(txtSerializerEngine);
+		}
+		{
+			/* configure the document metadata file output AE */
+
+			AnalysisEngineDescription docMetaDataSerializerAeDesc = DocumentMetaDataSerializerAE
+					.getDescription_SaveToSourceFileDirectory(getPipelineTypeSystem(),
+							DOCTXTSERIALIZER_DOCUMENT_METADATAHANDLER_CLASS, DOCTXTSERIALIZER_SOURCE_VIEW_NAME,
+							View.DEFAULT.viewName(), DOCTXTSERIALIZER_COMPRESS_OUTPUT_FLAG);
+
+			int metadataSerializer_scaleup = casPoolSize;
+			int metadataSerializer_errorThreshold = 0;
+			String metadataSerializer_endpoint = "metadataSerializerQ";
+
+			DeploymentParams metadataSerializerDeployParams = new DeploymentParams("METADATASerializer",
+					"Serializes the document metadata to a file.", metadataSerializer_scaleup, metadataSerializer_errorThreshold,
+					metadataSerializer_endpoint, getPipelineParams().getBrokerUrl());
+			ServiceEngine txtSerializerEngine = new ServiceEngine(docMetaDataSerializerAeDesc, metadataSerializerDeployParams,
+					"docMetadataSerializerAE", DescriptorType.PRIMITIVE);
 			engines.add(txtSerializerEngine);
 		}
 		{
@@ -140,6 +176,7 @@ public class PmcNxml2TxtPipeline extends PipelineBase {
 					"annotSerializerAE", DescriptorType.PRIMITIVE);
 			engines.add(annotSerializerEngine);
 		}
+		
 		// {
 		// /* configure catalog AE */
 		// AnalysisEngineDescription catalogAeDesc =
