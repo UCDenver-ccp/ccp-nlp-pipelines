@@ -27,7 +27,8 @@ import edu.ucdenver.ccp.nlp.pipelines.runner.DeploymentParams;
 import edu.ucdenver.ccp.nlp.pipelines.runner.PipelineBase;
 import edu.ucdenver.ccp.nlp.pipelines.runner.PipelineKey;
 import edu.ucdenver.ccp.nlp.pipelines.runner.PipelineParams;
-import edu.ucdenver.ccp.nlp.pipelines.runner.serialization.AnnotationSerializer.IncludeCoveredText;
+import edu.ucdenver.ccp.nlp.pipelines.runner.serialization.AnnotationSerializerImpl.IncludeCoveredText;
+import edu.ucdenver.ccp.nlp.pipelines.runner.serialization.AnnotationSerializerImpl.IncludeSlots;
 import edu.ucdenver.ccp.nlp.pipelines.runner.serialization.AnnotationSerializerAE;
 import edu.ucdenver.ccp.nlp.uima.annotators.sentence_detection.ExplicitSentenceCasInserter;
 import edu.ucdenver.ccp.nlp.uima.annotators.sentence_detection.OpenNlpSentenceDetectorAE;
@@ -158,7 +159,7 @@ public class PmcConceptMapperPipeline extends PipelineBase {
 			AnalysisEngineDescription annotSerializerDesc = AnnotationSerializerAE
 					.getDescription_SaveToSourceFileDirectory(getPipelineTypeSystem(),
 							ANNOTSERIALIZER_DOCUMENT_METADATAHANDLER_CLASS, sourceViewName, outputViewName,
-							compressOutput, outputFileInfix, IncludeCoveredText.NO);
+							compressOutput, outputFileInfix, IncludeCoveredText.NO, IncludeSlots.NO);
 
 			int annotSerializer_scaleup = casPoolSize;
 			int annotSerializer_errorThreshold = 0;

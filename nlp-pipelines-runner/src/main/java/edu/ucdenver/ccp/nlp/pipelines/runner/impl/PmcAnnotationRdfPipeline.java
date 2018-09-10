@@ -21,8 +21,8 @@ import edu.ucdenver.ccp.nlp.pipelines.runner.PipelineKey;
 import edu.ucdenver.ccp.nlp.pipelines.runner.PipelineParams;
 import edu.ucdenver.ccp.nlp.pipelines.runner.RunCatalogAE;
 import edu.ucdenver.ccp.nlp.pipelines.runner.serialization.AnnotationDeserializerAE;
-import edu.ucdenver.ccp.nlp.pipelines.runner.serialization.AnnotationSerializer.IncludeAnnotator;
-import edu.ucdenver.ccp.nlp.pipelines.runner.serialization.AnnotationSerializer.IncludeCoveredText;
+import edu.ucdenver.ccp.nlp.pipelines.runner.serialization.AnnotationSerializerImpl.IncludeAnnotator;
+import edu.ucdenver.ccp.nlp.pipelines.runner.serialization.AnnotationSerializerImpl.IncludeCoveredText;
 import edu.ucdenver.ccp.nlp.pipelines.runner.serialization.pmcoa.PmcOaDocumentRdfGenerator;
 import edu.ucdenver.ccp.nlp.pipelines.runner.serialization.pmcoa.PmcOaDocumentSectionUriFactory;
 import edu.ucdenver.ccp.nlp.uima.annotators.sentence_detection.CcpSentenceCasInserter;
@@ -109,7 +109,7 @@ public class PmcAnnotationRdfPipeline extends PipelineBase {
 			AnalysisEngineDescription annotLoaderEngineDesc = AnnotationDeserializerAE
 					.getDescription_LoadFromSourceFileDirectory(getPipelineTypeSystem(),
 							CcpDocumentMetadataHandler.class, View.DEFAULT.viewName(), View.DEFAULT.viewName(),
-							IncludeCoveredText.NO, IncludeAnnotator.YES, annotFileInfixes);
+							IncludeCoveredText.NO, IncludeAnnotator.YES, annotFileInfixes, null);
 
 			int annotLoader_scaleup = casPoolSize;
 			int annotLoader_errorThreshold = 0;

@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 import java.util.zip.GZIPInputStream;
 
@@ -23,13 +24,14 @@ import org.apache.uima.util.Level;
 import org.apache.uima.util.Logger;
 
 import edu.ucdenver.ccp.common.file.CharacterEncoding;
+import edu.ucdenver.ccp.common.file.FileUtil;
 import edu.ucdenver.ccp.common.file.reader.Line;
 import edu.ucdenver.ccp.common.file.reader.StreamLineIterator;
 import edu.ucdenver.ccp.common.reflection.ConstructorUtil;
 import edu.ucdenver.ccp.nlp.core.annotation.TextAnnotation;
 import edu.ucdenver.ccp.nlp.pipelines.log.ProcessingErrorLog;
-import edu.ucdenver.ccp.nlp.pipelines.runner.serialization.AnnotationSerializer.IncludeAnnotator;
-import edu.ucdenver.ccp.nlp.pipelines.runner.serialization.AnnotationSerializer.IncludeCoveredText;
+import edu.ucdenver.ccp.nlp.pipelines.runner.serialization.AnnotationSerializerImpl.IncludeAnnotator;
+import edu.ucdenver.ccp.nlp.pipelines.runner.serialization.AnnotationSerializerImpl.IncludeCoveredText;
 import edu.ucdenver.ccp.nlp.uima.shims.ShimDefaults;
 import edu.ucdenver.ccp.nlp.uima.util.UIMA_Util;
 import edu.ucdenver.ccp.nlp.uima.util.View_Util;
@@ -57,21 +59,13 @@ public class AnnotationDeserializerAE extends JCasAnnotator_ImplBase {
 	@ConfigurationParameter(mandatory = false, description = "")
 	private String loadViewName;
 
-	/**
-	 * If true, the serialized annotations will include the covered text so it
-	 * will be imported, default=false
-	 */
-	public static final String PARAM_INCLUDE_COVERED_TEXT = "includeCoveredText";
-	@ConfigurationParameter(mandatory = false, description = "", defaultValue = "false")
-	private boolean includeCoveredText;
-
-	public static final String PARAM_INCLUDE_ANNOTATOR = "includeAnnotator";
-	@ConfigurationParameter(mandatory = false, description = "", defaultValue = "true")
-	private boolean includeAnnotator;
-
 	public static final String PARAM_INPUT_FILENAME_INFIXES = "inputFilenameInfixes";
-	@ConfigurationParameter(mandatory = true, description = "An array of infixes to use to identify annotations files to load.")
+	@ConfigurationParameter(mandatory = false, description = "An array of infixes to use to identify annotations files to load.")
 	private String[] inputFilenameInfixes;
+
+	public static final String PARAM_INPUT_FILENAME_SUFFIXES = "inputFilenameSuffixes";
+	@ConfigurationParameter(mandatory = false, description = "An array of suffixes to use to identify annotations files to load.")
+	private String[] inputFilenameSuffixes;
 
 	public static final String PARAM_DOCUMENT_METADATA_HANDLER_CLASS = "documentMetadataHandlerClassName";
 	private static final String ANNOT_FILE_SUFFIX = ".annot";
@@ -88,30 +82,69 @@ public class AnnotationDeserializerAE extends JCasAnnotator_ImplBase {
 				.invokeConstructor(documentMetadataHandlerClassName);
 		logger = aContext.getLogger();
 
-		logger.log(Level.INFO, "AnnotationDeserializer initialized with the following file infixes: "
-				+ Arrays.toString(inputFilenameInfixes));
+		if (inputFilenameInfixes != null && inputFilenameSuffixes != null) {
+			String message = "Both the input_filename_infixes and input_filename_suffixes parameters have been "
+					+ "set simultaneously. Please only set one of those parameters at a time.";
+			logger.log(Level.SEVERE, message);
+			throw new ResourceInitializationException(new IllegalArgumentException(message));
+		}
+
+		if (inputFilenameInfixes != null) {
+			logger.log(Level.INFO, "AnnotationDeserializer initialized with the following file infixes: "
+					+ Arrays.toString(inputFilenameInfixes));
+		}
+		if (inputFilenameSuffixes != null) {
+			logger.log(Level.INFO, "AnnotationDeserializer initialized with the following file suffixes: "
+					+ Arrays.toString(inputFilenameSuffixes));
+		}
+
 	}
 
 	@Override
 	public void process(JCas jCas) throws AnalysisEngineProcessException {
 		String documentId = documentMetaDataHandler.extractDocumentId(jCas);
+		List<File> filesToLoad;
 		try {
+			filesToLoad = getFilesToLoad(documentId, jCas);
+		} catch (CASException | IOException e) {
+			throw new AnalysisEngineProcessException(e);
+		}
+		for (File inputFile : filesToLoad) {
+			try {
+				loadAnnotations(jCas, inputFile);
+			} catch (Exception e) {
+				ProcessingErrorLog errorLog = new ProcessingErrorLog(jCas);
+				errorLog.setErrorMessage(e.getMessage());
+				errorLog.setStackTrace(ExceptionUtils.getStackTrace(e));
+				errorLog.setComponentAtFault(this.getClass().getName());
+				errorLog.addToIndexes();
+				logger.log(Level.WARNING,
+						"Error during annotation loading for document: " + UIMA_Util.getDocumentID(jCas) + " -- file: "
+								+ inputFile.getAbsolutePath() + " -- " + e.getMessage() + " -- ");
+				e.printStackTrace();
+			}
+		}
+	}
+
+	private List<File> getFilesToLoad(String documentId, JCas jCas)
+			throws AnalysisEngineProcessException, CASException, IOException {
+		List<File> filesToLoad = new ArrayList<File>();
+		if (inputFilenameInfixes != null) {
 			for (String infix : inputFilenameInfixes) {
 				File inputFile = getInputFile(jCas, documentId, infix);
-				loadAnnotations(jCas, inputFile,
-						((includeCoveredText) ? IncludeCoveredText.YES : IncludeCoveredText.NO),
-						((includeAnnotator) ? IncludeAnnotator.YES : IncludeAnnotator.NO));
+				filesToLoad.add(inputFile);
 			}
-		} catch (Exception e) {
-			ProcessingErrorLog errorLog = new ProcessingErrorLog(jCas);
-			errorLog.setErrorMessage(e.getMessage());
-			errorLog.setStackTrace(ExceptionUtils.getStackTrace(e));
-			errorLog.setComponentAtFault(this.getClass().getName());
-			errorLog.addToIndexes();
-			logger.log(Level.WARNING, "Error during annotation loading for document: " + UIMA_Util.getDocumentID(jCas)
-					+ " -- " + e.getMessage() + " -- ");
-			e.printStackTrace();
+		} else if (inputFilenameSuffixes != null) {
+			File inputFileDirectory = getLoadDirectory(jCas);
+			for (Iterator<File> fileIterator = FileUtil.getFileIterator(inputFileDirectory, false,
+					inputFilenameSuffixes); fileIterator.hasNext();) {
+				File file = fileIterator.next();
+				if (file.getName().startsWith(documentId)) {
+					filesToLoad.add(file);
+				}
+			}
 		}
+		return filesToLoad;
 	}
 
 	/**
@@ -124,8 +157,7 @@ public class AnnotationDeserializerAE extends JCasAnnotator_ImplBase {
 	 * @param outputFile
 	 * @throws AnalysisEngineProcessException
 	 */
-	private void loadAnnotations(JCas jCas, File inputFile, IncludeCoveredText includeCoveredText,
-			IncludeAnnotator includeAnnotator) throws AnalysisEngineProcessException {
+	private void loadAnnotations(JCas jCas, File inputFile) throws AnalysisEngineProcessException {
 		logger.log(Level.FINE, "Loading annotation file: " + inputFile.getAbsolutePath());
 		StreamLineIterator lineIter = null;
 		List<TextAnnotation> textAnnotations = new ArrayList<TextAnnotation>();
@@ -135,8 +167,7 @@ public class AnnotationDeserializerAE extends JCasAnnotator_ImplBase {
 							CharacterEncoding.UTF_8, null)
 					: new StreamLineIterator(inputFile, CharacterEncoding.UTF_8, null); lineIter.hasNext();) {
 				Line line = lineIter.next();
-				TextAnnotation annot = AnnotationSerializer.fromString(line.getText(), includeCoveredText,
-						includeAnnotator);
+				TextAnnotation annot = AnnotationSerializerImpl.fromString(line.getText());
 				textAnnotations.add(annot);
 			}
 		} catch (IOException e) {
@@ -171,32 +202,17 @@ public class AnnotationDeserializerAE extends JCasAnnotator_ImplBase {
 	 * @return a reference to the output file where the document text will be
 	 *         saved
 	 * @throws AnalysisEngineProcessException
+	 * @throws CASException
 	 */
-	private File getInputFile(JCas jCas, String documentId, String infix) throws AnalysisEngineProcessException {
+	private File getInputFile(JCas jCas, String documentId, String infix)
+			throws AnalysisEngineProcessException, CASException {
 		String inputFilename = getInputFileName(documentId, infix);
 		File inputFile = null;
-		if (loadDirectory != null) {
-			inputFile = new File(loadDirectory, inputFilename);
-		} else {
-			/*
-			 * look for a reference to the source file in the specified source
-			 * view and use that directory as the output directory
-			 */
-			JCas view = null;
-			if (sourceViewName == null) {
-				view = jCas;
-			} else {
-				try {
-					view = View_Util.getView(jCas, sourceViewName);
-				} catch (CASException e) {
-					throw new AnalysisEngineProcessException(e);
-				}
-			}
-			File sourceDocumentFile = documentMetaDataHandler.extractSourceDocumentPath(view);
-			if (sourceDocumentFile != null) {
-				inputFile = new File(sourceDocumentFile.getParentFile(), inputFilename);
-			}
+		File inputFileDirectory = getLoadDirectory(jCas);
+		if (inputFileDirectory != null) {
+			inputFile = new File(inputFileDirectory, inputFilename);
 		}
+
 		if (inputFile == null) {
 			throw new AnalysisEngineProcessException(
 					"Unable to determine output directory for document text serialization.", null);
@@ -213,26 +229,45 @@ public class AnnotationDeserializerAE extends JCasAnnotator_ImplBase {
 		return inputFile;
 	}
 
+	private File getLoadDirectory(JCas jCas) throws CASException {
+		if (loadDirectory != null) {
+			return loadDirectory;
+		}
+		/*
+		 * look for a reference to the source file in the specified source view
+		 * and use that directory as the output directory
+		 */
+		JCas view = null;
+		if (sourceViewName == null) {
+			view = jCas;
+		} else {
+			view = View_Util.getView(jCas, sourceViewName);
+		}
+		File sourceDocumentFile = documentMetaDataHandler.extractSourceDocumentPath(view);
+		if (sourceDocumentFile != null) {
+			return sourceDocumentFile.getParentFile();
+		}
+		return null;
+	}
+
 	public static AnalysisEngineDescription getDescription(TypeSystemDescription tsd,
 			Class<? extends DocumentMetadataHandler> documentMetadataHandlerClass, File loadDirectory,
 			String loadViewName, IncludeCoveredText includeCoveredText, IncludeAnnotator includeAnnotator,
-			String... inputFileInfixes) throws ResourceInitializationException {
+			String[] inputFileInfixes, String[] inputFileSuffixes) throws ResourceInitializationException {
 		return AnalysisEngineFactory.createEngineDescription(AnnotationDeserializerAE.class, tsd,
 				PARAM_DOCUMENT_METADATA_HANDLER_CLASS, documentMetadataHandlerClass, PARAM_LOAD_DIRECTORY,
-				loadDirectory.getAbsolutePath(), PARAM_LOAD_VIEW_NAME, loadViewName, PARAM_INCLUDE_COVERED_TEXT,
-				includeCoveredText == IncludeCoveredText.YES, PARAM_INCLUDE_ANNOTATOR,
-				includeAnnotator == IncludeAnnotator.YES, PARAM_INPUT_FILENAME_INFIXES, inputFileInfixes);
+				loadDirectory.getAbsolutePath(), PARAM_LOAD_VIEW_NAME, loadViewName, PARAM_INPUT_FILENAME_INFIXES,
+				inputFileInfixes, PARAM_INPUT_FILENAME_SUFFIXES, inputFileSuffixes);
 	}
 
 	public static AnalysisEngineDescription getDescription_LoadFromSourceFileDirectory(TypeSystemDescription tsd,
 			Class<? extends DocumentMetadataHandler> documentMetadataHandlerClass, String sourceViewName,
 			String loadViewName, IncludeCoveredText includeCoveredText, IncludeAnnotator includeAnnotator,
-			String... inputFileInfixes) throws ResourceInitializationException {
+			String[] inputFileInfixes, String[] inputFileSuffixes) throws ResourceInitializationException {
 		return AnalysisEngineFactory.createEngineDescription(AnnotationDeserializerAE.class, tsd,
 				PARAM_DOCUMENT_METADATA_HANDLER_CLASS, documentMetadataHandlerClass, PARAM_SOURCE_VIEW_NAME,
-				sourceViewName, PARAM_LOAD_VIEW_NAME, loadViewName, PARAM_INCLUDE_COVERED_TEXT,
-				includeCoveredText == IncludeCoveredText.YES, PARAM_INCLUDE_ANNOTATOR,
-				includeAnnotator == IncludeAnnotator.YES, PARAM_INPUT_FILENAME_INFIXES, inputFileInfixes);
+				sourceViewName, PARAM_LOAD_VIEW_NAME, loadViewName, PARAM_INPUT_FILENAME_INFIXES, inputFileInfixes,
+				PARAM_INPUT_FILENAME_SUFFIXES, inputFileSuffixes);
 	}
 
 }

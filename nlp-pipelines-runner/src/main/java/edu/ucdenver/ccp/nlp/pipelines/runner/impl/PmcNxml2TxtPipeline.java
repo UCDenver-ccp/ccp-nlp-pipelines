@@ -18,7 +18,8 @@ import edu.ucdenver.ccp.nlp.pipelines.runlog.DocumentCollection.PMC_OA_DocumentC
 import edu.ucdenver.ccp.nlp.pipelines.runner.DeploymentParams;
 import edu.ucdenver.ccp.nlp.pipelines.runner.PipelineBase;
 import edu.ucdenver.ccp.nlp.pipelines.runner.PipelineParams;
-import edu.ucdenver.ccp.nlp.pipelines.runner.serialization.AnnotationSerializer.IncludeCoveredText;
+import edu.ucdenver.ccp.nlp.pipelines.runner.serialization.AnnotationSerializerImpl.IncludeCoveredText;
+import edu.ucdenver.ccp.nlp.pipelines.runner.serialization.AnnotationSerializerImpl.IncludeSlots;
 import edu.ucdenver.ccp.nlp.pipelines.runner.serialization.AnnotationSerializerAE;
 import edu.ucdenver.ccp.nlp.uima.serialization.txt.DocumentMetaDataSerializerAE;
 import edu.ucdenver.ccp.nlp.uima.serialization.txt.DocumentTextSerializerAE;
@@ -136,6 +137,28 @@ public class PmcNxml2TxtPipeline extends PipelineBase {
 			engines.add(txtSerializerEngine);
 		}
 		{
+			/* serialize the section annotations */
+			String sourceViewName = ANNOTSERIALIZER_SOURCE_VIEW_NAME;
+			String outputViewName = View.DEFAULT.viewName();
+			boolean compressOutput = ANNOTSERIALIZER_COMPRESS_OUTPUT_FLAG;
+			String outputFileInfix = ANNOTSERIALIZER_OUTPUT_FILE_INFIX;
+			AnalysisEngineDescription annotSerializerDesc = AnnotationSerializerAE
+					.getDescription_SaveToSourceFileDirectory(getPipelineTypeSystem(),
+							ANNOTSERIALIZER_DOCUMENT_METADATAHANDLER_CLASS, sourceViewName, outputViewName,
+							compressOutput, outputFileInfix, IncludeCoveredText.NO, IncludeSlots.NO);
+
+			int annotSerializer_scaleup = casPoolSize;
+			int annotSerializer_errorThreshold = 0;
+			String annotSerializer_endpoint = "annotSerializerQ";
+
+			DeploymentParams annotSerializerDeployParams = new DeploymentParams("AnnotSerializer",
+					"Serializes the annotations to file.", annotSerializer_scaleup, annotSerializer_errorThreshold,
+					annotSerializer_endpoint, getPipelineParams().getBrokerUrl());
+			ServiceEngine annotSerializerEngine = new ServiceEngine(annotSerializerDesc, annotSerializerDeployParams,
+					"annotSerializerAE", DescriptorType.PRIMITIVE);
+			engines.add(annotSerializerEngine);
+		}
+		{
 			/* configure the document metadata file output AE */
 
 			AnalysisEngineDescription docMetaDataSerializerAeDesc = DocumentMetaDataSerializerAE
@@ -153,28 +176,6 @@ public class PmcNxml2TxtPipeline extends PipelineBase {
 			ServiceEngine txtSerializerEngine = new ServiceEngine(docMetaDataSerializerAeDesc, metadataSerializerDeployParams,
 					"docMetadataSerializerAE", DescriptorType.PRIMITIVE);
 			engines.add(txtSerializerEngine);
-		}
-		{
-			/* serialize the section annotations */
-			String sourceViewName = ANNOTSERIALIZER_SOURCE_VIEW_NAME;
-			String outputViewName = View.DEFAULT.viewName();
-			boolean compressOutput = ANNOTSERIALIZER_COMPRESS_OUTPUT_FLAG;
-			String outputFileInfix = ANNOTSERIALIZER_OUTPUT_FILE_INFIX;
-			AnalysisEngineDescription annotSerializerDesc = AnnotationSerializerAE
-					.getDescription_SaveToSourceFileDirectory(getPipelineTypeSystem(),
-							ANNOTSERIALIZER_DOCUMENT_METADATAHANDLER_CLASS, sourceViewName, outputViewName,
-							compressOutput, outputFileInfix, IncludeCoveredText.NO);
-
-			int annotSerializer_scaleup = casPoolSize;
-			int annotSerializer_errorThreshold = 0;
-			String annotSerializer_endpoint = "annotSerializerQ";
-
-			DeploymentParams annotSerializerDeployParams = new DeploymentParams("AnnotSerializer",
-					"Serializes the annotations to file.", annotSerializer_scaleup, annotSerializer_errorThreshold,
-					annotSerializer_endpoint, getPipelineParams().getBrokerUrl());
-			ServiceEngine annotSerializerEngine = new ServiceEngine(annotSerializerDesc, annotSerializerDeployParams,
-					"annotSerializerAE", DescriptorType.PRIMITIVE);
-			engines.add(annotSerializerEngine);
 		}
 		
 		// {

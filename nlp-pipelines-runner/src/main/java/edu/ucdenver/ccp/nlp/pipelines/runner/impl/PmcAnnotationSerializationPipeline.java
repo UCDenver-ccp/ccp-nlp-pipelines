@@ -20,9 +20,10 @@ import edu.ucdenver.ccp.nlp.pipelines.runner.PipelineKey;
 import edu.ucdenver.ccp.nlp.pipelines.runner.PipelineParams;
 import edu.ucdenver.ccp.nlp.pipelines.runner.RunCatalogAE;
 import edu.ucdenver.ccp.nlp.pipelines.runner.serialization.AnnotationDeserializerAE;
-import edu.ucdenver.ccp.nlp.pipelines.runner.serialization.AnnotationSerializer.IncludeAnnotator;
-import edu.ucdenver.ccp.nlp.pipelines.runner.serialization.AnnotationSerializer.IncludeCoveredText;
 import edu.ucdenver.ccp.nlp.pipelines.runner.serialization.AnnotationSerializerAE;
+import edu.ucdenver.ccp.nlp.pipelines.runner.serialization.AnnotationSerializerImpl.IncludeAnnotator;
+import edu.ucdenver.ccp.nlp.pipelines.runner.serialization.AnnotationSerializerImpl.IncludeCoveredText;
+import edu.ucdenver.ccp.nlp.pipelines.runner.serialization.AnnotationSerializerImpl.IncludeSlots;
 import edu.ucdenver.ccp.nlp.uima.annotators.sentence_detection.CcpSentenceCasInserter;
 import edu.ucdenver.ccp.nlp.uima.annotators.sentence_detection.OpenNlpSentenceDetectorAE;
 import edu.ucdenver.ccp.nlp.uima.shims.document.impl.CcpDocumentMetadataHandler;
@@ -99,7 +100,7 @@ public class PmcAnnotationSerializationPipeline extends PipelineBase {
 			AnalysisEngineDescription annotLoaderEngineDesc = AnnotationDeserializerAE
 					.getDescription_LoadFromSourceFileDirectory(getPipelineTypeSystem(),
 							CcpDocumentMetadataHandler.class, View.DEFAULT.viewName(), View.DEFAULT.viewName(),
-							IncludeCoveredText.NO, IncludeAnnotator.YES, annotFileInfixes);
+							IncludeCoveredText.NO, IncludeAnnotator.YES, annotFileInfixes, null);
 
 			int annotLoader_scaleup = casPoolSize;
 			int annotLoader_errorThreshold = 0;
@@ -121,7 +122,7 @@ public class PmcAnnotationSerializationPipeline extends PipelineBase {
 			AnalysisEngineDescription annotSerializerDesc = AnnotationSerializerAE
 					.getDescription_SaveToSourceFileDirectory(getPipelineTypeSystem(), CcpDocumentMetadataHandler.class,
 							sourceViewName, outputViewName, compressOutput, outputFileInfix, IncludeCoveredText.NO,
-							IncludeAnnotator.NO, ".nxml.gz.txt.gz");
+							IncludeAnnotator.NO, IncludeSlots.NO, ".nxml.gz.txt.gz");
 
 			int annotSerializer_scaleup = (casPoolSize > 1) ? casPoolSize / 2 : 1;
 			int annotSerializer_errorThreshold = 0;
