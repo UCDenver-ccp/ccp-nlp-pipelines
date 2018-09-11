@@ -20,7 +20,6 @@ import org.apache.uima.fit.factory.AnalysisEngineFactory;
 import org.apache.uima.jcas.JCas;
 import org.apache.uima.resource.ResourceInitializationException;
 import org.apache.uima.resource.metadata.TypeSystemDescription;
-import org.apache.uima.util.Level;
 import org.apache.uima.util.Logger;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormatter;
@@ -102,6 +101,7 @@ public class AnnotationSerializerAE extends JCasAnnotator_ImplBase {
 	private File outputFile;
 
 	private BufferedWriter writer;
+	private boolean localWriter = false;
 
 	public static final String PARAM_DOCUMENT_METADATA_HANDLER_CLASS = "documentMetadataHandlerClassName";
 	private static final String ANNOT_FILE_SUFFIX = ".annot";
@@ -131,7 +131,7 @@ public class AnnotationSerializerAE extends JCasAnnotator_ImplBase {
 	@Override
 	public void collectionProcessComplete() throws AnalysisEngineProcessException {
 		/* Make sure the writer closes prior to shutdown */
-		if (writer != null) {
+		if (writer != null && !localWriter) {
 			try {
 				writer.close();
 				writer = null;
@@ -194,7 +194,7 @@ public class AnnotationSerializerAE extends JCasAnnotator_ImplBase {
 	private void serializeAnnotations(JCas jCas) throws AnalysisEngineProcessException {
 		AnnotationSerializer annotSerializer = getAnnotationSerializer(jCas);
 		try {
-			boolean localWriter = false;
+			localWriter = false;
 			File outputFile = getOutputFile(jCas, documentMetaDataHandler, compressOutput, outputFilenameInfix,
 					outputDirectory, sourceViewName);
 			if (writer == null) {
@@ -206,7 +206,6 @@ public class AnnotationSerializerAE extends JCasAnnotator_ImplBase {
 			}
 
 			List<WrappedCCPTextAnnotation> secondPassAnnotations = new ArrayList<WrappedCCPTextAnnotation>();
-
 			for (Iterator<CCPTextAnnotation> annotIter = JCasUtil.iterator(jCas, CCPTextAnnotation.class); annotIter
 					.hasNext();) {
 				CCPTextAnnotation annot = annotIter.next();
@@ -232,6 +231,7 @@ public class AnnotationSerializerAE extends JCasAnnotator_ImplBase {
 
 			if (localWriter) {
 				writer.close();
+				writer = null;
 				logSerializedFile(jCas, outputFile);
 			}
 		} catch (IOException e) {
