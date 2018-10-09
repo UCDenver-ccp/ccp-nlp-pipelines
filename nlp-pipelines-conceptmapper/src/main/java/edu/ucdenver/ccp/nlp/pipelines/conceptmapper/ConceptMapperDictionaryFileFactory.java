@@ -69,7 +69,7 @@ public class ConceptMapperDictionaryFileFactory {
 	private static final Logger logger = Logger.getLogger(ConceptMapperPipelineFactory.class);
 
 	public enum DictionaryNamespace {
-		GO, GO_CC, GO_MF, GO_BP, FUNK_GO, FUNK_GO_CC, FUNK_GO_MF, FUNK_GO_BP, CL, CHEBI, MOP, MOP_EXT, NCBI_TAXON, PR, SO, EG, OBO, DOID, UBERON, UBERON_EXT, MI
+		GO, GO_CC, GO_MF, GO_BP, FUNK_GO, FUNK_GO_CC, FUNK_GO_MF, FUNK_GO_BP, CL, CHEBI, MOP, MOP_EXT, NCBI_TAXON, PR, SO, EG, OBO, DOID, UBERON, UBERON_EXT, MI, SUPPLEMENTARY_CHEMICALS
 	}
 
 	/**

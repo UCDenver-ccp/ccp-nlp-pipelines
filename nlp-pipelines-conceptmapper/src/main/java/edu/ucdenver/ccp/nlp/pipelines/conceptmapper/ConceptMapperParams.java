@@ -58,7 +58,8 @@ public enum ConceptMapperParams {
 	CHEBI(13,189, DictionaryNamespace.CHEBI, "chebi.owl"),
 	DOID(31, 47, DictionaryNamespace.DOID, "doid.owl"),
 	UBERON(31, 47, DictionaryNamespace.UBERON, "ext.owl"),
-	MI(31,31, DictionaryNamespace.MI, "mi.owl");
+	MI(31,31, DictionaryNamespace.MI, "mi.owl"),
+	SUPPLEMENTARY_CHEMICALS(13, 189, DictionaryNamespace.SUPPLEMENTARY_CHEMICALS, null);
 /* @formatter:on */
 
 	public enum ConceptMapperOptimization {
