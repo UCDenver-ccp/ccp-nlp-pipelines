@@ -1,19 +1,21 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>edu.ucdenver.ccp</groupId>
 	<artifactId>nlp-pipelines</artifactId>
-	<version>0.5.3</version>
+	<version>0.5.4-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<modules>
 		<module>nlp-pipelines-conceptmapper</module>
 		<module>nlp-pipelines-evaluation</module>
 		<module>nlp-pipelines-core</module>
+		<module>nlp-pipelines-runner</module>
 	</modules>
 
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<ver.ccp.nlp>3.3.2</ver.ccp.nlp>
+		<ver.ccp.nlp>3.4</ver.ccp.nlp>
 	</properties>
 
 	<dependencyManagement>
@@ -26,14 +28,14 @@
 			<dependency>
 				<groupId>edu.ucdenver.ccp</groupId>
 				<artifactId>common</artifactId>
-				<version>1.5.1</version>
+				<version>1.5.6</version>
 				<type>jar</type>
 				<scope>compile</scope>
 			</dependency>
 			<dependency>
 				<groupId>edu.ucdenver.ccp</groupId>
 				<artifactId>common</artifactId>
-				<version>1.5.1</version>
+				<version>1.5.6</version>
 				<type>test-jar</type>
 				<scope>compile</scope>
 			</dependency>
@@ -42,6 +44,12 @@
 				<artifactId>junit</artifactId>
 				<version>4.8.2</version>
 				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.projectlombok</groupId>
+				<artifactId>lombok</artifactId>
+				<version>1.16.12</version>
+				<scope>provided</scope>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>

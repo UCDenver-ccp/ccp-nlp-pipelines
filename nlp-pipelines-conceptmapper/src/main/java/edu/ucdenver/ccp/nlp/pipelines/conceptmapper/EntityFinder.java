@@ -162,9 +162,8 @@ public class EntityFinder {
 			paramValuesIndex = 31;
 			dictName = DictionaryNamespace.OBO;
 		} else {
-			System.err
-					.println(ontology
-							+ " is not a valid ontology. Please use one of: SO, CHEBI, PR, CL, GO, GO_BP, GO_CC, GO_MF, NCBI_TAXON, EG or OBO");
+			System.err.println(ontology
+					+ " is not a valid ontology. Please use one of: SO, CHEBI, PR, CL, GO, GO_BP, GO_CC, GO_MF, NCBI_TAXON, EG or OBO");
 		}
 
 		SynonymType synonymType = ConceptMapperPermutationFactory.getSynonymType(paramValuesIndex);
@@ -175,8 +174,8 @@ public class EntityFinder {
 		 * the next command returns three AE descriptions 1) ConceptMapper, 2)
 		 * CCP type system conversion AE 3) token removal
 		 */
-		List<AnalysisEngineDescription> cmDesc = ConceptMapperPipelineFactory.getPipelineAeDescriptions(tsd,
-				cmdOptions, paramValuesIndex);
+		List<AnalysisEngineDescription> cmDesc = ConceptMapperPipelineFactory.getPipelineAeDescriptions(tsd, cmdOptions,
+				paramValuesIndex, null);
 		return cmDesc;
 	}
 
@@ -241,12 +240,12 @@ public class EntityFinder {
 	 *         dictionary and span class both specified
 	 * 
 	 */
-	private static ConceptMapperPipelineCmdOpts getCmdOpts(DictionaryNamespace dictNamespace, File oboDir,
-			File oboFile, boolean cleanDictFile, SynonymType synonymType) throws IOException {
+	private static ConceptMapperPipelineCmdOpts getCmdOpts(DictionaryNamespace dictNamespace, File oboDir, File oboFile,
+			boolean cleanDictFile, SynonymType synonymType) throws IOException {
 		ConceptMapperPipelineCmdOpts cmdOptions = new ConceptMapperPipelineCmdOpts();
 		logger.info("Retrieving ConceptMapper dictionary...");
-		File cmDictFile = ConceptMapperDictionaryFileFactory.createDictionaryFileFromOBO(dictNamespace, oboFile,
-				oboDir, cleanDictFile, synonymType);
+		File cmDictFile = ConceptMapperDictionaryFileFactory.createDictionaryFileFromOBO(dictNamespace, oboFile, oboDir,
+				cleanDictFile, synonymType, null, null);
 		logger.info("Dictionary retrieved.");
 		cmdOptions.setDictionaryFile(cmDictFile);
 		cmdOptions.setSpanClass(Sentence.class);
@@ -258,8 +257,8 @@ public class EntityFinder {
 		typeSystemStrs.add(TypeSystemUtil.CCP_TYPE_SYSTEM);
 		typeSystemStrs.add(SENTENCE_DETECTOR_TYPE_SYSTEM_STR);
 		typeSystemStrs.addAll(ConceptMapperPipelineFactory.CONCEPTMAPPER_TYPE_SYSTEM_STRS);
-		TypeSystemDescription tsd = TypeSystemDescriptionFactory.createTypeSystemDescription(typeSystemStrs
-				.toArray(new String[typeSystemStrs.size()]));
+		TypeSystemDescription tsd = TypeSystemDescriptionFactory
+				.createTypeSystemDescription(typeSystemStrs.toArray(new String[typeSystemStrs.size()]));
 		return tsd;
 	}
 

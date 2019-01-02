@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<analysisEngineDescription xmlns="http://uima.apache.org/resourceSpecifier">
+	<frameworkImplementation>org.apache.uima.java</frameworkImplementation>
+	<primitive>false</primitive>
+	<delegateAnalysisEngineSpecifiers>
+		<delegateAnalysisEngine
+			key="edu.ucdenver.ccp.nlp.pipelines.runner.impl.test.TestAnnotatorA">
+			<import location="ENGINE_DESCRIPTOR_PATH_1" />
+		</delegateAnalysisEngine>
+		<delegateAnalysisEngine
+			key="edu.ucdenver.ccp.nlp.pipelines.runner.impl.test.TestAnnotatorB">
+			<import location="ENGINE_DESCRIPTOR_PATH_2" />
+		</delegateAnalysisEngine>
+		<delegateAnalysisEngine
+			key="edu.ucdenver.ccp.nlp.pipelines.runner.impl.test.TestAnnotatorC">
+			<import location="ENGINE_DESCRIPTOR_PATH_3" />
+		</delegateAnalysisEngine>
+		<delegateAnalysisEngine
+			key="edu.ucdenver.ccp.nlp.pipelines.runner.impl.test.TestAnnotatorD">
+			<import location="ENGINE_DESCRIPTOR_PATH_4" />
+		</delegateAnalysisEngine>
+	</delegateAnalysisEngineSpecifiers>
+	<flowController key="AdvancedFixedFlowController">
+		<import location="FLOW_CONTROLLER_PATH" />
+	</flowController>
+	<analysisEngineMetaData />
+	<resourceManagerConfiguration />
+</analysisEngineDescription>
