@@ -54,14 +54,14 @@ import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 import org.uimafit.pipeline.SimplePipeline;
 
-import edu.ucdenver.ccp.craft.CraftConceptType;
-import edu.ucdenver.ccp.craft.CraftRelease;
 import edu.ucdenver.ccp.nlp.core.uima.annotation.CCPTextAnnotation;
 import edu.ucdenver.ccp.nlp.pipelines.evaluation.craft.CraftEvaluationPipeline;
 import edu.ucdenver.ccp.nlp.uima.annotators.comparison.AnnotationComparator_AE.MentionComparatorType;
 import edu.ucdenver.ccp.nlp.uima.annotators.comparison.AnnotationComparator_AE.SpanComparatorType;
 import edu.ucdenver.ccp.nlp.uima.annotators.filter.SlotRemovalFilter_AE;
 import edu.ucdenver.ccp.nlp.uima.annotators.filter.SlotRemovalFilter_AE.SlotRemovalOption;
+import edu.ucdenver.ccp.nlp.uima.collections.craft.CraftConceptType;
+import edu.ucdenver.ccp.nlp.uima.collections.craft.CraftRelease;
 import edu.ucdenver.ccp.nlp.uima.test.DefaultUIMATestCase;
 import edu.ucdenver.ccp.nlp.uima.util.TypeSystemUtil;
 import edu.ucdenver.ccp.nlp.uima.util.UIMA_Util;
@@ -185,17 +185,6 @@ public class GenericAnnotationTest extends DefaultUIMATestCase {
 			spanComparatorType,  EnumSet<CraftConceptType> conceptTypesToLoad,
 			String inputDir, File outputFile, int cutoff) throws UIMAException, IOException {
 		
-		Collection<String> annotationTypeRegexes = new ArrayList<String>();
-		
-		/*
-		 * Collect regular expressions used to identify concepts for the specified
-		 * CraftConceptTypes. For example, CHEBI:\\d+ is used to identify terms from the CHEBI
-		 * ontology
-		 */
-		for (CraftConceptType conceptType : conceptTypesToLoad) {
-			annotationTypeRegexes.addAll(conceptType.conceptTypeRegexes());
-		}
-		
 		// Adding annotations from the directory
 		AnalysisEngineDescription genericAnnotations = null;
 		if(cutoff == -1) {
@@ -205,7 +194,7 @@ public class GenericAnnotationTest extends DefaultUIMATestCase {
 		}
 		
 		CraftEvaluationPipeline evalPipeline = new CraftEvaluationPipeline(CRAFT_VERSION, conceptTypesToLoad, tsd,
-				spanComparatorType, MentionComparatorType.IDENTICAL, annotationTypeRegexes);
+				spanComparatorType, MentionComparatorType.IDENTICAL);
 		
 		evalPipeline.addPipelineComponent(genericAnnotations);
 		if (outputFile != null) {

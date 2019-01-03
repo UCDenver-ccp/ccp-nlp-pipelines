@@ -37,7 +37,6 @@ package edu.ucdenver.ccp.nlp.pipelines.evaluation;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import org.apache.uima.UIMAException;
@@ -60,7 +59,8 @@ import edu.ucdenver.ccp.nlp.uima.annotators.filter.SlotRemovalFilter_AE.SlotRemo
 /**
  * Generic class representing a simple NLP component evaluation pipeline.
  * 
- * @author Colorado Computational Pharmacology, UC Denver; ccpsupport@ucdenver.edu
+ * @author Colorado Computational Pharmacology, UC Denver;
+ *         ccpsupport@ucdenver.edu
  * 
  */
 public class EvaluationPipeline {
@@ -68,7 +68,8 @@ public class EvaluationPipeline {
 	/**
 	 * Allows specific handling of slot mentions during annotation comparison
 	 * 
-	 * @author Colorado Computational Pharmacology, UC Denver; ccpsupport@ucdenver.edu
+	 * @author Colorado Computational Pharmacology, UC Denver;
+	 *         ccpsupport@ucdenver.edu
 	 * 
 	 */
 	public enum SlotHandling {
@@ -87,7 +88,6 @@ public class EvaluationPipeline {
 	private final CollectionReader collectionReader;
 	private final TypeSystemDescription tsd;
 	private final List<AnalysisEngineDescription> goldStandardAnnotationLoaderDescriptions;
-	private final Collection<String> annotationTypeRegexes;
 
 	private List<AnalysisEngineDescription> pipelineToEvaluate;
 	private File evalResultsOutputFile = null;
@@ -99,22 +99,21 @@ public class EvaluationPipeline {
 	 * @throws ResourceInitializationException
 	 */
 	public EvaluationPipeline(TypeSystemDescription tsd, CollectionReader collectionReader,
-			SpanComparatorType spanComparatorType, MentionComparatorType mentionComparatorType,
-			Collection<String> annotationTypeRegexes) throws ResourceInitializationException {
+			SpanComparatorType spanComparatorType, MentionComparatorType mentionComparatorType)
+			throws ResourceInitializationException {
 		this(tsd, collectionReader, new ArrayList<AnalysisEngineDescription>(), spanComparatorType,
-				mentionComparatorType, annotationTypeRegexes);
+				mentionComparatorType);
 	}
 
 	public EvaluationPipeline(TypeSystemDescription tsd, CollectionReader collectionReader,
 			List<AnalysisEngineDescription> goldStandardAnnotationLoaderDescriptions,
-			SpanComparatorType spanComparatorType, MentionComparatorType mentionComparatorType,
-			Collection<String> annotationTypeRegexes) throws ResourceInitializationException {
+			SpanComparatorType spanComparatorType, MentionComparatorType mentionComparatorType)
+			throws ResourceInitializationException {
 		this.collectionReader = collectionReader;
 		this.spanComparatorType = spanComparatorType;
 		this.mentionComparatorType = mentionComparatorType;
 		this.tsd = tsd;
 		this.goldStandardAnnotationLoaderDescriptions = goldStandardAnnotationLoaderDescriptions;
-		this.annotationTypeRegexes = annotationTypeRegexes;
 		pipelineToEvaluate = new ArrayList<AnalysisEngineDescription>();
 	}
 
@@ -143,14 +142,16 @@ public class EvaluationPipeline {
 	}
 
 	/**
-	 * Adds components that apply the proper annotation set IDs and annotator IDs, as well as the
-	 * component that will do the actual comparison
+	 * Adds components that apply the proper annotation set IDs and annotator
+	 * IDs, as well as the component that will do the actual comparison
 	 * 
 	 * @param slotRemovalOption
-	 *            allows specific handling of slot mentions prior to annotation comparison, valid
-	 *            options are {@link SlotRemovalOption#REMOVE_ALL},
+	 *            allows specific handling of slot mentions prior to annotation
+	 *            comparison, valid options are
+	 *            {@link SlotRemovalOption#REMOVE_ALL},
 	 *            {@link SlotRemovalOption#REMOVE_PRIMITIVE},
-	 *            {@link SlotRemovalOption#REMOVE_COMPLEX}, or null to leave the slots as they are.
+	 *            {@link SlotRemovalOption#REMOVE_COMPLEX}, or null to leave the
+	 *            slots as they are.
 	 * @throws UIMAException
 	 * @throws IOException
 	 */
@@ -184,7 +185,8 @@ public class EvaluationPipeline {
 	 * Set up for strict comparison currently.
 	 * 
 	 * @param slotRemovalOption
-	 *            allows specific handling of slot mentions prior to annotation comparison
+	 *            allows specific handling of slot mentions prior to annotation
+	 *            comparison
 	 * 
 	 * @return
 	 * @throws ResourceInitializationException
@@ -204,10 +206,9 @@ public class EvaluationPipeline {
 				AnnotatorOverrider_AE.GOLD_ANNOTATOR_ID, AnnotationSetOverrider_AE.GOLD_ANNOTATION_SET_ID);
 		AnnotationGroup evalGroup = new AnnotationGroup(AnnotationSetOverrider_AE.EVAL_ANNOTATION_SET_ID,
 				AnnotatorOverrider_AE.EVAL_ANNOTATOR_ID, AnnotationSetOverrider_AE.EVAL_ANNOTATION_SET_ID);
-		for (String annotationTypeRegex : annotationTypeRegexes) {
-			goldGroup.addAnnotationTypeRegex(annotationTypeRegex);
-			evalGroup.addAnnotationTypeRegex(annotationTypeRegex);
-		}
+
+		goldGroup.addAnnotationTypeRegex(".*");
+		evalGroup.addAnnotationTypeRegex(".*");
 
 		AnalysisEngineDescription annotationComparatorDescription = SimpleAnnotationComparator_AE
 				.createAnalysisEngineDescription(tsd, spanComparatorType, mentionComparatorType, evalResultsOutputFile,

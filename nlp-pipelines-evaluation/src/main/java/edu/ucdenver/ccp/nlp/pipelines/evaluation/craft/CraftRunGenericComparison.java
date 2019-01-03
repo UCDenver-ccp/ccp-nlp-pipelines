@@ -37,7 +37,6 @@ package edu.ucdenver.ccp.nlp.pipelines.evaluation.craft;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.EnumSet;
 import java.util.List;
 
@@ -50,15 +49,15 @@ import org.apache.uima.resource.metadata.TypeSystemDescription;
 
 import edu.ucdenver.ccp.common.file.FileArchiveUtil;
 import edu.ucdenver.ccp.common.io.ClassPathUtil;
-import edu.ucdenver.ccp.craft.CraftConceptType;
-import edu.ucdenver.ccp.craft.CraftOntology;
-import edu.ucdenver.ccp.craft.CraftRelease;
 import edu.ucdenver.ccp.nlp.pipelines.evaluation.GenericAnnotationLoader;
 import edu.ucdenver.ccp.nlp.uima.annotators.comparison.AnnotationComparator_AE.MentionComparatorType;
 import edu.ucdenver.ccp.nlp.uima.annotators.comparison.AnnotationComparator_AE.SpanComparatorType;
 import edu.ucdenver.ccp.nlp.uima.annotators.filter.OntologyClassRemovalFilter_AE;
 import edu.ucdenver.ccp.nlp.uima.annotators.filter.SlotRemovalFilter_AE;
 import edu.ucdenver.ccp.nlp.uima.annotators.filter.SlotRemovalFilter_AE.SlotRemovalOption;
+import edu.ucdenver.ccp.nlp.uima.collections.craft.CraftConceptType;
+import edu.ucdenver.ccp.nlp.uima.collections.craft.CraftOntology;
+import edu.ucdenver.ccp.nlp.uima.collections.craft.CraftRelease;
 import edu.ucdenver.ccp.nlp.uima.shims.annotation.impl.CcpAnnotationDataExtractor;
 import edu.ucdenver.ccp.nlp.uima.util.TypeSystemUtil;
 
@@ -91,17 +90,6 @@ public class CraftRunGenericComparison {
 			SpanComparatorType spanComparatorType, EnumSet<CraftConceptType> conceptTypesToLoad, String inputDir,
 			File outputFile, int cutoff) throws UIMAException, IOException {
 
-		Collection<String> annotationTypeRegexes = new ArrayList<String>();
-
-		/*
-		 * Collect regular expressions used to identify concepts for the
-		 * specified CraftConceptTypes. For example, CHEBI:\\d+ is used to
-		 * identify terms from the CHEBI ontology
-		 */
-		for (CraftConceptType conceptType : conceptTypesToLoad) {
-			annotationTypeRegexes.addAll(conceptType.conceptTypeRegexes());
-		}
-
 		// Adding annotations from the directory
 		AnalysisEngineDescription genericAnnotations = null;
 		if (cutoff == -1) {
@@ -111,7 +99,7 @@ public class CraftRunGenericComparison {
 		}
 
 		CraftEvaluationPipeline evalPipeline = new CraftEvaluationPipeline(CRAFT_VERSION, conceptTypesToLoad, tsd,
-				spanComparatorType, MentionComparatorType.IDENTICAL, annotationTypeRegexes);
+				spanComparatorType, MentionComparatorType.IDENTICAL);
 
 		evalPipeline.addPipelineComponent(genericAnnotations);
 		if (outputFile != null) {
@@ -141,17 +129,6 @@ public class CraftRunGenericComparison {
 			SpanComparatorType spanComparatorType, EnumSet<CraftConceptType> conceptTypesToLoad, String inputDir,
 			File outputFile, int cutoff, GoAnnotationFilterOp filter) throws UIMAException, IOException {
 
-		Collection<String> annotationTypeRegexes = new ArrayList<String>();
-
-		/*
-		 * Collect regular expressions used to identify concepts for the
-		 * specified CraftConceptTypes. For example, CHEBI:\\d+ is used to
-		 * identify terms from the CHEBI ontology
-		 */
-		for (CraftConceptType conceptType : conceptTypesToLoad) {
-			annotationTypeRegexes.addAll(conceptType.conceptTypeRegexes());
-		}
-
 		// Adding MetaMap annotations
 		// Adding annotations from the directory
 		AnalysisEngineDescription genericAnnotations = null;
@@ -162,7 +139,7 @@ public class CraftRunGenericComparison {
 		}
 
 		CraftEvaluationPipeline evalPipeline = new CraftEvaluationPipeline(CRAFT_VERSION, conceptTypesToLoad, tsd,
-				spanComparatorType, MentionComparatorType.IDENTICAL, annotationTypeRegexes);
+				spanComparatorType, MentionComparatorType.IDENTICAL);
 
 		evalPipeline.addPipelineComponent(genericAnnotations);
 		evalPipeline.addPipelineComponents(getFilterAeDescription(filter));
@@ -289,12 +266,9 @@ public class CraftRunGenericComparison {
 		} else if (ontology.equals("PR")) {
 			runMetaMapEvaluationAgainstCraft(tsd, spanComparatorType, EnumSet.of(CraftConceptType.PR),
 					inputAnnotationPath, outputResultsDir, cutoff);
-		} else if (ontology.equals("EG")) {
-			runMetaMapEvaluationAgainstCraft(tsd, spanComparatorType, EnumSet.of(CraftConceptType.EG),
-					inputAnnotationPath, outputResultsDir, cutoff);
 		} else {
 			throw new IllegalArgumentException("Ontology: " + ontology
-					+ " is not a valid input argument. It is not annotated in CRAFT, use one of GO_CC, GO_BP, GO_MF, CL, NCBITAXON, SO, CHEBI, PR, EG.");
+					+ " is not a valid input argument. It is not annotated in CRAFT, use one of GO_CC, GO_BP, GO_MF, CL, NCBITAXON, SO, CHEBI, PR.");
 		}
 
 		logger.info("Run time = " + ((System.currentTimeMillis() - time) / 1000) + "s");

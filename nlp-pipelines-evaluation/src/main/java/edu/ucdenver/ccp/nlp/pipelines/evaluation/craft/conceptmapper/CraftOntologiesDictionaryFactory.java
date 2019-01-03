@@ -47,10 +47,10 @@ import org.apache.log4j.Logger;
 import edu.ucdenver.ccp.common.file.FileArchiveUtil;
 import edu.ucdenver.ccp.common.io.ClassPathUtil;
 import edu.ucdenver.ccp.common.string.StringConstants;
-import edu.ucdenver.ccp.craft.CraftOntology;
 import edu.ucdenver.ccp.datasource.fileparsers.obo.OntologyUtil.SynonymType;
 import edu.ucdenver.ccp.nlp.pipelines.conceptmapper.ConceptMapperDictionaryFileFactory;
 import edu.ucdenver.ccp.nlp.pipelines.conceptmapper.ConceptMapperDictionaryFileFactory.DictionaryNamespace;
+import edu.ucdenver.ccp.nlp.uima.collections.craft.CraftOntology;
 import edu.ucdenver.ccp.nlp.wrapper.conceptmapper.dictionary.obo.DictionaryEntryModifier;
 
 /**
@@ -82,10 +82,7 @@ public class CraftOntologiesDictionaryFactory {
 			put(DictionaryNamespace.PR, CraftOntology.PR.oboFilePath());
 			put(DictionaryNamespace.SO, CraftOntology.SO.oboFilePath());
 			put(DictionaryNamespace.UBERON, CraftOntology.UBERON.oboFilePath());
-			put(DictionaryNamespace.UBERON_EXT, CraftOntology.UBERON_EXT.oboFilePath());
 			put(DictionaryNamespace.MOP, CraftOntology.MOP.oboFilePath());
-			put(DictionaryNamespace.MOP_EXT, CraftOntology.MOP_EXT.oboFilePath());
-
 		}
 	};
 

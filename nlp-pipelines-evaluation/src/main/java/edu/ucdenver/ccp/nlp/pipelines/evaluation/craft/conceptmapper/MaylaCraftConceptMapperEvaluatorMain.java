@@ -36,9 +36,7 @@ package edu.ucdenver.ccp.nlp.pipelines.evaluation.craft.conceptmapper;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.EnumSet;
-import java.util.List;
 
 import org.apache.commons.io.output.ByteArrayOutputStream;
 import org.apache.log4j.Logger;
@@ -49,12 +47,12 @@ import org.kohsuke.args4j.CmdLineParser;
 import org.kohsuke.args4j.Option;
 
 import edu.ucdenver.ccp.common.file.FileUtil;
-import edu.ucdenver.ccp.craft.CraftConceptType;
 import edu.ucdenver.ccp.nlp.pipelines.conceptmapper.ConceptMapperDictionaryFileFactory.DictionaryNamespace;
 import edu.ucdenver.ccp.nlp.pipelines.conceptmapper.dictmod.CHEBIDictionaryEntryModifier;
 import edu.ucdenver.ccp.nlp.pipelines.conceptmapper.dictmod.FunkGoMFDictionaryEntryModifier;
 import edu.ucdenver.ccp.nlp.pipelines.conceptmapper.dictmod.PRDictionaryEntryModifier;
 import edu.ucdenver.ccp.nlp.pipelines.conceptmapper.postprocess.MaylaPostProcessingComponent;
+import edu.ucdenver.ccp.nlp.uima.collections.craft.CraftConceptType;
 import edu.ucdenver.ccp.nlp.wrapper.conceptmapper.dictionary.obo.DictionaryEntryModifier;
 
 public class MaylaCraftConceptMapperEvaluatorMain {

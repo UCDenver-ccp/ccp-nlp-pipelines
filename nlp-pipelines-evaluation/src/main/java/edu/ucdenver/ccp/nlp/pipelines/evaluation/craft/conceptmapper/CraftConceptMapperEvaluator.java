@@ -56,8 +56,6 @@ import edu.ucdenver.ccp.common.file.FileUtil.CleanDirectory;
 import edu.ucdenver.ccp.common.file.FileWriterUtil;
 import edu.ucdenver.ccp.common.file.FileWriterUtil.FileSuffixEnforcement;
 import edu.ucdenver.ccp.common.file.FileWriterUtil.WriteMode;
-import edu.ucdenver.ccp.craft.CraftConceptType;
-import edu.ucdenver.ccp.craft.CraftRelease;
 import edu.ucdenver.ccp.datasource.fileparsers.obo.OntologyUtil.SynonymType;
 import edu.ucdenver.ccp.nlp.pipelines.conceptmapper.ConceptMapperDictionaryFileFactory.DictionaryNamespace;
 import edu.ucdenver.ccp.nlp.pipelines.conceptmapper.ConceptMapperPipelineCmdOpts;
@@ -70,6 +68,8 @@ import edu.ucdenver.ccp.nlp.uima.annotators.converter.OboNamespaceRemover_AE;
 import edu.ucdenver.ccp.nlp.uima.annotators.filter.SlotRemovalFilter_AE.SlotRemovalOption;
 import edu.ucdenver.ccp.nlp.uima.annotators.sentence_detection.ExplicitSentenceCasInserter;
 import edu.ucdenver.ccp.nlp.uima.annotators.sentence_detection.OpenNlpSentenceDetectorAE;
+import edu.ucdenver.ccp.nlp.uima.collections.craft.CraftConceptType;
+import edu.ucdenver.ccp.nlp.uima.collections.craft.CraftRelease;
 import edu.ucdenver.ccp.nlp.uima.util.TypeSystemUtil;
 import edu.ucdenver.ccp.nlp.wrapper.conceptmapper.ConceptMapperPermutationFactory;
 import edu.ucdenver.ccp.nlp.wrapper.conceptmapper.dictionary.obo.DictionaryEntryModifier;
@@ -174,21 +174,9 @@ public class CraftConceptMapperEvaluator {
 	private static void runConceptMapperEvaluationAgainstCraft(Set<CraftConceptType> craftConceptTypes,
 			List<AnalysisEngineDescription> conceptMapperDescriptions, TypeSystemDescription tsd, File evalResultsFile)
 			throws UIMAException, IOException {
-		Collection<String> annotationTypeRegexes = new ArrayList<String>();
-		/*
-		 * Include all CRAFT types so that all concepts from ontologies with
-		 * mixed types, e.g. MOP contains MOP and CHEBI, are evaluated. Collect
-		 * regular expressions used to identify concepts for the specified
-		 * CraftConceptTypes. For example, CHEBI:\\d+ is used to identify terms
-		 * from the CHEBI ontology
-		 */
-		// for (CraftConceptType conceptType : CraftConceptType.values()) {
-		// annotationTypeRegexes.addAll(conceptType.conceptTypeRegexes());
-		// }
-		// annotationTypeRegexes.add("[A-Za-z]+:\\d+");
-		annotationTypeRegexes.add(".*");
+		
 		CraftEvaluationPipeline evalPipeline = new CraftEvaluationPipeline(CRAFT_VERSION, craftConceptTypes, tsd,
-				SpanComparatorType.STRICT, MentionComparatorType.IDENTICAL, annotationTypeRegexes);
+				SpanComparatorType.STRICT, MentionComparatorType.IDENTICAL);
 
 		if (evalResultsFile != null) {
 			evalPipeline.setEvalResultsOutputFile(evalResultsFile);

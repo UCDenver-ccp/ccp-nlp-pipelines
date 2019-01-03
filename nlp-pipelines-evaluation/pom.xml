@@ -52,8 +52,8 @@
 		</dependency>
 		<dependency>
 			<groupId>edu.ucdenver.ccp</groupId>
-			<artifactId>craft-collection-reader-ccp</artifactId>
-			<version>1.0.3-SS-MOP_UBERON</version>
+			<artifactId>ccp-nlp-uima-collections-craft</artifactId>
+			<version>${ver.ccp.nlp}</version>
 		</dependency>
 		<dependency>
 			<groupId>jfree</groupId>

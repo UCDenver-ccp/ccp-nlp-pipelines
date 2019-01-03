@@ -43,12 +43,12 @@ import org.apache.uima.resource.ResourceInitializationException;
 import org.apache.uima.resource.metadata.TypeSystemDescription;
 import org.uimafit.factory.CollectionReaderFactory;
 
-import edu.ucdenver.ccp.craft.CraftConceptType;
-import edu.ucdenver.ccp.craft.CraftRelease;
-import edu.ucdenver.ccp.craft.uima.cr.CcpCraftCollectionReader;
 import edu.ucdenver.ccp.nlp.pipelines.evaluation.EvaluationPipeline;
 import edu.ucdenver.ccp.nlp.uima.annotators.comparison.AnnotationComparator_AE.MentionComparatorType;
 import edu.ucdenver.ccp.nlp.uima.annotators.comparison.AnnotationComparator_AE.SpanComparatorType;
+import edu.ucdenver.ccp.nlp.uima.collections.craft.CcpCraftCollectionReader;
+import edu.ucdenver.ccp.nlp.uima.collections.craft.CraftConceptType;
+import edu.ucdenver.ccp.nlp.uima.collections.craft.CraftRelease;
 
 /**
  * @author Colorado Computational Pharmacology, UC Denver; ccpsupport@ucdenver.edu
@@ -67,10 +67,10 @@ public class CraftEvaluationPipeline extends EvaluationPipeline {
 	 */
 	public CraftEvaluationPipeline(CraftRelease craftRelease, Set<CraftConceptType> conceptTypesToLoad,
 			TypeSystemDescription tsd, SpanComparatorType spanComparatorType,
-			MentionComparatorType mentionComparatorType, Collection<String> annotationTypeRegexes)
+			MentionComparatorType mentionComparatorType)
 			throws ResourceInitializationException {
 		super(tsd, getCraftCollectionReader(craftRelease, conceptTypesToLoad), spanComparatorType,
-				mentionComparatorType, annotationTypeRegexes);
+				mentionComparatorType);
 	}
 
 	/**
