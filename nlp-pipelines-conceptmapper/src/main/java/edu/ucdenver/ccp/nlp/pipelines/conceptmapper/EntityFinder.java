@@ -156,6 +156,12 @@ public class EntityFinder {
 		} else if (ontology.equals("CHEBI")) {
 			paramValuesIndex = 13;
 			dictName = DictionaryNamespace.CHEBI;
+		} else if (ontology.equals("DOID")) {
+			paramValuesIndex = 31;
+			dictName = DictionaryNamespace.DOID;
+		} else if (ontology.equals("HP")) {
+			paramValuesIndex = 31;
+			dictName = DictionaryNamespace.HP;
 		} else if (ontology.equals("OBO")) { // Using for any ontology, so using
 												// best ConceptMapper parameters
 												// for unknown ontology
