@@ -104,8 +104,8 @@ public class MaylaPostProcessingComponent extends JCasAnnotator_ImplBase {
 			WrappedCCPTextAnnotation wrappedTa = new WrappedCCPTextAnnotation(annot);
 			int start = wrappedTa.getAggregateSpan().getSpanStart();
 			int end = wrappedTa.getAggregateSpan().getSpanEnd();
-			Integer annotatorID = wrappedTa.getAnnotator().getAnnotatorID();
-			if (annotatorID != 99099099) { // 99099099 - gold standard
+			String annotatorID = wrappedTa.getAnnotator().getAnnotatorID();
+			if (!annotatorID.equals("99099099")) { // 99099099 - gold standard
 				String type = "http://purl.obolibrary.org/obo/"
 						+ annot.getClassMention().getMentionName().replaceAll(":", "_");
 				// label from the ontology_dict file - only element in list

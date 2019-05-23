@@ -83,7 +83,7 @@ public class AnnotationSerializerImpl implements AnnotationSerializer {
 			}
 		}
 
-		String annotatorName = annot.getAnnotator().getFirstName();
+		String annotatorName = annot.getAnnotator().getName();
 		if (includeAnnotator == IncludeAnnotator.NO) {
 			annotatorName = null;
 		}
@@ -145,7 +145,7 @@ public class AnnotationSerializerImpl implements AnnotationSerializer {
 			ta.setCoveredText(annot.getCoveredText());
 		}
 		if (annot.getAnnotatorName() != null) {
-			ta.setAnnotator(new Annotator(-1, annot.getAnnotatorName(), "", ""));
+			ta.setAnnotator(new Annotator(null, annot.getAnnotatorName(), ""));
 		}
 		ClassMention cm = new DefaultClassMention(annot.getType());
 		ta.setClassMention(cm);

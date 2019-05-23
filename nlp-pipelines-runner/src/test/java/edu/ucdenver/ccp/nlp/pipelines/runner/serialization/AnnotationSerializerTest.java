@@ -19,7 +19,7 @@ public class AnnotationSerializerTest {
 	@Test
 	public void testRoundtripSerialization() {
 		String documentText = "This is some document text.";
-		TextAnnotation ta = new DefaultTextAnnotation(3, 5, "an", new Annotator(-1, "annotatorName", "", ""), null, -1,
+		TextAnnotation ta = new DefaultTextAnnotation(3, 5, "an", new Annotator(null, "annotatorName", ""), null, "-1",
 				-1, "12345", -1, new DefaultClassMention("token"));
 
 		List<String> serializedAnnot = new AnnotationSerializerImpl(IncludeCoveredText.YES, IncludeAnnotator.YES,

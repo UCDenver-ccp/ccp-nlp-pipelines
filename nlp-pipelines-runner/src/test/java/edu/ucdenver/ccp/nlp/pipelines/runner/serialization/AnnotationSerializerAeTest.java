@@ -55,7 +55,7 @@ public class AnnotationSerializerAeTest extends DefaultUIMATestCase {
 
 		/* add annotation to cas */
 		CCPTextAnnotation annot = UIMA_Annotation_Util.createCCPTextAnnotation("token", 0, 4, jcas);
-		Annotator annotator = new Annotator(-1, "annotator name", "", "");
+		Annotator annotator = new Annotator(null, "annotator name", "");
 		UIMA_Annotation_Util.setAnnotator(annot, annotator, jcas);
 		annot.addToIndexes();
 
