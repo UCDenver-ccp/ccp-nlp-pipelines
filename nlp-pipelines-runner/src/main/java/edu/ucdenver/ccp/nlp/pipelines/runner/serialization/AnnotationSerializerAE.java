@@ -26,6 +26,7 @@ import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.ISODateTimeFormat;
 import org.uimafit.util.JCasUtil;
 
+import edu.ucdenver.ccp.common.file.CharacterEncoding;
 import edu.ucdenver.ccp.common.file.FileUtil;
 import edu.ucdenver.ccp.common.file.FileWriterUtil;
 import edu.ucdenver.ccp.common.reflection.ConstructorUtil;
@@ -119,7 +120,7 @@ public class AnnotationSerializerAE extends JCasAnnotator_ImplBase {
 			try {
 				writer = (compressOutput)
 						? new BufferedWriter(
-								new OutputStreamWriter(new GZIPOutputStream(new FileOutputStream(outputFile))))
+								new OutputStreamWriter(new GZIPOutputStream(new FileOutputStream(outputFile)),  CharacterEncoding.UTF_8.getCharacterSetName()))
 						: FileWriterUtil.initBufferedWriter(outputFile);
 			} catch (IOException e) {
 				throw new ResourceInitializationException(e);
@@ -201,7 +202,7 @@ public class AnnotationSerializerAE extends JCasAnnotator_ImplBase {
 				localWriter = true;
 				writer = (compressOutput)
 						? new BufferedWriter(
-								new OutputStreamWriter(new GZIPOutputStream(new FileOutputStream(outputFile))))
+								new OutputStreamWriter(new GZIPOutputStream(new FileOutputStream(outputFile)), CharacterEncoding.UTF_8.getCharacterSetName()))
 						: FileWriterUtil.initBufferedWriter(outputFile);
 			}
 
