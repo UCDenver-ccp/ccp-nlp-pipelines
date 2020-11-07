@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>edu.ucdenver.ccp</groupId>
 		<artifactId>nlp-pipelines</artifactId>
-		<version>0.5.4-SNAPSHOT</version>
+		<version>0.5.4</version>
 	</parent>
 	<artifactId>nlp-pipelines-runner</artifactId>
 	<description>This module contains UIMA AS deployment descriptions for various NLP pipelines</description>
