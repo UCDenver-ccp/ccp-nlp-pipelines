@@ -73,6 +73,7 @@ import edu.ucdenver.ccp.nlp.uima.collections.craft.CraftRelease;
 import edu.ucdenver.ccp.nlp.uima.util.TypeSystemUtil;
 import edu.ucdenver.ccp.nlp.wrapper.conceptmapper.ConceptMapperPermutationFactory;
 import edu.ucdenver.ccp.nlp.wrapper.conceptmapper.dictionary.obo.DictionaryEntryModifier;
+import edu.ucdenver.ccp.nlp.wrapper.conceptmapper.dictionary.obo.OboToDictionary.IncludeExt;
 
 /**
  * Evaluates the Concept Mapper using dictionaries built from the original OBO
@@ -102,10 +103,10 @@ public class CraftConceptMapperEvaluator {
 	public static void evaluateCmPipelineAgainstCraft(DictionaryNamespace dictNamespace,
 			Set<CraftConceptType> craftConceptTypes, File dictionaryDirectory, File evalResultsFile,
 			int paramValuesIndex, boolean cleanDictFile, AnalysisEngineDescription postProcessingComponentDescription,
-			DictionaryEntryModifier dictEntryModifier) throws IOException {
+			DictionaryEntryModifier dictEntryModifier, IncludeExt includeExt) throws IOException {
 		SynonymType synonymType = ConceptMapperPermutationFactory.getSynonymType(paramValuesIndex);
 		ConceptMapperPipelineCmdOpts cmdOptions = getCmdOpts(dictNamespace, dictionaryDirectory, cleanDictFile,
-				synonymType, Integer.toString(paramValuesIndex), dictEntryModifier);
+				synonymType, Integer.toString(paramValuesIndex), dictEntryModifier, includeExt);
 		TypeSystemDescription tsd = createConceptMapperTypeSystem();
 		try {
 			// List<AnalysisEngineDescription> cmPipelineDescs =
@@ -115,7 +116,7 @@ public class CraftConceptMapperEvaluator {
 			// CleanDirectory.NO, paramValuesIndex);
 			List<AnalysisEngineDescription> cmPipelineDescs = ConceptMapperPipelineFactory.getPipelineAeDescriptions(
 					tsd, cmdOptions, DictionaryParameterOperation.USE, dictNamespace, CleanDirectory.NO,
-					paramValuesIndex, dictEntryModifier, postProcessingComponentDescription);
+					paramValuesIndex, dictEntryModifier, postProcessingComponentDescription, includeExt);
 			runConceptMapperEvaluationAgainstCraft(craftConceptTypes, cmPipelineDescs, tsd, evalResultsFile);
 			appendParameterValuesToEvalResultsFile(paramValuesIndex, evalResultsFile);
 		} catch (IOException e) {
@@ -147,16 +148,17 @@ public class CraftConceptMapperEvaluator {
 	 * @param synonymType
 	 * @param dictId
 	 * @param dictEntryModifier
+	 * @param includeExt 
 	 * @return a {@link ConceptMapperPipelineCmdOpts} with the Concept Mapper
 	 *         dictionary and span class both specified
 	 * 
 	 */
 	private static ConceptMapperPipelineCmdOpts getCmdOpts(DictionaryNamespace dictNamespace, File dictionaryDirectory,
-			boolean cleanDictFile, SynonymType synonymType, String dictId, DictionaryEntryModifier dictEntryModifier)
+			boolean cleanDictFile, SynonymType synonymType, String dictId, DictionaryEntryModifier dictEntryModifier, IncludeExt includeExt)
 			throws IOException {
 		ConceptMapperPipelineCmdOpts cmdOptions = new ConceptMapperPipelineCmdOpts();
 		File cmDictFile = CraftOntologiesDictionaryFactory.createDictionaryFile(dictNamespace, dictionaryDirectory,
-				cleanDictFile, synonymType, dictId, dictEntryModifier);
+				cleanDictFile, synonymType, dictId, dictEntryModifier, includeExt);
 		cmdOptions.setDictionaryFile(cmDictFile);
 		cmdOptions.setSpanClass(ExplicitSentenceCasInserter.SENTENCE_ANNOTATION_CLASS);
 		return cmdOptions;

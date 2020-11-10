@@ -56,6 +56,7 @@ import edu.ucdenver.ccp.nlp.wrapper.conceptmapper.dictionary.obo.GoDictionaryFac
 import edu.ucdenver.ccp.nlp.wrapper.conceptmapper.dictionary.obo.GoDictionaryFactory.GoNamespace;
 import edu.ucdenver.ccp.nlp.wrapper.conceptmapper.dictionary.obo.GoDictionaryFactory.IncludeFunkSynonyms;
 import edu.ucdenver.ccp.nlp.wrapper.conceptmapper.dictionary.obo.OboToDictionary;
+import edu.ucdenver.ccp.nlp.wrapper.conceptmapper.dictionary.obo.OboToDictionary.IncludeExt;
 
 /**
  * Always creates a new dictionary file by downloading a new data file
@@ -69,18 +70,20 @@ public class ConceptMapperDictionaryFileFactory {
 	private static final Logger logger = Logger.getLogger(ConceptMapperPipelineFactory.class);
 
 	public enum DictionaryNamespace {
-		GO, GO_CC, GO_MF, GO_BP, FUNK_GO, FUNK_GO_CC, FUNK_GO_MF, FUNK_GO_BP, CL, CHEBI, MOP, MOP_EXT, NCBI_TAXON, PR, SO, EG, OBO, DOID, UBERON, UBERON_EXT, MI, SUPPLEMENTARY_CHEMICALS, HP
+		GO, GO_CC, GO_MF, GO_BP, FUNK_GO, FUNK_GO_CC, FUNK_GO_MF, FUNK_GO_BP, CL, CHEBI, MOP, MOP_EXT, NCBI_TAXON, PR,
+		SO, EG, OBO, DOID, UBERON, UBERON_EXT, MI, SUPPLEMENTARY_CHEMICALS, HP
 	}
 
 	/**
 	 * @param dictNamespace
 	 * @param outputDirectory
 	 * @param outputDirectoryOp
-	 * @param dictEntryModifier 
+	 * @param dictEntryModifier
 	 * @return a reference to a newly created Concept Mapper dictionary file
 	 */
 	public static File createDictionaryFile(DictionaryNamespace dictNamespace, File outputDirectory,
-			CleanDirectory outputDirectoryOp, SynonymType synonymType, DictionaryEntryModifier dictEntryModifier) {
+			CleanDirectory outputDirectoryOp, SynonymType synonymType, DictionaryEntryModifier dictEntryModifier,
+			IncludeExt includeExt) {
 		try {
 			// if we are downloading new source files, then we want to create a
 			// new dictionary file
@@ -90,39 +93,43 @@ public class ConceptMapperDictionaryFileFactory {
 			case GO:
 				return GoDictionaryFactory.buildConceptMapperDictionary(
 						EnumSet.of(GoNamespace.CC, GoNamespace.BP, GoNamespace.MF), outputDirectory, outputDirectoryOp,
-						synonymType, IncludeFunkSynonyms.NO, dictEntryModifier);
+						synonymType, IncludeFunkSynonyms.NO, dictEntryModifier, includeExt);
 			case GO_CC:
 				return GoDictionaryFactory.buildConceptMapperDictionary(EnumSet.of(GoNamespace.CC), outputDirectory,
-						outputDirectoryOp, synonymType, IncludeFunkSynonyms.NO, dictEntryModifier);
+						outputDirectoryOp, synonymType, IncludeFunkSynonyms.NO, dictEntryModifier, includeExt);
 			case GO_BP:
 				return GoDictionaryFactory.buildConceptMapperDictionary(EnumSet.of(GoNamespace.BP), outputDirectory,
-						outputDirectoryOp, synonymType, IncludeFunkSynonyms.NO, dictEntryModifier);
+						outputDirectoryOp, synonymType, IncludeFunkSynonyms.NO, dictEntryModifier, includeExt);
 			case GO_MF:
 				return GoDictionaryFactory.buildConceptMapperDictionary(EnumSet.of(GoNamespace.MF), outputDirectory,
-						outputDirectoryOp, synonymType, IncludeFunkSynonyms.NO, dictEntryModifier);
+						outputDirectoryOp, synonymType, IncludeFunkSynonyms.NO, dictEntryModifier, includeExt);
 			case FUNK_GO:
 				return GoDictionaryFactory.buildConceptMapperDictionary(
 						EnumSet.of(GoNamespace.CC, GoNamespace.BP, GoNamespace.MF), outputDirectory, outputDirectoryOp,
-						synonymType, IncludeFunkSynonyms.YES, dictEntryModifier);
+						synonymType, IncludeFunkSynonyms.YES, dictEntryModifier, includeExt);
 			case FUNK_GO_CC:
 				return GoDictionaryFactory.buildConceptMapperDictionary(EnumSet.of(GoNamespace.CC), outputDirectory,
-						outputDirectoryOp, synonymType, IncludeFunkSynonyms.YES, dictEntryModifier);
+						outputDirectoryOp, synonymType, IncludeFunkSynonyms.YES, dictEntryModifier, includeExt);
 			case FUNK_GO_BP:
 				return GoDictionaryFactory.buildConceptMapperDictionary(EnumSet.of(GoNamespace.BP), outputDirectory,
-						outputDirectoryOp, synonymType, IncludeFunkSynonyms.YES, dictEntryModifier);
+						outputDirectoryOp, synonymType, IncludeFunkSynonyms.YES, dictEntryModifier, includeExt);
 			case FUNK_GO_MF:
 				return GoDictionaryFactory.buildConceptMapperDictionary(EnumSet.of(GoNamespace.MF), outputDirectory,
-						outputDirectoryOp, synonymType, IncludeFunkSynonyms.YES, dictEntryModifier);
+						outputDirectoryOp, synonymType, IncludeFunkSynonyms.YES, dictEntryModifier, includeExt);
 			case CHEBI:
-				return buildChebiDictionary(outputDirectory, cleanDictFile, synonymType, dictEntryModifier);
+				return buildChebiDictionary(outputDirectory, cleanDictFile, synonymType, dictEntryModifier, includeExt);
 			case CL:
-				return buildCellTypeDictionary(outputDirectory, cleanDictFile, synonymType, dictEntryModifier);
+				return buildCellTypeDictionary(outputDirectory, cleanDictFile, synonymType, dictEntryModifier,
+						includeExt);
 			case NCBI_TAXON:
-				return buildNcbiTaxonDictionary(outputDirectory, cleanDictFile, synonymType, dictEntryModifier);
+				return buildNcbiTaxonDictionary(outputDirectory, cleanDictFile, synonymType, dictEntryModifier,
+						includeExt);
 			case PR:
-				return buildProteinOntologyDictionary(outputDirectory, cleanDictFile, synonymType, dictEntryModifier);
+				return buildProteinOntologyDictionary(outputDirectory, cleanDictFile, synonymType, dictEntryModifier,
+						includeExt);
 			case SO:
-				return buildSequenceOntologyDictionary(outputDirectory, cleanDictFile, synonymType, dictEntryModifier);
+				return buildSequenceOntologyDictionary(outputDirectory, cleanDictFile, synonymType, dictEntryModifier,
+						includeExt);
 			case EG:
 				return NcbiGeneDictionaryFactory.buildModelOrganismConceptMapperDictionary(outputDirectory,
 						outputDirectoryOp);
@@ -141,74 +148,87 @@ public class ConceptMapperDictionaryFileFactory {
 	 * @param dictNamespace
 	 * @param inputFile
 	 * @param outputDirectory
-	 * @param cleanDictFile
-	 *            if true, an already existing dictionary file is overwritten.
-	 *            If false, then the pre-existing dictionary file is used and
-	 *            the dictionary building step is therefore skipped
+	 * @param cleanDictFile     if true, an already existing dictionary file is
+	 *                          overwritten. If false, then the pre-existing
+	 *                          dictionary file is used and the dictionary building
+	 *                          step is therefore skipped
 	 * @param dictEntryModifier
 	 * @return a reference to a newly created Concept Mapper dictionary file
 	 */
 	public static File createDictionaryFileFromOBO(DictionaryNamespace dictNamespace, File inputFile,
 			File outputDirectory, boolean cleanDictFile, SynonymType synonymType, String dictId,
-			DictionaryEntryModifier dictEntryModifier) {
+			DictionaryEntryModifier dictEntryModifier, IncludeExt includeExt) {
 		try {
 			File dictionaryFile = getDictionaryFile(outputDirectory, dictNamespace, dictId);
 			switch (dictNamespace) {
 			case GO:
 				return GoDictionaryFactory.buildConceptMapperDictionary(
 						EnumSet.of(GoNamespace.CC, GoNamespace.BP, GoNamespace.MF), outputDirectory, inputFile,
-						cleanDictFile, synonymType, IncludeFunkSynonyms.NO, dictEntryModifier);
+						cleanDictFile, synonymType, IncludeFunkSynonyms.NO, dictEntryModifier, includeExt);
 			case GO_CC:
 				return GoDictionaryFactory.buildConceptMapperDictionary(EnumSet.of(GoNamespace.CC), outputDirectory,
-						inputFile, cleanDictFile, synonymType, IncludeFunkSynonyms.NO, dictEntryModifier);
+						inputFile, cleanDictFile, synonymType, IncludeFunkSynonyms.NO, dictEntryModifier, includeExt);
 			case GO_BP:
 				return GoDictionaryFactory.buildConceptMapperDictionary(EnumSet.of(GoNamespace.BP), outputDirectory,
-						inputFile, cleanDictFile, synonymType, IncludeFunkSynonyms.NO, dictEntryModifier);
+						inputFile, cleanDictFile, synonymType, IncludeFunkSynonyms.NO, dictEntryModifier, includeExt);
 			case GO_MF:
 				return GoDictionaryFactory.buildConceptMapperDictionary(EnumSet.of(GoNamespace.MF), outputDirectory,
-						inputFile, cleanDictFile, synonymType, IncludeFunkSynonyms.NO, dictEntryModifier);
+						inputFile, cleanDictFile, synonymType, IncludeFunkSynonyms.NO, dictEntryModifier, includeExt);
 			case FUNK_GO:
 				return GoDictionaryFactory.buildConceptMapperDictionary(
 						EnumSet.of(GoNamespace.CC, GoNamespace.BP, GoNamespace.MF), outputDirectory, inputFile,
-						cleanDictFile, synonymType, IncludeFunkSynonyms.YES, dictEntryModifier);
+						cleanDictFile, synonymType, IncludeFunkSynonyms.YES, dictEntryModifier, includeExt);
 			case FUNK_GO_CC:
 				return GoDictionaryFactory.buildConceptMapperDictionary(EnumSet.of(GoNamespace.CC), outputDirectory,
-						inputFile, cleanDictFile, synonymType, IncludeFunkSynonyms.YES, dictEntryModifier);
+						inputFile, cleanDictFile, synonymType, IncludeFunkSynonyms.YES, dictEntryModifier, includeExt);
 			case FUNK_GO_BP:
 				return GoDictionaryFactory.buildConceptMapperDictionary(EnumSet.of(GoNamespace.BP), outputDirectory,
-						inputFile, cleanDictFile, synonymType, IncludeFunkSynonyms.YES, dictEntryModifier);
+						inputFile, cleanDictFile, synonymType, IncludeFunkSynonyms.YES, dictEntryModifier, includeExt);
 			case FUNK_GO_MF:
 				return GoDictionaryFactory.buildConceptMapperDictionary(EnumSet.of(GoNamespace.MF), outputDirectory,
-						inputFile, cleanDictFile, synonymType, IncludeFunkSynonyms.YES, dictEntryModifier);
+						inputFile, cleanDictFile, synonymType, IncludeFunkSynonyms.YES, dictEntryModifier, includeExt);
 			case CHEBI:
-				return buildDictionary(inputFile, dictionaryFile, cleanDictFile, synonymType, dictEntryModifier);
+				return buildDictionary(inputFile, dictionaryFile, cleanDictFile, synonymType, dictEntryModifier,
+						includeExt);
 			case CL:
-				return buildDictionary(inputFile, dictionaryFile, cleanDictFile, synonymType, dictEntryModifier);
+				return buildDictionary(inputFile, dictionaryFile, cleanDictFile, synonymType, dictEntryModifier,
+						includeExt);
 			case NCBI_TAXON:
-				return buildDictionary(inputFile, dictionaryFile, cleanDictFile, synonymType, dictEntryModifier);
+				return buildDictionary(inputFile, dictionaryFile, cleanDictFile, synonymType, dictEntryModifier,
+						includeExt);
 			case PR:
-				return buildDictionary(inputFile, dictionaryFile, cleanDictFile, synonymType, dictEntryModifier);
+				return buildDictionary(inputFile, dictionaryFile, cleanDictFile, synonymType, dictEntryModifier,
+						includeExt);
 			case SO:
-				return buildDictionary(inputFile, dictionaryFile, cleanDictFile, synonymType, dictEntryModifier);
+				return buildDictionary(inputFile, dictionaryFile, cleanDictFile, synonymType, dictEntryModifier,
+						includeExt);
 			case DOID:
-				return buildDictionary(inputFile, dictionaryFile, cleanDictFile, synonymType, dictEntryModifier);
+				return buildDictionary(inputFile, dictionaryFile, cleanDictFile, synonymType, dictEntryModifier,
+						includeExt);
 			case HP:
-				return buildDictionary(inputFile, dictionaryFile, cleanDictFile, synonymType, dictEntryModifier);
+				return buildDictionary(inputFile, dictionaryFile, cleanDictFile, synonymType, dictEntryModifier,
+						includeExt);
 			case UBERON:
-				return buildDictionary(inputFile, dictionaryFile, cleanDictFile, synonymType, dictEntryModifier);
+				return buildDictionary(inputFile, dictionaryFile, cleanDictFile, synonymType, dictEntryModifier,
+						includeExt);
 			case UBERON_EXT:
-				return buildDictionary(inputFile, dictionaryFile, cleanDictFile, synonymType, dictEntryModifier);
+				return buildDictionary(inputFile, dictionaryFile, cleanDictFile, synonymType, dictEntryModifier,
+						includeExt);
 			case MOP:
-				return buildDictionary(inputFile, dictionaryFile, cleanDictFile, synonymType, dictEntryModifier);
+				return buildDictionary(inputFile, dictionaryFile, cleanDictFile, synonymType, dictEntryModifier,
+						includeExt);
 			case MOP_EXT:
-				return buildDictionary(inputFile, dictionaryFile, cleanDictFile, synonymType, dictEntryModifier);
+				return buildDictionary(inputFile, dictionaryFile, cleanDictFile, synonymType, dictEntryModifier,
+						includeExt);
 			case MI:
-				return buildDictionary(inputFile, dictionaryFile, cleanDictFile, synonymType, dictEntryModifier);
+				return buildDictionary(inputFile, dictionaryFile, cleanDictFile, synonymType, dictEntryModifier,
+						includeExt);
 			case EG:
 				return NcbiGeneDictionaryFactory.buildModelOrganismConceptMapperDictionary(inputFile, dictionaryFile,
 						cleanDictFile);
 			case OBO:
-				return buildDictionary(inputFile, dictionaryFile, cleanDictFile, synonymType, dictEntryModifier);
+				return buildDictionary(inputFile, dictionaryFile, cleanDictFile, synonymType, dictEntryModifier,
+						includeExt);
 
 			default:
 				throw new IllegalArgumentException(
@@ -224,10 +244,9 @@ public class ConceptMapperDictionaryFileFactory {
 	/**
 	 * @param outputDirectory
 	 * @param dictNamespace
-	 * @param id
-	 *            if non-null this can be used to make the dictionary file
-	 *            unique. useful in cases when processing in parallel using
-	 *            multiple dictionaries
+	 * @param id              if non-null this can be used to make the dictionary
+	 *                        file unique. useful in cases when processing in
+	 *                        parallel using multiple dictionaries
 	 * @return
 	 */
 	public static File getDictionaryFile(File outputDirectory, DictionaryNamespace dictNamespace, String id) {
@@ -240,12 +259,13 @@ public class ConceptMapperDictionaryFileFactory {
 	 * @param cleanDictFile
 	 * @param synonymType
 	 * @param dictEntryModifier
+	 * @param includeExt
 	 * @return
 	 * @throws IOException
 	 * @throws OWLOntologyCreationException
 	 */
 	private static File buildDictionary(File inputOboFile, File dictionaryFile, boolean cleanDictFile,
-			SynonymType synonymType, DictionaryEntryModifier dictEntryModifier)
+			SynonymType synonymType, DictionaryEntryModifier dictEntryModifier, IncludeExt includeExt)
 			throws IOException, OWLOntologyCreationException {
 		if (dictionaryFile.exists()) {
 			if (cleanDictFile) {
@@ -258,18 +278,19 @@ public class ConceptMapperDictionaryFileFactory {
 		logger.info("Building dictionary file: " + dictionaryFile);
 		long time = System.currentTimeMillis();
 		OntologyUtil ontUtil = new OntologyUtil(inputOboFile);
-		logger.info("Elapsed time to load ontology: " + ((System.currentTimeMillis()-time)/1000) + "s");
-		OboToDictionary.buildDictionary(dictionaryFile, ontUtil, null, synonymType, dictEntryModifier);
+		logger.info("Elapsed time to load ontology: " + ((System.currentTimeMillis() - time) / 1000) + "s");
+		OboToDictionary.buildDictionary(dictionaryFile, ontUtil, null, synonymType, dictEntryModifier, includeExt);
 		return dictionaryFile;
 	}
 
 	private static File buildSequenceOntologyDictionary(File dictionaryFile, boolean cleanDictFile,
-			SynonymType synonymType, DictionaryEntryModifier dictEntryModifier)
+			SynonymType synonymType, DictionaryEntryModifier dictEntryModifier, IncludeExt includeExt)
 			throws IllegalArgumentException, IllegalAccessException, OWLOntologyCreationException, IOException {
 		SequenceOntologyClassIterator soIter = null;
 		try {
 			soIter = new SequenceOntologyClassIterator(dictionaryFile.getParentFile(), cleanDictFile);
-			return buildDictionary(soIter.getOboFile(), dictionaryFile, cleanDictFile, synonymType, dictEntryModifier);
+			return buildDictionary(soIter.getOboFile(), dictionaryFile, cleanDictFile, synonymType, dictEntryModifier,
+					includeExt);
 		} finally {
 			if (soIter != null) {
 				soIter.close();
@@ -278,13 +299,13 @@ public class ConceptMapperDictionaryFileFactory {
 	}
 
 	private static File buildProteinOntologyDictionary(File dictionaryFile, boolean cleanDictFile,
-			SynonymType synonymType, DictionaryEntryModifier dictEntryModifier)
+			SynonymType synonymType, DictionaryEntryModifier dictEntryModifier, IncludeExt includeExt)
 			throws IOException, OWLOntologyCreationException, IllegalArgumentException, IllegalAccessException {
 		ProOntologyClassIterator prIter = null;
 		try {
 			prIter = new ProOntologyClassIterator(dictionaryFile.getParentFile(), cleanDictFile);
 			return buildDictionary(prIter.getProOntologyOboFile(), dictionaryFile, cleanDictFile, synonymType,
-					dictEntryModifier);
+					dictEntryModifier, includeExt);
 		} finally {
 			if (prIter != null) {
 				prIter.close();
@@ -293,13 +314,13 @@ public class ConceptMapperDictionaryFileFactory {
 	}
 
 	private static File buildNcbiTaxonDictionary(File dictionaryFile, boolean cleanDictFile, SynonymType synonymType,
-			DictionaryEntryModifier dictEntryModifier)
+			DictionaryEntryModifier dictEntryModifier, IncludeExt includeExt)
 			throws IOException, OWLOntologyCreationException, IllegalArgumentException, IllegalAccessException {
 		NcbiTaxonomyClassIterator taxonIter = null;
 		try {
 			taxonIter = new NcbiTaxonomyClassIterator(dictionaryFile.getParentFile(), cleanDictFile);
 			return buildDictionary(taxonIter.getOboFile(), dictionaryFile, cleanDictFile, synonymType,
-					dictEntryModifier);
+					dictEntryModifier, includeExt);
 		} finally {
 			if (taxonIter != null) {
 				taxonIter.close();
@@ -308,12 +329,13 @@ public class ConceptMapperDictionaryFileFactory {
 	}
 
 	private static File buildCellTypeDictionary(File dictionaryFile, boolean cleanDictFile, SynonymType synonymType,
-			DictionaryEntryModifier dictEntryModifier)
+			DictionaryEntryModifier dictEntryModifier, IncludeExt includeExt)
 			throws IOException, OWLOntologyCreationException, IllegalArgumentException, IllegalAccessException {
 		CellTypeOntologyClassIterator clIter = null;
 		try {
 			clIter = new CellTypeOntologyClassIterator(dictionaryFile.getParentFile(), cleanDictFile);
-			return buildDictionary(clIter.getOboFile(), dictionaryFile, cleanDictFile, synonymType, dictEntryModifier);
+			return buildDictionary(clIter.getOboFile(), dictionaryFile, cleanDictFile, synonymType, dictEntryModifier,
+					includeExt);
 		} finally {
 			if (clIter != null) {
 				clIter.close();
@@ -322,13 +344,13 @@ public class ConceptMapperDictionaryFileFactory {
 	}
 
 	private static File buildChebiDictionary(File dictionaryFile, boolean cleanDictFile, SynonymType synonymType,
-			DictionaryEntryModifier dictEntryModifier)
+			DictionaryEntryModifier dictEntryModifier, IncludeExt includeExt)
 			throws IOException, OWLOntologyCreationException, IllegalArgumentException, IllegalAccessException {
 		ChebiOntologyClassIterator chebiIter = null;
 		try {
 			chebiIter = new ChebiOntologyClassIterator(dictionaryFile.getParentFile(), cleanDictFile);
 			return buildDictionary(chebiIter.getOboFile(), dictionaryFile, cleanDictFile, synonymType,
-					dictEntryModifier);
+					dictEntryModifier, includeExt);
 		} finally {
 			if (chebiIter != null) {
 				chebiIter.close();

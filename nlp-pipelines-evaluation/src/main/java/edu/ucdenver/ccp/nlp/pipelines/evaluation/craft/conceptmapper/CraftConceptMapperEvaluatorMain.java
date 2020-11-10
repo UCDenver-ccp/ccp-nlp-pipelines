@@ -49,6 +49,7 @@ import edu.ucdenver.ccp.common.file.FileUtil;
 import edu.ucdenver.ccp.nlp.pipelines.conceptmapper.ConceptMapperDictionaryFileFactory.DictionaryNamespace;
 import edu.ucdenver.ccp.nlp.uima.collections.craft.CraftConceptType;
 import edu.ucdenver.ccp.nlp.wrapper.conceptmapper.dictionary.obo.DictionaryEntryModifier;
+import edu.ucdenver.ccp.nlp.wrapper.conceptmapper.dictionary.obo.OboToDictionary.IncludeExt;
 
 public class CraftConceptMapperEvaluatorMain {
 	private static final Logger logger = Logger.getLogger(CraftConceptMapperEvaluatorMain.class);
@@ -73,6 +74,9 @@ public class CraftConceptMapperEvaluatorMain {
 
 	@Option(name = "-c", usage = "clean dictionary files")
 	private String cleanDictFilesFlag;
+	
+	@Option(name = "-x", usage = "include the extension classes in the ConceptMapper dictionaries")
+	private IncludeExt includeExt;
 
 	public void startProcessing(String[] args) {
 		long time = System.currentTimeMillis();
@@ -132,7 +136,7 @@ public class CraftConceptMapperEvaluatorMain {
 			// postProcessingComponentDescriptions.add(SamplePostProcessingComponent.getDescription("my_ontology_name"));
 			CraftConceptMapperEvaluator.evaluateCmPipelineAgainstCraft(dictionaryNamespace,
 					EnumSet.of(craftConceptType), dictionaryDirectory, evalResultsFile, conceptMapperParameterIndex,
-					cleanDictFiles, postProcessingComponentDescription, dictEntryModifier);
+					cleanDictFiles, postProcessingComponentDescription, dictEntryModifier, includeExt);
 			// } catch (IOException | ResourceInitializationException e) {
 			
 			logger.info("Evaluation elapsed time: " + ((System.currentTimeMillis()-time)/1000) + "s");
