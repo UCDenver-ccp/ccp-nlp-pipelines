@@ -52,6 +52,7 @@ import edu.ucdenver.ccp.nlp.pipelines.conceptmapper.ConceptMapperDictionaryFileF
 import edu.ucdenver.ccp.nlp.pipelines.conceptmapper.ConceptMapperDictionaryFileFactory.DictionaryNamespace;
 import edu.ucdenver.ccp.nlp.uima.collections.craft.CraftOntology;
 import edu.ucdenver.ccp.nlp.wrapper.conceptmapper.dictionary.obo.DictionaryEntryModifier;
+import edu.ucdenver.ccp.nlp.wrapper.conceptmapper.dictionary.obo.OboToDictionary.IncludeExt;
 
 /**
  * This class builds Concept Mapper dictionaries using the ontologies that were
@@ -98,6 +99,7 @@ public class CraftOntologiesDictionaryFactory {
 	 *            false then pre-existing dictionaries are used
 	 * @param dictId
 	 * @param dictEntryModifier
+	 * @param includeExt 
 	 * @return a reference to a newly created Concept Mapper dictionary file
 	 * @throws IllegalArgumentException
 	 *             if {@link DictionaryNamespace#EG} is used as input - this
@@ -105,7 +107,7 @@ public class CraftOntologiesDictionaryFactory {
 	 */
 	public static File createDictionaryFile(DictionaryNamespace dictionaryNamespace, File outputDirectory,
 			boolean cleanDictionaryFile, SynonymType synonymType, String dictId,
-			DictionaryEntryModifier dictEntryModifier) {
+			DictionaryEntryModifier dictEntryModifier, IncludeExt includeExt) {
 		long startTime = System.currentTimeMillis();
 		try {
 			if (dictionaryNamespace == DictionaryNamespace.EG) {
@@ -122,7 +124,7 @@ public class CraftOntologiesDictionaryFactory {
 			}
 			File oboFile = copyOboFileFromClasspath(path, outputDirectory, cleanDictionaryFile);
 			File dictionaryFile = ConceptMapperDictionaryFileFactory.createDictionaryFileFromOBO(dictionaryNamespace,
-					oboFile, outputDirectory, cleanDictionaryFile, synonymType, dictId, dictEntryModifier);
+					oboFile, outputDirectory, cleanDictionaryFile, synonymType, dictId, dictEntryModifier, includeExt);
 			logger.info("Dictionary creation complete. Elapsed time: "
 					+ ((System.currentTimeMillis() - startTime) / 1000) + "s");
 			return dictionaryFile;

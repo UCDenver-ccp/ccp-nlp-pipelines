@@ -54,6 +54,7 @@ import edu.ucdenver.ccp.nlp.pipelines.conceptmapper.ConceptMapperPipelineCmdOpts
 import edu.ucdenver.ccp.nlp.uima.annotators.filter.ClassMentionRemovalFilter_AE;
 import edu.ucdenver.ccp.nlp.wrapper.conceptmapper.ConceptMapperPermutationFactory;
 import edu.ucdenver.ccp.nlp.wrapper.conceptmapper.dictionary.obo.DictionaryEntryModifier;
+import edu.ucdenver.ccp.nlp.wrapper.conceptmapper.dictionary.obo.OboToDictionary.IncludeExt;
 import edu.ucdenver.ccp.nlp.wrapper.conceptmapper.typesystem.ConceptMapper2CCPTypeSystemConverter_AE;
 
 /**
@@ -120,7 +121,7 @@ public class ConceptMapperPipelineFactory {
 	public static List<AnalysisEngineDescription> getPipelineAeDescriptions(TypeSystemDescription tsd,
 			ConceptMapperPipelineCmdOpts cmdOptions, DictionaryParameterOperation dictParamOp,
 			DictionaryNamespace dictNamespace, CleanDirectory workDirectoryOp, int parameterCombinationIndex,
-			DictionaryEntryModifier dictEntryModifier, AnalysisEngineDescription postProcessingComponent)
+			DictionaryEntryModifier dictEntryModifier, AnalysisEngineDescription postProcessingComponent, IncludeExt includeExt)
 			throws UIMAException, IOException {
 
 		File workDirectory = null;
@@ -140,7 +141,7 @@ public class ConceptMapperPipelineFactory {
 			logger.info("Creating ConceptMapper dictionary file in " + workDirectory.getAbsolutePath());
 			SynonymType synonymType = ConceptMapperPermutationFactory.getSynonymType(parameterCombinationIndex);
 			File cmDictFile = ConceptMapperDictionaryFileFactory.createDictionaryFile(dictNamespace, workDirectory,
-					workDirectoryOp, synonymType, dictEntryModifier);
+					workDirectoryOp, synonymType, dictEntryModifier, includeExt);
 			logger.info("Concept Mapper dictionary file: " + cmDictFile);
 			cmdOptions.setDictionaryFile(cmDictFile);
 		}

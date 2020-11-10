@@ -17,6 +17,7 @@ import edu.ucdenver.ccp.nlp.pipelines.conceptmapper.ConceptMapperParams.ConceptM
 import edu.ucdenver.ccp.nlp.pipelines.conceptmapper.dictmod.DictionaryEntryModifierFactory;
 import edu.ucdenver.ccp.nlp.wrapper.conceptmapper.ConceptMapperPermutationFactory;
 import edu.ucdenver.ccp.nlp.wrapper.conceptmapper.dictionary.obo.DictionaryEntryModifier;
+import edu.ucdenver.ccp.nlp.wrapper.conceptmapper.dictionary.obo.OboToDictionary.IncludeExt;
 
 public class UpdateConceptMapperDictionaryFiles {
 
@@ -42,7 +43,7 @@ public class UpdateConceptMapperDictionaryFiles {
 	}
 
 	public void createDictionaryFiles(ConceptMapperOptimization cmOpt, CleanDictionaryFile cleanDictionaryFile,
-			UseDictEntryModifierIfAvailable useDictEntryMod) throws MalformedURLException, IOException {
+			UseDictEntryModifierIfAvailable useDictEntryMod, IncludeExt includeExt) throws MalformedURLException, IOException {
 		/*
 		 * ontologies are downloaded by a separate script:
 		 * nlp-pipelines/scripts/pipelines/concept-mapper/download-ontologies.sh
@@ -54,12 +55,12 @@ public class UpdateConceptMapperDictionaryFiles {
 				dictEntryModifier = DictionaryEntryModifierFactory
 						.getDictionaryEntryModifier(cmParams.dictionaryNamespace());
 			}
-			createDictionaryFile(cmParams, cmOpt, cleanDictionaryFile, dictEntryModifier);
+			createDictionaryFile(cmParams, cmOpt, cleanDictionaryFile, dictEntryModifier, includeExt);
 		}
 	}
 
 	public File createDictionaryFile(ConceptMapperParams cmParams, ConceptMapperOptimization cmOpt,
-			CleanDictionaryFile cleanDictionaryFile, DictionaryEntryModifier dictEntryModifier)
+			CleanDictionaryFile cleanDictionaryFile, DictionaryEntryModifier dictEntryModifier, IncludeExt includeExt)
 			throws FileNotFoundException {
 		logger.info("Creating/updating ConceptMapper dictionary file for: " + cmParams.name());
 		File ontologyDirectory = new File(dictionaryDirectory, "ontologies");
@@ -68,7 +69,7 @@ public class UpdateConceptMapperDictionaryFiles {
 		SynonymType synonymType = ConceptMapperPermutationFactory.getSynonymType(cmParams.optimizedParamIndex(cmOpt));
 		File cmDictFile = ConceptMapperDictionaryFileFactory.createDictionaryFileFromOBO(cmParams.dictionaryNamespace(),
 				ontologyFile, dictionaryDirectory, cleanDictionaryFile == CleanDictionaryFile.YES, synonymType, null,
-				dictEntryModifier);
+				dictEntryModifier, includeExt);
 		return cmDictFile;
 	}
 
@@ -91,8 +92,9 @@ public class UpdateConceptMapperDictionaryFiles {
 		ConceptMapperOptimization cmOpt = ConceptMapperOptimization.valueOf(args[2]);
 		UpdateConceptMapperDictionaryFiles updater = new UpdateConceptMapperDictionaryFiles(dictionaryDirectory);
 		UseDictEntryModifierIfAvailable useDictMod = UseDictEntryModifierIfAvailable.valueOf(args[3]);
+		IncludeExt includeExt = IncludeExt.valueOf(args[4]);
 		try {
-			updater.createDictionaryFiles(cmOpt, cleanDictionaryFile, useDictMod);
+			updater.createDictionaryFiles(cmOpt, cleanDictionaryFile, useDictMod, includeExt);
 			// updater.createDictionaryFile(ConceptMapperParams.MI, cmOpt,
 			// cleanDictionaryFile, null);
 		} catch (IOException e) {

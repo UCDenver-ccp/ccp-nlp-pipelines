@@ -54,6 +54,7 @@ import edu.ucdenver.ccp.nlp.pipelines.conceptmapper.dictmod.PRDictionaryEntryMod
 import edu.ucdenver.ccp.nlp.pipelines.conceptmapper.postprocess.MaylaPostProcessingComponent;
 import edu.ucdenver.ccp.nlp.uima.collections.craft.CraftConceptType;
 import edu.ucdenver.ccp.nlp.wrapper.conceptmapper.dictionary.obo.DictionaryEntryModifier;
+import edu.ucdenver.ccp.nlp.wrapper.conceptmapper.dictionary.obo.OboToDictionary.IncludeExt;
 
 public class MaylaCraftConceptMapperEvaluatorMain {
 	private static final Logger logger = Logger.getLogger(MaylaCraftConceptMapperEvaluatorMain.class);
@@ -79,6 +80,9 @@ public class MaylaCraftConceptMapperEvaluatorMain {
 	@Option(name = "-c", usage = "clean dictionary files")
 	private String cleanDictFilesFlag;
 
+	@Option(name = "-x", usage = "include the extension classes in the ConceptMapper dictionaries")
+	private IncludeExt includeExt;
+	
 	public void startProcessing(String[] args) {
 
 		CmdLineParser parser = new CmdLineParser(this);
@@ -184,7 +188,7 @@ public class MaylaCraftConceptMapperEvaluatorMain {
 			}
 			CraftConceptMapperEvaluator.evaluateCmPipelineAgainstCraft(dictionaryNamespace,
 					EnumSet.of(craftConceptType), dictionaryDirectory, evalResultsFile, conceptMapperParameterIndex,
-					cleanDictFiles, postProcessingComponentDescription, dictEntryModifier);
+					cleanDictFiles, postProcessingComponentDescription, dictEntryModifier, includeExt);
 		} catch (IOException | ResourceInitializationException e) {
 			logger.error("Error during ConceptMapper evaluation over CRAFT!!", e);
 			System.exit(-1);

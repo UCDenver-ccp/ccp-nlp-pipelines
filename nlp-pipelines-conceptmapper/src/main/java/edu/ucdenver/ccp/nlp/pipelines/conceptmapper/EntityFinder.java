@@ -74,6 +74,7 @@ import edu.ucdenver.ccp.nlp.uima.shims.annotation.impl.CcpAnnotationDataExtracto
 import edu.ucdenver.ccp.nlp.uima.util.TypeSystemUtil;
 import edu.ucdenver.ccp.nlp.uima.util.View;
 import edu.ucdenver.ccp.nlp.wrapper.conceptmapper.ConceptMapperPermutationFactory;
+import edu.ucdenver.ccp.nlp.wrapper.conceptmapper.dictionary.obo.OboToDictionary.IncludeExt;
 
 public class EntityFinder {
 
@@ -82,7 +83,7 @@ public class EntityFinder {
 	private static final String SENTENCE_DETECTOR_TYPE_SYSTEM_STR = "org.cleartk.token.type.Sentence"; // "edu.ucdenver.ccp.nlp.ext.uima.annotators.sentencedetectors.TypeSystem";
 
 	private static void runEntityFinder(TypeSystemDescription tsd, String ontology, String inputDir, String outputDir,
-			File oboFile, File oboDir, boolean cleanDictionaryFile) throws UIMAException, IOException {
+			File oboFile, File oboDir, boolean cleanDictionaryFile, IncludeExt includeExt) throws UIMAException, IOException {
 		File inputDirectory = new File(inputDir);
 		File outputDirectory = new File(outputDir);
 
@@ -96,7 +97,7 @@ public class EntityFinder {
 		AnalysisEngineDescription sentenceDetectorDesc = getSentenceDetectorDescription(tsd);
 
 		List<AnalysisEngineDescription> cmDesc = initConceptMapperAggregateDescriptions(tsd, ontology, oboFile, oboDir,
-				cleanDictionaryFile);
+				cleanDictionaryFile, includeExt);
 
 		AnalysisEngineDescription removeSlot = SlotRemovalFilter_AE.getDescription(tsd, SlotRemovalOption.REMOVE_ALL);
 
@@ -125,7 +126,7 @@ public class EntityFinder {
 	}
 
 	public static List<AnalysisEngineDescription> initConceptMapperAggregateDescriptions(TypeSystemDescription tsd,
-			String ontology, File oboFile, File oboDir, boolean cleanDictionaryFile) throws IOException, UIMAException {
+			String ontology, File oboFile, File oboDir, boolean cleanDictionaryFile, IncludeExt includeExt) throws IOException, UIMAException {
 		int paramValuesIndex = 0;
 		DictionaryNamespace dictName = null;
 
@@ -175,7 +176,7 @@ public class EntityFinder {
 		SynonymType synonymType = ConceptMapperPermutationFactory.getSynonymType(paramValuesIndex);
 
 		ConceptMapperPipelineCmdOpts cmdOptions = getCmdOpts(dictName, oboDir, oboFile, cleanDictionaryFile,
-				synonymType);
+				synonymType, includeExt);
 		/*
 		 * the next command returns three AE descriptions 1) ConceptMapper, 2)
 		 * CCP type system conversion AE 3) token removal
@@ -242,16 +243,17 @@ public class EntityFinder {
 	 * @param dictNamespace
 	 * @param oboFile
 	 * @param synonymType
+	 * @param includeExt 
 	 * @return a {@link ConceptMapperPipelineCmdOpts} with the Concept Mapper
 	 *         dictionary and span class both specified
 	 * 
 	 */
 	private static ConceptMapperPipelineCmdOpts getCmdOpts(DictionaryNamespace dictNamespace, File oboDir, File oboFile,
-			boolean cleanDictFile, SynonymType synonymType) throws IOException {
+			boolean cleanDictFile, SynonymType synonymType, IncludeExt includeExt) throws IOException {
 		ConceptMapperPipelineCmdOpts cmdOptions = new ConceptMapperPipelineCmdOpts();
 		logger.info("Retrieving ConceptMapper dictionary...");
 		File cmDictFile = ConceptMapperDictionaryFileFactory.createDictionaryFileFromOBO(dictNamespace, oboFile, oboDir,
-				cleanDictFile, synonymType, null, null);
+				cleanDictFile, synonymType, null, null, includeExt);
 		logger.info("Dictionary retrieved.");
 		cmdOptions.setDictionaryFile(cmDictFile);
 		cmdOptions.setSpanClass(Sentence.class);
@@ -291,13 +293,18 @@ public class EntityFinder {
 		String oboPath = args[3];
 		String oboDir = args[4];
 		boolean cleanDictionaryFile = Boolean.parseBoolean(args[5]);
+		
+		IncludeExt includeExt = IncludeExt.YES;
+		if (args.length == 7) {
+			includeExt = IncludeExt.valueOf(args[6]);
+		}
 
 		System.out.println("Processing files from : " + inputDir + "\nWriting output files to: " + outputDir);
 
 		File oboFile = new File(oboPath);
 		File oboDirectory = new File(oboDir);
 
-		runEntityFinder(tsd, ontology, inputDir, outputDir, oboFile, oboDirectory, cleanDictionaryFile);
+		runEntityFinder(tsd, ontology, inputDir, outputDir, oboFile, oboDirectory, cleanDictionaryFile, includeExt);
 
 		System.out.println("We have finished processing all documents");
 	}
