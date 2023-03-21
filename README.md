@@ -18,12 +18,6 @@ a UIMA dictionary-based annotator, was the best performer on a majority of the o
 > K (2014). Large-scale biomedical concept recognition: an evaluation of current 
 > automatic annotators and their parameters. BMC Bioinformatics, 15, 59.
 
-## Development
-This project follows the Git-Flow approach to branching as originally described [here](http://nvie.com/posts/a-successful-git-branching-model/). 
-To facilitate the Git-Flow branching approach, this project makes use of the [jgitflow-maven-plugin](https://bitbucket.org/atlassian/jgit-flow) as described [here](http://george-stathis.com/2013/11/09/painless-maven-project-releases-with-maven-gitflow-plugin/).
-
-Code in the [master branch](https://github.com/UCDenver-ccp/common/tree/master) reflects the latest release of this library. Code in the [development](https://github.com/UCDenver-ccp/common/tree/development) branch contains the most up-to-date version of this project.
-
 ## Maven signature
 ```xml
 <dependency>
@@ -42,6 +36,38 @@ Code in the [master branch](https://github.com/UCDenver-ccp/common/tree/master) 
     <url>http://svn.code.sf.net/p/bionlp/code/repo/</url>
 </repository>
 ```
+
+## Producing concept annotations using Docker
+The concept recognition pipeline has been containerized using Docker.
+
+0. Install Docker
+1. create a local directory that contains plain text files to be annotated: `/path/to/txt`
+2. create a local directory where the resulting annotation files wil be stored: `/path/to/annot`
+3. create a local directory where the concept mapper dictionaries can be stored: `/path/to/dict`
+4. download the ontology that will be used for annotation (find ontologies at [https://obofoundry.org/](https://obofoundry.org/)): `/path/to/ontology`
+5. then run the following, replacing the placeholders for directories and files with their locations on your system:
+
+```
+docker run --rm -v /path/to/txt:/home/dev/input -v /path/to/annot:/home/dev/output -v /path/to/dict:/home/dev/dict -v /path/to/ontology:/home/dev/ontology.file nlp-pipelines:0.5.4 ONT
+```
+ 
+where,
+`ONT` - indicates which ontology is being processed. There are customized settings for the following ontologies:
+  * CHEBI - Chemical Entities of 
+Biological Interest
+  * SO - Sequence Ontology
+  * GO - Gene Ontology
+    * GO_MF - GO 
+Molecular Function
+    * GO_CC - GO Cellular Component
+    * GO_BP - GO Biological Process
+  * PR - Protein Ontology
+  * CL - Cell Ontology
+  * NCBI_TAXON - NCBI Taxonomy 
+  
+  If you are processing a different ontology than those listed above, use `OBO` for the `ONT` parameter value. This will invoke a set of parameters found to work well in general when recognizing ontology concepts in text.
+ 
+After running, text annotation files should be in `/path/to/annot`
 
 ##Producing concept annotations from the command line
 The pipeline to produce concept annotations is located in the 
