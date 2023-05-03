@@ -69,7 +69,7 @@ Molecular Function
  
 After running, text annotation files should be in `/path/to/annot`
 
-##Producing concept annotations from the command line
+## Producing concept annotations from the command line
 The pipeline to produce concept annotations is located in the 
 _edu.ucdenver.ccp.nlp.pipelines.conceptmapper.EntityFinder_ class. To produce 
 annotations from a directory of text files, do the following:
