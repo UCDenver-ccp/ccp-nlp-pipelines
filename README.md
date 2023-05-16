@@ -38,7 +38,7 @@ a UIMA dictionary-based annotator, was the best performer on a majority of the o
 ```
 
 ## Producing concept annotations using Docker
-The concept recognition pipeline has been containerized using Docker. Note that all user-specified paths should be specified as absolute paths.
+The concept recognition pipeline has been containerized using Docker. Note that all user-specified paths should be specified as absolute paths. This Docker container is available [on DockerHub](https://hub.docker.com/repository/docker/ucdenverccp/nlp-pipelines/general).
 
 0. Install Docker
 1. create a local directory that contains plain text files to be annotated: `/path/to/txt`
