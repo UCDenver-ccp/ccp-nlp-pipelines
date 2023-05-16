@@ -48,7 +48,7 @@ The concept recognition pipeline has been containerized using Docker. Note that 
 5. then run the following, replacing the placeholders for directories and files with their locations on your system:
 
 ```
-docker run --rm -v /path/to/txt:/home/dev/input -v /path/to/annot:/home/dev/output -v /path/to/dict:/home/dev/dict -v /path/to/ontology:/home/dev/ontology.file ucdenverccp/nlp-pipelines:0.5.4 ONT
+docker run --rm -v /path/to/txt:/home/dev/input -v /path/to/annot:/home/dev/output -v /path/to/dict:/home/dev/dict -v /path/to/ontology:/home/dev/ontology.file ucdenverccp/nlp-pipelines:0.5.5 ONT
 ```
  
 where,
